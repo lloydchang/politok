@@ -31,7 +31,7 @@ export default function PropCard({ proposition, onVote, hasVoted }) {
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
             {!hasVoted && (
-                <div className="absolute bottom-0 left-0 right-0 top-40 p-6 pb-36 bg-gradient-to-t from-black/20 to-transparent">
+                <div className="absolute bottom-24 left-0 right-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
                     <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                         <button
                             onClick={() => onVote('no')}

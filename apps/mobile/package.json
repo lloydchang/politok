@@ -11,13 +11,6 @@
   "dependencies": {
     "@politok/shared": "*",
     "@expo/metro-runtime": "~3.2.3",
-    "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/exporter-trace-otlp-http": "^0.208.0",
-    "@opentelemetry/instrumentation": "^0.208.0",
-    "@opentelemetry/resources": "^2.2.0",
-    "@opentelemetry/sdk-trace-base": "^2.2.0",
-    "@opentelemetry/sdk-trace-web": "^2.2.0",
-    "@opentelemetry/semantic-conventions": "^1.38.0",
     "expo": "~51.0.0",
     "expo-application": "~5.9.1",
     "expo-device": "~6.0.2",
@@ -26,6 +19,7 @@
     "expo-status-bar": "~1.12.1",
     "posthog-react-native": "^4.13.0",
     "react": "18.2.0",
+    "react-native-svg": "15.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.74.5",
     "react-native-web": "~0.19.10"

@@ -1,17 +1,15 @@
 import { usePostHog } from 'posthog-react-native';
-import { trace } from '@opentelemetry/api';
-
-const tracer = trace.getTracer('politok-mobile');
 
 /**
- * Hook for unified tracking to both PostHog and Honeycomb
+ * Hook for unified tracking to PostHog
+ * Note: OpenTelemetry removed from mobile due to React Native/Hermes incompatibility
  * Must be called within a component that has PostHogProvider
  */
 export const useAnalytics = () => {
     const posthog = usePostHog();
 
     /**
-     * Track event to both PostHog and Honeycomb
+     * Track event to PostHog
      */
     const trackEvent = (eventName, properties = {}) => {
         // Add platform identifier
@@ -23,18 +21,6 @@ export const useAnalytics = () => {
 
         // Send to PostHog
         posthog?.capture(eventName, enrichedProps);
-
-        // Send to Honeycomb via OpenTelemetry span
-        const span = tracer.startSpan(eventName);
-
-        // Add all properties as span attributes
-        Object.entries(enrichedProps).forEach(([key, value]) => {
-            // Convert objects to JSON strings for span attributes
-            const attrValue = typeof value === 'object' ? JSON.stringify(value) : value;
-            span.setAttribute(key, attrValue);
-        });
-
-        span.end();
     };
 
     /**

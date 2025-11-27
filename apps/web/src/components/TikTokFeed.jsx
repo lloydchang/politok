@@ -9,6 +9,43 @@ import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
 import LiveStudio from './LiveStudio';
+import PolitokDashboard from './PolitokDashboard';
+
+// Generate feed content
+const feedItems = [
+    {
+        type: 'stat',
+        data: {
+            emoji: '🏠 💸',
+            title: 'Housing Crisis',
+            description: 'Rent prices have increased 30% in the last 5 years',
+            badge: 'Did you know?'
+        }
+    },
+    { type: 'prop', data: PROPOSITIONS[0] }, // Rent freeze
+    {
+        type: 'stat',
+        data: {
+            emoji: '🚍 🚏',
+            title: 'Transit Facts',
+            description: 'Free public transit exists in 100+ cities worldwide',
+            badge: 'Did you know?'
+        }
+    },
+    { type: 'prop', data: PROPOSITIONS[1] }, // Free buses
+    {
+        type: 'stat',
+        data: {
+            emoji: '👶 💰',
+            title: 'Childcare Costs',
+            description: 'Average cost is $1,200/mo in the US',
+            badge: 'Did you know?'
+        }
+    },
+    { type: 'prop', data: PROPOSITIONS[2] }, // Childcare
+    { type: 'results' }, // Show results after all votes
+    { type: 'dashboard' }, // Dashboard as final page
+];
 
 export default function TikTokFeed({ trackEvent }) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -76,43 +113,6 @@ export default function TikTokFeed({ trackEvent }) {
         return () => clearInterval(interval);
     }, []);
 
-    // Generate feed content
-    const feedItems = [
-        {
-            type: 'stat',
-            data: {
-                emoji: '🏠 💸',
-                title: 'Housing Crisis',
-                description: 'Rent prices have increased 30% in the last 5 years',
-                badge: 'Did you know?'
-            }
-        },
-        { type: 'prop', data: PROPOSITIONS[0] }, // Rent freeze
-        {
-            type: 'stat',
-            data: {
-                emoji: '🚍 🚏',
-                title: 'Transit Facts',
-                description: 'Free public transit exists in 100+ cities worldwide',
-                badge: 'Did you know?'
-            }
-        },
-        { type: 'prop', data: PROPOSITIONS[1] }, // Free buses
-        {
-            type: 'stat',
-            data: {
-                emoji: '👶 💰',
-                title: 'Childcare Costs',
-                value: '$1,200/mo',
-                description: 'Average cost of childcare in the US',
-                badge: 'Did you know?'
-            }
-        },
-        { type: 'prop', data: PROPOSITIONS[2] }, // Childcare
-        { type: 'results' }, // Show results after all votes
-
-    ];
-
     const currentItem = feedItems[currentIndex];
     const votedProps = Object.keys(votes);
     const hasVotedOnCurrent = currentItem?.type === 'prop' && votes[currentItem.data.id];
@@ -142,7 +142,7 @@ export default function TikTokFeed({ trackEvent }) {
         if (currentIndex >= feedItems.length) {
             setCurrentIndex(Math.max(0, feedItems.length - 1));
         }
-    }, [currentIndex, feedItems.length]);
+    }, [currentIndex]);
 
     // Handle vote
     const handleVote = (propId, option) => {
@@ -155,7 +155,7 @@ export default function TikTokFeed({ trackEvent }) {
             if (trackEvent) {
                 trackEvent('feed_prop_vote', {
                     prop_id: propId,
-                    option,
+                    vote: option,
                     card_index: currentIndex
                 });
             }
@@ -205,6 +205,8 @@ export default function TikTokFeed({ trackEvent }) {
             delay = 1000; // Quick advance after voting
         } else if (currentItem?.type === 'results') {
             delay = 5000; // 5 seconds to see results
+        } else if (currentItem?.type === 'dashboard') {
+            delay = null; // Don't auto-advance from dashboard
         }
 
         if (delay) {
@@ -324,6 +326,9 @@ export default function TikTokFeed({ trackEvent }) {
             case 'stat':
                 return <StatCard stat={currentItem.data} />;
 
+            case 'dashboard':
+                return <PolitokDashboard />;
+
             default:
                 return null;
         }
@@ -350,16 +355,25 @@ export default function TikTokFeed({ trackEvent }) {
                 </div>
             </div>
 
-            {/* Progress dots (bottom center) */}
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-50">
-                {feedItems.map((_, idx) => (
-                    <div
-                        key={idx}
-                        className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40'
-                            }`}
-                    />
-                ))}
-            </div>
+            {/* Progress dots (bottom center) - Hide in Studio */}
+            {!showStudio && (
+                <div className="fixed bottom-20 inset-x-0 flex justify-center z-[100] pointer-events-none">
+                    <div className="flex gap-2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
+                        {feedItems.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    setCurrentIndex(idx);
+                                    trackEvent('feed_dot_nav', { from: currentIndex, to: idx });
+                                }}
+                                className={`h-2 rounded-full transition-all cursor-pointer hover:bg-white/80 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40 w-2'
+                                    }`}
+                                aria-label={`Go to page ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* PoliTok Simulation Overlay */}
             <div className="fixed top-6 left-4 right-4 z-50 flex justify-between items-start pointer-events-none">
@@ -372,6 +386,14 @@ export default function TikTokFeed({ trackEvent }) {
                         #politok
                     </div>
                 </div>
+
+                {/* Start Over Button - Persistent */}
+                <button
+                    onClick={handleReset}
+                    className="pointer-events-auto bg-white text-black border-2 border-white/50 px-4 py-1 rounded-full font-bold text-xs hover:bg-gray-200 transition shadow-lg"
+                >
+                    START OVER ↺
+                </button>
 
                 <div className="flex flex-col items-end gap-1">
                     <div className="flex items-center gap-2 text-white drop-shadow-md">

@@ -150,13 +150,7 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
             {/* Results badge */}
 
 
-            {/* Start Over Button */}
-            <button
-                onClick={onReset}
-                className="absolute bottom-20 left-1/2 -translate-x-1/2 bg-white/20 backdrop-blur-md border border-white/40 text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-white/30 transition z-30"
-            >
-                START OVER ↺
-            </button>
+
         </div>
     );
 }

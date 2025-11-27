@@ -28,7 +28,7 @@ export default function StatCard({ stat }) {
             {/* Main content */}
             <div className="relative z-10 px-8 md:px-16 max-w-3xl mx-auto text-center">
                 {stat.emoji && (
-                    <div className="text-7xl mb-6 animate-bounce">{stat.emoji}</div>
+                    <div className="text-6xl mb-6 animate-bounce">{stat.emoji}</div>
                 )}
 
                 <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight drop-shadow-2xl">
@@ -36,7 +36,7 @@ export default function StatCard({ stat }) {
                 </h2>
 
                 {stat.value && (
-                    <div className="text-6xl md:text-7xl font-black text-white mb-4 drop-shadow-2xl animate-pulse">
+                    <div className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-2xl animate-pulse">
                         {stat.value}
                     </div>
                 )}
