@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import {
     PROPOSITIONS,
@@ -9,7 +10,8 @@ import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
 import LiveStudio from './LiveStudio';
-import polyTawkDashboard from './polyTawkDashboard';
+import PolitokDashboard from './PolitokDashboard';
+import { trackEvent } from '@/lib/telemetry';
 
 // Generate feed content
 const feedItems = [
@@ -47,7 +49,7 @@ const feedItems = [
     { type: 'dashboard' }, // Dashboard as final page
 ];
 
-export default function TikTokFeed({ trackEvent }) {
+export default function TikTokFeed() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [votes, setVotes] = useState({});
     const [results, setResults] = useState(null);
@@ -327,7 +329,7 @@ export default function TikTokFeed({ trackEvent }) {
                 return <StatCard stat={currentItem.data} />;
 
             case 'dashboard':
-                return <polyTawkDashboard />;
+                return <PolitokDashboard />;
 
             default:
                 return null;

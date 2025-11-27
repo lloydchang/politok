@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { PROPOSITIONS, COLORS } from '@polytawk/shared';
 
 export default function SwipeMode({ onComplete, trackEvent }) {
