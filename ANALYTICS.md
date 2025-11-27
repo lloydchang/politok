@@ -1,6 +1,6 @@
 # Analytics Documentation
 
-This document outlines all analytics events tracked in the politok application using PostHog.
+This document outlines all analytics events tracked in the polytawk application using PostHog.
 
 ## Tracked Events
 
@@ -56,7 +56,7 @@ This document outlines all analytics events tracked in the politok application u
 
 | Event Name | Description | Properties |
 |------------|-------------|------------|
-| `politok_title_clicked` | User clicks app title | - |
+| `polytawk_title_clicked` | User clicks app title | - |
 | `vote_button_clicked` | User clicks main VOTE button | - |
 
 ## Key Metrics to Monitor
@@ -91,7 +91,7 @@ This document outlines all analytics events tracked in the politok application u
 
 ### Phase 2 (V1.1 - Week 4)
 - 100+ quiz completions
-- 5+ TikToks posted with #politok
+- 5+ TikToks posted with #polytawk
 - Leaderboard: 10+ users claim handle
 
 ### Phase 3 (V1.2 - Week 6)

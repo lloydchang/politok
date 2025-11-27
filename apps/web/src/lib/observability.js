@@ -3,7 +3,7 @@ import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations
 
 const sdk = new HoneycombWebSDK({
     apiKey: import.meta.env.VITE_HONEYCOMB_API_KEY,
-    serviceName: 'politok-web',
+    serviceName: 'polytawk-web',
     instrumentations: [getWebAutoInstrumentations()],
 });
 

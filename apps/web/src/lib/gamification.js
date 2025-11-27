@@ -1,9 +1,9 @@
 // Mock data and local storage logic for gamification features
 
 const STORAGE_KEYS = {
-    SHARES: 'politok_vote_shares',
-    HANDLE: 'politok_vote_handle',
-    BADGES: 'politok_vote_badges'
+    SHARES: 'polytawk_vote_shares',
+    HANDLE: 'polytawk_vote_handle',
+    BADGES: 'polytawk_vote_badges'
 };
 
 // Mock global leaderboard data
@@ -27,7 +27,7 @@ const MOCK_TRENDING = [
         type: 'script',
         title: 'POV: Rent Freeze',
         usageCount: '12.5k',
-        content: 'POV: You just found out your rent could\'ve been frozen but people voted NO 💀 #politok #rentcrisis'
+        content: 'POV: You just found out your rent could\'ve been frozen but people voted NO 💀 #polytawk #rentcrisis'
     },
     {
         id: 2,

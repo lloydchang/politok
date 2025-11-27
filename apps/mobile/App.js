@@ -14,7 +14,7 @@ import {
   generateFriendComparisonHash,
   generateViralShareText,
   getLandingPageHook
-} from '@politok/shared';
+} from '@polytawk/shared';
 
 import { PostHogProvider, usePostHog } from 'posthog-react-native';
 import { initObservability } from './src/lib/observability';
@@ -97,8 +97,8 @@ function AppContent() {
   }, []);
 
   const handleTitleTap = () => {
-    // Track politok title click
-    trackEvent('politok_title_clicked');
+    // Track polytawk title click
+    trackEvent('polytawk_title_clicked');
 
     setSimulationMode(true);
     setSubmitted(false);
@@ -166,7 +166,7 @@ function AppContent() {
     const identity = getIdentityLabel(results, votes);
     const controversy = getControversyHook(votes);
     const comparisonHash = generateFriendComparisonHash(votes, results);
-    const comparisonUrl = `politok://compare?data=${comparisonHash}`;
+    const comparisonUrl = `polytawk://compare?data=${comparisonHash}`;
 
     setPercentileData(percentile);
     setIdentityLabel(identity);

@@ -1,4 +1,4 @@
-// Shared constants, logic, and utilities for politok vote app
+// Shared constants, logic, and utilities for polytawk vote app
 
 // Color constants used across web and mobile
 export const COLORS = {
@@ -195,7 +195,7 @@ export function getStatColor(value, baseline, inverted = false) {
  * @returns {string} Formatted share text
  */
 export function generateShareText(votes, resultStats) {
-  let shareText = "https://politok.vercel.app/\n\n";
+  let shareText = "https://polytawk.vercel.app/\n\n";
 
   // Show outcome and stats first (like the results page)
   shareText += `${resultStats.outcome}\n\n`;
@@ -304,7 +304,7 @@ export function getIdentityLabel(stats, votes) {
     if (yesCount === PROPOSITIONS.length) {
       return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'All yes - maximum equity vibes', groupNumber: 7 };
     }
-    return { label: 'Reform Supporter', emoji: '✊', color: COLORS.OUTCOME_GREEN, description: 'Fighting for change and politok', groupNumber: 7 };
+    return { label: 'Reform Supporter', emoji: '✊', color: COLORS.OUTCOME_GREEN, description: 'Fighting for change and polytawk', groupNumber: 7 };
   }
 
   // 3. Very high oligarchy (0-32% equity / 68-99% oligarchy)
@@ -494,7 +494,7 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
   let shareText = "";
 
   // URL at the top
-  shareText += `https://politok.vercel.app/\n`;
+  shareText += `https://polytawk.vercel.app/\n`;
 
   // Empty line
   shareText += `\n`;
@@ -555,7 +555,7 @@ export function getLandingPageHook() {
     },
     {
       question: "bruh, you cooked?",
-      subtext: "or actually based with the politok takes",
+      subtext: "or actually based with the polytawk takes",
       emoji: "🔥"
     },
     {
@@ -603,23 +603,23 @@ export function generateTikTokScripts(votes, resultStats, identityLabel, controv
   // Script 1: Hook Script (Personal Story Angle)
   let hookScript = '';
   if (resultStats.equity >= 70) {
-    hookScript = `POV: You just found out your rent could've been frozen but people voted NO\n\n[Show your ${resultStats.oligarchy}% oligarchy score]\n\n"Yeah...I got a ${resultStats.equity}% equity score on politok and I'm lowkey proud"\n\n#politok #rentcrisis #genz #equity`;
+    hookScript = `POV: You just found out your rent could've been frozen but people voted NO\n\n[Show your ${resultStats.oligarchy}% oligarchy score]\n\n"Yeah...I got a ${resultStats.equity}% equity score on polytawk and I'm lowkey proud"\n\n#polytawk #rentcrisis #genz #equity`;
   } else if (resultStats.oligarchy >= 70) {
-    hookScript = `POV: Your votes just exposed you\n\n[Show ${resultStats.oligarchy}% oligarchy score]\n\n"Not me voting against affordable housing, transit, and childcare 💀"\n\n#politok #exposed #realitycheck`;
+    hookScript = `POV: Your votes just exposed you\n\n[Show ${resultStats.oligarchy}% oligarchy score]\n\n"Not me voting against affordable housing, transit, and childcare 💀"\n\n#polytawk #exposed #realitycheck`;
   } else {
-    hookScript = `POV: You took politok\n\n[Show your ${resultStats.equity}% equity score]\n\n"Turns out I'm ${identityLabel.emoji} ${identityLabel.label}"\n\n#politok #politicaltiktok #genz`;
+    hookScript = `POV: You took polytawk\n\n[Show your ${resultStats.equity}% equity score]\n\n"Turns out I'm ${identityLabel.emoji} ${identityLabel.label}"\n\n#polytawk #politicaltiktok #genz`;
   }
 
   // Script 2: Controversy Script (React to Hot Take)
   let controversyScript = '';
   if (controversyHook && controversyHook.isControversial) {
-    controversyScript = `Not me getting called out for my votes 💀\n\n[React to: "${controversyHook.statement}"]\n\n"But like...they're not wrong tho"\n\n#politok #hottake #based #reality`;
+    controversyScript = `Not me getting called out for my votes 💀\n\n[React to: "${controversyHook.statement}"]\n\n"But like...they're not wrong tho"\n\n#polytawk #hottake #based #reality`;
   } else {
-    controversyScript = `My politok hot take:\n\n${resultStats.outcome}\n\n[Show: ${identityLabel.emoji} ${identityLabel.label}]\n\n"${identityLabel.label} and I stand by it"\n\n#politok #politicaltiktok #hottake`;
+    controversyScript = `My polytawk hot take:\n\n${resultStats.outcome}\n\n[Show: ${identityLabel.emoji} ${identityLabel.label}]\n\n"${identityLabel.label} and I stand by it"\n\n#polytawk #politicaltiktok #hottake`;
   }
 
   // Script 3: Challenge Script (Competitive/Participatory)
-  const challengeScript = `I voted on 3 politok policies and got ${resultStats.equity}% equity\n\n${identityLabel.emoji} ${identityLabel.label}\n\nDrop your score in the comments 👇\n\nLet's see who's really about that life\n\n#challenge #politok #vote #equity`;
+  const challengeScript = `I voted on 3 polytawk policies and got ${resultStats.equity}% equity\n\n${identityLabel.emoji} ${identityLabel.label}\n\nDrop your score in the comments 👇\n\nLet's see who's really about that life\n\n#challenge #polytawk #vote #equity`;
 
   return [
     {
@@ -659,7 +659,7 @@ export function generateTikTokCaption(resultStats, identityLabel, controversyHoo
   }
 
   // Add score and identity
-  caption += `${identityLabel.emoji} I scored ${resultStats.equity}% equity on politok\n`;
+  caption += `${identityLabel.emoji} I scored ${resultStats.equity}% equity on polytawk\n`;
   caption += `${identityLabel.label}\n\n`;
 
   // Add outcome
@@ -670,7 +670,7 @@ export function generateTikTokCaption(resultStats, identityLabel, controversyHoo
 
   // Add hashtags
   const currentYear = new Date().getFullYear();
-  caption += `#politok #politok #genz #genalpha #genbeta #politok #vote${currentYear} #equity #fightoligarchy #housing #policy #vote #freezetherent #fastandfreebuses #childcareforall`;
+  caption += `#polytawk #polytawk #genz #genalpha #genbeta #polytawk #vote${currentYear} #equity #fightoligarchy #housing #policy #vote #freezetherent #fastandfreebuses #childcareforall`;
 
   return caption;
 }

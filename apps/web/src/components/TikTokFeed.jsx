@@ -4,12 +4,12 @@ import {
     processVote as processVoteShared,
     getPercentileRanking,
     getIdentityLabel
-} from '@politok/shared';
+} from '@polytawk/shared';
 import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
 import LiveStudio from './LiveStudio';
-import PolitokDashboard from './PolitokDashboard';
+import polyTawkDashboard from './polyTawkDashboard';
 
 // Generate feed content
 const feedItems = [
@@ -327,7 +327,7 @@ export default function TikTokFeed({ trackEvent }) {
                 return <StatCard stat={currentItem.data} />;
 
             case 'dashboard':
-                return <PolitokDashboard />;
+                return <polyTawkDashboard />;
 
             default:
                 return null;
@@ -383,7 +383,7 @@ export default function TikTokFeed({ trackEvent }) {
                         LIVE SIMULATION
                     </div>
                     <div className="text-white/80 text-xs font-mono ml-1">
-                        #politok
+                        #polytawk
                     </div>
                 </div>
 

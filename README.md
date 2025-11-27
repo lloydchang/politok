@@ -1,6 +1,6 @@
-# politok
+# polytawk
 
-An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on three key politok propositions and see the societal outcomes.
+An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on three key polytawk propositions and see the societal outcomes.
 
 ## Features
 
@@ -79,7 +79,7 @@ npm run build --workspace=apps/web
 ## How It Works
 
 ### Propositions
-Voters decide on three politok measures:
+Voters decide on three polytawk measures:
 1. 🏘️ **FREEZE THE RENT**
 Shall we implement a freeze on rent increases for all residential units?
 2. 🚌 **FAST & FREE BUSES**

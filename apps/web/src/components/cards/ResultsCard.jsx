@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLORS, generateViralShareText } from '@politok/shared';
+import { COLORS, generateViralShareText } from '@polytawk/shared';
 
 export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
     if (!resultStats || !identityLabel) return null;

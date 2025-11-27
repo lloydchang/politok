@@ -1,7 +1,7 @@
 import posthog from 'posthog-js';
 import { trace } from '@opentelemetry/api';
 
-const tracer = trace.getTracer('politok-web');
+const tracer = trace.getTracer('polytawk-web');
 
 /**
  * Unified tracking function that sends events to both PostHog and Honeycomb

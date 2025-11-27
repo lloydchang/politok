@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PROPOSITIONS, COLORS } from '@politok/shared';
+import { PROPOSITIONS, COLORS } from '@polytawk/shared';
 
 export default function SwipeMode({ onComplete, trackEvent }) {
     const [currentIndex, setCurrentIndex] = useState(0);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PROPOSITIONS, COLORS } from '@politok/shared';
+import { PROPOSITIONS, COLORS } from '@polytawk/shared';
 
 export default function MicroMode({ onComplete, trackEvent }) {
     const [selectedProp, setSelectedProp] = useState(null);

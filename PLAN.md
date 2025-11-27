@@ -1,8 +1,8 @@
-# politok - TikTok Content Engine Strategy
+# polytawk - TikTok Content Engine Strategy
 
 ## Vision
 
-Transform politok from a one-time political quiz into a **TikTok content creation tool** that helps politically disengaged Gen Z users create viral videos about politok policy.
+Transform polytawk from a one-time political quiz into a **TikTok content creation tool** that helps politically disengaged Gen Z users create viral videos about polytawk policy.
 
 ## Target Audience
 
@@ -22,7 +22,7 @@ TikTok User discovers app
   → Their followers discover app
   → Repeat cycle
   → Users exposed to voter registration CTAs
-  → Increased voter registration + turnout for politok policies
+  → Increased voter registration + turnout for polytawk policies
 ```
 
 ## Budget & Timeline
@@ -43,7 +43,7 @@ TikTok User discovers app
 
 ### Month 1
 - 1,000 quiz completions
-- 100 TikToks posted using #politok
+- 100 TikToks posted using #polytawk
 - 50 voter registration clicks
 
 ### Month 3
@@ -73,8 +73,8 @@ TikTok User discovers app
 🎯 Hook Script:
 "POV: You just found out your rent could've been frozen but people voted NO"
 [Show your oligarchy score]
-"Yeah...I got a [score]% on politok"
-#politok #rentcrisis #genz
+"Yeah...I got a [score]% on polytawk"
+#polytawk #rentcrisis #genz
 
 🔥 Controversy Script:  
 "Not me getting called an [identity label] for voting [your way]"
@@ -83,10 +83,10 @@ TikTok User discovers app
 #politicaltiktok #hottake #based
 
 💪 Challenge Script:
-"I voted on 3 politok policies and got [equity]% equity"
+"I voted on 3 polytawk policies and got [equity]% equity"
 "Drop your score in the comments 👇"
 "Let's see who's really about that life"
-#challenge #politok #vote
+#challenge #polytawk #vote
 ```
 
 **Implementation**:
@@ -119,7 +119,7 @@ TikTok User discovers app
 - High contrast, readable on phone
 - Bold typography
 - Brand colors (Blue/Yellow)
-- Subtle watermark: "politok.com"
+- Subtle watermark: "polytawk.com"
 - QR code to app (on score card only)
 
 **Implementation**:
@@ -149,9 +149,9 @@ TikTok User discovers app
 **Caption Template**:
 ```
 📋 [Your hot take]
-⚖️ I scored [X]% equity on politok
+⚖️ I scored [X]% equity on polytawk
 🎯 Link in bio to take it
-#politok #genz #politok #vote2024 #equity #housing #vote
+#polytawk #genz #polytawk #vote2024 #equity #housing #vote
 ```
 
 **Implementation**:
@@ -196,11 +196,11 @@ TikTok User discovers app
 **Features**:
 - "Most copied scripts this week"
 - "Hottest takes getting shared"
-- Embedded TikTok posts using #politok
+- Embedded TikTok posts using #polytawk
 
 **Implementation**:
 - [ ] Embed TikTok videos using TikTok Embed API
-- [ ] Query #politok hashtag
+- [ ] Query #polytawk hashtag
 - [ ] Display top 10 most-liked posts
 - [ ] Track script usage via analytics
 - [ ] Update feed daily
@@ -269,7 +269,7 @@ TikTok User discovers app
 
 **Features**:
 - Enter zip code
-- Show: "Here's what's on YOUR ballot about politok"
+- Show: "Here's what's on YOUR ballot about polytawk"
 - Link to Ballotpedia for local measures
 - Generate localized TikTok script about their ballot
 
@@ -338,7 +338,7 @@ TikTok User discovers app
 **Virality**:
 - Share button clicks
 - Referral traffic from TikTok
-- #politok post count (manual tracking)
+- #polytawk post count (manual tracking)
 - Top performing scripts/cards
 
 **Impact**:
@@ -503,8 +503,8 @@ TikTok User discovers app
 ## Organic Growth
 
 1. **Hashtag strategy**
-   - #politok (main)
-   - #politok #genz #politok #vote2025
+   - #polytawk (main)
+   - #polytawk #genz #polytawk #vote2025
    - Piggyback on trending tags
 
 2. **Leaderboard gamification**
@@ -573,13 +573,13 @@ TikTok User discovers app
 
 # Open Questions
 
-1. **Content Moderation**: How do we handle if anti-politok people use the tool?
+1. **Content Moderation**: How do we handle if anti-polytawk people use the tool?
    - Answer: Let them. More engagement = more visibility for the hashtag
 
 2. **Scale**: What if we get 10,000 users in week 1?
    - Answer: Everything is client-side, should scale fine. Monitor API rate limits.
 
-3. **Brand Evolution**: Does "politok" limit us to housing policy?
+3. **Brand Evolution**: Does "polytawk" limit us to housing policy?
    - Answer: For now, yes. Focus. Can expand later.
 
 4. **Partnerships**: Should we partner with specific orgs from the start?

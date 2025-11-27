@@ -297,7 +297,7 @@ import { getPolicyData, STATE_POLICIES, CITY_OVERRIDES } from '../data/policyDat
 
 // ... (keep CITY_DATABASE for coordinate lookup fallback)
 
-export default function Politok() {
+export default function polyTawk() {
     const [location, setLocation] = useState('');
     const [distance, setDistance] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -442,7 +442,7 @@ export default function Politok() {
 
     const handleShare = async () => {
         const statusEmoji = (status) => status === 'green' ? '✅' : status === 'yellow' ? '⚠️' : '❌';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
+        const shareText = `https://polytawk.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
         if (navigator.share) {
             try {
                 await navigator.share({ text: shareText });
@@ -471,7 +471,7 @@ export default function Politok() {
             <div className="max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center">
                 {/* Header */}
                 <div className="text-center mb-4">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-1">Politok</h1>
+                    <h1 className="text-4xl font-bold text-gray-900 mb-1">polyTawk</h1>
                     <div className="flex items-center justify-center gap-2 text-gray-700 mb-2">
                         <MapPin size={16} />
                         <span className="font-semibold text-sm">{location}</span>
