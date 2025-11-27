@@ -1,0 +1,52 @@
+{
+    "cli": {
+        "version": ">= 13.2.0"
+    },
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "ios": {
+                "simulator": true
+            },
+            "android": {
+                "buildType": "apk"
+            },
+            "env": {
+                "EXPO_PUBLIC_POSTHOG_KEY": "",
+                "EXPO_PUBLIC_POSTHOG_HOST": "https://app.posthog.com",
+                "EXPO_PUBLIC_HONEYCOMB_API_KEY": ""
+            }
+        },
+        "preview": {
+            "distribution": "internal",
+            "ios": {
+                "simulator": false
+            },
+            "android": {
+                "buildType": "apk"
+            },
+            "env": {
+                "EXPO_PUBLIC_POSTHOG_KEY": "",
+                "EXPO_PUBLIC_POSTHOG_HOST": "https://app.posthog.com",
+                "EXPO_PUBLIC_HONEYCOMB_API_KEY": ""
+            }
+        },
+        "production": {
+            "ios": {
+                "simulator": false
+            },
+            "android": {
+                "buildType": "aab"
+            },
+            "env": {
+                "EXPO_PUBLIC_POSTHOG_KEY": "",
+                "EXPO_PUBLIC_POSTHOG_HOST": "https://app.posthog.com",
+                "EXPO_PUBLIC_HONEYCOMB_API_KEY": ""
+            }
+        }
+    },
+    "submit": {
+        "production": {}
+    }
+}

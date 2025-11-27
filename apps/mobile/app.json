@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "politok",
+    "slug": "politok",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f1f5f9"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.vercel.politok"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#f1f5f9"
+      },
+      "package": "app.vercel.politok"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "UPDATE_WITH_YOUR_EAS_PROJECT_ID"
+      }
+    }
+  }
+}

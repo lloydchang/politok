@@ -1,0 +1,18 @@
+{
+  "name": "politok",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "web": "npm run dev --workspace=apps/web",
+    "mobile": "npm start --workspace=apps/mobile",
+    "install:all": "npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
