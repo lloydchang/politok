@@ -1,7 +1,8 @@
 import { usePostHog } from 'posthog-react-native';
+import { sendHoneycombEvent } from './honeycomb';
 
 /**
- * Hook for unified tracking to PostHog
+ * Hook for unified tracking to PostHog and Honeycomb
  * Note: OpenTelemetry removed from mobile due to React Native/Hermes incompatibility
  * Must be called within a component that has PostHogProvider
  */
@@ -9,7 +10,7 @@ export const useAnalytics = () => {
     const posthog = usePostHog();
 
     /**
-     * Track event to PostHog
+     * Track event to PostHog and Honeycomb
      */
     const trackEvent = (eventName, properties = {}) => {
         // Add platform identifier
@@ -21,6 +22,9 @@ export const useAnalytics = () => {
 
         // Send to PostHog
         posthog?.capture(eventName, enrichedProps);
+
+        // Send to Honeycomb
+        sendHoneycombEvent(eventName, enrichedProps);
     };
 
     /**
