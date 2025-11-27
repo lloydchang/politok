@@ -1,6 +1,6 @@
 # Observability & Analytics Setup Guide
 
-This document explains the comprehensive observability and analytics instrumentation in the polytawk apps.
+This document explains the comprehensive observability and analytics instrumentation in the politok apps.
 
 ## Services Integrated
 
@@ -25,7 +25,7 @@ This provides complete observability coverage across both platforms.
 ## Events Tracked
 
 ### Main Page Events
-- **`polytawk_title_clicked`** - User clicks "Affordability" title
+- **`politok_title_clicked`** - User clicks "Affordability" title
 - **`vote_button_clicked`** - User clicks VOTE button
 - **`simulation_started`** - Simulation begins
 

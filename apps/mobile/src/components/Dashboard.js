@@ -1,0 +1,266 @@
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+const { width, height } = Dimensions.get('window');
+
+const POLICIES = [
+    { id: 'rent', icon: 'home-city', title: 'FREEZE THE RENT' },
+    { id: 'transit', icon: 'bus', title: 'FAST AND FREE BUSES' },
+    { id: 'childcare', icon: 'baby-bottle', title: 'CHILDCARE FOR ALL' }
+];
+
+const STATE_POLICIES = {
+    California: {
+        rent: { status: 'yellow', text: 'Some rent control exists in cities like SF and LA, but not statewide.' },
+        transit: { status: 'yellow', text: 'Public transit exists but is not free. LA Metro costs $1.75 per ride.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
+    },
+};
+
+const CITY_OVERRIDES = {
+    'San Francisco': {
+        rent: { status: 'yellow', text: 'Rent control exists but has exceptions. Not a full freeze.' },
+        transit: { status: 'yellow', text: 'MUNI costs $3 per ride. Not free, but extensive coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $2,000+/month.' }
+    },
+};
+
+function PolicyCard({ policy, data }) {
+    const statusColor = data.status === 'green' ? '#22c55e' :
+        data.status === 'yellow' ? '#eab308' : '#ef4444';
+
+    return (
+        <View style={styles.card}>
+            <View style={styles.cardHeader}>
+                <MaterialCommunityIcons name={policy.icon} size={32} color="#1e293b" />
+                <View style={styles.cardTitleContainer}>
+                    <Text style={styles.cardTitle}>{policy.title}</Text>
+                </View>
+                <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+            </View>
+            {data.status !== 'loading' && (
+                <Text style={styles.cardText}>{data.text}</Text>
+            )}
+        </View>
+    );
+}
+
+export default function Dashboard() {
+    const [location, setLocation] = useState('');
+    const [cityData, setCityData] = useState({
+        rent: { status: 'loading', text: '' },
+        transit: { status: 'loading', text: '' },
+        childcare: { status: 'loading', text: '' }
+    });
+    const [travelMode, setTravelMode] = useState(true);
+
+    const getPolicyData = (city, state) => {
+        if (CITY_OVERRIDES[city]) {
+            return CITY_OVERRIDES[city];
+        }
+        if (STATE_POLICIES[state]) {
+            return STATE_POLICIES[state];
+        }
+        return {
+            rent: { status: 'red', text: 'No rent control policies in place.' },
+            transit: { status: 'red', text: 'Limited or no public transit available.' },
+            childcare: { status: 'red', text: 'No universal childcare programs.' }
+        };
+    };
+
+    const setLocationData = (city, state) => {
+        setLocation(`${city}, ${state}`);
+        setCityData(getPolicyData(city, state));
+    };
+
+    useEffect(() => {
+        if (travelMode) {
+            pickRandomCity();
+            const interval = setInterval(() => {
+                pickRandomCity();
+            }, 3000); // Slower interval for mobile
+            return () => clearInterval(interval);
+        } else {
+            // Default to SF for now on mobile to avoid permission complexity
+            setLocationData('San Francisco', 'California');
+        }
+    }, [travelMode]);
+
+    const pickRandomCity = () => {
+        const states = Object.keys(STATE_POLICIES);
+        const randomState = states[Math.floor(Math.random() * states.length)];
+        const genericCities = ['Springfield', 'Franklin', 'Clinton', 'Madison', 'Fairview', 'Salem', 'Georgetown'];
+        const randomCityName = genericCities[Math.floor(Math.random() * genericCities.length)];
+        setLocationData(randomCityName, randomState);
+    };
+
+    const handleShare = async () => {
+        const statusEmoji = (status) => status === 'green' ? '✅' : status === 'yellow' ? '⚠️' : '❌';
+        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
+
+        try {
+            await Share.share({ message: shareText });
+        } catch (error) {
+            console.log('Error sharing:', error);
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <LinearGradient
+                colors={['#eff6ff', '#e0e7ff']} // blue-50 to indigo-100
+                style={styles.gradient}
+            >
+                <ScrollView contentContainerStyle={styles.scrollContent}>
+                    <View style={styles.header}>
+                        <Text style={styles.appTitle}>poliTok</Text>
+
+                        <View style={styles.locationContainer}>
+                            <MaterialCommunityIcons name="map-marker" size={16} color="#334155" />
+                            <Text style={styles.locationText}>{location}</Text>
+                        </View>
+
+                        <View style={styles.toggleContainer}>
+                            <Switch
+                                value={travelMode}
+                                onValueChange={setTravelMode}
+                                trackColor={{ false: '#cbd5e1', true: '#4f46e5' }}
+                                thumbColor={'#fff'}
+                            />
+                            <Text style={styles.toggleLabel}>✈️ Travel Mode</Text>
+                        </View>
+                    </View>
+
+                    <View style={styles.cardsContainer}>
+                        {POLICIES.map(policy => (
+                            <PolicyCard
+                                key={policy.id}
+                                policy={policy}
+                                data={cityData[policy.id]}
+                            />
+                        ))}
+                    </View>
+
+                    <TouchableOpacity
+                        onPress={handleShare}
+                        style={styles.shareButton}
+                    >
+                        <MaterialCommunityIcons name="share-variant" size={20} color="white" />
+                        <Text style={styles.shareButtonText}>Share My Dashboard</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </LinearGradient>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        width: width,
+        height: height,
+        flex: 1,
+    },
+    gradient: {
+        flex: 1,
+    },
+    scrollContent: {
+        paddingHorizontal: 20,
+        paddingTop: 60,
+        paddingBottom: 100,
+        minHeight: height,
+    },
+    header: {
+        alignItems: 'center',
+        marginBottom: 24,
+    },
+    appTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#0f172a',
+        marginBottom: 16,
+    },
+    locationContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 12,
+        gap: 4,
+    },
+    locationText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#334155',
+    },
+    toggleContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        borderRadius: 20,
+    },
+    toggleLabel: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: '#312e81',
+    },
+    cardsContainer: {
+        gap: 12,
+        marginBottom: 24,
+    },
+    card: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+        gap: 12,
+    },
+    cardTitleContainer: {
+        flex: 1,
+    },
+    cardTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#0f172a',
+    },
+    statusDot: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+    },
+    cardText: {
+        fontSize: 12,
+        color: '#475569',
+        lineHeight: 18,
+    },
+    shareButton: {
+        backgroundColor: '#4f46e5',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 16,
+        borderRadius: 12,
+        gap: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
+    },
+    shareButtonText: {
+        color: 'white',
+        fontWeight: '600',
+        fontSize: 14,
+    },
+});

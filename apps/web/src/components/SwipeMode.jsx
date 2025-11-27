@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PROPOSITIONS, COLORS } from '@polytawk/shared';
+import { PROPOSITIONS, COLORS } from '@politok/shared';
 
 export default function SwipeMode({ onComplete, trackEvent }) {
     const [currentIndex, setCurrentIndex] = useState(0);

@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "polytawk",
+  title: "politok",
   description: "Affordability VOTE",
 };
 

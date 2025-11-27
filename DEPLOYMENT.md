@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide explains how to deploy the polytawk application to production using Vercel (web), GitHub Pages (web), and Expo Application Services (mobile).
+This guide explains how to deploy the politok application to production using Vercel (web), GitHub Pages (web), and Expo Application Services (mobile).
 
 ## Deployment Overview
 
@@ -47,7 +47,7 @@ All platforms support the full feature set including animations, observability, 
 4. **Deploy**
    - Click "Deploy"
    - Vercel will automatically build and deploy your app
-   - You'll get a production URL (e.g., `polytawk.vercel.app`)
+   - You'll get a production URL (e.g., `politok.vercel.app`)
 
 ### Automatic Deployments
 
@@ -346,8 +346,8 @@ jobs:
 ## Bundle Identifiers
 
 Current configuration uses:
-- **iOS**: `app.vercel.polytawk`
-- **Android**: `app.vercel.polytawk`
+- **iOS**: `app.vercel.politok`
+- **Android**: `app.vercel.politok`
 
 To change:
 1. Update in `apps/mobile/app.json`

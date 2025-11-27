@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLORS } from '@polytawk/shared';
+import { COLORS } from '@politok/shared';
 
 export default function StatCard({ stat }) {
     const getGradient = () => {

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { PROPOSITIONS, COLORS } from '@polytawk/shared';
+import { PROPOSITIONS, COLORS } from '@politok/shared';
 
 export default function ChaosMode({ onComplete, trackEvent }) {
     const [currentIndex, setCurrentIndex] = useState(0);

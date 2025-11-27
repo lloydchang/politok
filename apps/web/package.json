@@ -1,5 +1,5 @@
 {
-  "name": "@polytawk/web",
+  "name": "@politok/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@honeycombio/opentelemetry-web": "^1.1.0",
-    "@polytawk/shared": "^1.0.0",
+    "@politok/shared": "^1.0.0",
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.555.0",
     "next": "16.0.5",

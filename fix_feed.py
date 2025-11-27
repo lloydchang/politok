@@ -1,3 +1,6 @@
+import os
+
+content = r'''
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import {
@@ -5,12 +8,12 @@ import {
     processVote as processVoteShared,
     getPercentileRanking,
     getIdentityLabel
-} from '@polytawk/shared';
+} from '@politok/shared';
 import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
 import LiveStudio from './LiveStudio';
-import PolitokDashboard from './PolitokDashboard';
+import Dashboard from './Dashboard';
 import { trackEvent } from '@/lib/telemetry';
 
 // Generate feed content
@@ -49,7 +52,7 @@ const feedItems = [
     { type: 'dashboard' }, // Dashboard as final page
 ];
 
-export default function TikTokFeed() {
+export default function Feed() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [votes, setVotes] = useState({});
     const [results, setResults] = useState(null);
@@ -121,7 +124,10 @@ export default function TikTokFeed() {
 
     // Calculate results when all 3 props are voted
     useEffect(() => {
-        if (votedProps.length === 3 && !results) {
+        const isResultsPage = currentItem?.type === 'results';
+        const allVoted = votedProps.length === 3;
+
+        if ((allVoted || isResultsPage) && !results) {
             const stats = processVoteShared(votes);
             const percentile = getPercentileRanking(stats.oligarchy);
             const identity = getIdentityLabel(stats, votes);
@@ -137,7 +143,7 @@ export default function TikTokFeed() {
                 identity_label: identity.label
             });
         }
-    }, [votes, results, votedProps.length, trackEvent]);
+    }, [votes, results, votedProps.length, trackEvent, currentItem]);
 
     // Safety: Reset index if out of bounds (e.g., after hot reload/code changes)
     useEffect(() => {
@@ -329,7 +335,7 @@ export default function TikTokFeed() {
                 return <StatCard stat={currentItem.data} />;
 
             case 'dashboard':
-                return <PolitokDashboard />;
+                return <Dashboard />;
 
             default:
                 return null;
@@ -385,7 +391,7 @@ export default function TikTokFeed() {
                         LIVE SIMULATION
                     </div>
                     <div className="text-white/80 text-xs font-mono ml-1">
-                        #polytawk
+                        #politok
                     </div>
                 </div>
 
@@ -492,3 +498,8 @@ export default function TikTokFeed() {
         </div>
     );
 }
+'''
+
+with open('apps/web/src/components/Feed.jsx', 'w') as f:
+    f.write(content.strip())
+print('Writing file...')

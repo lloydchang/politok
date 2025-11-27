@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLORS, generateViralShareText } from '@polytawk/shared';
+import { COLORS, generateViralShareText } from '@politok/shared';
 
 export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
     if (!resultStats || !identityLabel) return null;
@@ -118,7 +118,7 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
 
                 {/* Percentile */}
                 {percentileData && (
-                    <div className="bg-yellow-400 text-slate-900 rounded-xl p-4 font-bold text-lg mb-6">
+                    <div className="bg-yellow-400 text-slate-900 rounded-xl p-4 font-bold text-lg mb-4">
                         {percentileData.message}
                     </div>
                 )}

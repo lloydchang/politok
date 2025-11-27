@@ -1,7 +1,14 @@
-import React from 'react';
-import { COLORS } from '@polytawk/shared';
+import React, { useState } from 'react';
+import { COLORS } from '@politok/shared';
 
-export default function PropCard({ proposition, onVote, hasVoted }) {
+export default function PropCard({ proposition, onVote, hasVoted, selectedVote }) {
+    const [votedOption, setVotedOption] = useState(null);
+
+    const handleVote = (option) => {
+        setVotedOption(option);
+        onVote(option);
+    };
+
     return (
         <div
             className="relative w-full h-full flex flex-col overflow-hidden"
@@ -30,24 +37,36 @@ export default function PropCard({ proposition, onVote, hasVoted }) {
             </div>
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
-            {!hasVoted && (
-                <div className="absolute bottom-24 left-0 right-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
-                    <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
-                        <button
-                            onClick={() => onVote('no')}
-                            className="h-16 rounded-2xl bg-red-500 text-white shadow-lg hover:scale-105 active:scale-95 transition transform font-bold text-lg"
-                        >
-                            ❌ NO
-                        </button>
-                        <button
-                            onClick={() => onVote('yes')}
-                            className="h-16 rounded-2xl bg-green-500 text-white shadow-lg hover:scale-105 active:scale-95 transition transform font-bold text-lg"
-                        >
-                            ✅ YES
-                        </button>
-                    </div>
+            <div className="absolute bottom-24 left-0 right-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
+                <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                    <button
+                        onClick={() => handleVote('no')}
+                        className={`h-16 rounded-2xl bg-red-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${
+                            votedOption && votedOption !== 'no' 
+                                ? 'opacity-0 scale-75 pointer-events-none' 
+                                : votedOption === 'no'
+                                ? 'scale-110'
+                                : 'hover:scale-105 active:scale-95'
+                        }`}
+                        disabled={votedOption !== null}
+                    >
+                        ❌ NO
+                    </button>
+                    <button
+                        onClick={() => handleVote('yes')}
+                        className={`h-16 rounded-2xl bg-green-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${
+                            votedOption && votedOption !== 'yes' 
+                                ? 'opacity-0 scale-75 pointer-events-none' 
+                                : votedOption === 'yes'
+                                ? 'scale-110'
+                                : 'hover:scale-105 active:scale-95'
+                        }`}
+                        disabled={votedOption !== null}
+                    >
+                        ✅ YES
+                    </button>
                 </div>
-            )}
+            </div>
         </div>
     );
 }

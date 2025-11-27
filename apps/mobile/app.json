@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "polytawk",
-    "slug": "polytawk",
+    "name": "politok",
+    "displayName": "politok",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,20 +13,21 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "app.vercel.polytawk"
+      "bundleIdentifier": "app.vercel.politok"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#f1f5f9"
       },
-      "package": "app.vercel.polytawk"
+      "package": "app.vercel.politok"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      "expo-font"
     ],
     "extra": {
       "eas": {
