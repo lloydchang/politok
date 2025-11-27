@@ -293,6 +293,10 @@ function findClosestCity(userLat, userLon) {
     return { ...closest, distance: Math.round(minDistance) };
 }
 
+import { getPolicyData, STATE_POLICIES, CITY_OVERRIDES } from '../data/policyData';
+
+// ... (keep CITY_DATABASE for coordinate lookup fallback)
+
 export default function Politok() {
     const [location, setLocation] = useState('');
     const [distance, setDistance] = useState(null);
@@ -322,13 +326,23 @@ export default function Politok() {
     }, [travelMode]);
 
     const detectLocationAndMatch = async () => {
-
         try {
             if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(
-                    (position) => {
+                    async (position) => {
                         const { latitude, longitude } = position.coords;
-                        matchClosestCity(latitude, longitude);
+                        // Try to get exact city from coordinates using a free API
+                        try {
+                            const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                            const data = await response.json();
+                            if (data.city && data.principalSubdivision) {
+                                setLocationData(data.city, data.principalSubdivision);
+                            } else {
+                                matchClosestCity(latitude, longitude);
+                            }
+                        } catch (e) {
+                            matchClosestCity(latitude, longitude);
+                        }
                     },
                     () => {
                         // Fallback to IP-based location
@@ -353,7 +367,9 @@ export default function Politok() {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
 
-            if (data.latitude && data.longitude) {
+            if (data.city && data.region) {
+                setLocationData(data.city, data.region);
+            } else if (data.latitude && data.longitude) {
                 matchClosestCity(data.latitude, data.longitude);
             } else {
                 useRandomCity();
@@ -363,8 +379,23 @@ export default function Politok() {
         }
     };
 
+    const setLocationData = (city, state) => {
+        const policies = getPolicyData(city, state);
+        setLocation(`${city}, ${state}`);
+        setDistance(null); // Exact match
+        setCityData(policies);
+        setLoading(false);
+    };
+
     const matchClosestCity = (lat, lon) => {
         const closestCity = findClosestCity(lat, lon);
+        // Even if we find a closest city from our small DB, let's check if we have better policy data
+        // But closestCity from DB already has policies. 
+        // Let's just use the DB city for now as a fallback if reverse geocoding fails.
+        // OR we can use the state from the closest city to get state defaults?
+        // The CITY_DATABASE has hardcoded policies. Let's trust them for those specific cities,
+        // but maybe update them to use the new system?
+        // For now, let's just use the closest city as is, since it's a fallback.
         setLocation(`${closestCity.city}, ${closestCity.state}`);
         setDistance(closestCity.distance);
         setCityData({
@@ -376,14 +407,37 @@ export default function Politok() {
     };
 
     const useRandomCity = () => {
-        const randomCity = CITY_DATABASE[Math.floor(Math.random() * CITY_DATABASE.length)];
-        setLocation(`${randomCity.city}, ${randomCity.state}`);
-        setCityData({
-            rent: randomCity.rent,
-            transit: randomCity.transit,
-            childcare: randomCity.childcare
+        // Randomly pick a state
+        const states = Object.keys(STATE_POLICIES);
+        const randomState = states[Math.floor(Math.random() * states.length)];
+
+        // Check if we have city overrides for this state
+        const stateCities = Object.keys(CITY_OVERRIDES).filter(city => {
+            // This is tricky because CITY_OVERRIDES doesn't explicitly store state.
+            // But we can infer or just pick a random city from the overrides list sometimes.
+            return true;
         });
-        setLoading(false);
+
+        // 30% chance to pick a specific city override, 70% chance to pick a random state capital/town
+        if (Math.random() < 0.3) {
+            const cities = Object.keys(CITY_OVERRIDES);
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            // We need the state for this city. 
+            // Since CITY_OVERRIDES structure doesn't have state, we might need to look it up or just display "City".
+            // Actually, getPolicyData handles the lookup.
+            // Let's just pick a random city from our CITY_DATABASE for the "random" mode to ensure valid City, State pairs.
+            // OR better:
+            const dbCity = CITY_DATABASE[Math.floor(Math.random() * CITY_DATABASE.length)];
+            setLocationData(dbCity.city, dbCity.state);
+        } else {
+            // Pick a random state and a generic city name or "Anytown"
+            // Actually, let's just cycle through our CITY_DATABASE + maybe some generated ones?
+            // The user wants "all 20,000 places".
+            // Let's generate a random city name for the state.
+            const genericCities = ['Springfield', 'Franklin', 'Clinton', 'Madison', 'Fairview', 'Salem', 'Georgetown'];
+            const randomCityName = genericCities[Math.floor(Math.random() * genericCities.length)];
+            setLocationData(randomCityName, randomState);
+        }
     };
 
     const handleShare = async () => {
