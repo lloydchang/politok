@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Animated, StatusBar } from 'react-native';
 import { BlurView } from 'expo-blur';
-import { PROPOSITIONS, processVote as processVoteShared, getPercentileRanking, getIdentityLabel } from '@politok/shared';
+import {
+    POLICIES,
+    CHAT_DATA,
+    FEED_ITEMS
+} from '@politok/shared/constants';
+import { useChat, useFeed } from '@politok/shared/hooks';
 import { useAnalytics } from '../lib/analytics';
 import PropCard from './cards/PropCard';
 import StatCard from './cards/StatCard';
@@ -10,137 +15,37 @@ import Dashboard from './Dashboard';
 
 const { width, height } = Dimensions.get('window');
 
-// Generate feed content
-const feedItems = [
-    {
-        type: 'stat',
-        data: {
-            emoji: '🏠 💸',
-            title: 'Housing Crisis',
-            description: 'Rent prices have increased 30% in the last 5 years',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[0] }, // Rent freeze
-    {
-        type: 'stat',
-        data: {
-            emoji: '🚍 🚏',
-            title: 'Transit Facts',
-            description: 'Free public transit exists in 100+ cities worldwide',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[1] }, // Free buses
-    {
-        type: 'stat',
-        data: {
-            emoji: '👶 💰',
-            title: 'Childcare Costs',
-            description: 'Average cost is $1,200/mo in the US',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[2] }, // Childcare
-    { type: 'results' }, // Show results after all votes
-    { type: 'dashboard' }, // Dashboard as final page
-];
-
 export default function Feed() {
-    const { trackEvent, trackPropositionVote, trackSimulationCompleted } = useAnalytics();
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [votes, setVotes] = useState({});
-    const [results, setResults] = useState(null);
+    const analytics = useAnalytics();
+    const { trackEvent } = analytics;
+
+    const {
+        currentIndex,
+        setCurrentIndex,
+        votes,
+        results,
+        currentItem,
+        hasVotedOnCurrent,
+        handleVote,
+        handleReset,
+        goToNext
+    } = useFeed(FEED_ITEMS, analytics);
+
+    const chatMessages = useChat({
+        intervalMs: 1500, // Slower for mobile
+        maxMessages: 5
+    });
+
     const scrollViewRef = useRef(null);
-    const [chatMessages, setChatMessages] = useState([]);
-
-    // Fake chat data
-    const CHAT_USERS = ['user123', 'policy_wonk', 'yimby_queen', 'gen_z_voter', 'eco_warrior', 'housing_now'];
-    const CHAT_MESSAGES = ['yes yes yes', 'need this rn', 'w policy', 'based', 'vote yes!!', 'vote no', 'l take', 'mid', 'skip'];
-    const CHAT_COLORS = ['#facc15', '#22d3ee', '#f472b6', '#4ade80', '#c084fc'];
-
-    // Chat rotation effect
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (Math.random() > 0.3) {
-                const newUser = CHAT_USERS[Math.floor(Math.random() * CHAT_USERS.length)];
-                const newColor = CHAT_COLORS[Math.floor(Math.random() * CHAT_COLORS.length)];
-                const newText = CHAT_MESSAGES[Math.floor(Math.random() * CHAT_MESSAGES.length)];
-
-                setChatMessages(prev => {
-                    const newMsg = { id: Date.now(), user: newUser, color: newColor, text: newText };
-                    return [...prev.slice(-4), newMsg]; // Keep last 5
-                });
-            }
-        }, 1500); // Slower than web for mobile performance
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const currentItem = feedItems[currentIndex];
-    const votedProps = Object.keys(votes);
-    const hasVotedOnCurrent = currentItem?.type === 'prop' && votes[currentItem.data.id];
-
-    // Calculate results when all 3 props are voted
-    useEffect(() => {
-        const isResultsPage = currentItem?.type === "results";
-        const allVoted = votedProps.length === 3;
-
-        if ((allVoted || isResultsPage) && !results) {
-            const stats = processVoteShared(votes);
-            const percentile = getPercentileRanking(stats.oligarchy);
-            const identity = getIdentityLabel(stats, votes);
-
-            setResults({
-                stats,
-                percentile,
-                identity
-            });
-
-            trackEvent('feed_quiz_completed', {
-                equity_score: stats.equity,
-                identity_label: identity.label
-            });
-
-            trackSimulationCompleted(votes, stats, PROPOSITIONS);
-        }
-    }, [votes, results, votedProps.length, currentItem]);
-
-    // Handle vote
-    const handleVote = (propId, option) => {
-        const newVotes = { ...votes, [propId]: option };
-        setVotes(newVotes);
-
-        const proposition = PROPOSITIONS.find(p => p.id === propId);
-        if (proposition) {
-            trackPropositionVote(propId, proposition.title, option, false);
-        }
-
-        // Auto-advance after voting
-        setTimeout(() => {
-            goToNext();
-        }, 500);
-    };
-
-    // Handle reset
-    const handleReset = () => {
-        setVotes({});
-        setResults(null);
-        setCurrentIndex(0);
-        scrollToIndex(0);
-        trackEvent('feed_reset');
-    };
-
-    // Navigation
-    const goToNext = () => {
-        if (currentIndex < feedItems.length - 1) {
-            scrollToIndex(currentIndex + 1);
-        }
-    };
 
     const scrollToIndex = (index) => {
         scrollViewRef.current?.scrollTo({ y: index * height, animated: true });
     };
+
+    // Sync hook index changes to scroll position
+    useEffect(() => {
+        scrollToIndex(currentIndex);
+    }, [currentIndex]);
 
     const handleScroll = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y;
@@ -174,7 +79,7 @@ export default function Feed() {
 
             return () => clearTimeout(timer);
         }
-    }, [currentIndex, currentItem, hasVotedOnCurrent]);
+    }, [currentIndex, currentItem, hasVotedOnCurrent, goToNext, trackEvent]);
 
     const renderCard = (item, index) => {
         switch (item.type) {
@@ -216,7 +121,7 @@ export default function Feed() {
                 onMomentumScrollEnd={handleScroll}
                 style={styles.scrollView}
             >
-                {feedItems.map((item, index) => (
+                {FEED_ITEMS.map((item, index) => (
                     <View key={index} style={styles.pageContainer}>
                         {renderCard(item, index)}
                     </View>
@@ -249,7 +154,7 @@ export default function Feed() {
             {/* Progress dots */}
             <View style={styles.progressContainer} pointerEvents="none">
                 <BlurView intensity={30} tint="dark" style={styles.progressBlur}>
-                    {feedItems.map((_, idx) => (
+                    {FEED_ITEMS.map((_, idx) => (
                         <View
                             key={idx}
                             style={[

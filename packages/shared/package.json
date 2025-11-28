@@ -5,7 +5,12 @@
   "exports": {
     ".": "./index.js",
     "./policyData": "./policyData.js",
-    "./analytics": "./analytics.js"
+    "./analytics": "./analytics.js",
+    "./constants": "./constants.js",
+    "./hooks": "./hooks.js"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
   },
   "type": "module"
 }

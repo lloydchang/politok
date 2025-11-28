@@ -3,14 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { STATE_POLICIES, STATE_CITIES, CITY_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { POLICIES } from '@politok/shared/constants';
 
 const { width, height } = Dimensions.get('window');
-
-const POLICIES = [
-    { id: 'rent', icon: 'home-city', title: 'FREEZE THE RENT' },
-    { id: 'transit', icon: 'bus', title: 'FAST AND FREE BUSES' },
-    { id: 'childcare', icon: 'baby-bottle', title: 'CHILDCARE FOR ALL' }
-];
 
 function PolicyCard({ policy, data }) {
     const statusColor = data.status === 'green' ? '#22c55e' :
@@ -19,7 +14,7 @@ function PolicyCard({ policy, data }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <MaterialCommunityIcons name={policy.icon} size={32} color="#1e293b" />
+                <MaterialCommunityIcons name={policy.iconMobile} size={32} color="#1e293b" />
                 <View style={styles.cardTitleContainer}>
                     <Text style={styles.cardTitle}>{policy.title}</Text>
                 </View>

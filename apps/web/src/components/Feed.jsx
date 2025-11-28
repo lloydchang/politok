@@ -6,6 +6,12 @@ import {
     getPercentileRanking,
     getIdentityLabel
 } from '@politok/shared';
+import {
+    POLICIES,
+    CHAT_DATA,
+    FEED_ITEMS
+} from '@politok/shared/constants';
+import { useChat, useFeed } from '@politok/shared/hooks';
 import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
@@ -13,191 +19,26 @@ import LiveStudio from './LiveStudio';
 import Dashboard from './Dashboard';
 import { trackEvent } from '@/lib/telemetry';
 
-// Generate feed content
-const feedItems = [
-    {
-        type: 'stat',
-        data: {
-            emoji: '🏠 💸',
-            title: 'Housing Crisis',
-            description: 'Rent prices have increased 30% in the last 5 years',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[0] }, // Rent freeze
-    {
-        type: 'stat',
-        data: {
-            emoji: '🚍 🚏',
-            title: 'Transit Facts',
-            description: 'Free public transit exists in 100+ cities worldwide',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[1] }, // Free buses
-    {
-        type: 'stat',
-        data: {
-            emoji: '👶 💰',
-            title: 'Childcare Costs',
-            description: 'Average cost is $1,200/mo in the US',
-            badge: 'Did you know?'
-        }
-    },
-    { type: 'prop', data: PROPOSITIONS[2] }, // Childcare
-    { type: 'results' }, // Show results after all votes
-    { type: 'dashboard' }, // Dashboard as final page
-];
-
 export default function Feed() {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [votes, setVotes] = useState({});
-    const [results, setResults] = useState(null);
+    const {
+        currentIndex,
+        setCurrentIndex,
+        votes,
+        results,
+        currentItem,
+        hasVotedOnCurrent,
+        handleVote,
+        handleReset,
+        goToNext,
+        goToPrev
+    } = useFeed(FEED_ITEMS, { trackEvent });
+
+    const chatMessages = useChat();
+
     const [touchStart, setTouchStart] = useState(0);
-    const [chatMessages, setChatMessages] = useState([]);
     const [giftAnimation, setGiftAnimation] = useState(null);
     const [showStudio, setShowStudio] = useState(false);
     const containerRef = useRef(null);
-
-    // Fake chat data - Gen Z/Alpha Slang & Opinions
-    const CHAT_USERS = [
-        'user123', 'policy_wonk', 'yimby_queen', 'gen_z_voter', 'eco_warrior',
-        'housing_now', 'rent_too_high', 'vote_blue', 'vote_red', 'centrist_dad',
-        'cat_lover_99', 'student_debt_sucks', 'ok_boomer', 'skibidi_policy',
-        'fanum_tax_collector', 'no_cap_fr', 'based_god', 'sigma_grindset'
-    ];
-    const CHAT_COLORS = ['text-yellow-400', 'text-cyan-400', 'text-pink-400', 'text-green-400', 'text-purple-400', 'text-orange-400', 'text-blue-400', 'text-red-400'];
-    const CHAT_MESSAGES = [
-        // SUPPORT (YES)
-        'yes yes yes', 'need this rn', 'w policy', 'based', 'fr someone said it',
-        'vote yes!!', 'save me sm money', 'common w', 'slay',
-        'protect tenants!', 'public transit ftw', 'equity king/queen 👑',
-
-        // OPPOSE (NO)
-        'vote no', 'l take', 'ruin economy', 'who pays 4 this??',
-        'commie propaganda', 'taxes too high alr', 'common l', 'cringe',
-        'nimby gang', 'econ 101??', 'govt out',
-
-        // SKIP / APATHY
-        'mid', 'skip', 'next', 'boring', 'i sleep 😴', 'do smth fun',
-        'why on my fyp?', 'idk bout this', 'too complex',
-
-        // DISRUPTIVE / TROLLS
-        'MODS BAN HIM', 'fake news', 'propaganda', 'dead chat', 'fell off',
-        'ratio', 'l + ratio', 'cry abt it', 'skill issue', 'bot',
-
-        // NONSENSE / TANGENTS / BRAINROT
-        'skibidi', 'any1 play fn?', 'i like turtles',
-        'grimace shake', 'fanum tax', 'blud waffling',
-        'ohio vibes', 'mewing check 🤫', 'chat is this real?',
-        'can i get a hoya?', 'type 1 if u love pizza',
-
-        // GIFTING / META
-        'sent a rose 🌹', 'sent galaxy 🌌', 'sent lion 🦁', 'gifted 100 coins 💰',
-        'dueting rn', 'boosting', 'tap screen!!'
-    ];
-
-    // Chat rotation effect
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (Math.random() > 0.3) { // 70% chance to add message
-                const newUser = CHAT_USERS[Math.floor(Math.random() * CHAT_USERS.length)];
-                const newColor = CHAT_COLORS[Math.floor(Math.random() * CHAT_COLORS.length)];
-                const newText = CHAT_MESSAGES[Math.floor(Math.random() * CHAT_MESSAGES.length)];
-
-                setChatMessages(prev => {
-                    const newMsg = { id: Date.now(), user: newUser, color: newColor, text: newText };
-                    return [...prev.slice(-6), newMsg]; // Keep last 7
-                });
-            }
-        }, 800); // New message every ~800ms
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const currentItem = feedItems[currentIndex];
-    const votedProps = Object.keys(votes);
-    const hasVotedOnCurrent = currentItem?.type === 'prop' && votes[currentItem.data.id];
-
-    // Calculate results when all 3 props are voted
-    useEffect(() => {
-        const isResultsPage = currentItem?.type === "results";
-        const allVoted = votedProps.length === 3;
-
-        if ((allVoted || isResultsPage) && !results) {
-            const stats = processVoteShared(votes);
-            const percentile = getPercentileRanking(stats.oligarchy);
-            const identity = getIdentityLabel(stats, votes);
-
-            setResults({
-                stats,
-                percentile,
-                identity
-            });
-
-            trackEvent('feed_quiz_completed', {
-                equity_score: stats.equity,
-                identity_label: identity.label
-            });
-        }
-    }, [votes, results, votedProps.length, trackEvent, currentItem]);
-
-    // Safety: Reset index if out of bounds (e.g., after hot reload/code changes)
-    useEffect(() => {
-        if (currentIndex >= feedItems.length) {
-            setCurrentIndex(Math.max(0, feedItems.length - 1));
-        }
-    }, [currentIndex]);
-
-    // Handle vote
-    const handleVote = (propId, option) => {
-        try {
-            const newVotes = { ...votes, [propId]: option };
-            setVotes(newVotes);
-
-            // Removed gift animations as requested
-
-            if (trackEvent) {
-                trackEvent('feed_prop_vote', {
-                    prop_id: propId,
-                    vote: option,
-                    card_index: currentIndex
-                });
-            }
-
-            // Auto-advance after voting
-            setTimeout(() => {
-                goToNext();
-            }, 400);
-        } catch (error) {
-            console.error("Error handling vote:", error);
-            // Fallback: just advance
-            goToNext();
-        }
-    };
-
-    // Handle reset
-    const handleReset = () => {
-        setVotes({});
-        setResults(null);
-        setCurrentIndex(0);
-        trackEvent('feed_reset');
-    };
-
-    // Navigation
-    const goToNext = () => {
-        if (currentIndex < feedItems.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            trackEvent('feed_swipe', { from: currentIndex, to: currentIndex + 1 });
-        }
-    };
-
-    const goToPrev = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-            trackEvent('feed_swipe', { from: currentIndex, to: currentIndex - 1 });
-        }
-    };
 
     // Auto-play: ALWAYS auto-advance (zero friction like TikTok)
     useEffect(() => {
@@ -222,7 +63,7 @@ export default function Feed() {
 
             return () => clearTimeout(timer);
         }
-    }, [currentIndex, currentItem, hasVotedOnCurrent]);
+    }, [currentIndex, currentItem, hasVotedOnCurrent, goToNext]);
 
     // Touch/swipe handling
     const handleTouchStart = (e) => {
@@ -264,8 +105,8 @@ export default function Feed() {
         if (!currentItem) return null;
 
         // Check if current is a stat and next is a prop - skip rendering to avoid duplication
-        if (currentItem.type === 'stat' && currentIndex < feedItems.length - 1) {
-            const nextItem = feedItems[currentIndex + 1];
+        if (currentItem.type === 'stat' && currentIndex < FEED_ITEMS.length - 1) {
+            const nextItem = FEED_ITEMS[currentIndex + 1];
             if (nextItem.type === 'prop') {
                 // Skip this stat card and auto-advance to the prop which will show it in split view
                 setTimeout(() => goToNext(), 100);
@@ -275,7 +116,7 @@ export default function Feed() {
 
         // When on a prop card, show previous context + current prop (only if previous is a stat)
         if (currentItem.type === 'prop' && currentIndex > 0) {
-            const previousItem = feedItems[currentIndex - 1];
+            const previousItem = FEED_ITEMS[currentIndex - 1];
 
             // Only show split view if previous item is a stat card
             if (previousItem.type === 'stat') {
@@ -364,7 +205,7 @@ export default function Feed() {
             {!showStudio && (
                 <div className="fixed bottom-20 inset-x-0 flex justify-center z-[100] pointer-events-none">
                     <div className="flex gap-2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
-                        {feedItems.map((_, idx) => (
+                        {FEED_ITEMS.map((_, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => {

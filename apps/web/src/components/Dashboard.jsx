@@ -2,12 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Share2 } from 'lucide-react';
 import { STATE_POLICIES, STATE_CITIES, CITY_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
-
-const POLICIES = [
-    { id: 'rent', icon: '🏘️', title: 'FREEZE THE RENT' },
-    { id: 'transit', icon: '🚌', title: 'FAST AND FREE BUSES' },
-    { id: 'childcare', icon: '🍼', title: 'CHILDCARE FOR ALL' }
-];
+import { POLICIES } from '@politok/shared/constants';
 
 function PolicyCard({ policy, data }) {
     const statusColor = data.status === 'green' ? 'bg-green-500' :
@@ -16,7 +11,7 @@ function PolicyCard({ policy, data }) {
     return (
         <div className="bg-white rounded-lg p-4 shadow-md">
             <div className="flex items-center gap-3 mb-2">
-                <span className="text-3xl">{policy.icon}</span>
+                <span className="text-3xl">{policy.iconWeb}</span>
                 <div className="flex-1">
                     <h3 className="font-bold text-gray-900 text-sm">{policy.title}</h3>
                 </div>
