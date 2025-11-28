@@ -403,7 +403,7 @@ export const STATE_LOCATIONS = {
 // Location-specific policy overrides
 export const LOCATION_OVERRIDES = {
     // ========================================
-    // CALIFORNIA - Comprehensive Coverage
+    // CALIFORNIA - Major State
     // ========================================
     'San Francisco, California': {
         rent: { status: 'green', text: 'Strong rent control caps increases at 60% of CPI' },
