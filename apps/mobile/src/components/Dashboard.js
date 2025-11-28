@@ -88,7 +88,7 @@ export default function Dashboard() {
                         </View>
 
                         <View style={styles.toggleContainer}>
-                            <Text style={styles.toggleLabel}>🏃‍➡️</Text>
+                            <Text style={styles.toggleLabel}>🇺🇸</Text>
                             <Switch
                                 value={travelMode}
                                 onValueChange={setTravelMode}

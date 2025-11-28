@@ -141,7 +141,7 @@ export default function Dashboard() {
                         </div>
 
                         <label className="flex items-center gap-2 cursor-pointer">
-                            <span className="text-2xl">🏃‍➡️</span>
+                            <span className="text-2xl">🇺🇸</span>
                             <div className="relative inline-flex items-center">
                                 <input
                                     type="checkbox"
