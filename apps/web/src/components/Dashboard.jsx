@@ -323,6 +323,11 @@ const STATE_CITIES = {
 
 const CITY_OVERRIDES = {
     // California cities
+    'Sacramento': {
+        rent: { status: 'yellow', text: 'Local rent control with just-cause eviction protections.' },
+        transit: { status: 'yellow', text: 'RT Light Rail costs $2.75 per ride. Moderate coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,300/month.' }
+    },
     'San Francisco': {
         rent: { status: 'yellow', text: 'Rent control exists but has exceptions. Not a full freeze.' },
         transit: { status: 'yellow', text: 'MUNI costs $3 per ride. Not free, but extensive coverage.' },
@@ -333,11 +338,26 @@ const CITY_OVERRIDES = {
         transit: { status: 'yellow', text: 'Metro costs $1.75 per ride. Growing network but not comprehensive.' },
         childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,500/month.' }
     },
+    'San Diego': {
+        rent: { status: 'yellow', text: 'Some tenant protections adopted. No hard rent caps.' },
+        transit: { status: 'yellow', text: 'MTS Trolley and bus costs $2.50 per ride. Limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
+    },
     // New York
+    'Albany': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'CDTA bus costs $1.50. Limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,200/month.' }
+    },
     'New York City': {
         rent: { status: 'yellow', text: 'Rent stabilization covers ~1 million units, but not all apartments.' },
         transit: { status: 'yellow', text: 'MTA subway costs $2.90 per ride. Largest system in US but not free.' },
         childcare: { status: 'yellow', text: 'Free Pre-K for 3-4 year olds. Infant care still expensive at $1,500+/month.' }
+    },
+    'Buffalo': {
+        rent: { status: 'red', text: 'No rent control allowed by state law.' },
+        transit: { status: 'red', text: 'NFTA Metro costs $2 per ride. Very limited light rail.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
     },
     // Oregon
     'Portland': {
@@ -345,11 +365,36 @@ const CITY_OVERRIDES = {
         transit: { status: 'yellow', text: 'TriMet costs $2.50 per ride. Good coverage in metro area.' },
         childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,300/month.' }
     },
+    'Eugene': {
+        rent: { status: 'yellow', text: 'Covered by Oregon statewide rent control (7% + inflation cap).' },
+        transit: { status: 'red', text: 'LTD bus costs $1.75. Limited to Eugene-Springfield area.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,100/month.' }
+    },
+    'Salem': {
+        rent: { status: 'yellow', text: 'Oregon statewide rent caps apply (7% + inflation).' },
+        transit: { status: 'red', text: 'Cherriots bus costs $1.75. Very limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
     // Washington
+    'Olympia': {
+        rent: { status: 'red', text: 'No local rent control beyond state protections.' },
+        transit: { status: 'red', text: 'Intercity Transit costs $1. Limited local service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,200/month.' }
+    },
     'Seattle': {
         rent: { status: 'yellow', text: 'Strong tenant protections and just cause eviction requirements, but no hard rent caps.' },
         transit: { status: 'yellow', text: 'Sound Transit and Metro cost $2.75-$3.25. Expanding light rail network.' },
-        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,500/month.' }
+        childcare: { status: 'yellow', text: 'Seattle Preschool Program offers subsidized spots. Infant care $1,500/month.' }
+    },
+    'Spokane': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'STA bus costs $2. Limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,100/month.' }
+    },
+    'Tacoma': {
+        rent: { status: 'yellow', text: 'Eviction protections and relocation assistance, but no rent caps.' },
+        transit: { status: 'yellow', text: 'Pierce Transit costs $2. Sound Transit link to Seattle.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,200/month.' }
     },
     // Illinois
     'Chicago': {
@@ -372,15 +417,35 @@ const CITY_OVERRIDES = {
     'Boston': {
         rent: { status: 'red', text: 'State law prohibits rent control since 1994, despite high costs.' },
         transit: { status: 'yellow', text: 'MBTA costs $2.40 per ride. Extensive subway, bus, and commuter rail.' },
-        childcare: { status: 'red', text: 'No universal childcare. Highest costs in US at $1,700+/month.' }
+        childcare: { status: 'yellow', text: 'Boston offers some subsidized Pre-K. Infant care $1,700+/month.' }
+    },
+    'Worcester': {
+        rent: { status: 'red', text: 'No rent control allowed by state law.' },
+        transit: { status: 'red', text: 'WRTA bus costs $1.75. Limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
+    },
+    'Cambridge': {
+        rent: { status: 'red', text: 'Rent control banned by state law since 1994, despite tenant advocacy.' },
+        transit: { status: 'yellow', text: 'MBTA subway and bus costs $2.40. Excellent coverage.' },
+        childcare: { status: 'yellow', text: 'Some subsidized childcare programs. Average cost is $1,800/month.' }
     },
     // Pennsylvania
     'Philadelphia': {
         rent: { status: 'red', text: 'No rent control policies in place.' },
         transit: { status: 'yellow', text: 'SEPTA costs $2.50 per ride. Comprehensive subway, trolley, and bus.' },
-        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,200/month.' }
+        childcare: { status: 'yellow', text: 'PHLpreK offers free Pre-K for 3-4 year olds. Infant care $1,200/month.' }
     },
-    // DC (already in STATE_POLICIES but good to note)
+    'Pittsburgh': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'yellow', text: 'PAAC bus and light rail costs $2.75. Moderate coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,100/month.' }
+    },
+    'Harrisburg': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'CAT bus costs $1.75. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
+    // DC
     'Washington': {
         rent: { status: 'yellow', text: 'Rent control for buildings built before 1975, about 50% of units covered.' },
         transit: { status: 'yellow', text: 'Metro costs $2-6 depending on distance. Extensive rail and bus network.' },
@@ -392,23 +457,131 @@ const CITY_OVERRIDES = {
         transit: { status: 'yellow', text: 'Metro/Light Rail costs $1.90 per ride. Limited coverage.' },
         childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
     },
-    // Texas (limited policies)
+    'Annapolis': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'Annapolis Transit costs $2. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,300/month.' }
+    },
+    // New Jersey
+    'Trenton': {
+        rent: { status: 'yellow', text: 'Rent control ordinance caps annual increases at 4%.' },
+        transit: { status: 'yellow', text: 'NJ Transit costs $1.60. Regional rail and bus access.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,300/month.' }
+    },
+    'Newark': {
+        rent: { status: 'yellow', text: 'Rent control limits increases to 4% annually.' },
+        transit: { status: 'yellow', text: 'NJ Transit and PATH costs $1.60-2.75. Excellent NYC access.' },
+        childcare: { status: 'yellow', text: 'Newark offers free Pre-K. Infant care averages $1,300/month.' }
+    },
+    'Jersey City': {
+        rent: { status: 'yellow', text: 'Rent control ordinance with caps on annual increases.' },
+        transit: { status: 'yellow', text: 'PATH to NYC costs $2.75. Excellent transit access.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
+    },
+    // Texas (state prohibits rent control)
     'Austin': {
         rent: { status: 'red', text: 'State law prohibits rent control despite rapid price increases.' },
         transit: { status: 'red', text: 'CapMetro bus costs $1.25. Limited rail. Very car-dependent.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
+    'Houston': {
+        rent: { status: 'red', text: 'No rent control allowed by state law.' },
+        transit: { status: 'red', text: 'METRO bus/rail costs $1.25. Very limited coverage for city size.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $950/month.' }
+    },
+    'Dallas': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'DART rail/bus costs $2.50. Limited coverage, very car-dependent.' },
         childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
     },
     // Colorado
     'Denver': {
         rent: { status: 'red', text: 'State law prohibits local rent control.' },
         transit: { status: 'yellow', text: 'RTD costs $3 per ride. Light rail and bus cover metro area.' },
-        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,400/month.' }
+        childcare: { status: 'yellow', text: 'Denver Preschool Program offers universal preschool. Infant care $1,400/month.' }
     },
-    // Maine
-    'Portland': {
-        rent: { status: 'yellow', text: 'Rent control enacted in 2020 with 10% annual cap.' },
-        transit: { status: 'red', text: 'Metro bus costs $1.50. Very limited service.' },
-        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,100/month.' }
+    // Arizona
+    'Phoenix': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'Valley Metro costs $2. Very limited light rail for city size.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $950/month.' }
+    },
+    // Florida (state prohibits rent control)
+    'Tallahassee': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'StarMetro bus costs $1.75. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $800/month.' }
+    },
+    'Miami': {
+        rent: { status: 'red', text: 'State banned rent control in 1977.' },
+        transit: { status: 'yellow', text: 'Metrorail/Metrobus costs $2.25. Moderate coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
+    'Orlando': {
+        rent: { status: 'red', text: 'No rent control allowed by state law.' },
+        transit: { status: 'red', text: 'Lynx bus costs $2. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $900/month.' }
+    },
+    // Georgia
+    'Atlanta': {
+        rent: { status: 'red', text: 'No rent control. City prohibits it.' },
+        transit: { status: 'yellow', text: 'MARTA costs $2.50 per ride. Limited coverage outside downtown.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
+    // Ohio
+    'Columbus': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'COTA bus costs $2. Very limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $900/month.' }
+    },
+    'Cleveland': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'yellow', text: 'RTA costs $2.50 per ride. Light rail and bus network.' },
+        childcare: { status: 'yellow', text: 'Cleveland offers Pre-K for All. Average infant care $950/month.' }
+    },
+    // Michigan
+    'Lansing': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'CATA bus costs $1.50. Limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $900/month.' }
+    },
+    'Detroit': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'DDOT/SMART bus costs $1.75. People Mover $0.75. Limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $950/month.' }
+    },
+    // North Carolina
+    'Raleigh': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'GoRaleigh bus costs $1.25. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $950/month.' }
+    },
+    'Charlotte': {
+        rent: { status: 'red', text: 'No rent control policies.' },
+        transit: { status: 'red', text: 'CATS light rail/bus costs $2.20. Limited coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $1,000/month.' }
+    },
+    // Tennessee
+    'Nashville': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'WeGo bus costs $2. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $900/month.' }
+    },
+    // Missouri
+    'Jefferson City': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'JTS bus costs $1. Very limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $800/month.' }
+    },
+    'Kansas City': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'red', text: 'KCATA bus costs $1.50. Limited service.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $900/month.' }
+    },
+    'St. Louis': {
+        rent: { status: 'red', text: 'State law prohibits rent control.' },
+        transit: { status: 'yellow', text: 'MetroLink light rail costs $2.50. Moderate coverage.' },
+        childcare: { status: 'red', text: 'No universal childcare. Average cost is $850/month.' }
     },
 };
 
