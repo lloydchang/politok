@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { COLORS } from '@politok/shared';
+import { usePropCard } from '@politok/shared/hooks';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
 export default function PropCard({ proposition, onVote, hasVoted }) {
-    const [votedOption, setVotedOption] = useState(null);
-
-    const handleVote = (option) => {
-        setVotedOption(option);
-        onVote(option);
-    };
+    const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
         <View style={styles.container}>

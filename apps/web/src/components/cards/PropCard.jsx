@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { COLORS } from '@politok/shared';
+import { usePropCard } from '@politok/shared/hooks';
 
 export default function PropCard({ proposition, onVote, hasVoted, selectedVote }) {
-    const [votedOption, setVotedOption] = useState(null);
-
-    const handleVote = (option) => {
-        setVotedOption(option);
-        onVote(option);
-    };
+    const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
         <div
@@ -41,26 +37,24 @@ export default function PropCard({ proposition, onVote, hasVoted, selectedVote }
                 <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                     <button
                         onClick={() => handleVote('no')}
-                        className={`h-16 rounded-2xl bg-red-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${
-                            votedOption && votedOption !== 'no' 
-                                ? 'opacity-0 scale-75 pointer-events-none' 
+                        className={`h-16 rounded-2xl bg-red-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${votedOption && votedOption !== 'no'
+                                ? 'opacity-0 scale-75 pointer-events-none'
                                 : votedOption === 'no'
-                                ? 'scale-110'
-                                : 'hover:scale-105 active:scale-95'
-                        }`}
+                                    ? 'scale-110'
+                                    : 'hover:scale-105 active:scale-95'
+                            }`}
                         disabled={votedOption !== null}
                     >
                         ❌ NO
                     </button>
                     <button
                         onClick={() => handleVote('yes')}
-                        className={`h-16 rounded-2xl bg-green-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${
-                            votedOption && votedOption !== 'yes' 
-                                ? 'opacity-0 scale-75 pointer-events-none' 
+                        className={`h-16 rounded-2xl bg-green-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${votedOption && votedOption !== 'yes'
+                                ? 'opacity-0 scale-75 pointer-events-none'
                                 : votedOption === 'yes'
-                                ? 'scale-110'
-                                : 'hover:scale-105 active:scale-95'
-                        }`}
+                                    ? 'scale-110'
+                                    : 'hover:scale-105 active:scale-95'
+                            }`}
                         disabled={votedOption !== null}
                     >
                         ✅ YES

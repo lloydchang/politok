@@ -154,3 +154,19 @@ export function useFeed(items, analytics = {}) {
         goToPrev
     };
 }
+
+export function usePropCard(onVote) {
+    const [votedOption, setVotedOption] = useState(null);
+
+    const handleVote = useCallback((option) => {
+        setVotedOption(option);
+        if (onVote) {
+            onVote(option);
+        }
+    }, [onVote]);
+
+    return {
+        votedOption,
+        handleVote
+    };
+}

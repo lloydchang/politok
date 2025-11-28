@@ -7,7 +7,8 @@
     "./policyData": "./policyData.js",
     "./analytics": "./analytics.js",
     "./constants": "./constants.js",
-    "./hooks": "./hooks.js"
+    "./hooks": "./hooks.js",
+    "./assets": "./assets/index.js"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
