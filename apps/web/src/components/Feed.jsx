@@ -15,7 +15,6 @@ import { useChat, useFeed } from '@politok/shared/hooks';
 import PropCard from './cards/PropCard';
 import ResultsCard from './cards/ResultsCard';
 import StatCard from './cards/StatCard';
-import LiveStudio from './LiveStudio';
 import Dashboard from './Dashboard';
 import { trackEvent } from '@/lib/telemetry';
 
@@ -37,7 +36,6 @@ export default function Feed() {
 
     const [touchStart, setTouchStart] = useState(0);
     const [giftAnimation, setGiftAnimation] = useState(null);
-    const [showStudio, setShowStudio] = useState(false);
     const containerRef = useRef(null);
 
     // Auto-play: ALWAYS auto-advance (zero friction like TikTok)
@@ -201,25 +199,23 @@ export default function Feed() {
                 </div>
             </div>
 
-            {/* Progress dots (bottom center) - Hide in Studio */}
-            {!showStudio && (
-                <div className="fixed bottom-20 inset-x-0 flex justify-center z-[100] pointer-events-none">
-                    <div className="flex gap-2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
-                        {FEED_ITEMS.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => {
-                                    setCurrentIndex(idx);
-                                    trackEvent('feed_dot_nav', { from: currentIndex, to: idx });
-                                }}
-                                className={`h-2 rounded-full transition-all cursor-pointer hover:bg-white/80 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40 w-2'
-                                    }`}
-                                aria-label={`Go to page ${idx + 1}`}
-                            />
-                        ))}
-                    </div>
+            {/* Progress dots (bottom center) */}
+            <div className="fixed bottom-20 inset-x-0 flex justify-center z-[100] pointer-events-none">
+                <div className="flex gap-2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-xl pointer-events-auto">
+                    {FEED_ITEMS.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => {
+                                setCurrentIndex(idx);
+                                trackEvent('feed_dot_nav', { from: currentIndex, to: idx });
+                            }}
+                            className={`h-2 rounded-full transition-all cursor-pointer hover:bg-white/80 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40 w-2'
+                                }`}
+                            aria-label={`Go to page ${idx + 1}`}
+                        />
+                    ))}
                 </div>
-            )}
+            </div>
 
             {/* PoliTok Simulation Overlay */}
             <div className="fixed top-6 left-4 right-4 z-50 flex justify-between items-start pointer-events-none">
@@ -265,15 +261,7 @@ export default function Feed() {
                 </div>
             </div>
 
-            {/* Live Studio Overlay */}
-            {showStudio && (
-                <LiveStudio
-                    onClose={() => setShowStudio(false)}
-                    onStartStream={() => {
-                        // Could add logic here if needed
-                    }}
-                />
-            )}
+
 
             {/* Bottom Navigation (TikTok Style) */}
             <div className="fixed bottom-0 left-0 right-0 h-16 bg-black text-white flex justify-around items-center z-50 border-t border-white/10">
@@ -287,25 +275,8 @@ export default function Feed() {
                 </div>
 
                 {/* Go Live / Create Button */}
-                <button
-                    onClick={() => {
-                        const followers = 1500 + (Object.keys(votes).length * 250); // Start with 1.5k followers
-                        if (followers < 1000) {
-                            // Trigger a "toast" or alert simulation
-                            const alertMsg = { emoji: '🔒', text: `Need 1k followers to Go LIVE! (You have ${followers})` };
-                            setGiftAnimation(alertMsg);
-                            setTimeout(() => setGiftAnimation(null), 3000);
-                        } else {
-                            setShowStudio(true);
-                        }
-                    }}
-                    className="w-12 h-8 bg-white rounded-lg flex items-center justify-center relative hover:scale-110 transition"
-                >
-                    <div className="absolute w-1 h-4 bg-black rounded-full" />
-                    <div className="absolute w-4 h-1 bg-black rounded-full" />
-                    <div className="absolute -left-1 -right-1 top-1 bottom-1 bg-cyan-400 rounded-lg -z-10 mix-blend-screen translate-x-0.5" />
-                    <div className="absolute -left-1 -right-1 top-1 bottom-1 bg-red-400 rounded-lg -z-10 mix-blend-screen -translate-x-0.5" />
-                </button>
+                {/* LIVE button removed */}
+
 
                 <div className="flex flex-col items-center opacity-60">
                     <span className="text-xl">💬</span>
