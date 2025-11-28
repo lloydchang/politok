@@ -385,7 +385,7 @@ export default function Feed() {
                 <div className="flex flex-col gap-1">
                     <div className="bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 w-fit">
                         <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-                        LIVE SIMULATION
+                        LIVE
                     </div>
                     <div className="text-white/80 text-xs font-mono ml-1">
                         #poliTok

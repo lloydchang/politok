@@ -100,7 +100,7 @@ export default function Dashboard() {
                                 trackColor={{ false: '#cbd5e1', true: '#4f46e5' }}
                                 thumbColor={'#fff'}
                             />
-                            <Text style={styles.toggleLabel}>✈️ Travel Mode</Text>
+                            <Text style={styles.toggleLabel}>✈️</Text>
                         </View>
                     </View>
 

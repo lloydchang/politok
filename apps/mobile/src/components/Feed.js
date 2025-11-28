@@ -228,7 +228,7 @@ export default function Feed() {
                 <View style={styles.liveTagContainer}>
                     <BlurView intensity={50} tint="dark" style={styles.blurBadge}>
                         <View style={styles.liveDot} />
-                        <Text style={styles.liveText}>LIVE SIMULATION</Text>
+                        <Text style={styles.liveText}>LIVE</Text>
                     </BlurView>
                     <Text style={styles.hashtagText}>#poliTok</Text>
                 </View>
