@@ -10,7 +10,7 @@ function PolicyCard({ policy, data }) {
         data?.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
 
     return (
-        <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 shadow-md">
+        <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-xl border border-white/20">
             <div className="flex items-center gap-3">
                 <span className="text-3xl">{policy.iconWeb}</span>
                 <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
@@ -216,7 +216,7 @@ export default function Dashboard() {
             <div className="absolute right-4 bottom-4 z-20">
                 <button
                     onClick={handleShare}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600/80 backdrop-blur-md text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600/30 backdrop-blur-xl text-white border-2 border-white/30 shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
                 >
                     <div className="text-3xl mb-1">📤</div>
                     <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
