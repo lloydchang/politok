@@ -387,9 +387,6 @@ export default function Feed() {
                         <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
                         LIVE
                     </div>
-                    <div className="text-white/80 text-xs font-mono ml-1">
-                        #poliTok
-                    </div>
                 </div>
 
                 {/* Start Over Button - Persistent */}

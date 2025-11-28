@@ -230,7 +230,6 @@ export default function Feed() {
                         <View style={styles.liveDot} />
                         <Text style={styles.liveText}>LIVE</Text>
                     </BlurView>
-                    <Text style={styles.hashtagText}>#poliTok</Text>
                 </View>
 
                 <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
