@@ -1,8 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { MapPin, Share2 } from 'lucide-react';
-import { STATE_POLICIES, STATE_CITIES, CITY_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { STATE_POLICIES, STATE_PLACES, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
+import { COLORS } from '@politok/shared';
 
 function PolicyCard({ policy, data }) {
     const statusColor = data.status === 'green' ? 'bg-green-500' :
@@ -25,79 +26,77 @@ function PolicyCard({ policy, data }) {
 }
 
 export default function Dashboard() {
-    const [location, setLocation] = useState('');
-    const [cityData, setCityData] = useState({
-        rent: { status: 'loading', text: '' },
-        transit: { status: 'loading', text: '' },
-        childcare: { status: 'loading', text: '' }
-    });
+    const [location, setLocation] = useState('San Francisco, California');
+    const [travelMode, setTravelMode] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [travelMode, setTravelMode] = useState(true);
+    const [currentLocationData, setCurrentLocationData] = useState({ location: 'San Francisco', state: 'California' });
 
-    const setLocationData = (city, state) => {
-        setLocation(`${city}, ${state}`);
-        setCityData(getPolicyData(city, state));
-        setLoading(false);
+    const [locationName, stateName] = location.split(', ');
+    const policyData = getPolicyData(locationName, stateName);
+
+    const cityData = {
+        rent: policyData.rent,
+        transit: policyData.transit,
+        childcare: policyData.childcare
     };
 
     useEffect(() => {
         if (travelMode) {
-            pickRandomCity();
+            pickRandomLocation();
             const interval = setInterval(() => {
-                pickRandomCity();
+                pickRandomLocation();
             }, 1000);
             return () => clearInterval(interval);
+        } else {
+            detectUserLocation();
         }
-        // When travel mode is off, just pause at current location
-        // Don't reset to user's actual location
     }, [travelMode]);
 
-    const detectUserLocation = () => {
+    const detectUserLocation = async () => {
         setLoading(true);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}&localityLanguage=en`)
-                        .then(res => res.json())
-                        .then(data => {
-                            const city = data.city || data.locality || 'Unknown City';
-                            const state = data.principalSubdivision || 'Unknown State';
-                            setLocationData(city, state);
-                        })
-                        .catch(() => {
-                            setLocationData('San Francisco', 'California');
-                        });
+                async (position) => {
+                    try {
+                        const { latitude, longitude } = position.coords;
+                        const response = await fetch(
+                            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+                        );
+                        const data = await response.json();
+
+                        const detectedLocation = data.address.city || data.address.town || data.address.village || 'San Francisco';
+                        const detectedState = data.address.state || 'California';
+
+                        updateLocationState(detectedLocation, detectedState);
+                    } catch (error) {
+                        console.error('Geocoding error:', error);
+                        updateLocationState('San Francisco', 'California');
+                    }
+                    setLoading(false);
                 },
-                () => {
-                    setLocationData('San Francisco', 'California');
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    updateLocationState('San Francisco', 'California');
+                    setLoading(false);
                 }
             );
         } else {
-            setLocationData('San Francisco', 'California');
+            updateLocationState('San Francisco', 'California');
+            setLoading(false);
         }
     };
 
-    const pickRandomCity = () => {
+    const updateLocationState = (loc, state) => {
+        setLocation(`${loc}, ${state}`);
+        setCurrentLocationData({ location: loc, state });
+    };
+
+    const pickRandomLocation = () => {
         const states = Object.keys(STATE_POLICIES);
         const randomState = states[Math.floor(Math.random() * states.length)];
-        const citiesInState = STATE_CITIES[randomState] || [randomState];
-        const randomCity = citiesInState[Math.floor(Math.random() * citiesInState.length)];
-        setLocationData(randomCity, randomState);
-    };
-
-    const handleShare = async () => {
-        const statusEmoji = (status) => status === 'green' ? '✅' : status === 'yellow' ? '⚠️' : '❌';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
-        if (navigator.share) {
-            try {
-                await navigator.share({ text: shareText });
-            } catch (err) {
-                console.log('Share cancelled');
-            }
-        } else {
-            navigator.clipboard.writeText(shareText);
-            alert('Dashboard copied to clipboard!');
-        }
+        const locationsInState = STATE_LOCATIONS[randomState] || [randomState];
+        const randomLocation = locationsInState[Math.floor(Math.random() * locationsInState.length)];
+        updateLocationState(randomLocation, randomState);
     };
 
     if (loading) {
@@ -111,53 +110,67 @@ export default function Dashboard() {
         );
     }
 
+
+    const handleShare = async () => {
+        const statusEmoji = (status) => status === 'green' ? '✅' : status === 'yellow' ? '⚠️' : '❌';
+        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ text: shareText });
+            } catch (err) {
+                console.log('Share cancelled');
+            }
+        } else {
+            navigator.clipboard.writeText(shareText);
+            alert('Dashboard copied to clipboard!');
+        }
+    };
+
     return (
-        <div className="h-full bg-gradient-to-br from-blue-50 to-indigo-100 p-4 pt-16 flex flex-col">
-            <div className="max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center">
-                {/* Header */}
-                <div className="text-center mb-0">
-                    {/* Location and controls */}
+        <div
+            className="w-full h-full flex flex-col text-white relative"
+            style={{ background: COLORS.BG_GRADIENT_WEB }}
+        >
+            <div className="flex-1 overflow-auto p-6">
+                <div className="max-w-2xl mx-auto">
+                    {/* Location and Travel Mode Toggle - Single Line */}
+                    <div className="mb-6 flex items-center justify-center gap-4">
+                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                            <span className="font-semibold text-white">{location}</span>
+                        </div>
 
-                    <div className="flex items-center justify-center gap-2 text-gray-700 mb-3">
-                        <span className="text-lg font-semibold">{location}</span>
-                    </div>
-
-                    {/* Travel Mode Toggle */}
-                    <div className="flex justify-center">
-                        <label className="flex items-center gap-2 cursor-pointer bg-white/50 px-3 py-1 rounded-full hover:bg-white/80 transition-colors">
-                            <div className="relative inline-flex items-center cursor-pointer">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <span className="text-2xl">🏃‍➡️</span>
+                            <div className="relative inline-flex items-center">
                                 <input
                                     type="checkbox"
                                     className="sr-only peer"
                                     checked={travelMode}
                                     onChange={(e) => setTravelMode(e.target.checked)}
                                 />
-                                <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                <div className="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                             </div>
-                            <span className="text-xs font-semibold text-indigo-900">✈️</span>
                         </label>
                     </div>
-                </div>
 
-                {/* Policy Cards */}
-                <div className="space-y-3 mb-4 flex-1 flex flex-col justify-center">
-                    {POLICIES.map(policy => (
-                        <PolicyCard
-                            key={policy.id}
-                            policy={policy}
-                            data={cityData[policy.id]}
-                        />
-                    ))}
+                    {/* Policy Cards */}
+                    <div className="space-y-4">
+                        {POLICIES.map(policy => (
+                            <PolicyCard key={policy.id} policy={policy} data={cityData[policy.id]} />
+                        ))}
+                    </div>
                 </div>
+            </div>
 
-                {/* Share Button */}
+            {/* Share button */}
+            <div className="absolute right-4 bottom-4 z-20">
                 <button
                     onClick={handleShare}
-                    disabled={Object.values(cityData).some(p => p.status === 'loading')}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-lg text-sm"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
                 >
-                    <Share2 size={18} />
-                    Share My Dashboard
+                    <div className="text-3xl mb-1">📤</div>
+                    <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
                 </button>
             </div>
         </div>

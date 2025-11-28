@@ -2,14 +2,14 @@ import React from 'react';
 import { COLORS } from '@politok/shared';
 import { usePropCard } from '@politok/shared/hooks';
 
-export default function PropCard({ proposition, onVote, hasVoted, selectedVote }) {
+export default function Proposition({ proposition, onVote, hasVoted, selectedVote }) {
     const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
         <div
             className="relative w-full h-full flex flex-col overflow-hidden"
             style={{
-                background: `linear-gradient(135deg, ${COLORS.PRIMARY_BLUE}20 0%, ${COLORS.PRIMARY_YELLOW}20 100%)`,
+                background: `linear-gradient(135deg, ${COLORS.PRIMARY_BLUE}20 0%, ${COLORS.OUTCOME_RED}20 100%)`,
             }}
         >
             {/* Background emoji (huge, faded) */}
@@ -22,11 +22,11 @@ export default function PropCard({ proposition, onVote, hasVoted, selectedVote }
                 <div className="relative z-10 max-w-xl mx-auto text-center">
                     <div className="text-7xl mb-6">{proposition.emoji}</div>
 
-                    <h1 className="text-3xl font-black mb-4 leading-tight px-4" style={{ color: COLORS.PRIMARY_BLUE }}>
+                    <h1 className="text-3xl font-black mb-4 leading-tight px-4" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
                         {proposition.title}
                     </h1>
 
-                    <p className="text-lg text-slate-700 leading-relaxed px-4 font-medium">
+                    <p className="text-lg leading-relaxed px-4 font-medium" style={{ color: COLORS.TEXT_LIGHT_GRAY }}>
                         {proposition.description}
                     </p>
                 </div>
@@ -37,11 +37,11 @@ export default function PropCard({ proposition, onVote, hasVoted, selectedVote }
                 <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                     <button
                         onClick={() => handleVote('no')}
-                        className={`h-16 rounded-2xl bg-red-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${votedOption && votedOption !== 'no'
-                                ? 'opacity-0 scale-75 pointer-events-none'
-                                : votedOption === 'no'
-                                    ? 'scale-110'
-                                    : 'hover:scale-105 active:scale-95'
+                        className={`h-16 rounded-2xl bg-red-600 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-400 ${votedOption && votedOption !== 'no'
+                            ? 'opacity-0 scale-75 pointer-events-none'
+                            : votedOption === 'no'
+                                ? 'scale-110'
+                                : 'hover:scale-105 active:scale-95'
                             }`}
                         disabled={votedOption !== null}
                     >
@@ -49,11 +49,11 @@ export default function PropCard({ proposition, onVote, hasVoted, selectedVote }
                     </button>
                     <button
                         onClick={() => handleVote('yes')}
-                        className={`h-16 rounded-2xl bg-green-500 text-white shadow-lg font-bold text-lg transition-all duration-300 ${votedOption && votedOption !== 'yes'
-                                ? 'opacity-0 scale-75 pointer-events-none'
-                                : votedOption === 'yes'
-                                    ? 'scale-110'
-                                    : 'hover:scale-105 active:scale-95'
+                        className={`h-16 rounded-2xl bg-blue-600 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-blue-400 ${votedOption && votedOption !== 'yes'
+                            ? 'opacity-0 scale-75 pointer-events-none'
+                            : votedOption === 'yes'
+                                ? 'scale-110'
+                                : 'hover:scale-105 active:scale-95'
                             }`}
                         disabled={votedOption !== null}
                     >

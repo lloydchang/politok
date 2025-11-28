@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useStatCard } from '@politok/shared/hooks';
+import { COLORS } from '@politok/shared';
 
 const { width, height } = Dimensions.get('window');
 
-export default function StatCard({ stat }) {
+export default function Statistic({ stat }) {
   const gradient = useStatCard();
 
   return (
@@ -25,7 +26,7 @@ export default function StatCard({ stat }) {
             <Text style={styles.emoji}>{stat.emoji}</Text>
           )}
 
-          <Text style={styles.title}>
+          <Text style={[styles.title, { color: COLORS.PRIMARY_BLUE }]}>
             {stat.title}
           </Text>
 
@@ -38,11 +39,6 @@ export default function StatCard({ stat }) {
           <Text style={styles.description}>
             {stat.description}
           </Text>
-        </View>
-
-        {/* Badge */}
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{stat.badge || 'Did you know?'}</Text>
         </View>
       </LinearGradient>
     </View>
@@ -77,48 +73,63 @@ const styles = StyleSheet.create({
     fontSize: 80,
     marginBottom: 24,
   },
-  title: {
-    fontSize: 36,
+  statValue: {
+    fontSize: 72,
     fontWeight: '900',
     color: 'white',
-    marginBottom: 16,
     textAlign: 'center',
+    marginBottom: 8,
     textShadowColor: 'rgba(0, 0, 0, 0.3)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
+  },
+  didYouKnowText: {
+    fontSize: 18,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 1.5,
+    color: 'white',
+    opacity: 0.9,
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: '900',
+    color: 'black',
+    fontSize: 32,
+    fontWeight: '900',
+    color: COLORS.TEXT_BLUE_LIGHT,
+    marginBottom: 16,
+    textAlign: 'center',
   },
   value: {
     fontSize: 48,
     fontWeight: '900',
     color: 'white',
     marginBottom: 16,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    textAlign: 'center',
   },
   description: {
-    fontSize: 24,
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontWeight: 'bold',
+    fontSize: 18,
+    color: COLORS.TEXT_LIGHT_GRAY,
+    fontWeight: '500',
     textAlign: 'center',
-    lineHeight: 32,
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
+    lineHeight: 26,
   },
   badge: {
     position: 'absolute',
     top: 60,
     left: 32,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   badgeText: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     fontSize: 14,
   },

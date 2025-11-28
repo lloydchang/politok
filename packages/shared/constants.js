@@ -76,35 +76,37 @@ export const STAT_GRADIENTS = [
 
 export const FEED_ITEMS = [
     {
-        type: 'stat',
-        data: {
+        type: 'prop',
+        data: PROPOSITIONS[0],
+        stat: {
             emoji: '🏠 💸',
             title: 'Housing Crisis',
             description: 'Rent prices have increased 30% in the last 5 years',
             badge: 'Did you know?'
         }
     },
-    { type: 'prop', data: PROPOSITIONS[0] }, // Rent freeze
     {
-        type: 'stat',
-        data: {
+        type: 'prop',
+        data: PROPOSITIONS[1],
+        stat: {
             emoji: '🚍 🚏',
             title: 'Transit Facts',
             description: 'Free public transit exists in 100+ cities worldwide',
             badge: 'Did you know?'
         }
     },
-    { type: 'prop', data: PROPOSITIONS[1] }, // Free buses
     {
-        type: 'stat',
-        data: {
+        type: 'prop',
+        data: PROPOSITIONS[2],
+        stat: {
             emoji: '👶 💰',
             title: 'Childcare Costs',
             description: 'Average cost is $1,200/mo in the US',
             badge: 'Did you know?'
         }
     },
-    { type: 'prop', data: PROPOSITIONS[2] }, // Childcare
     { type: 'results' }, // Show results after all votes
     { type: 'dashboard' }, // Dashboard as final page
 ];
+
+

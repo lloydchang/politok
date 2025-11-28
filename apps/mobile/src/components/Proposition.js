@@ -6,13 +6,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-export default function PropCard({ proposition, onVote, hasVoted }) {
+export default function Proposition({ proposition, onVote, hasVoted }) {
     const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={[`${COLORS.PRIMARY_BLUE}20`, `${COLORS.PRIMARY_YELLOW}20`]}
+                colors={[`${COLORS.PRIMARY_BLUE}20`, `${COLORS.OUTCOME_RED}20`]}
                 style={styles.gradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
     gradient: {
         flex: 1,
@@ -106,13 +106,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 32,
         fontWeight: '900',
-        color: COLORS.PRIMARY_BLUE,
+        color: COLORS.TEXT_BLUE_LIGHT,
         marginBottom: 16,
         textAlign: 'center',
     },
     description: {
         fontSize: 20,
-        color: '#334155', // slate-700
+        color: COLORS.TEXT_LIGHT_GRAY,
         fontWeight: '500',
         textAlign: 'center',
         lineHeight: 28,
@@ -140,12 +140,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4,
         elevation: 8,
+        borderWidth: 2,
     },
     noButton: {
-        backgroundColor: '#ef4444', // red-500
+        backgroundColor: '#dc2626', // red-600
+        borderColor: '#f87171', // red-400
     },
     yesButton: {
-        backgroundColor: '#22c55e', // green-500
+        backgroundColor: '#2563eb', // blue-600
+        borderColor: '#60a5fa', // blue-400
     },
     buttonText: {
         color: 'white',

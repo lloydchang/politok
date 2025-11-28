@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { STATE_POLICIES, STATE_CITIES, CITY_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { STATE_POLICIES, STATE_PLACES, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
+import { COLORS } from '@politok/shared';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,37 +29,36 @@ function PolicyCard({ policy, data }) {
 }
 
 export default function Dashboard() {
-    const [location, setLocation] = useState('');
-    const [cityData, setCityData] = useState({
-        rent: { status: 'loading', text: '' },
-        transit: { status: 'loading', text: '' },
-        childcare: { status: 'loading', text: '' }
-    });
-    const [travelMode, setTravelMode] = useState(true);
+    const [location, setLocation] = useState('San Francisco, California');
+    const [travelMode, setTravelMode] = useState(false);
+    const [locationData, setLocationDataState] = useState({ location: 'San Francisco', state: 'California' }); // Renamed to avoid conflict
 
-    const setLocationData = (city, state) => {
-        setLocation(`${city}, ${state}`);
-        setCityData(getPolicyData(city, state));
+    const [locationName, stateName] = location.split(', ');
+    const policyData = getPolicyData(locationName, stateName);
+
+    const cityData = { // Kept name as cityData for PolicyCard compatibility
+        rent: policyData.rent,
+        transit: policyData.transit,
+        childcare: policyData.childcare
     };
 
     useEffect(() => {
         if (travelMode) {
-            pickRandomCity();
-            const interval = setInterval(() => {
-                pickRandomCity();
-            }, 3000); // Slower interval for mobile
-            return () => clearInterval(interval);
+            pickRandomLocation();
         }
-        // When travel mode is off, just pause at current location
-        // Don't reset to user's location
     }, [travelMode]);
 
-    const pickRandomCity = () => {
+    const setLocationData = (loc, state) => {
+        setLocation(`${loc}, ${state}`);
+        setLocationDataState({ location: loc, state });
+    };
+
+    const pickRandomLocation = () => {
         const states = Object.keys(STATE_POLICIES);
         const randomState = states[Math.floor(Math.random() * states.length)];
-        const citiesInState = STATE_CITIES[randomState] || [randomState];
-        const randomCity = citiesInState[Math.floor(Math.random() * citiesInState.length)];
-        setLocationData(randomCity, randomState);
+        const locationsInState = STATE_LOCATIONS[randomState] || [randomState];
+        const randomLocation = locationsInState[Math.floor(Math.random() * locationsInState.length)];
+        setLocationData(randomLocation, randomState);
     };
 
     const handleShare = async () => {
@@ -75,24 +75,26 @@ export default function Dashboard() {
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={['#eff6ff', '#e0e7ff']} // blue-50 to indigo-100
+                colors={COLORS.BG_GRADIENT_MOBILE}
                 style={styles.gradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
             >
-                <ScrollView contentContainerStyle={styles.scrollContent}>
+                <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+                    {/* Location and Toggle - Single Line */}
                     <View style={styles.header}>
-
                         <View style={styles.locationContainer}>
                             <Text style={styles.locationText}>{location}</Text>
                         </View>
 
                         <View style={styles.toggleContainer}>
+                            <Text style={styles.toggleLabel}>🏃‍➡️</Text>
                             <Switch
                                 value={travelMode}
                                 onValueChange={setTravelMode}
-                                trackColor={{ false: '#cbd5e1', true: '#4f46e5' }}
-                                thumbColor={'#fff'}
+                                trackColor={{ false: '#4b5563', true: '#3b82f6' }}
+                                thumbColor={'#ffffff'}
                             />
-                            <Text style={styles.toggleLabel}>✈️</Text>
                         </View>
                     </View>
 
@@ -106,14 +108,17 @@ export default function Dashboard() {
                         ))}
                     </View>
 
-                    <TouchableOpacity
-                        onPress={handleShare}
-                        style={styles.shareButton}
-                    >
-                        <MaterialCommunityIcons name="share-variant" size={20} color="white" />
-                        <Text style={styles.shareButtonText}>Share My Dashboard</Text>
-                    </TouchableOpacity>
                 </ScrollView>
+
+                {/* Share button */}
+                <TouchableOpacity
+                    onPress={handleShare}
+                    style={styles.shareButton}
+                    activeOpacity={0.8}
+                >
+                    <Text style={styles.shareEmoji}>📤</Text>
+                    <Text style={styles.shareText}>SHARE</Text>
+                </TouchableOpacity>
             </LinearGradient>
         </View>
     );
@@ -135,39 +140,38 @@ const styles = StyleSheet.create({
         minHeight: height,
     },
     header: {
-        alignItems: 'center',
         marginBottom: 24,
-    },
-    appTitle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#0f172a',
-        marginBottom: 16,
-    },
-    locationContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
+        gap: 16,
+    },
+    locationContainer: {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 20,
         marginBottom: 12,
-        gap: 4,
     },
     locationText: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: '600',
-        color: '#334155',
+        color: 'white',
+        textAlign: 'center',
     },
     toggleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         paddingHorizontal: 12,
-        paddingVertical: 4,
+        paddingVertical: 6,
         borderRadius: 20,
     },
     toggleLabel: {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: '600',
-        color: '#312e81',
+        color: COLORS.TEXT_LIGHT_GRAY,
     },
     cardsContainer: {
         gap: 12,
@@ -204,22 +208,27 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 12,
-        color: '#475569',
+        color: '#334155',
         lineHeight: 18,
     },
     shareButton: {
-        backgroundColor: '#4f46e5',
-        flexDirection: 'row',
-        alignItems: 'center',
+        position: 'absolute',
+        right: 16,
+        bottom: 16,
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        backgroundColor: '#3b82f6',
+        borderWidth: 2,
+        borderColor: 'white',
         justifyContent: 'center',
-        paddingVertical: 16,
-        borderRadius: 12,
-        gap: 8,
+        alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.3,
         shadowRadius: 8,
-        elevation: 4,
+        elevation: 8,
+        zIndex: 20,
     },
     shareButtonText: {
         color: 'white',

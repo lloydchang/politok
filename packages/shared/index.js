@@ -3,16 +3,16 @@
 // Color constants used across web and mobile
 export const COLORS = {
   // Primary colors
-  PRIMARY_BLUE: '#2141c4',
+  PRIMARY_BLUE: '#3b82f6', // Brighter blue (blue-500) for better contrast on dark
   PRIMARY_YELLOW: '#ffaa00',
 
   // Text colors
   TEXT_DARK: '#0f172a',
-  TEXT_BLUE_DARK: '#1e40af',
+  TEXT_BLUE_DARK: '#60a5fa', // Lighter blue for dark mode text
   TEXT_BLUE_LIGHT: '#3b82f6',
-  TEXT_GRAY: '#475569',
-  TEXT_GRAY_MEDIUM: '#64748b',
-  TEXT_GRAY_LIGHT: '#94a3b8',
+  TEXT_GRAY: '#94a3b8', // Lighter gray for dark mode
+  TEXT_GRAY_MEDIUM: '#cbd5e1',
+  TEXT_GRAY_LIGHT: '#e2e8f0',
 
   // Background colors
   BG_LIGHT_BLUE: '#eff6ff',
@@ -21,10 +21,21 @@ export const COLORS = {
   BG_WHITE: '#fff',
   BG_PEACH: '#fff7ed',
 
+  // Dark Mode Backgrounds
+  BG_DARK: '#1a1a1a', // Dark Gray
+  BG_DARKER: '#000000', // Black
+  BG_DARK_CARD: '#262626', // Neutral 800
+  BG_GRADIENT_WEB: 'linear-gradient(to bottom, #1e293b, #020617)', // Slate-800 to Slate-950
+  BG_GRADIENT_MOBILE: ['#1e293b', '#020617'],
+
+  // Dark Mode Text
+  TEXT_LIGHT: '#ffffff',
+  TEXT_LIGHT_GRAY: '#cbd5e1', // slate-300
+
   // Border colors
-  BORDER_GRAY: '#cbd5e1',
-  BORDER_GRAY_LIGHT: '#e5e7eb',
-  BORDER_BLUE: '#2141c4',
+  BORDER_GRAY: '#475569',
+  BORDER_GRAY_LIGHT: '#334155',
+  BORDER_BLUE: '#3b82f6',
 
   // Outcome colors
   OUTCOME_RED: '#dc2626',
@@ -198,7 +209,7 @@ export function generateShareText(votes, resultStats) {
   let shareText = "https://politok.vercel.app/\n\n";
 
   // Show outcome and stats first (like the results page)
-  shareText += `${resultStats.outcome}\n\n`;
+  shareText += `${resultStats.outcome} \n\n`;
   shareText += `Equity ${resultStats.equity}%\nOligarchy ${resultStats.oligarchy}%\n\n`;
 
   // Then show voting pattern with emojis
@@ -212,7 +223,7 @@ export function generateShareText(votes, resultStats) {
     } else {
       emoji = '❔';
     }
-    shareText += `${prop.title} ${emoji}\n`;
+    shareText += `${prop.title} ${emoji} \n`;
   });
 
   return shareText;

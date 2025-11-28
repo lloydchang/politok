@@ -2,7 +2,7 @@ import React from 'react';
 import { COLORS, generateViralShareText } from '@politok/shared';
 import { useResultsCard } from '@politok/shared/hooks';
 
-export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
+export default function Result({ resultStats, identityLabel, percentileData, votes, onReset }) {
     const { sortedStats } = useResultsCard(resultStats);
 
     if (!resultStats || !identityLabel) return null;
@@ -89,21 +89,12 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
                     </div>
                 )}
 
-            </div>
+                {/* Results badge */}
 
-            {/* TikTok DUET THIS button */}
-            <div className="absolute right-0 top-1/4 -translate-y-1/2 z-20">
-                <button
-                    onClick={handleTikTokShare}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-black text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
-                >
-                    <div className="text-3xl mb-1">🎵</div>
-                    <div className="text-[10px] font-black uppercase tracking-wider">DUET THIS</div>
-                </button>
             </div>
 
             {/* Native Share button */}
-            <div className="absolute right-0 top-2/4 -translate-y-1/2 z-20">
+            <div className="absolute right-4 bottom-4 z-20">
                 <button
                     onClick={handleNativeShare}
                     className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
@@ -112,10 +103,6 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
                     <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
                 </button>
             </div>
-
-            {/* Results badge */}
-
-
 
         </div>
     );

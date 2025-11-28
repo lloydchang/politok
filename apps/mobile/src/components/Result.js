@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
+export default function Result({ resultStats, identityLabel, percentileData, votes, onReset }) {
     const { sortedStats } = useResultsCard(resultStats);
 
     if (!resultStats || !identityLabel) return null;
@@ -104,16 +104,17 @@ const styles = StyleSheet.create({
         fontSize: 80,
         marginBottom: 16,
     },
-    label: {
+    title: {
         fontSize: 36,
         fontWeight: '900',
-        textAlign: 'center',
+        color: 'white',
         marginBottom: 8,
+        textAlign: 'center',
     },
-    description: {
+    subtitle: {
         fontSize: 18,
-        color: '#475569', // slate-600
-        fontStyle: 'italic',
+        color: COLORS.TEXT_LIGHT_GRAY,
+        fontWeight: '500',
         textAlign: 'center',
     },
     scoreCard: {

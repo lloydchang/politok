@@ -5,7 +5,7 @@ import {
     getIdentityLabel,
     PROPOSITIONS
 } from './index.js';
-import { CHAT_DATA } from './constants.js';
+import { CHAT_DATA, STAT_GRADIENTS } from './constants.js';
 
 export function useChat(options = {}) {
     const {
@@ -182,12 +182,11 @@ export function usePropCard(onVote) {
 }
 
 export function useStatCard() {
-    const { STAT_GRADIENTS } = require('./constants.js');
     const [gradient, setGradient] = useState(STAT_GRADIENTS[0]);
 
     useEffect(() => {
         setGradient(STAT_GRADIENTS[Math.floor(Math.random() * STAT_GRADIENTS.length)]);
-    }, []);
+    }, [STAT_GRADIENTS]);
 
     return gradient;
 }

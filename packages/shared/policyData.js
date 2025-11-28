@@ -302,213 +302,1045 @@ export const STATE_POLICIES = {
         transit: { status: 'red', text: 'Very limited transit' },
         childcare: { status: 'yellow', text: 'DFS Child Care Subsidy' }
     },
-    // DC
+    // DISTRICT OF COLUMBIA
     'District of Columbia': {
-        rent: { status: 'green', text: 'Rent Control Act of 1985 active' },
-        transit: { status: 'green', text: 'MetroLift subsidy. Free bus pilot ended' },
-        childcare: { status: 'green', text: 'Universal Pre-K 3 and 4' }
+        rent: { status: 'green', text: 'Rent control active since 1985. Caps on increases.' },
+        transit: { status: 'green', text: 'Metro expanding. Reduced fares for low-income' },
+        childcare: { status: 'yellow', text: 'Federal/local programs available. High cost of living' }
+    },
+    // PUERTO RICO
+    'Puerto Rico': {
+        rent: { status: 'yellow', text: 'No formal rent control. Some local regulations vary' },
+        transit: { status: 'yellow', text: 'Public transit available. Tren Urbano in San Juan' },
+        childcare: { status: 'yellow', text: 'Head Start and local programs. Limited funding' }
+    },
+    // GUAM
+    'Guam': {
+        rent: { status: 'yellow', text: 'No rent control. High housing costs due to military presence' },
+        transit: { status: 'red', text: 'Limited public transit. Mainly private vehicles' },
+        childcare: { status: 'yellow', text: 'Federal programs available. High cost of living' }
+    },
+    // US VIRGIN ISLANDS
+    'US Virgin Islands': {
+        rent: { status: 'yellow', text: 'No rent control. Hurricane recovery affects housing' },
+        transit: { status: 'red', text: 'Very limited public transit. Taxi and private vehicles' },
+        childcare: { status: 'yellow', text: 'Federal Head Start programs. Limited local options' }
+    },
+    // AMERICAN SAMOA
+    'American Samoa': {
+        rent: { status: 'yellow', text: 'Traditional land tenure system. No formal rent control' },
+        transit: { status: 'red', text: 'Minimal public transit. Private vehicles primary' },
+        childcare: { status: 'yellow', text: 'Federal programs and extended family care common' }
+    },
+    // NORTHERN MARIANA ISLANDS
+    'Northern Mariana Islands': {
+        rent: { status: 'yellow', text: 'No rent control. Limited housing stock' },
+        transit: { status: 'red', text: 'Very limited public transit system' },
+        childcare: { status: 'yellow', text: 'Federal programs available. Family-based care common' }
     }
 };
 
-export const STATE_CITIES = {
-    Alabama: ['Birmingham', 'Montgomery', 'Mobile'],
-    Alaska: ['Anchorage', 'Fairbanks', 'Juneau'],
-    Arizona: ['Phoenix', 'Tucson', 'Mesa'],
-    Arkansas: ['Little Rock', 'Fort Smith', 'Fayetteville'],
-    California: ['Sacramento', 'Los Angeles', 'San Francisco', 'San Diego'],
-    Colorado: ['Denver', 'Colorado Springs', 'Aurora'],
-    Connecticut: ['Hartford', 'New Haven', 'Stamford'],
-    Delaware: ['Wilmington', 'Dover', 'Newark'],
-    Florida: ['Tallahassee', 'Miami', 'Orlando', 'Tampa'],
-    Georgia: ['Atlanta', 'Savannah', 'Augusta'],
-    Hawaii: ['Honolulu', 'Hilo', 'Kailua'],
-    Idaho: ['Boise', 'Meridian', 'Nampa'],
-    Illinois: ['Chicago', 'Springfield', 'Naperville'],
-    Indiana: ['Indianapolis', 'Fort Wayne', 'Evansville'],
-    Iowa: ['Des Moines', 'Cedar Rapids', 'Davenport'],
-    Kansas: ['Topeka', 'Wichita', 'Overland Park', 'Kansas City'],
-    Kentucky: ['Frankfort', 'Louisville', 'Lexington', 'Bowling Green'],
-    Louisiana: ['New Orleans', 'Baton Rouge', 'Shreveport'],
-    Maine: ['Augusta', 'Portland', 'Lewiston', 'Bangor'],
-    Maryland: ['Baltimore', 'Annapolis', 'Rockville'],
-    Massachusetts: ['Boston', 'Worcester', 'Cambridge'],
-    Michigan: ['Lansing', 'Detroit', 'Grand Rapids', 'Ann Arbor'],
-    Minnesota: ['Minneapolis', 'St. Paul', 'Rochester'],
-    Mississippi: ['Jackson', 'Gulfport', 'Biloxi'],
-    Missouri: ['Jefferson City', 'Kansas City', 'St. Louis', 'Springfield'],
-    Montana: ['Billings', 'Missoula', 'Helena'],
-    Nebraska: ['Omaha', 'Lincoln', 'Bellevue'],
-    Nevada: ['Carson City', 'Las Vegas', 'Reno', 'Henderson'],
-    'New Hampshire': ['Manchester', 'Nashua', 'Concord'],
-    'New Jersey': ['Trenton', 'Newark', 'Jersey City', 'Paterson'],
-    'New Mexico': ['Albuquerque', 'Santa Fe', 'Las Cruces'],
-    'New York': ['Albany', 'New York City', 'Buffalo', 'Rochester'],
-    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro'],
-    'North Dakota': ['Fargo', 'Bismarck', 'Grand Forks'],
-    Ohio: ['Columbus', 'Cleveland', 'Cincinnati'],
-    Oklahoma: ['Oklahoma City', 'Tulsa', 'Norman'],
-    Oregon: ['Portland', 'Eugene', 'Salem'],
-    Pennsylvania: ['Philadelphia', 'Pittsburgh', 'Harrisburg'],
-    'Rhode Island': ['Providence', 'Warwick', 'Cranston'],
-    'South Carolina': ['Charleston', 'Columbia', 'Greenville'],
-    'South Dakota': ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen'],
-    Tennessee: ['Nashville', 'Memphis', 'Knoxville'],
-    Texas: ['Houston', 'Austin', 'Dallas'],
-    Utah: ['Salt Lake City', 'Provo', 'West Valley City'],
-    Vermont: ['Burlington', 'Montpelier', 'Rutland'],
-    Virginia: ['Virginia Beach', 'Norfolk', 'Richmond'],
-    Washington: ['Olympia', 'Seattle', 'Spokane', 'Tacoma'],
-    'Washington DC': ['Washington'],
-    'West Virginia': ['Charleston', 'Huntington', 'Morgantown'],
-    Wisconsin: ['Milwaukee', 'Madison', 'Green Bay'],
-    Wyoming: ['Cheyenne', 'Casper', 'Laramie'],
+export const STATE_LOCATIONS = {
+    Alabama: ['Birmingham', 'Montgomery', 'Mobile', 'Huntsville', 'Tuscaloosa', 'Hoover', 'Dothan', 'Auburn', 'Decatur', 'Madison', 'Florence', 'Gadsden', 'Vestavia Hills', 'Prattville', 'Phenix City', 'Alabaster', 'Bessemer', 'Enterprise', 'Opelika', 'Homewood', 'Northport', 'Anniston'],
+    Alaska: ['Anchorage', 'Fairbanks', 'Juneau', 'Sitka', 'Ketchikan', 'Wasilla', 'Kenai', 'Kodiak', 'Bethel', 'Palmer', 'Homer', 'Soldotna', 'Barrow', 'Valdez', 'Nome', 'Kotzebue', 'Seward', 'Petersburg', 'Wrangell', 'Dillingham', 'Cordova', 'Skagway'],
+    Arizona: ['Phoenix', 'Tucson', 'Mesa', 'Chandler', 'Flagstaff', 'Yuma', 'Scottsdale', 'Tempe', 'Peoria', 'Gilbert', 'Glendale', 'Surprise', 'Avondale', 'Goodyear', 'Prescott', 'Casa Grande', 'Lake Havasu City', 'Bullhead City', 'Sierra Vista', 'Maricopa', 'Oro Valley', 'Kingman'],
+    Arkansas: ['Little Rock', 'Fort Smith', 'Fayetteville', 'Springdale', 'Jonesboro', 'North Little Rock', 'Conway', 'Rogers', 'Pine Bluff', 'Bentonville', 'Hot Springs', 'Benton', 'Texarkana', 'Sherwood', 'Jacksonville', 'Russellville', 'Bella Vista', 'West Memphis', 'Paragould', 'Cabot', 'Searcy', 'Van Buren'],
+    California: ['Sacramento', 'Los Angeles', 'San Francisco', 'San Diego', 'San Jose', 'Oakland', 'Fresno', 'Long Beach', 'Bakersfield', 'Anaheim', 'Riverside', 'Stockton', 'Redding', 'Eureka', 'Chico', 'Modesto', 'Santa Rosa', 'Santa Barbara', 'Irvine', 'Fremont', 'Santa Clarita', 'Oxnard'],
+    Colorado: ['Denver', 'Colorado Springs', 'Aurora', 'Fort Collins', 'Boulder', 'Grand Junction', 'Pueblo', 'Lakewood', 'Thornton', 'Arvada', 'Westminster', 'Centennial', 'Greeley', 'Longmont', 'Loveland', 'Broomfield', 'Castle Rock', 'Commerce City', 'Parker', 'Littleton', 'Northglenn', 'Brighton'],
+    Connecticut: ['Hartford', 'New Haven', 'Stamford', 'Bridgeport', 'Waterbury', 'Norwalk', 'Danbury', 'New Britain', 'West Hartford', 'Greenwich', 'Hamden', 'Meriden', 'Bristol', 'Manchester', 'West Haven', 'Milford', 'Stratford', 'East Hartford', 'Middletown', 'Wallingford', 'Norwich', 'Shelton'],
+    Delaware: ['Wilmington', 'Dover', 'Newark', 'Middletown', 'Rehoboth Beach', 'Smyrna', 'Milford', 'Seaford', 'Georgetown', 'Elsmere', 'New Castle', 'Lewes', 'Millsboro', 'Laurel', 'Harrington', 'Camden', 'Clayton', 'Bridgeville', 'Delmar', 'Townsend', 'Bear', 'Pike Creek'],
+    Florida: ['Tallahassee', 'Miami', 'Orlando', 'Tampa', 'Jacksonville', 'St. Petersburg', 'Fort Lauderdale', 'Gainesville', 'Pensacola', 'Naples', 'Key West', 'Fort Myers', 'West Palm Beach', 'Lakeland', 'Sarasota', 'Clearwater', 'Port St. Lucie', 'Boca Raton', 'Daytona Beach', 'Kissimmee', 'Melbourne', 'Ocala'],
+    Georgia: ['Atlanta', 'Savannah', 'Augusta', 'Columbus', 'Macon', 'Athens', 'Albany', 'Valdosta', 'Warner Robins', 'Marietta', 'Roswell', 'Sandy Springs', 'Johns Creek', 'Alpharetta', 'Gwinnett County', 'Cobb County', 'Smyrna', 'Dunwoody', 'Gainesville', 'Hinesville', 'Peachtree City', 'Newnan'],
+    Hawaii: ['Honolulu', 'Hilo', 'Kailua-Kona', 'Kahului', 'Lahaina', 'Lihue', 'Wailuku', 'Kaunakakai', 'Lanai City', 'Wailea', 'Kihei', 'Hanalei', 'Pearl City', 'Kailua', 'Kaneohe', 'Waipahu', 'Ewa Beach', 'Mililani', 'Kapolei', 'Makakilo', 'Aiea', 'Halawa'],
+    Idaho: ['Boise', 'Meridian', 'Nampa', 'Idaho Falls', 'Pocatello', 'Coeur d\'Alene', 'Twin Falls', 'Caldwell', 'Lewiston', 'Post Falls', 'Rexburg', 'Moscow', 'Eagle', 'Kuna', 'Ammon', 'Chubbuck', 'Hayden', 'Mountain Home', 'Blackfoot', 'Garden City', 'Jerome', 'Burley'],
+    Illinois: ['Chicago', 'Springfield', 'Naperville', 'Peoria', 'Rockford', 'Champaign', 'Aurora', 'Joliet', 'Elgin', 'Waukegan', 'Cicero', 'Bloomington', 'Decatur', 'Evanston', 'Des Plaines', 'Berwyn', 'Wheaton', 'Belleville', 'Elmhurst', 'DeKalb', 'Moline', 'Skokie'],
+    Indiana: ['Indianapolis', 'Fort Wayne', 'Evansville', 'South Bend', 'Carmel', 'Bloomington', 'Fishers', 'Hammond', 'Gary', 'Muncie', 'Lafayette', 'Terre Haute', 'Kokomo', 'Anderson', 'Noblesville', 'Greenwood', 'Elkhart', 'Mishawaka', 'Lawrence', 'Jeffersonville', 'Columbus', 'Portage'],
+    Iowa: ['Des Moines', 'Cedar Rapids', 'Davenport', 'Sioux City', 'Iowa City', 'Ames', 'Waterloo', 'Council Bluffs', 'Ankeny', 'Urbandale', 'West Des Moines', 'Dubuque', 'Cedar Falls', 'Marion', 'Bettendorf', 'Mason City', 'Marshalltown', 'Clinton', 'Burlington', 'Ottumwa', 'Fort Dodge', 'Muscatine'],
+    Kansas: ['Topeka', 'Wichita', 'Overland Park', 'Kansas City', 'Lawrence', 'Olathe', 'Shawnee', 'Manhattan', 'Lenexa', 'Salina', 'Hutchinson', 'Leavenworth', 'Leawood', 'Dodge City', 'Garden City', 'Junction City', 'Emporia', 'Derby', 'Prairie Village', 'Hays', 'Liberal', 'Gardner'],
+    Kentucky: ['Frankfort', 'Louisville', 'Lexington', 'Bowling Green', 'Covington', 'Owensboro', 'Hopkinsville', 'Richmond', 'Florence', 'Georgetown', 'Elizabethtown', 'Henderson', 'Nicholasville', 'Jeffersontown', 'Paducah', 'Frankfort', 'Ashland', 'Madisonville', 'Murray', 'Danville', 'Somerset', 'Radcliff'],
+    Louisiana: ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles', 'Monroe', 'Kenner', 'Bossier City', 'Alexandria', 'Houma', 'New Iberia', 'Slidell', 'Ruston', 'Hammond', 'Thibodaux', 'Natchitoches', 'Opelousas', 'Sulphur', 'Laplace', 'Mandeville', 'Zachary', 'Metairie'],
+    Maine: ['Augusta', 'Portland', 'Lewiston', 'Bangor', 'Bar Harbor', 'Kennebunk', 'South Portland', 'Auburn', 'Biddeford', 'Sanford', 'Saco', 'Westbrook', 'Waterville', 'Presque Isle', 'Bath', 'Ellsworth', 'Old Orchard Beach', 'Belfast', 'Rockland', 'Caribou', 'Brunswick', 'Gorham'],
+    Maryland: ['Baltimore', 'Annapolis', 'Rockville', 'Frederick', 'Gaithersburg', 'Bowie', 'Hagerstown', 'Towson', 'Salisbury', 'Cumberland', 'College Park', 'Greenbelt', 'Laurel', 'Hyattsville', 'Takoma Park', 'Easton', 'Westminster', 'Ocean City', 'Cambridge', 'Havre de Grace', 'Elkton', 'Aberdeen'],
+    Massachusetts: ['Boston', 'Worcester', 'Cambridge', 'Lowell', 'Springfield', 'Northampton', 'New Bedford', 'Brockton', 'Quincy', 'Lynn', 'Fall River', 'Newton', 'Lawrence', 'Somerville', 'Framingham', 'Haverhill', 'Waltham', 'Malden', 'Brookline', 'Plymouth', 'Medford', 'Taunton'],
+    Michigan: ['Lansing', 'Detroit', 'Grand Rapids', 'Ann Arbor', 'Flint', 'Traverse City', 'Kalamazoo', 'Saginaw', 'Dearborn', 'Sterling Heights', 'Warren', 'Livonia', 'Oakland County', 'Macomb County', 'Troy', 'Westland', 'Farmington Hills', 'Wyoming', 'Southfield', 'Rochester Hills', 'Taylor', 'St. Clair Shores'],
+    Minnesota: ['Minneapolis', 'St. Paul', 'Rochester', 'Duluth', 'Bloomington', 'Brooklyn Park', 'Plymouth', 'Woodbury', 'Maple Grove', 'Blaine', 'Lakeville', 'Eagan', 'Burnsville', 'Eden Prairie', 'Coon Rapids', 'Minnetonka', 'Edina', 'St. Cloud', 'Mankato', 'Moorhead', 'Winona', 'Owatonna'],
+    Mississippi: ['Jackson', 'Gulfport', 'Biloxi', 'Hattiesburg', 'Tupelo', 'Southaven', 'Meridian', 'Greenville', 'Vicksburg', 'Olive Branch', 'Horn Lake', 'Clinton', 'Pearl', 'Madison', 'Ridgeland', 'Starkville', 'Columbus', 'Laurel', 'Natchez', 'Clarksdale', 'Oxford', 'Pascagoula'],
+    Missouri: ['Jefferson City', 'Kansas City', 'St. Louis', 'Springfield', 'Columbia', 'Independence', 'Lee\'s Summit', 'O\'Fallon', 'St. Joseph', 'St. Charles', 'Blue Springs', 'Florissant', 'Joplin', 'Chesterfield', 'Jefferson City', 'Cape Girardeau', 'Wildwood', 'University City', 'Ballwin', 'Raytown', 'Liberty', 'Wentzville'],
+    Montana: ['Billings', 'Missoula', 'Helena', 'Great Falls', 'Bozeman', 'Kalispell', 'Butte', 'Whitefish', 'Belgrade', 'Livingston', 'Miles City', 'Havre', 'Anaconda', 'Lewistown', 'Dillon', 'Glendive', 'Sidney', 'Hamilton', 'Columbia Falls', 'Laurel', 'Polson', 'Hardin'],
+    Nebraska: ['Omaha', 'Lincoln', 'Bellevue', 'Grand Island', 'Kearney', 'Fremont', 'Hastings', 'Norfolk', 'Columbus', 'Papillion', 'La Vista', 'Scottsbluff', 'North Platte', 'South Sioux City', 'Beatrice', 'Lexington', 'Gering', 'Alliance', 'York', 'McCook', 'Chadron', 'Blair'],
+    Nevada: ['Carson City', 'Las Vegas', 'Reno', 'Henderson', 'Elko', 'Sparks', 'North Las Vegas', 'Clark County', 'Washoe County', 'Boulder City', 'Mesquite', 'Fernley', 'Fallon', 'Winnemucca', 'Ely', 'Pahrump', 'Spring Valley', 'Paradise', 'Enterprise', 'Sunrise Manor', 'Whitney', 'Spanish Springs'],
+    'New Hampshire': ['Manchester', 'Nashua', 'Concord', 'Dover', 'Portsmouth', 'Hanover', 'Rochester', 'Salem', 'Derry', 'Londonderry', 'Keene', 'Bedford', 'Merrimack', 'Hudson', 'Laconia', 'Lebanon', 'Hampton', 'Durham', 'Exeter', 'Claremont', 'Somersworth', 'Goffstown'],
+    'New Jersey': ['Trenton', 'Newark', 'Jersey City', 'Paterson', 'Atlantic City', 'Camden', 'Elizabeth', 'Woodbridge', 'Edison', 'Toms River', 'Hamilton', 'Clifton', 'Brick', 'Cherry Hill', 'Passaic', 'Union City', 'Bayonne', 'East Orange', 'Vineland', 'New Brunswick', 'Hoboken', 'Perth Amboy'],
+    'New Mexico': ['Albuquerque', 'Santa Fe', 'Las Cruces', 'Rio Rancho', 'Farmington', 'Roswell', 'Clovis', 'Hobbs', 'Alamogordo', 'Carlsbad', 'Gallup', 'Los Alamos', 'Deming', 'Portales', 'Artesia', 'Lovington', 'Silver City', 'Las Vegas', 'Sunland Park', 'Ruidoso', 'Española', 'Grants'],
+    'New York': ['Albany', 'New York City', 'Buffalo', 'Rochester', 'Syracuse', 'Yonkers', 'Poughkeepsie', 'Ithaca', 'Utica', 'White Plains', 'New Rochelle', 'Mount Vernon', 'Schenectady', 'Niagara Falls', 'Binghamton', 'Freeport', 'Troy', 'Elmira', 'Watertown', 'Jamestown', 'Saratoga Springs', 'Plattsburgh'],
+    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro', 'Durham', 'Wilmington', 'Asheville', 'Winston-Salem', 'Fayetteville', 'High Point', 'Chapel Hill', 'Cary', 'Wake County', 'Mecklenburg County', 'Concord', 'Greenville', 'Jacksonville', 'Huntersville', 'Apex', 'Hickory', 'Kannapolis', 'Burlington', 'Gastonia'],
+    'North Dakota': ['Fargo', 'Bismarck', 'Grand Forks', 'Minot', 'Williston', 'Dickinson', 'Mandan', 'Jamestown', 'West Fargo', 'Wahpeton', 'Devils Lake', 'Valley City', 'Watford City', 'Grafton', 'Beulah', 'Rugby', 'Bottineau', 'Hazen', 'Lisbon', 'Carrington', 'Mayville', 'Casselton'],
+    Ohio: ['Columbus', 'Cleveland', 'Cincinnati', 'Toledo', 'Akron', 'Dayton', 'Youngstown', 'Canton', 'Lorain', 'Parma', 'Lakewood', 'Hamilton County', 'Franklin County', 'Cuyahoga County', 'Warren', 'Elyria', 'Springfield', 'Kettering', 'Middletown', 'Newark', 'Mansfield', 'Beavercreek'],
+    Oklahoma: ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Lawton', 'Edmond', 'Moore', 'Midwest City', 'Enid', 'Stillwater', 'Muskogee', 'Bartlesville', 'Owasso', 'Shawnee', 'Ponca City', 'Ardmore', 'Duncan', 'Yukon', 'Del City', 'Sapulpa', 'Jenks', 'Bethany'],
+    Oregon: ['Portland', 'Eugene', 'Salem', 'Gresham', 'Bend', 'Medford', 'Corvallis', 'Hillsboro', 'Beaverton', 'Springfield', 'Lake Oswego', 'Tigard', 'Keizer', 'Oregon City', 'McMinnville', 'Grants Pass', 'Albany', 'Ashland', 'Redmond', 'Klamath Falls', 'Tualatin', 'West Linn'],
+    Pennsylvania: ['Philadelphia', 'Pittsburgh', 'Harrisburg', 'Allentown', 'Erie', 'Scranton', 'Reading', 'Bethlehem', 'Lancaster', 'Wilkes-Barre', 'Bucks County', 'Chester County', 'Montgomery County', 'Delaware County', 'York', 'State College', 'Altoona', 'Williamsport', 'Easton', 'Lebanon', 'Hazleton', 'Chester'],
+    'Rhode Island': ['Providence', 'Warwick', 'Cranston', 'Pawtucket', 'Newport', 'East Providence', 'Woonsocket', 'Coventry', 'Cumberland', 'North Providence', 'South Kingstown', 'West Warwick', 'Johnston', 'North Kingstown', 'Bristol', 'Westerly', 'Smithfield', 'Lincoln', 'Central Falls', 'Portsmouth', 'Barrington', 'Middletown'],
+    'South Carolina': ['Columbia', 'Charleston', 'Greenville', 'Myrtle Beach', 'Spartanburg', 'Rock Hill', 'Mount Pleasant', 'North Charleston', 'Summerville', 'Goose Creek', 'Hilton Head Island', 'Florence', 'Aiken', 'Anderson', 'Greer', 'Sumter', 'Greenwood', 'North Augusta', 'Clemson', 'Easley', 'Beaufort', 'Conway'],
+    'South Dakota': ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen', 'Brookings', 'Watertown', 'Mitchell', 'Yankton', 'Huron', 'Spearfish', 'Brandon', 'Box Elder', 'Vermillion', 'Sturgis', 'Madison', 'Belle Fourche', 'Winner', 'Mobridge', 'De Smet', 'Hot Springs', 'Custer', 'Deadwood'],
+    Tennessee: ['Nashville', 'Memphis', 'Knoxville', 'Chattanooga', 'Clarksville', 'Murfreesboro', 'Franklin', 'Jackson', 'Johnson City', 'Bartlett', 'Hendersonville', 'Kingsport', 'Collierville', 'Smyrna', 'Cleveland', 'Brentwood', 'Germantown', 'Columbia', 'Spring Hill', 'La Vergne', 'Gallatin', 'Mount Juliet'],
+    Texas: ['Austin', 'Houston', 'Dallas', 'San Antonio', 'Fort Worth', 'El Paso', 'Arlington', 'Corpus Christi', 'Plano', 'Lubbock', 'Amarillo', 'Midland', 'Waco', 'Laredo', 'Irving', 'Garland', 'Frisco', 'McKinney', 'Killeen', 'Brownsville', 'Pasadena', 'Grand Prairie'],
+    Utah: ['Salt Lake City', 'West Valley City', 'Provo', 'Orem', 'St. George', 'Park City', 'West Jordan', 'Layton', 'Taylorsville', 'South Jordan', 'Sandy', 'Ogden', 'Lehi', 'Murray', 'Bountiful', 'Draper', 'Riverton', 'Roy', 'Spanish Fork', 'Pleasant Grove', 'Cottonwood Heights', 'Logan'],
+    Vermont: ['Montpelier', 'Burlington', 'South Burlington', 'Rutland', 'Brattleboro', 'Stowe', 'Essex Junction', 'Colchester', 'Bennington', 'Hartford', 'Williston', 'Middlebury', 'St. Albans', 'Winooski', 'Barre', 'Woodstock', 'Manchester', 'Killington', 'Shelburne', 'Milton', 'St. Johnsbury', 'Newport'],
+    Virginia: ['Richmond', 'Virginia Beach', 'Norfolk', 'Chesapeake', 'Arlington', 'Roanoke', 'Alexandria', 'Newport News', 'Hampton', 'Suffolk', 'Lynchburg', 'Harrisonburg', 'Leesburg', 'Charlottesville', 'Blacksburg', 'Danville', 'Manassas', 'Petersburg', 'Fredericksburg', 'Winchester', 'Salem', 'Staunton'],
+    Washington: ['Olympia', 'Seattle', 'Spokane', 'Tacoma', 'Bellingham', 'Yakima', 'Vancouver', 'Kent', 'Everett', 'Renton', 'Bellevue', 'Federal Way', 'Spokane Valley', 'Kirkland', 'Redmond', 'Kennewick', 'Auburn', 'Pasco', 'Marysville', 'Lakewood', 'Sammamish', 'Richland'],
+    'West Virginia': ['Charleston', 'Huntington', 'Morgantown', 'Parkersburg', 'Wheeling', 'Weirton', 'Fairmont', 'Martinsburg', 'Beckley', 'Clarksburg', 'South Charleston', 'St. Albans', 'Vienna', 'Bluefield', 'Moundsville', 'Bridgeport', 'Dunbar', 'Oak Hill', 'Nitro', 'Charles Town', 'Elkins', 'Buckhannon'],
+    Wisconsin: ['Madison', 'Milwaukee', 'Green Bay', 'Kenosha', 'Racine', 'Appleton', 'Waukesha', 'Eau Claire', 'Oshkosh', 'West Allis', 'Brookfield', 'Dane County', 'Janesville', 'La Crosse', 'Sheboygan', 'Wauwatosa', 'Fond du Lac', 'New Berlin', 'Wausau', 'Greenfield', 'Beloit', 'Franklin'],
+    Wyoming: ['Cheyenne', 'Casper', 'Laramie', 'Gillette', 'Rock Springs', 'Sheridan', 'Green River', 'Evanston', 'Riverton', 'Jackson', 'Cody', 'Rawlins', 'Lander', 'Torrington', 'Powell', 'Douglas', 'Worland', 'Buffalo', 'Thermopolis', 'Newcastle', 'Wheatland', 'Kemmerer'],
+    'District of Columbia': ['Washington'],
+    // US TERRITORIES
+    'Puerto Rico': ['San Juan', 'Ponce', 'Mayagüez', 'Caguas', 'Bayamón', 'Carolina', 'Arecibo'],
+    'Guam': ['Hagåtña', 'Dededo', 'Tamuning', 'Yigo', 'Mangilao'],
+    'US Virgin Islands': ['Charlotte Amalie', 'Christiansted', 'Frederiksted', 'Cruz Bay'],
+    'American Samoa': ['Pago Pago', 'Tafuna', 'Leone', 'Fagatogo'],
+    'Northern Mariana Islands': ['Saipan', 'Tinian', 'Rota']
 };
 
-export const CITY_OVERRIDES = {
-    // CALIFORNIA
-    'San Francisco': {
+// Location-specific policy overrides
+export const LOCATION_OVERRIDES = {
+    // ========================================
+    // CALIFORNIA - Comprehensive Coverage
+    // ========================================
+    'San Francisco, California': {
         rent: { status: 'green', text: 'Strong rent control caps increases at 60% of CPI' },
-        transit: { status: 'yellow', text: 'Muni $3 fare. Free for youth/seniors' },
+        transit: { status: 'green', text: 'MUNI free for youth, seniors get discounts' },
         childcare: { status: 'green', text: 'Universal preschool. Subsidies for families <$150k' }
     },
-    'Los Angeles': {
-        rent: { status: 'yellow', text: 'RSO covers pre-1978 units. 4% cap (2024)' },
+    'Los Angeles, California': {
+        rent: { status: 'green', text: 'RSO covers pre-1978 units. 4% cap (2024)' },
         transit: { status: 'yellow', text: 'Metro $1.75. Free for students (GoPass)' },
         childcare: { status: 'yellow', text: 'UPK expansion ongoing' }
     },
-    'Oakland': {
+    'Oakland, California': {
         rent: { status: 'green', text: 'Rent Adjustment Program with strict caps' },
-        transit: { status: 'yellow', text: 'AC Transit fares standard' },
+        transit: { status: 'yellow', text: 'AC Transit free for youth under 18' },
         childcare: { status: 'green', text: 'Oakland Preschool for All (Measure AA)' }
     },
-    'Berkeley': {
+    'Berkeley, California': {
         rent: { status: 'green', text: 'Rent Stabilization Board sets strict limits' },
-        transit: { status: 'yellow', text: 'AC Transit. EasyPass for students' },
-        childcare: { status: 'green', text: 'High subsidy availability' }
+        transit: { status: 'green', text: 'AC Transit. EasyPass for students' },
+        childcare: { status: 'green', text: 'Universal preschool initiative' }
     },
-    'Santa Monica': {
-        rent: { status: 'green', text: 'Rent Control Charter Amendment active' },
-        transit: { status: 'yellow', text: 'Big Blue Bus $1.10' },
+    'San Jose, California': {
+        rent: { status: 'green', text: 'Apartment Rent Ordinance limits increases' },
+        transit: { status: 'yellow', text: 'VTA light rail. Youth ride free' },
+        childcare: { status: 'yellow', text: 'Preschool for All program expanding' }
+    },
+    'Santa Monica, California': {
+        rent: { status: 'green', text: 'Rent Control Charter Amendment active since 1979' },
+        transit: { status: 'green', text: 'Big Blue Bus $1.10. Free for seniors/disabled' },
         childcare: { status: 'green', text: 'Cradle to Career initiative' }
     },
+    'West Hollywood, California': {
+        rent: { status: 'green', text: 'Rent Stabilization Ordinance active' },
+        transit: { status: 'green', text: 'Free CityLine shuttle service' },
+        childcare: { status: 'yellow', text: 'Limited local programs, state support' }
+    },
+    'Beverly Hills, California': {
+        rent: { status: 'green', text: 'Rent stabilization for older units' },
+        transit: { status: 'yellow', text: 'Metro access but car-dependent' },
+        childcare: { status: 'yellow', text: 'High-quality private options dominate' }
+    },
+    'East Palo Alto, California': {
+        rent: { status: 'green', text: 'Rent stabilization passed 2016' },
+        transit: { status: 'yellow', text: 'Caltrain and SamTrans access' },
+        childcare: { status: 'yellow', text: 'State programs, limited local funding' }
+    },
+    'Alameda, California': {
+        rent: { status: 'green', text: 'Rent review and just cause eviction protections' },
+        transit: { status: 'yellow', text: 'AC Transit serves city' },
+        childcare: { status: 'yellow', text: 'Alameda Unified programs' }
+    },
+    'Richmond, California': {
+        rent: { status: 'green', text: 'Rent control ordinance covers most units' },
+        transit: { status: 'yellow', text: 'AC Transit and BART access' },
+        childcare: { status: 'yellow', text: 'West Contra Costa USD programs' }
+    },
+    'San Diego, California': {
+        rent: { status: 'yellow', text: 'AB 1482 state protections. No local control' },
+        transit: { status: 'yellow', text: 'MTS Trolley and buses. Youth discounts' },
+        childcare: { status: 'yellow', text: 'First 5 San Diego programs' }
+    },
+    'Sacramento, California': {
+        rent: { status: 'yellow', text: 'State protections only. Working on local ordinance' },
+        transit: { status: 'yellow', text: 'SacRT light rail and buses' },
+        childcare: { status: 'yellow', text: 'SCUSD Early Learning programs' }
+    },
+    'Fresno, California': {
+        rent: { status: 'yellow', text: 'State AB 1482 protections apply' },
+        transit: { status: 'yellow', text: 'FAX buses, standard fares' },
+        childcare: { status: 'yellow', text: 'Fresno USD State Preschool' }
+    },
+    'Long Beach, California': {
+        rent: { status: 'yellow', text: 'State rent cap, no local ordinance' },
+        transit: { status: 'yellow', text: 'Metro, LB Transit. Some free routes' },
+        childcare: { status: 'yellow', text: 'LBUSD Early Childhood Education' }
+    },
+    'Pasadena, California': {
+        rent: { status: 'yellow', text: 'Tenant protections, relocation assistance' },
+        transit: { status: 'yellow', text: 'Metro Gold Line, Pasadena Transit' },
+        childcare: { status: 'yellow', text: 'PUSD preschool programs' }
+    },
+    'Glendale, California': {
+        rent: { status: 'yellow', text: 'Just cause eviction, no rent control' },
+        transit: { status: 'yellow', text: 'Beeline buses, Metro access' },
+        childcare: { status: 'yellow', text: 'GUSD Early Childhood programs' }
+    },
+    'Santa Clara, California': {
+        rent: { status: 'green', text: 'Rent Stabilization Ordinance 2017' },
+        transit: { status: 'yellow', text: 'VTA light rail and buses' },
+        childcare: { status: 'yellow', text: 'Santa Clara USD programs' }
+    },
+    'Fremont, California': {
+        rent: { status: 'yellow', text: 'Tenant protections, state AB 1482 applies' },
+        transit: { status: 'yellow', text: 'AC Transit, BART Warm Springs station' },
+        childcare: { status: 'yellow', text: 'FUSD Early Learning' }
+    },
+    'Hayward, California': {
+        rent: { status: 'green', text: 'Rent Review Ordinance with caps' },
+        transit: { status: 'yellow', text: 'AC Transit, BART stations' },
+        childcare: { status: 'yellow', text: 'HUSD preschool programs' }
+    },
+    'Sunnyvale, California': {
+        rent: { status: 'yellow', text: 'Rental rights ordinance, no caps' },
+        transit: { status: 'yellow', text: 'VTA and Caltrain access' },
+        childcare: { status: 'yellow', text: 'Community Resources for Children' }
+    },
+    'Mountain View, California': {
+        rent: { status: 'green', text: 'Community Stabilization and Fair Rent Act' },
+        transit: { status: 'yellow', text: 'VTA, Caltrain, Google shuttles' },
+        childcare: { status: 'yellow', text: 'MVWSD Early Childhood' }
+    },
+    'Concord, California': {
+        rent: { status: 'yellow', text: 'Just cause eviction protections' },
+        transit: { status: 'yellow', text: 'County Connection buses, BART' },
+        childcare: { status: 'yellow', text: 'MDUSD preschool programs' }
+    },
+    'Daly City, California': {
+        rent: { status: 'yellow', text: 'State AB 1482 protections' },
+        transit: { status: 'yellow', text: 'BART, SamTrans buses' },
+        childcare: { status: 'yellow', text: 'JUHSD Early Learning' }
+    },
+    'San Mateo, California': {
+        rent: { status: 'yellow', text: 'Just cause eviction, relocation assistance' },
+        transit: { status: 'yellow', text: 'Caltrain, SamTrans buses' },
+        childcare: { status: 'yellow', text: 'SMFCSD programs' }
+    },
+    'Redwood City, California': {
+        rent: { status: 'yellow', text: 'Rental assistance programs available' },
+        transit: { status: 'yellow', text: 'Caltrain hub, SamTrans' },
+        childcare: { status: 'yellow', text: 'RCSD Early Childhood' }
+    },
+    'Union City, California': {
+        rent: { status: 'green', text: 'Rent Review Ordinance active' },
+        transit: { status: 'yellow', text: 'AC Transit, BART Warm Springs nearby' },
+        childcare: { status: 'yellow', text: 'NHUSD preschool' }
+    },
+    'San Leandro, California': {
+        rent: { status: 'yellow', text: 'Just cause eviction protections' },
+        transit: { status: 'yellow', text: 'AC Transit, BART stations' },
+        childcare: { status: 'yellow', text: 'SLZUSD Early Learning' }
+    },
+    'Burbank, California': {
+        rent: { status: 'yellow', text: 'Tenant protections, no rent control' },
+        transit: { status: 'yellow', text: 'Metro B Line, Metrolink' },
+        childcare: { status: 'yellow', text: 'BUSD Early Childhood' }
+    },
+    'Inglewood, California': {
+        rent: { status: 'yellow', text: 'State AB 1482 applies' },
+        transit: { status: 'green', text: 'Metro K Line. Free youth transit' },
+        childcare: { status: 'yellow', text: 'IUSD preschool programs' }
+    },
 
-    // NEW YORK
-    'New York': {
+    // ========================================
+    // OTHER STATES - Sample entries to demonstrate format
+    // ========================================
+    'New York City, New York': {
         rent: { status: 'green', text: 'Rent Stabilization covers 1M+ units' },
         transit: { status: 'green', text: 'Fair Fares NYC (50% off). Free buses pilot' },
         childcare: { status: 'green', text: '3-K and Pre-K for All (Universal)' }
     },
-    'Kingston': {
-        rent: { status: 'green', text: 'First upstate city to enact rent reduction (15%)' },
-        transit: { status: 'green', text: 'UCAT buses are fare-free' },
-        childcare: { status: 'yellow', text: 'State subsidies apply' }
+    'Albany, New York': {
+        rent: { status: 'green', text: 'Emergency Tenant Protection Act applies' },
+        transit: { status: 'yellow', text: 'CDTA bus system' },
+        childcare: { status: 'yellow', text: 'Universal Pre-K available' }
     },
-
-    // MASSACHUSETTS
-    'Boston': {
-        rent: { status: 'red', text: 'Rent control banned statewide. Home rule petition blocked' },
-        transit: { status: 'green', text: 'Mayor Wu: Free Bus Routes (23, 28, 29)' },
+    'Boston, Massachusetts': {
+        rent: { status: 'red', text: 'Rent control banned statewide (1994 referendum)' },
+        transit: { status: 'green', text: 'Free Bus Routes 23, 28, 29' },
         childcare: { status: 'green', text: 'Universal Pre-K expansion' }
     },
-    'Cambridge': {
-        rent: { status: 'red', text: 'Rent control banned statewide' },
-        transit: { status: 'yellow', text: 'MBTA fares standard' },
+    'Cambridge, Massachusetts': {
+        rent: { status: 'red', text: 'State ban on rent control since 1994' },
+        transit: { status: 'green', text: 'MBTA Red Line. Buses free for youth' },
         childcare: { status: 'green', text: 'Cambridge Preschool Program (Universal)' }
     },
-
-    // MISSOURI
-    'Kansas City': {
-        rent: { status: 'red', text: 'State ban on rent control' },
-        transit: { status: 'green', text: 'Zero Fare Transit (First major US city)' },
-        childcare: { status: 'yellow', text: 'State subsidies apply' }
-    },
-
-    // VIRGINIA
-    'Richmond': {
-        rent: { status: 'yellow', text: 'No rent control (Dillon Rule)' },
-        transit: { status: 'green', text: 'GRTC remains fare-free (Zero Fare)' },
-        childcare: { status: 'yellow', text: 'State subsidies apply' }
-    },
-    'Alexandria': {
-        rent: { status: 'yellow', text: 'Committed Affordable units only' },
-        transit: { status: 'green', text: 'DASH Bus is fare-free' },
-        childcare: { status: 'yellow', text: 'City subsidy program' }
-    },
-
-    // WASHINGTON
-    'Seattle': {
-        rent: { status: 'yellow', text: 'No rent caps, but 6-month notice required for increases' },
+    'Seattle, Washington': {
+        rent: { status: 'red', text: 'State ban prevents rent control' },
         transit: { status: 'green', text: 'Free transit for youth (18 & under)' },
         childcare: { status: 'green', text: 'Seattle Preschool Program (SPP)' }
     },
-    'Olympia': {
-        rent: { status: 'red', text: 'State ban on rent control' },
-        transit: { status: 'green', text: 'Intercity Transit is Zero Fare' },
-        childcare: { status: 'yellow', text: 'State subsidies apply' }
+    'Olympia, Washington': {
+        rent: { status: 'red', text: 'State preemption on rent control' },
+        transit: { status: 'green', text: 'Intercity Transit Zero Fare since 2020' },
+        childcare: { status: 'yellow', text: 'Early learning programs, ECEAP' }
     },
-
-    // OREGON
-    'Portland': {
-        rent: { status: 'green', text: 'Relocation assistance + State Cap (7% + CPI)' },
-        transit: { status: 'yellow', text: 'TriMet fares standard. Low-income fare available' },
+    'Portland, Oregon': {
+        rent: { status: 'green', text: 'State rent control (7% + CPI). Local protections' },
+        transit: { status: 'green', text: 'TriMet. Free for low-income (Honored Citizen)' },
         childcare: { status: 'green', text: 'Preschool for All (Multnomah County)' }
     },
-
-    // MINNESOTA
-    'St. Paul': {
-        rent: { status: 'green', text: 'Rent Stabilization Ordinance (3% cap)' },
-        transit: { status: 'yellow', text: 'Metro Transit fares standard' },
-        childcare: { status: 'yellow', text: 'St. Paul Pre-K' }
+    'Eugene, Oregon': {
+        rent: { status: 'green', text: 'Covered by state rent control law' },
+        transit: { status: 'yellow', text: 'LTD EmX bus rapid transit' },
+        childcare: { status: 'yellow', text: 'Relief nurseries and Head Start' }
     },
-    'Minneapolis': {
-        rent: { status: 'yellow', text: 'Rent control authorized but not yet enacted' },
-        transit: { status: 'yellow', text: 'Metro Transit fares standard' },
-        childcare: { status: 'yellow', text: 'Strong Start Minneapolis' }
+    'Denver, Colorado': {
+        rent: { status: 'yellow', text: 'Working to repeal state rent control ban' },
+        transit: { status: 'yellow', text: 'RTD light rail. Youth discounts' },
+        childcare: { status: 'green', text: 'Denver Preschool Program (DPP)' }
     },
-
-    // ARIZONA
-    'Tucson': {
+    'St. Paul, Minnesota': {
+        rent: { status: 'green', text: 'Rent Stabilization Ordinance - 3% cap' },
+        transit: { status: 'green', text: 'Metro Transit. Reduced fare programs' },
+        childcare: { status: 'yellow', text: 'Saint Paul Promise Neighborhood' }
+    },
+    'Minneapolis, Minnesota': {
+        rent: { status: 'yellow', text: 'Considering rent control, strong protections exist' },
+        transit: { status: 'green', text: 'Metro Transit light rail and buses' },
+        childcare: { status: 'yellow', text: 'Early Learning Scholarships' }
+    },
+    'Kansas City, Missouri': {
         rent: { status: 'red', text: 'State ban on rent control' },
-        transit: { status: 'green', text: 'Sun Tran is fare-free permanently' },
+        transit: { status: 'green', text: 'RideKC Zero Fare - first major US city!' },
+        childcare: { status: 'yellow', text: 'KC Early Learning program' }
+    },
+    'Tucson, Arizona': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'green', text: 'Sun Tran fare-free permanently' },
         childcare: { status: 'yellow', text: 'Pima Early Education Program' }
     },
-
-    // NEW MEXICO
-    'Albuquerque': {
+    'Albuquerque, New Mexico': {
         rent: { status: 'red', text: 'State ban on rent control' },
-        transit: { status: 'green', text: 'Zero Fares pilot permanent' },
-        childcare: { status: 'green', text: 'Free childcare for most families' }
+        transit: { status: 'green', text: 'Zero Fares pilot made permanent' },
+        childcare: { status: 'green', text: 'Free childcare for most families (NM)' }
+    },
+
+    // ========================================
+    // PENNSYLVANIA - Swing State
+    // ========================================
+    'Philadelphia, Pennsylvania': {
+        rent: { status: 'yellow', text: 'No rent control. Fair Housing enforced' },
+        transit: { status: 'green', text: 'SEPTA. Free for K-12 students' },
+        childcare: { status: 'green', text: 'PHLpreK for 3- and 4-year-olds' }
+    },
+    'Pittsburgh, Pennsylvania': {
+        rent: { status: 'yellow', text: 'Rental registration. No rent control' },
+        transit: { status: 'yellow', text: 'Port Authority buses and light rail' },
+        childcare: { status: 'yellow', text: 'PA Pre-K Counts program' }
+    },
+    'Erie, Pennsylvania': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable overall' },
+        transit: { status: 'yellow', text: 'EMTA buses' },
+        childcare: { status: 'yellow', text: 'PA Pre-K Counts' }
+    },
+    'Allentown, Pennsylvania': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
+        transit: { status: 'yellow', text: 'LANTA buses' },
+        childcare: { status: 'yellow', text: 'Pre-K programs available' }
+    },
+    'Scranton, Pennsylvania': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'COLTS buses' },
+        childcare: { status: 'yellow', text: 'Head Start programs' }
+    },
+
+    // ========================================
+    // OHIO - Swing State
+    // ========================================
+    'Columbus, Ohio': {
+        rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
+        transit: { status: 'yellow', text: 'COTA. Free for kids under 6' },
+        childcare: { status: 'yellow', text: 'Publicly Funded Child Care (PFCC)' }
+    },
+    'Cleveland, Ohio': {
+        rent: { status: 'yellow', text: 'Lead Safe Cleveland includes rentals' },
+        transit: { status: 'yellow', text: 'RTA light rail and buses' },
+        childcare: { status: 'yellow', text: 'PRE4CLE preschool initiative' }
+    },
+    'Cincinnati, Ohio': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'Metro buses, streetcar free' },
+        childcare: { status: 'yellow', text: 'Cincinnati Preschool Promise' }
+    },
+    'Toledo, Ohio': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'TARTA buses' },
+        childcare: { status: 'yellow', text: 'United Way programs' }
+    },
+    'Akron, Ohio': {
+        rent: { status: 'yellow', text: 'No rent control. Very affordable' },
+        transit: { status: 'yellow', text: 'Metro RTA buses' },
+        childcare: { status: 'yellow', text: 'Summit County programs' }
+    },
+    'Dayton, Ohio': {
+        rent: { status: 'yellow', text: 'No rent control. Very affordable' },
+        transit: { status: 'yellow', text: 'RTA buses' },
+        childcare: { status: 'yellow', text: 'Learn to Earn Dayton' }
+    },
+
+    // ========================================
+    // MICHIGAN - Swing State  
+    // ========================================
+    'Detroit, Michigan': {
+        rent: { status: 'red', text: 'No rent control. Low vacancy rates' },
+        transit: { status: 'yellow', text: 'DDOT/SMART buses. QLine streetcar' },
+        childcare: { status: 'yellow', text: 'Great Start Readiness Program' }
+    },
+    'Grand Rapids, Michigan': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
+        transit: { status: 'yellow', text: 'The Rapid buses. Silver Line BRT' },
+        childcare: { status: 'yellow', text: 'Great Start Readiness' }
+    },
+    'Ann Arbor, Michigan': {
+        rent: { status: 'yellow', text: 'No rent control. Strong tenant rights' },
+        transit: { status: 'green', text: 'TheRide buses free for UM students' },
+        childcare: { status: 'yellow', text: 'Strong preschool programs' }
+    },
+    'Flint, Michigan': {
+        rent: { status: 'yellow', text: 'No rent control. Very low costs' },
+        transit: { status: 'yellow', text: 'MTA buses' },
+        childcare: { status: 'yellow', text: 'Recovery programs post-crisis' }
+    },
+    'Lansing, Michigan': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'CATA buses' },
+        childcare: { status: 'yellow', text: 'Capital Area programs' }
+    },
+
+    // ========================================
+    // WISCONSIN - Swing State
+    // ========================================
+    'Madison, Wisconsin': {
+        rent: { status: 'red', text: 'State ban on rent control since 1995' },
+        transit: { status: 'yellow', text: 'Metro Transit free for UW students' },
+        childcare: { status: 'yellow', text: '4-K program for 4-year-olds' }
+    },
+    'Milwaukee, Wisconsin': {
+        rent: { status: 'red', text: 'State preemption prevents rent control' },
+        transit: { status: 'yellow', text: 'MCTS bus system. Hop streetcar' },
+        childcare: { status: 'yellow', text: 'Milwaukee Succeeds early learning' }
+    },
+    'Green Bay, Wisconsin': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'yellow', text: 'Green Bay Metro' },
+        childcare: { status: 'yellow', text: 'YoungStar Wisconsin' }
+    },
+    'Kenosha, Wisconsin': {
+        rent: { status: 'red', text: 'No rent control allowed' },
+        transit: { status: 'yellow', text: 'Kenosha Transit' },
+        childcare: { status: 'yellow', text: 'KUSD 4K program' }
+    },
+
+    // ========================================
+    // GEORGIA - Swing State
+    // ========================================
+    'Atlanta, Georgia': {
+        rent: { status: 'yellow', text: 'No rent control. Inclusionary zoning' },
+        transit: { status: 'yellow', text: 'MARTA rail/bus. Student discounts' },
+        childcare: { status: 'yellow', text: 'Atlanta Pre-K expanding' }
+    },
+    'Savannah, Georgia': {
+        rent: { status: 'yellow', text: 'Historic preservation affects rentals' },
+        transit: { status: 'yellow', text: 'CAT. Free DOT shuttle' },
+        childcare: { status: 'yellow', text: 'Quality Rated Pre-K' }
+    },
+    'Augusta, Georgia': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'red', text: 'Augusta Public Transit limited' },
+        childcare: { status: 'yellow', text: 'Georgia Pre-K available' }
+    },
+    'Columbus, Georgia': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'METRA buses' },
+        childcare: { status: 'yellow', text: 'Pre-K programs' }
+    },
+
+    // ========================================
+    // NORTH CAROLINA - Swing State
+    // ========================================
+    'Charlotte, North Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Tenant rights exist' },
+        transit: { status: 'yellow', text: 'CATS light rail and buses' },
+        childcare: { status: 'yellow', text: 'NC Pre-K program' }
+    },
+    'Raleigh, North Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable housing push' },
+        transit: { status: 'yellow', text: 'GoRaleigh buses' },
+        childcare: { status: 'yellow', text: 'Wake County Smart Start' }
+    },
+    'Durham, North Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Housing initiatives' },
+        transit: { status: 'yellow', text: 'GoDurham. GoTriangle' },
+        childcare: { status: 'yellow', text: 'Durham Pre-K' }
+    },
+    'Greensboro, North Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'GTA buses' },
+        childcare: { status: 'yellow', text: 'Guilford County Pre-K' }
+    },
+    'Winston-Salem, North Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'WSTA buses' },
+        childcare: { status: 'yellow', text: 'Forsyth County Pre-K' }
+    },
+
+    // ========================================
+    // ARIZONA - Swing State
+    // ========================================
+    'Phoenix, Arizona': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'yellow', text: 'Valley Metro light rail expanding' },
+        childcare: { status: 'yellow', text: 'Quality First scholarships' }
+    },
+    'Mesa, Arizona': {
+        rent: { status: 'red', text: 'No rent control permitted' },
+        transit: { status: 'yellow', text: 'Valley Metro access' },
+        childcare: { status: 'yellow', text: 'MPS Early Childhood' }
+    },
+    'Scottsdale, Arizona': {
+        rent: { status: 'red', text: 'State preemption' },
+        transit: { status: 'yellow', text: 'Valley Metro Trolley' },
+        childcare: { status: 'yellow', text: 'SUSD programs' }
+    },
+    'Tempe, Arizona': {
+        rent: { status: 'red', text: 'No rent control allowed' },
+        transit: { status: 'yellow', text: 'Valley Metro. Free Orbit' },
+        childcare: { status: 'yellow', text: 'TUHSD Early Learning' }
+    },
+
+    // ========================================
+    // NEVADA - Swing State
+    // ========================================
+    'Las Vegas, Nevada': {
+        rent: { status: 'yellow', text: 'No rent control. Rapid increases' },
+        transit: { status: 'yellow', text: 'RTC buses. Deuce on Strip' },
+        childcare: { status: 'yellow', text: 'Nevada Ready Pre-K' }
+    },
+    'Reno, Nevada': {
+        rent: { status: 'yellow', text: 'No rent control. Housing crisis' },
+        transit: { status: 'yellow', text: 'RTC RIDE buses' },
+        childcare: { status: 'yellow', text: 'WCSD Preschool Program' }
+    },
+    'Henderson, Nevada': {
+        rent: { status: 'yellow', text: 'No rent control. Growing market' },
+        transit: { status: 'yellow', text: 'RTC access' },
+        childcare: { status: 'yellow', text: 'CCSD programs' }
+    },
+
+    // ========================================
+    // FLORIDA - Swing State
+    // ========================================
+    'Miami, Florida': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'yellow', text: 'Metrorail/Metromover. Free circulator' },
+        childcare: { status: 'yellow', text: 'VPK (Voluntary Pre-K) program' }
+    },
+    'Tampa, Florida': {
+        rent: { status: 'red', text: 'No rent control allowed' },
+        transit: { status: 'yellow', text: 'TECO streetcar free downtown' },
+        childcare: { status: 'yellow', text: 'School Readiness program' }
+    },
+    'Orlando, Florida': {
+        rent: { status: 'red', text: 'State preemption on rent control' },
+        transit: { status: 'yellow', text: 'Lynx buses. SunRail commuter' },
+        childcare: { status: 'yellow', text: 'Early Learning Coalition' }
+    },
+    'Jacksonville, Florida': {
+        rent: { status: 'red', text: 'State ban applies' },
+        transit: { status: 'yellow', text: 'JTA buses. Skyway monorail' },
+        childcare: { status: 'yellow', text: 'VPK programs' }
+    },
+    'St. Petersburg, Florida': {
+        rent: { status: 'red', text: 'No rent control permitted' },
+        transit: { status: 'yellow', text: 'PSTA buses. Free Looper' },
+        childcare: { status: 'yellow', text: 'Pinellas County programs' }
+    },
+
+    // ========================================
+    // TEXAS - Major State
+    // ========================================
+    'Austin, Texas': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'yellow', text: 'CapMetro buses and light rail' },
+        childcare: { status: 'yellow', text: 'Texas Rising Star program' }
+    },
+    'Dallas, Texas': {
+        rent: { status: 'red', text: 'No rent control allowed' },
+        transit: { status: 'yellow', text: 'DART light rail extensive' },
+        childcare: { status: 'yellow', text: 'Dallas ISD Pre-K programs' }
+    },
+    'Houston, Texas': {
+        rent: { status: 'red', text: 'State preemption on rent control' },
+        transit: { status: 'yellow', text: 'METRO rail and buses' },
+        childcare: { status: 'yellow', text: 'Houston ISD Pre-K4' }
+    },
+    'San Antonio, Texas': {
+        rent: { status: 'red', text: 'Rent control banned statewide' },
+        transit: { status: 'yellow', text: 'VIA buses. Expanding service' },
+        childcare: { status: 'green', text: 'Pre-K 4 SA comprehensive program' }
+    },
+    'Fort Worth, Texas': {
+        rent: { status: 'red', text: 'State ban applies' },
+        transit: { status: 'yellow', text: 'The T buses. TEXRail' },
+        childcare: { status: 'yellow', text: 'FWISD Pre-K' }
+    },
+    'El Paso, Texas': {
+        rent: { status: 'red', text: 'No rent control' },
+        transit: { status: 'yellow', text: 'Sun Metro buses. Streetcar' },
+        childcare: { status: 'yellow', text: 'EPISD Early Childhood' }
+    },
+
+    // ========================================
+    // ILLINOIS
+    // ========================================
+    'Chicago, Illinois': {
+        rent: { status: 'red', text: 'State law bans rent control' },
+        transit: { status: 'green', text: 'CTA. Reduced fares seniors/students' },
+        childcare: { status: 'yellow', text: 'Chicago Early Learning' }
+    },
+    'Springfield, Illinois': {
+        rent: { status: 'red', text: 'State ban applies' },
+        transit: { status: 'yellow', text: 'SMTD buses' },
+        childcare: { status: 'yellow', text: 'District 186 Pre-K' }
+    },
+    'Naperville, Illinois': {
+        rent: { status: 'red', text: 'No rent control allowed' },
+        transit: { status: 'yellow', text: 'Pace buses. Metra' },
+        childcare: { status: 'yellow', text: 'District 203/204 programs' }
+    },
+
+    // ========================================
+    // NEW JERSEY
+    // ========================================
+    'Newark, New Jersey': {
+        rent: { status: 'green', text: 'Rent control ordinance since 1973' },
+        transit: { status: 'green', text: 'NJ Transit hub. Free senior buses' },
+        childcare: { status: 'yellow', text: 'Abbott Preschool Program' }
+    },
+    'Jersey City, New Jersey': {
+        rent: { status: 'green', text: 'Rent control for buildings pre-1987' },
+        transit: { status: 'green', text: 'PATH train to NYC. Light rail' },
+        childcare: { status: 'yellow', text: 'Expanded Pre-K programs' }
+    },
+    'Paterson, New Jersey': {
+        rent: { status: 'green', text: 'Rent control in effect' },
+        transit: { status: 'yellow', text: 'NJ Transit buses' },
+        childcare: { status: 'yellow', text: 'Abbott district programs' }
+    },
+
+    // ========================================
+    // VIRGINIA
+    // ========================================
+    'Richmond, Virginia': {
+        rent: { status: 'yellow', text: 'No rent control (Dillon Rule)' },
+        transit: { status: 'green', text: 'GRTC fare-free (Zero Fare)' },
+        childcare: { status: 'yellow', text: 'VPI (Virginia Preschool Initiative)' }
+    },
+    'Virginia Beach, Virginia': {
+        rent: { status: 'yellow', text: 'No state rent control' },
+        transit: { status: 'yellow', text: 'HRT Wave buses' },
+        childcare: { status: 'yellow', text: 'VBCPS Pre-K' }
+    },
+    'Norfolk, Virginia': {
+        rent: { status: 'yellow', text: 'Dillon Rule prevents control' },
+        transit: { status: 'yellow', text: 'HRT light rail. The Tide' },
+        childcare: { status: 'yellow', text: 'NPS Early Childhood' }
+    },
+    'Alexandria, Virginia': {
+        rent: { status: 'yellow', text: 'Committed Affordable units only' },
+        transit: { status: 'green', text: 'DASH Bus fare-free' },
+        childcare: { status: 'yellow', text: 'ACPS Pre-K programs' }
+    },
+    'Arlington, Virginia': {
+        rent: { status: 'yellow', text: 'No state rent control. High costs' },
+        transit: { status: 'green', text: 'Metro stations. Excellent access' },
+        childcare: { status: 'yellow', text: 'APS VPI programs' }
+    },
+
+    // ========================================
+    // MARYLAND
+    // ========================================
+    'Baltimore, Maryland': {
+        rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
+        transit: { status: 'yellow', text: 'Charm City Circulator free' },
+        childcare: { status: 'yellow', text: 'Judy Centers for early learning' }
+    },
+    'Takoma Park, Maryland': {
+        rent: { status: 'green', text: 'Rent stabilization ordinance active' },
+        transit: { status: 'green', text: 'Metro station. Free city buses' },
+        childcare: { status: 'yellow', text: 'Co-op preschools and state programs' }
+    },
+
+    // ========================================
+    // TENNESSEE
+    // ========================================
+    'Nashville, Tennessee': {
+        rent: { status: 'yellow', text: 'No rent control. Rapid growth' },
+        transit: { status: 'yellow', text: 'WeGo buses. No rail yet' },
+        childcare: { status: 'yellow', text: 'Voluntary Pre-K program' }
+    },
+    'Memphis, Tennessee': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable overall' },
+        transit: { status: 'yellow', text: 'MATA buses and trolley' },
+        childcare: { status: 'yellow', text: 'Pre-K programs expanding' }
+    },
+    'Knoxville, Tennessee': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'KAT buses' },
+        childcare: { status: 'yellow', text: 'Knox County Pre-K' }
+    },
+
+    // ========================================
+    // INDIANA
+    // ========================================
+    'Indianapolis, Indiana': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
+        transit: { status: 'yellow', text: 'IndyGo. Red Line BRT' },
+        childcare: { status: 'yellow', text: 'On My Way Pre-K vouchers' }
+    },
+    'Fort Wayne, Indiana': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'Citilink buses' },
+        childcare: { status: 'yellow', text: 'FWCS Early Childhood' }
+    },
+
+    // ========================================
+    // LOUISIANA
+    // ========================================
+    'New Orleans, Louisiana': {
+        rent: { status: 'yellow', text: 'No rent control. Post-Katrina issues' },
+        transit: { status: 'yellow', text: 'Streetcar and RTA buses' },
+        childcare: { status: 'yellow', text: 'LA 4 and Cecil J. Picard programs' }
+    },
+    'Baton Rouge, Louisiana': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'CATS buses' },
+        childcare: { status: 'yellow', text: 'EBR Pre-K programs' }
+    },
+
+    // ========================================
+    // KENTUCKY
+    // ========================================
+    'Louisville, Kentucky': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
+        transit: { status: 'yellow', text: 'TARC buses' },
+        childcare: { status: 'yellow', text: 'Kentucky Preschool Program' }
+    },
+    'Lexington, Kentucky': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'Lextran buses' },
+        childcare: { status: 'yellow', text: 'Fayette County Pre-K' }
+    },
+
+    // ========================================
+    // OKLAHOMA
+    // ========================================
+    'Oklahoma City, Oklahoma': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'Embark buses and streetcar' },
+        childcare: { status: 'yellow', text: 'Reach Out and Read Oklahoma' }
+    },
+    'Tulsa, Oklahoma': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'Tulsa Transit buses' },
+        childcare: { status: 'green', text: 'Educare Tulsa comprehensive' }
+    },
+
+    // ========================================
+    // MISSOURI
+    // ========================================
+    'St. Louis, Missouri': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs overall' },
+        transit: { status: 'yellow', text: 'MetroLink light rail. Buses' },
+        childcare: { status: 'yellow', text: 'Universal Pre-K initiative' }
+    },
+
+    // ========================================
+    // IOWA
+    // ========================================
+    'Des Moines, Iowa': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'DART buses' },
+        childcare: { status: 'yellow', text: 'Shared Visions preschool' }
+    },
+    'Iowa City, Iowa': {
+        rent: { status: 'yellow', text: 'No rent control. University market' },
+        transit: { status: 'green', text: 'Iowa City Transit free' },
+        childcare: { status: 'yellow', text: 'ICCSD Preschool Program' }
+    },
+    'Cedar Rapids, Iowa': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'CR Transit buses' },
+        childcare: { status: 'yellow', text: 'CRCSD Early Childhood' }
+    },
+
+    // ========================================
+    // KANSAS
+    // ========================================
+    'Wichita, Kansas': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'Wichita Transit' },
+        childcare: { status: 'yellow', text: 'USD 259 Pre-K' }
+    },
+    'Lawrence, Kansas': {
+        rent: { status: 'yellow', text: 'No rent control. College town' },
+        transit: { status: 'green', text: 'KU buses free for students' },
+        childcare: { status: 'yellow', text: 'USD 497 Preschool' }
+    },
+    'Topeka, Kansas': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'Topeka Metro buses' },
+        childcare: { status: 'yellow', text: 'Parents as Teachers program' }
+    },
+
+    // ========================================
+    // NEBRASKA
+    // ========================================
+    'Omaha, Nebraska': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
+        transit: { status: 'yellow', text: 'Metro buses' },
+        childcare: { status: 'yellow', text: 'Step Up to Quality Nebraska' }
+    },
+    'Lincoln, Nebraska': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'StarTran buses' },
+        childcare: { status: 'yellow', text: 'LPS Early Childhood programs' }
+    },
+
+    // ========================================
+    // SOUTH CAROLINA
+    // ========================================
+    'Charleston, South Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Rising costs' },
+        transit: { status: 'yellow', text: 'CARTA buses and trolleys' },
+        childcare: { status: 'yellow', text: 'SC First Steps' }
+    },
+    'Columbia, South Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'The COMET buses' },
+        childcare: { status: 'yellow', text: 'Richland County Pre-K' }
+    },
+    'Greenville, South Carolina': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'Greenlink buses' },
+        childcare: { status: 'yellow', text: 'ABC Quality program' }
+    },
+
+    // ========================================
+    // ALABAMA
+    // ========================================
+    'Birmingham, Alabama': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'red', text: 'MAX buses limited service' },
+        childcare: { status: 'yellow', text: 'Alabama First Class Pre-K' }
+    },
+    'Montgomery, Alabama': {
+        rent: { status: 'red', text: 'State preemption' },
+        transit: { status: 'red', text: 'The M buses limited' },
+        childcare: { status: 'yellow', text: 'First Class Pre-K' }
+    },
+
+    // ========================================
+    // MISSISSIPPI
+    // ========================================
+    'Jackson, Mississippi': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'red', text: 'JATRAN buses very limited' },
+        childcare: { status: 'yellow', text: 'MS Early Learning Guidelines' }
+    },
+
+    // ========================================
+    // ARKANSAS
+    // ========================================
+    'Little Rock, Arkansas': {
+        rent: { status: 'red', text: 'State ban on rent control' },
+        transit: { status: 'red', text: 'Rock Region Metro limited' },
+        childcare: { status: 'yellow', text: 'Arkansas Better Chance (ABC)' }
+    },
+
+    // ========================================
+    // UTAH
+    // ========================================
+    'Salt Lake City, Utah': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate increases' },
+        transit: { status: 'yellow', text: 'TRAX light rail. UTA buses' },
+        childcare: { status: 'yellow', text: 'School Readiness Initiative' }
+    },
+    'Provo, Utah': {
+        rent: { status: 'yellow', text: 'No rent control. College market' },
+        transit: { status: 'yellow', text: 'UVX BRT. UTA buses' },
+        childcare: { status: 'yellow', text: 'PSD Early Learning' }
+    },
+
+    // ========================================
+    // IDAHO
+    // ========================================
+    'Boise, Idaho': {
+        rent: { status: 'yellow', text: 'No rent control. Rapid growth' },
+        transit: { status: 'yellow', text: 'ValleyRide buses' },
+        childcare: { status: 'yellow', text: 'Idaho Stars program' }
+    },
+
+    // ========================================
+    // MONTANA
+    // ========================================
+    'Billings, Montana': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'MET Transit buses' },
+        childcare: { status: 'yellow', text: 'Best Beginnings' }
+    },
+    'Missoula, Montana': {
+        rent: { status: 'yellow', text: 'No rent control. University town' },
+        transit: { status: 'green', text: 'Mountain Line buses free' },
+        childcare: { status: 'yellow', text: 'Best Beginnings scholarships' }
+    },
+
+    // ========================================
+    // ALASKA
+    // ========================================
+    'Anchorage, Alaska': {
+        rent: { status: 'yellow', text: 'No rent control. Seasonal variation' },
+        transit: { status: 'yellow', text: 'People Mover buses' },
+        childcare: { status: 'yellow', text: 'Learn & Grow programs' }
+    },
+
+    // ========================================
+    // HAWAII
+    // ========================================
+    'Honolulu, Hawaii': {
+        rent: { status: 'yellow', text: 'No rent control. Highest costs in US' },
+        transit: { status: 'yellow', text: 'TheBus extensive. Rail under construction' },
+        childcare: { status: 'yellow', text: 'Preschool Open Doors program' }
+    },
+
+    // ========================================
+    // VERMONT
+    // ========================================
+    'Burlington, Vermont': {
+        rent: { status: 'yellow', text: 'No rent control. Tight market' },
+        transit: { status: 'green', text: 'Green Mountain Transit free' },
+        childcare: { status: 'yellow', text: 'Act 166 Universal Pre-K' }
+    },
+
+    // ========================================
+    // MAINE
+    // ========================================
+    'Portland, Maine': {
+        rent: { status: 'yellow', text: 'No rent control. Increasing costs' },
+        transit: { status: 'yellow', text: 'Metro buses seasonal' },
+        childcare: { status: 'yellow', text: 'Maine Roads to Quality' }
+    },
+
+    // ========================================
+    // NEW HAMPSHIRE
+    // ========================================
+    'Manchester, New Hampshire': {
+        rent: { status: 'yellow', text: 'No rent control. Moderate' },
+        transit: { status: 'yellow', text: 'MTA buses' },
+        childcare: { status: 'yellow', text: 'NH Scholarships' }
+    },
+
+    // ========================================
+    // RHODE ISLAND
+    // ========================================
+    'Providence, Rhode Island': {
+        rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
+        transit: { status: 'yellow', text: 'RIPTA buses statewide' },
+        childcare: { status: 'yellow', text: 'RI Pre-K expanding' }
+    },
+
+    // ========================================
+    // CONNECTICUT
+    // ========================================
+    'Hartford, Connecticut': {
+        rent: { status: 'yellow', text: 'No rent control. Mediation available' },
+        transit: { status: 'yellow', text: 'CTtransit bus system' },
+        childcare: { status: 'yellow', text: 'School Readiness program' }
+    },
+    'New Haven, Connecticut': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'CT Transit buses' },
+        childcare: { status: 'yellow', text: 'NHPS Early Childhood' }
+    },
+
+    // ========================================
+    // DELAWARE
+    // ========================================
+    'Wilmington, Delaware': {
+        rent: { status: 'yellow', text: 'No rent control. Affordable' },
+        transit: { status: 'yellow', text: 'DART First State buses' },
+        childcare: { status: 'yellow', text: 'Delaware Stars for Early Success' }
+    },
+
+    // ========================================
+    // WEST VIRGINIA
+    // ========================================
+    'Charleston, West Virginia': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'yellow', text: 'KRT buses limited' },
+        childcare: { status: 'yellow', text: 'WV Birth to Three. Pre-K' }
+    },
+
+    // ========================================
+    // SOUTH DAKOTA
+    // ========================================
+    'Sioux Falls, South Dakota': {
+        rent: { status: 'yellow', text: 'No rent control. Growing market' },
+        transit: { status: 'red', text: 'SAM buses very limited' },
+        childcare: { status: 'yellow', text: 'Birth to 3 Connections' }
+    },
+
+    // ========================================
+    // NORTH DAKOTA
+    // ========================================
+    'Fargo, North Dakota': {
+        rent: { status: 'yellow', text: 'No rent control. Oil boom effects' },
+        transit: { status: 'yellow', text: 'MATBUS buses' },
+        childcare: { status: 'yellow', text: 'ND Early Childhood Programs' }
+    },
+
+    // ========================================
+    // WYOMING
+    // ========================================
+    'Cheyenne, Wyoming': {
+        rent: { status: 'yellow', text: 'No rent control. Low costs' },
+        transit: { status: 'red', text: 'Cheyenne Transit very limited' },
+        childcare: { status: 'yellow', text: 'WY Early Childhood' }
     }
 };
 
 /**
- * Helper to get policy data for any city in the US
- * @param {string} city - City name
+ * Get policy data for a specific location and state
+ * @param {string} location - Location name
  * @param {string} state - State name
  * @returns {Object} Policy data with rent, transit, childcare info
  */
-export function getPolicyData(city, state) {
-    // 1. Check for City Override
-    // Try exact match
-    if (CITY_OVERRIDES[city]) {
-        return CITY_OVERRIDES[city];
+export function getPolicyData(location, state) {
+    // Check for location-specific overrides first
+    const locationKey = `${location}, ${state}`;
+    if (LOCATION_OVERRIDES[locationKey]) {
+        return LOCATION_OVERRIDES[locationKey];
     }
 
-    // Try matching "City" suffix variations if needed (e.g. "New York City" vs "New York")
-    const cleanCity = city.replace(' City', '');
-    if (CITY_OVERRIDES[cleanCity]) {
-        return CITY_OVERRIDES[cleanCity];
-    }
-
-    // 2. Fallback to State Default
-    if (STATE_POLICIES[state]) {
-        return STATE_POLICIES[state];
-    }
-
-    // 3. Ultimate Fallback (Unknown State)
-    return {
-        rent: { status: 'yellow', text: 'Local regulations vary' },
-        transit: { status: 'yellow', text: 'Standard fares apply' },
-        childcare: { status: 'yellow', text: 'State/Federal subsidies may apply' }
+    // Fall back to state-level policies
+    return STATE_POLICIES[state] || {
+        rent: { status: 'loading', text: 'Loading policy data...' },
+        transit: { status: 'loading', text: 'Loading policy data...' },
+        childcare: { status: 'loading', text: 'Loading policy data...' }
     };
 }

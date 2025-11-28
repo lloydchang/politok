@@ -6,11 +6,12 @@ import {
     CHAT_DATA,
     FEED_ITEMS
 } from '@politok/shared/constants';
-import { useChat, useFeed } from '@politok/shared/hooks';
+import { COLORS } from '@politok/shared';
+import { useFeed } from '@politok/shared/hooks';
 import { useAnalytics } from '../lib/analytics';
-import PropCard from './cards/PropCard';
-import StatCard from './cards/StatCard';
-import ResultsCard from './cards/ResultsCard';
+import Proposition from './Proposition';
+import Statistic from './Statistic';
+import Result from './Result';
 import Dashboard from './Dashboard';
 
 const { width, height } = Dimensions.get('window');
@@ -31,10 +32,7 @@ export default function Feed() {
         goToNext
     } = useFeed(FEED_ITEMS, analytics);
 
-    const chatMessages = useChat({
-        intervalMs: 1500, // Slower for mobile
-        maxMessages: 5
-    });
+
 
     const scrollViewRef = useRef(null);
 
@@ -59,9 +57,7 @@ export default function Feed() {
     // Auto-play logic
     useEffect(() => {
         let delay;
-        if (currentItem?.type === 'stat') {
-            delay = 2000; // 2 seconds for stats
-        } else if (currentItem?.type === 'prop' && !hasVotedOnCurrent) {
+        if (currentItem?.type === 'prop' && !hasVotedOnCurrent) {
             delay = 4000; // 4 seconds to vote on props
         } else if (currentItem?.type === 'prop' && hasVotedOnCurrent) {
             delay = 1000; // Quick advance after voting
@@ -84,16 +80,33 @@ export default function Feed() {
     const renderCard = (item, index) => {
         switch (item.type) {
             case 'prop':
+                if (item.stat) {
+                    return (
+                        <View style={{ flex: 1 }}>
+                            <View style={{ height: height * 0.45, overflow: 'hidden' }}>
+                                <Statistic stat={item.stat} />
+                            </View>
+                            <View style={{ flex: 1 }}>
+                                <Proposition
+                                    proposition={item.data}
+                                    onVote={(option) => handleVote(item.data.id, option)}
+                                    hasVoted={votes[item.data.id]}
+                                />
+                            </View>
+                        </View>
+                    );
+                }
                 return (
-                    <PropCard
+                    <Proposition
                         proposition={item.data}
                         onVote={(option) => handleVote(item.data.id, option)}
                         hasVoted={votes[item.data.id]}
                     />
                 );
+
             case 'results':
                 return (
-                    <ResultsCard
+                    <Result
                         resultStats={results?.stats}
                         identityLabel={results?.identity}
                         percentileData={results?.percentile}
@@ -102,7 +115,7 @@ export default function Feed() {
                     />
                 );
             case 'stat':
-                return <StatCard stat={item.data} />;
+                return <Statistic stat={item.data} />;
             case 'dashboard':
                 return <Dashboard />;
             default:
@@ -112,67 +125,56 @@ export default function Feed() {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
-
-            <ScrollView
-                ref={scrollViewRef}
-                pagingEnabled
-                showsVerticalScrollIndicator={false}
-                onMomentumScrollEnd={handleScroll}
-                style={styles.scrollView}
+            <LinearGradient
+                colors={COLORS.BG_GRADIENT_MOBILE}
+                style={styles.gradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
             >
-                {FEED_ITEMS.map((item, index) => (
-                    <View key={index} style={styles.pageContainer}>
-                        {renderCard(item, index)}
-                    </View>
-                ))}
-            </ScrollView>
+                <StatusBar barStyle="light-content" />
 
-            {/* PoliTok Simulation Overlay */}
-            <View style={styles.overlayHeader} pointerEvents="box-none">
-                <View style={styles.liveTagContainer}>
-                    <BlurView intensity={50} tint="dark" style={styles.blurBadge}>
-                        <View style={styles.liveDot} />
-                        <Text style={styles.liveText}>LIVE</Text>
+                <ScrollView
+                    ref={scrollViewRef}
+                    pagingEnabled
+                    showsVerticalScrollIndicator={false}
+                    onMomentumScrollEnd={handleScroll}
+                    style={styles.scrollView}
+                >
+                    {FEED_ITEMS.map((item, index) => (
+                        <View key={index} style={styles.pageContainer}>
+                            {renderCard(item, index)}
+                        </View>
+                    ))}
+                </ScrollView>
+
+                {/* PoliTok Simulation Overlay */}
+                <View style={styles.overlayHeader} pointerEvents="box-none">
+                    <View style={styles.liveTagContainer}>
+                        {/* LIVE indicator removed */}
+                    </View>
+
+
+                </View>
+
+                {/* Progress dots */}
+                <View style={styles.progressContainer}>
+                    <BlurView intensity={30} tint="dark" style={styles.progressBlur}>
+                        {FEED_ITEMS.map((_, idx) => (
+                            <TouchableOpacity
+                                key={idx}
+                                onPress={() => setCurrentIndex(idx)}
+                                style={[
+                                    styles.dot,
+                                    idx === currentIndex ? styles.activeDot : styles.inactiveDot
+                                ]}
+                            />
+                        ))}
                     </BlurView>
                 </View>
 
-                <View style={styles.statsContainer}>
-                    <View style={styles.statRow}>
-                        <Text style={styles.statLabel}>VIEWS</Text>
-                        <Text style={styles.statValue}>
-                            {(1200 + (currentIndex * 850) + (Object.keys(votes).length * 2400)).toLocaleString()}
-                        </Text>
-                    </View>
-                </View>
-            </View>
+                {/* Live Comments Stream removed */}
 
-            {/* Progress dots */}
-            <View style={styles.progressContainer}>
-                <BlurView intensity={30} tint="dark" style={styles.progressBlur}>
-                    {FEED_ITEMS.map((_, idx) => (
-                        <TouchableOpacity
-                            key={idx}
-                            onPress={() => setCurrentIndex(idx)}
-                            style={[
-                                styles.dot,
-                                idx === currentIndex ? styles.activeDot : styles.inactiveDot
-                            ]}
-                        />
-                    ))}
-                </BlurView>
-            </View>
-
-            {/* Live Comments Stream */}
-            <View style={styles.chatContainer} pointerEvents="none">
-                {chatMessages.map((msg) => (
-                    <View key={msg.id} style={styles.chatMessage}>
-                        <Text style={[styles.chatUser, { color: msg.color }]}>{msg.user}:</Text>
-                        <Text style={styles.chatText}>{msg.text}</Text>
-                    </View>
-                ))}
-            </View>
-
+            </LinearGradient>
         </View>
     );
 }
@@ -181,6 +183,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'black',
+    },
+    gradient: {
+        flex: 1,
     },
     scrollView: {
         flex: 1,

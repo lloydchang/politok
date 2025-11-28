@@ -1,7 +1,8 @@
 import React from 'react';
 import { useStatCard } from '@politok/shared/hooks';
+import { COLORS } from '@politok/shared';
 
-export default function StatCard({ stat }) {
+export default function Statistic({ stat }) {
     const gradient = useStatCard();
 
     return (
@@ -22,24 +23,17 @@ export default function StatCard({ stat }) {
                     <div className="text-6xl mb-6 animate-bounce">{stat.emoji}</div>
                 )}
 
-                <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight drop-shadow-2xl">
+                <h2 className="text-4xl font-black mb-4 leading-tight" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
                     {stat.title}
                 </h2>
 
-                {stat.value && (
-                    <div className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-2xl animate-pulse">
-                        {stat.value}
-                    </div>
-                )}
+                <div className="text-6xl font-black mb-4 text-white tracking-tight">
+                    {stat.value}
+                </div>
 
-                <p className="text-xl md:text-2xl text-white/90 font-bold leading-relaxed drop-shadow-lg">
+                <p className="text-lg font-medium leading-relaxed max-w-xs mx-auto" style={{ color: COLORS.TEXT_LIGHT_GRAY }}>
                     {stat.description}
                 </p>
-            </div>
-
-            {/* Badge */}
-            <div className="absolute top-8 left-8 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm font-bold">
-                {stat.badge || 'Did you know?'}
             </div>
         </div>
     );
