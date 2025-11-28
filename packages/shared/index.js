@@ -210,7 +210,7 @@ export function generateShareText(votes, resultStats) {
     } else if (vote === 'no') {
       emoji = '❌';
     } else {
-      emoji = '🤷';
+      emoji = '❔';
     }
     shareText += `${prop.title} ${emoji}\n`;
   });
@@ -531,7 +531,7 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
     } else if (vote === 'no') {
       emoji = '❌';
     } else {
-      emoji = '🤷';
+      emoji = '❔';
     }
     shareText += `${prop.title} ${emoji}\n`;
   });
