@@ -49,18 +49,51 @@ export default function Dashboard() {
             pickRandomLocation();
             const interval = setInterval(() => {
                 pickRandomLocation();
-            }, 1000);
+            }, 3000);
             return () => clearInterval(interval);
         }
     }, [travelMode]);
 
+    // Generate consistent seed from location string
+    const getLocationSeed = (loc) => {
+        let hash = 0;
+        for (let i = 0; i < loc.length; i++) {
+            hash = ((hash << 5) - hash) + loc.charCodeAt(i);
+            hash = hash & hash;
+        }
+        return Math.abs(hash);
+    };
+
+    const getImageUrl = (loc) => {
+        const encodedLocation = encodeURIComponent(loc);
+        const seed = getLocationSeed(loc);
+        return `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}%20city%20landmark%20street%20view?width=1080&height=1920&nologo=true&seed=${seed}`;
+    };
+
     useEffect(() => {
-        const encodedLocation = encodeURIComponent(location);
-        // Using Pollinations.ai to generate/fetch a representative image of the location
-        // This simulates a "lookup" by generating a photorealistic image of the specific city
-        const imageUrl = `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}%20city%20landmark%20street%20view?width=1080&height=1920&nologo=true&seed=${Math.random()}`;
-        setBackgroundImage(imageUrl);
-    }, [location]);
+        const imageUrl = getImageUrl(location);
+
+        // Preload the image
+        const img = new Image();
+        img.onload = () => {
+            setBackgroundImage(imageUrl);
+        };
+        img.src = imageUrl;
+
+        // Preload next potential location if in travel mode
+        if (travelMode) {
+            const states = Object.keys(STATE_POLICIES);
+            const randomState = states[Math.floor(Math.random() * states.length)];
+            const locationsInState = STATE_LOCATIONS[randomState] || [randomState];
+            const randomLocation = locationsInState[Math.floor(Math.random() * locationsInState.length)];
+            const nextLocation = `${randomLocation}, ${randomState}`;
+            const nextImageUrl = getImageUrl(nextLocation);
+
+            // Preload in background
+            const preloadImg = new Image();
+            preloadImg.src = nextImageUrl;
+        }
+    }, [location, travelMode]);
 
     const detectUserLocation = async () => {
         setLoading(true);
