@@ -67,7 +67,7 @@ export default function Dashboard() {
     const getImageUrl = (loc) => {
         const encodedLocation = encodeURIComponent(loc);
         const seed = getLocationSeed(loc);
-        return `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}%20city%20landmark%20street%20view?width=1080&height=1920&nologo=true&seed=${seed}`;
+        return `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}?width=1080&height=1920&nologo=true&seed=${seed}`;
     };
 
     useEffect(() => {
