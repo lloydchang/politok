@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "politok",
-  description: "Affordability VOTE",
+  title: "poliTok",
+  description: "",
 };
 
 export default function RootLayout({ children }) {
