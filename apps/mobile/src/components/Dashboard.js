@@ -29,9 +29,9 @@ function PolicyCard({ policy, data }) {
 }
 
 export default function Dashboard() {
-    const [location, setLocation] = useState('San Francisco, California');
+    const [location, setLocation] = useState('Mesa, Arizona');
     const [travelMode, setTravelMode] = useState(false);
-    const [locationData, setLocationDataState] = useState({ location: 'San Francisco', state: 'California' }); // Renamed to avoid conflict
+    const [locationData, setLocationDataState] = useState({ location: 'Mesa', state: 'Arizona' });
 
     const [locationName, stateName] = location.split(', ');
     const policyData = getPolicyData(locationName, stateName);

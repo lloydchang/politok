@@ -26,10 +26,10 @@ function PolicyCard({ policy, data }) {
 }
 
 export default function Dashboard() {
-    const [location, setLocation] = useState('San Francisco, California');
+    const [location, setLocation] = useState('Mesa, Arizona');
     const [travelMode, setTravelMode] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [currentLocationData, setCurrentLocationData] = useState({ location: 'San Francisco', state: 'California' });
+    const [currentLocationData, setCurrentLocationData] = useState({ location: 'Mesa', state: 'Arizona' });
 
     const [locationName, stateName] = location.split(', ');
     const policyData = getPolicyData(locationName, stateName);
@@ -64,24 +64,24 @@ export default function Dashboard() {
                         );
                         const data = await response.json();
 
-                        const detectedLocation = data.address.city || data.address.town || data.address.village || 'San Francisco';
-                        const detectedState = data.address.state || 'California';
+                        const detectedLocation = data.address.city || data.address.town || data.address.village || 'Mesa';
+                        const detectedState = data.address.state || 'Arizona';
 
                         updateLocationState(detectedLocation, detectedState);
                     } catch (error) {
                         console.error('Geocoding error:', error);
-                        updateLocationState('San Francisco', 'California');
+                        updateLocationState('Mesa', 'Arizona');
                     }
                     setLoading(false);
                 },
                 (error) => {
                     console.error('Geolocation error:', error);
-                    updateLocationState('San Francisco', 'California');
+                    updateLocationState('Mesa', 'Arizona');
                     setLoading(false);
                 }
             );
         } else {
-            updateLocationState('San Francisco', 'California');
+            updateLocationState('Mesa', 'Arizona');
             setLoading(false);
         }
     };
