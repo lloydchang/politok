@@ -226,13 +226,7 @@ export default function Feed() {
                     </div>
                 </div>
 
-                {/* Start Over Button - Persistent */}
-                <button
-                    onClick={handleReset}
-                    className="pointer-events-auto bg-white text-black border-2 border-white/50 px-4 py-1 rounded-full font-bold text-xs hover:bg-gray-200 transition shadow-lg"
-                >
-                    ↺
-                </button>
+
 
                 <div className="flex flex-col items-end gap-1">
                     <div className="flex items-center gap-2 text-white drop-shadow-md">
@@ -262,31 +256,6 @@ export default function Feed() {
             </div>
 
 
-
-            {/* Bottom Navigation (TikTok Style) */}
-            <div className="fixed bottom-0 left-0 right-0 h-16 bg-black text-white flex justify-around items-center z-50 border-t border-white/10">
-                <div className="flex flex-col items-center opacity-100">
-                    <span className="text-xl">🏠</span>
-                    <span className="text-[10px] font-bold">Home</span>
-                </div>
-                <div className="flex flex-col items-center opacity-60">
-                    <span className="text-xl">👥</span>
-                    <span className="text-[10px]">Friends</span>
-                </div>
-
-                {/* Go Live / Create Button */}
-                {/* LIVE button removed */}
-
-
-                <div className="flex flex-col items-center opacity-60">
-                    <span className="text-xl">💬</span>
-                    <span className="text-[10px]">Inbox</span>
-                </div>
-                <div className="flex flex-col items-center opacity-60">
-                    <span className="text-xl">👤</span>
-                    <span className="text-[10px]">Profile</span>
-                </div>
-            </div>
 
             {/* Gift/Rose Animation Overlay */}
             {giftAnimation && (

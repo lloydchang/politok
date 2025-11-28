@@ -47,9 +47,9 @@ export default function Dashboard() {
                 pickRandomCity();
             }, 1000);
             return () => clearInterval(interval);
-        } else {
-            detectUserLocation();
         }
+        // When travel mode is off, just pause at current location
+        // Don't reset to user's actual location
     }, [travelMode]);
 
     const detectUserLocation = () => {
@@ -116,11 +116,10 @@ export default function Dashboard() {
             <div className="max-w-2xl mx-auto w-full flex-1 flex flex-col justify-center">
                 {/* Header */}
                 <div className="text-center mb-0">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-6">poliTok</h1>
+                    {/* Location and controls */}
 
                     <div className="flex items-center justify-center gap-2 text-gray-700 mb-3">
-                        <MapPin size={16} />
-                        <span className="font-semibold text-sm">{location}</span>
+                        <span className="text-lg font-semibold">{location}</span>
                     </div>
 
                     {/* Travel Mode Toggle */}

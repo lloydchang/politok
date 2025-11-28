@@ -17,11 +17,21 @@ export function useChat(options = {}) {
 
     const [chatMessages, setChatMessages] = useState([]);
 
+    // Hash function to get consistent color per username
+    const getUserColor = (username) => {
+        let hash = 0;
+        for (let i = 0; i < username.length; i++) {
+            hash = username.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const index = Math.abs(hash) % colors.length;
+        return colors[index];
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (Math.random() < chanceToAdd) {
                 const newUser = CHAT_DATA.USERS[Math.floor(Math.random() * CHAT_DATA.USERS.length)];
-                const newColor = colors[Math.floor(Math.random() * colors.length)];
+                const newColor = getUserColor(newUser); // Consistent color per user
                 const newText = CHAT_DATA.MESSAGES[Math.floor(Math.random() * CHAT_DATA.MESSAGES.length)];
 
                 setChatMessages(prev => {

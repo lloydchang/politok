@@ -137,10 +137,6 @@ export default function Feed() {
                     </BlurView>
                 </View>
 
-                <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
-                    <Text style={styles.resetButtonText}>↺</Text>
-                </TouchableOpacity>
-
                 <View style={styles.statsContainer}>
                     <View style={styles.statRow}>
                         <Text style={styles.statLabel}>VIEWS</Text>
@@ -152,11 +148,12 @@ export default function Feed() {
             </View>
 
             {/* Progress dots */}
-            <View style={styles.progressContainer} pointerEvents="none">
+            <View style={styles.progressContainer}>
                 <BlurView intensity={30} tint="dark" style={styles.progressBlur}>
                     {FEED_ITEMS.map((_, idx) => (
-                        <View
+                        <TouchableOpacity
                             key={idx}
+                            onPress={() => setCurrentIndex(idx)}
                             style={[
                                 styles.dot,
                                 idx === currentIndex ? styles.activeDot : styles.inactiveDot
@@ -176,35 +173,6 @@ export default function Feed() {
                 ))}
             </View>
 
-            {/* Bottom Navigation (TikTok Style) */}
-            <View style={styles.bottomNav}>
-                <View style={styles.navItem}>
-                    <Text style={styles.navIcon}>🏠</Text>
-                    <Text style={styles.navLabel}>Home</Text>
-                </View>
-                <View style={[styles.navItem, { opacity: 0.6 }]}>
-                    <Text style={styles.navIcon}>👥</Text>
-                    <Text style={styles.navLabel}>Friends</Text>
-                </View>
-
-                {/* Create Button */}
-                <View style={styles.createButtonContainer}>
-                    <View style={[styles.createButtonBg, { backgroundColor: '#22d3ee', left: 2 }]} />
-                    <View style={[styles.createButtonBg, { backgroundColor: '#f87171', right: 2 }]} />
-                    <View style={styles.createButton}>
-                        <Text style={styles.plusIcon}>+</Text>
-                    </View>
-                </View>
-
-                <View style={[styles.navItem, { opacity: 0.6 }]}>
-                    <Text style={styles.navIcon}>💬</Text>
-                    <Text style={styles.navLabel}>Inbox</Text>
-                </View>
-                <View style={[styles.navItem, { opacity: 0.6 }]}>
-                    <Text style={styles.navIcon}>👤</Text>
-                    <Text style={styles.navLabel}>Profile</Text>
-                </View>
-            </View>
         </View>
     );
 }
@@ -357,14 +325,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        height: 80,
+        height: 64,
         backgroundColor: 'black',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 20, // Safe area
         borderTopWidth: 1,
         borderTopColor: 'rgba(255, 255, 255, 0.1)',
+        zIndex: 50,
     },
     navItem: {
         alignItems: 'center',
@@ -373,6 +341,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         color: 'white',
         marginBottom: 4,
+    },
+    navIconLarge: {
+        fontSize: 32,
+        color: 'white',
     },
     navLabel: {
         color: 'white',

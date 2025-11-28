@@ -48,10 +48,9 @@ export default function Dashboard() {
                 pickRandomCity();
             }, 3000); // Slower interval for mobile
             return () => clearInterval(interval);
-        } else {
-            // Default to SF for now on mobile to avoid permission complexity
-            setLocationData('San Francisco', 'California');
         }
+        // When travel mode is off, just pause at current location
+        // Don't reset to user's location
     }, [travelMode]);
 
     const pickRandomCity = () => {
@@ -81,10 +80,8 @@ export default function Dashboard() {
             >
                 <ScrollView contentContainerStyle={styles.scrollContent}>
                     <View style={styles.header}>
-                        <Text style={styles.appTitle}>poliTok</Text>
 
                         <View style={styles.locationContainer}>
-                            <MaterialCommunityIcons name="map-marker" size={16} color="#334155" />
                             <Text style={styles.locationText}>{location}</Text>
                         </View>
 
