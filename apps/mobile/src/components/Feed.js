@@ -234,7 +234,7 @@ export default function Feed() {
                 </View>
 
                 <TouchableOpacity onPress={handleReset} style={styles.resetButton}>
-                    <Text style={styles.resetButtonText}>START OVER ↺</Text>
+                    <Text style={styles.resetButtonText}>↺</Text>
                 </TouchableOpacity>
 
                 <View style={styles.statsContainer}>

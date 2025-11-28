@@ -113,7 +113,7 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
                         onPress={onReset}
                         style={styles.resetButton}
                     >
-                        <Text style={styles.resetButtonText}>START OVER ↺</Text>
+                        <Text style={styles.resetButtonText}>↺</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </LinearGradient>

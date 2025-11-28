@@ -397,7 +397,7 @@ export default function Feed() {
                     onClick={handleReset}
                     className="pointer-events-auto bg-white text-black border-2 border-white/50 px-4 py-1 rounded-full font-bold text-xs hover:bg-gray-200 transition shadow-lg"
                 >
-                    START OVER ↺
+                    ↺
                 </button>
 
                 <div className="flex flex-col items-end gap-1">
