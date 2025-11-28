@@ -1,7 +1,10 @@
 import React from 'react';
 import { COLORS, generateViralShareText } from '@politok/shared';
+import { useResultsCard } from '@politok/shared/hooks';
 
 export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
+    const { sortedStats } = useResultsCard(resultStats);
+
     if (!resultStats || !identityLabel) return null;
 
     const handleTikTokShare = () => {
@@ -65,55 +68,18 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
                 </div>
 
                 {/* Score bars */}
-                {/* Score bars */}
                 <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 shadow-xl mb-6 flex flex-col gap-4">
-                    {resultStats.oligarchy > resultStats.equity ? (
-                        <>
-                            {/* Oligarchy First */}
-                            <div>
-                                <div className="flex justify-between items-end mb-1">
-                                    <span className="text-xl font-bold text-slate-700">Oligarchy</span>
-                                    <span className="text-3xl font-black text-red-600">{resultStats.oligarchy}%</span>
-                                </div>
-                                <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                                    <div className="h-full bg-red-600 transition-all duration-1000 ease-out" style={{ width: `${resultStats.oligarchy}%` }} />
-                                </div>
+                    {sortedStats.map((stat) => (
+                        <div key={stat.key}>
+                            <div className="flex justify-between items-end mb-1">
+                                <span className="text-xl font-bold text-slate-700">{stat.label}</span>
+                                <span className="text-3xl font-black" style={{ color: stat.color }}>{stat.value}%</span>
                             </div>
-                            {/* Equity Second */}
-                            <div>
-                                <div className="flex justify-between items-end mb-1">
-                                    <span className="text-xl font-bold text-slate-700">Equity</span>
-                                    <span className="text-3xl font-black" style={{ color: COLORS.PRIMARY_BLUE }}>{resultStats.equity}%</span>
-                                </div>
-                                <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                                    <div className="h-full transition-all duration-1000 ease-out" style={{ width: `${resultStats.equity}%`, backgroundColor: COLORS.PRIMARY_BLUE }} />
-                                </div>
+                            <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
+                                <div className="h-full transition-all duration-1000 ease-out" style={{ width: `${stat.value}%`, backgroundColor: stat.color }} />
                             </div>
-                        </>
-                    ) : (
-                        <>
-                            {/* Equity First */}
-                            <div>
-                                <div className="flex justify-between items-end mb-1">
-                                    <span className="text-xl font-bold text-slate-700">Equity</span>
-                                    <span className="text-3xl font-black" style={{ color: COLORS.PRIMARY_BLUE }}>{resultStats.equity}%</span>
-                                </div>
-                                <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                                    <div className="h-full transition-all duration-1000 ease-out" style={{ width: `${resultStats.equity}%`, backgroundColor: COLORS.PRIMARY_BLUE }} />
-                                </div>
-                            </div>
-                            {/* Oligarchy Second */}
-                            <div>
-                                <div className="flex justify-between items-end mb-1">
-                                    <span className="text-xl font-bold text-slate-700">Oligarchy</span>
-                                    <span className="text-3xl font-black text-red-600">{resultStats.oligarchy}%</span>
-                                </div>
-                                <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden">
-                                    <div className="h-full bg-red-600 transition-all duration-1000 ease-out" style={{ width: `${resultStats.oligarchy}%` }} />
-                                </div>
-                            </div>
-                        </>
-                    )}
+                        </div>
+                    ))}
                 </div>
 
                 {/* Percentile */}

@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView } from 'react-native';
 import { COLORS, generateViralShareText } from '@politok/shared';
+import { useResultsCard } from '@politok/shared/hooks';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
 export default function ResultsCard({ resultStats, identityLabel, percentileData, votes, onReset }) {
+    const { sortedStats } = useResultsCard(resultStats);
+
     if (!resultStats || !identityLabel) return null;
 
     const handleShare = async () => {
@@ -41,53 +44,17 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
 
                     {/* Score bars */}
                     <View style={styles.scoreCard}>
-                        {resultStats.oligarchy > resultStats.equity ? (
-                            <>
-                                {/* Oligarchy First */}
-                                <View style={styles.scoreRow}>
-                                    <View style={styles.scoreHeader}>
-                                        <Text style={styles.scoreLabel}>Oligarchy</Text>
-                                        <Text style={[styles.scoreValue, { color: '#dc2626' }]}>{resultStats.oligarchy}%</Text>
-                                    </View>
-                                    <View style={styles.barBg}>
-                                        <View style={[styles.barFill, { width: `${resultStats.oligarchy}%`, backgroundColor: '#dc2626' }]} />
-                                    </View>
+                        {sortedStats.map((stat) => (
+                            <View key={stat.key} style={styles.scoreRow}>
+                                <View style={styles.scoreHeader}>
+                                    <Text style={styles.scoreLabel}>{stat.label}</Text>
+                                    <Text style={[styles.scoreValue, { color: stat.color }]}>{stat.value}%</Text>
                                 </View>
-                                {/* Equity Second */}
-                                <View style={styles.scoreRow}>
-                                    <View style={styles.scoreHeader}>
-                                        <Text style={styles.scoreLabel}>Equity</Text>
-                                        <Text style={[styles.scoreValue, { color: COLORS.PRIMARY_BLUE }]}>{resultStats.equity}%</Text>
-                                    </View>
-                                    <View style={styles.barBg}>
-                                        <View style={[styles.barFill, { width: `${resultStats.equity}%`, backgroundColor: COLORS.PRIMARY_BLUE }]} />
-                                    </View>
+                                <View style={styles.barBg}>
+                                    <View style={[styles.barFill, { width: `${stat.value}%`, backgroundColor: stat.color }]} />
                                 </View>
-                            </>
-                        ) : (
-                            <>
-                                {/* Equity First */}
-                                <View style={styles.scoreRow}>
-                                    <View style={styles.scoreHeader}>
-                                        <Text style={styles.scoreLabel}>Equity</Text>
-                                        <Text style={[styles.scoreValue, { color: COLORS.PRIMARY_BLUE }]}>{resultStats.equity}%</Text>
-                                    </View>
-                                    <View style={styles.barBg}>
-                                        <View style={[styles.barFill, { width: `${resultStats.equity}%`, backgroundColor: COLORS.PRIMARY_BLUE }]} />
-                                    </View>
-                                </View>
-                                {/* Oligarchy Second */}
-                                <View style={styles.scoreRow}>
-                                    <View style={styles.scoreHeader}>
-                                        <Text style={styles.scoreLabel}>Oligarchy</Text>
-                                        <Text style={[styles.scoreValue, { color: '#dc2626' }]}>{resultStats.oligarchy}%</Text>
-                                    </View>
-                                    <View style={styles.barBg}>
-                                        <View style={[styles.barFill, { width: `${resultStats.oligarchy}%`, backgroundColor: '#dc2626' }]} />
-                                    </View>
-                                </View>
-                            </>
-                        )}
+                            </View>
+                        ))}
                     </View>
 
                     {/* Percentile */}

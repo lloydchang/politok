@@ -1,27 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useStatCard } from '@politok/shared/hooks';
 
 const { width, height } = Dimensions.get('window');
 
 export default function StatCard({ stat }) {
-  const getGradient = () => {
-    const gradients = [
-      ['#a855f7', '#ec4899'], // purple to pink
-      ['#3b82f6', '#06b6d4'], // blue to cyan
-      ['#22c55e', '#10b981'], // green to emerald
-      ['#f97316', '#ef4444'], // orange to red
-      ['#6366f1', '#a855f7'], // indigo to purple
-    ];
-    return gradients[Math.floor(Math.random() * gradients.length)];
-  };
-
-  const gradientColors = getGradient();
+  const gradient = useStatCard();
 
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={gradientColors}
+        colors={gradient.mobile}
         style={styles.gradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

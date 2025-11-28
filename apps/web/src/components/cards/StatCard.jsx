@@ -1,21 +1,12 @@
 import React from 'react';
-import { COLORS } from '@politok/shared';
+import { useStatCard } from '@politok/shared/hooks';
 
 export default function StatCard({ stat }) {
-    const getGradient = () => {
-        const gradients = [
-            'from-purple-500 to-pink-500',
-            'from-blue-500 to-cyan-500',
-            'from-green-500 to-emerald-500',
-            'from-orange-500 to-red-500',
-            'from-indigo-500 to-purple-500',
-        ];
-        return gradients[Math.floor(Math.random() * gradients.length)];
-    };
+    const gradient = useStatCard();
 
     return (
         <div
-            className={`relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br ${getGradient()}`}
+            className={`relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br ${gradient.web}`}
         >
             {/* Pattern overlay */}
             <div className="absolute inset-0 opacity-10"
