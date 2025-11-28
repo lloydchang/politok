@@ -47,9 +47,10 @@ export default function Dashboard() {
     useEffect(() => {
         if (travelMode) {
             pickRandomLocation();
+            // Pick a new random location every 15 seconds
             const interval = setInterval(() => {
                 pickRandomLocation();
-            }, 3000);
+            }, 15000);
             return () => clearInterval(interval);
         }
     }, [travelMode]);
