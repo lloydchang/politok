@@ -310,6 +310,60 @@ export const STATE_POLICIES = {
     }
 };
 
+export const STATE_CITIES = {
+    Alabama: ['Birmingham', 'Montgomery', 'Mobile'],
+    Alaska: ['Anchorage', 'Fairbanks', 'Juneau'],
+    Arizona: ['Phoenix', 'Tucson', 'Mesa'],
+    Arkansas: ['Little Rock', 'Fort Smith', 'Fayetteville'],
+    California: ['Sacramento', 'Los Angeles', 'San Francisco', 'San Diego'],
+    Colorado: ['Denver', 'Colorado Springs', 'Aurora'],
+    Connecticut: ['Hartford', 'New Haven', 'Stamford'],
+    Delaware: ['Wilmington', 'Dover', 'Newark'],
+    Florida: ['Tallahassee', 'Miami', 'Orlando', 'Tampa'],
+    Georgia: ['Atlanta', 'Savannah', 'Augusta'],
+    Hawaii: ['Honolulu', 'Hilo', 'Kailua'],
+    Idaho: ['Boise', 'Meridian', 'Nampa'],
+    Illinois: ['Chicago', 'Springfield', 'Naperville'],
+    Indiana: ['Indianapolis', 'Fort Wayne', 'Evansville'],
+    Iowa: ['Des Moines', 'Cedar Rapids', 'Davenport'],
+    Kansas: ['Topeka', 'Wichita', 'Overland Park', 'Kansas City'],
+    Kentucky: ['Frankfort', 'Louisville', 'Lexington', 'Bowling Green'],
+    Louisiana: ['New Orleans', 'Baton Rouge', 'Shreveport'],
+    Maine: ['Augusta', 'Portland', 'Lewiston', 'Bangor'],
+    Maryland: ['Baltimore', 'Annapolis', 'Rockville'],
+    Massachusetts: ['Boston', 'Worcester', 'Cambridge'],
+    Michigan: ['Lansing', 'Detroit', 'Grand Rapids', 'Ann Arbor'],
+    Minnesota: ['Minneapolis', 'St. Paul', 'Rochester'],
+    Mississippi: ['Jackson', 'Gulfport', 'Biloxi'],
+    Missouri: ['Jefferson City', 'Kansas City', 'St. Louis', 'Springfield'],
+    Montana: ['Billings', 'Missoula', 'Helena'],
+    Nebraska: ['Omaha', 'Lincoln', 'Bellevue'],
+    Nevada: ['Carson City', 'Las Vegas', 'Reno', 'Henderson'],
+    'New Hampshire': ['Manchester', 'Nashua', 'Concord'],
+    'New Jersey': ['Trenton', 'Newark', 'Jersey City', 'Paterson'],
+    'New Mexico': ['Albuquerque', 'Santa Fe', 'Las Cruces'],
+    'New York': ['Albany', 'New York City', 'Buffalo', 'Rochester'],
+    'North Carolina': ['Charlotte', 'Raleigh', 'Greensboro'],
+    'North Dakota': ['Fargo', 'Bismarck', 'Grand Forks'],
+    Ohio: ['Columbus', 'Cleveland', 'Cincinnati'],
+    Oklahoma: ['Oklahoma City', 'Tulsa', 'Norman'],
+    Oregon: ['Portland', 'Eugene', 'Salem'],
+    Pennsylvania: ['Philadelphia', 'Pittsburgh', 'Harrisburg'],
+    'Rhode Island': ['Providence', 'Warwick', 'Cranston'],
+    'South Carolina': ['Charleston', 'Columbia', 'Greenville'],
+    'South Dakota': ['Pierre', 'Sioux Falls', 'Rapid City', 'Aberdeen'],
+    Tennessee: ['Nashville', 'Memphis', 'Knoxville'],
+    Texas: ['Houston', 'Austin', 'Dallas'],
+    Utah: ['Salt Lake City', 'Provo', 'West Valley City'],
+    Vermont: ['Burlington', 'Montpelier', 'Rutland'],
+    Virginia: ['Virginia Beach', 'Norfolk', 'Richmond'],
+    Washington: ['Olympia', 'Seattle', 'Spokane', 'Tacoma'],
+    'Washington DC': ['Washington'],
+    'West Virginia': ['Charleston', 'Huntington', 'Morgantown'],
+    Wisconsin: ['Milwaukee', 'Madison', 'Green Bay'],
+    Wyoming: ['Cheyenne', 'Casper', 'Laramie'],
+};
+
 export const CITY_OVERRIDES = {
     // CALIFORNIA
     'San Francisco': {
@@ -427,7 +481,12 @@ export const CITY_OVERRIDES = {
     }
 };
 
-// Helper to get data for ANY city in the US
+/**
+ * Helper to get policy data for any city in the US
+ * @param {string} city - City name
+ * @param {string} state - State name
+ * @returns {Object} Policy data with rent, transit, childcare info
+ */
 export function getPolicyData(city, state) {
     // 1. Check for City Override
     // Try exact match

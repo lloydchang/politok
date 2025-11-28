@@ -2,5 +2,10 @@
   "name": "@politok/shared",
   "version": "1.0.0",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./policyData": "./policyData.js",
+    "./analytics": "./analytics.js"
+  },
   "type": "module"
 }
