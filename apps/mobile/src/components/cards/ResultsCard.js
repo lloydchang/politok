@@ -107,14 +107,6 @@ export default function ResultsCard({ resultStats, identityLabel, percentileData
                         <Text style={styles.shareButtonIcon}>📤</Text>
                         <Text style={styles.shareButtonText}>SHARE RESULTS</Text>
                     </TouchableOpacity>
-
-                    {/* Start Over Button */}
-                    <TouchableOpacity
-                        onPress={onReset}
-                        style={styles.resetButton}
-                    >
-                        <Text style={styles.resetButtonText}>↺</Text>
-                    </TouchableOpacity>
                 </ScrollView>
             </LinearGradient>
         </View>
