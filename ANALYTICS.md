@@ -58,6 +58,33 @@ This document outlines all analytics events tracked in the politok application u
 |------------|-------------|------------|
 | `politok_title_clicked` | User clicks app title | - |
 | `vote_button_clicked` | User clicks main VOTE button | - |
+| `feed_auto_advance` | Feed automatically advances | `card_index`, `card_type` |
+| `feed_dot_nav` | User navigates via progress dots | `from`, `to` |
+
+## Analytics Architecture
+
+### Centralized Analytics (`packages/shared/analytics.js`)
+
+Both web and mobile apps use the shared analytics module which provides:
+- `generateViralShareText()` - Creates shareable content based on results
+- Unified tracking patterns for both PostHog and Honeycomb
+- Consistent event naming across platforms
+
+### Platform-Specific Implementation
+
+**Web** (`apps/web/src/lib/telemetry.js`):
+- `trackEvent(name, properties)` - Sends to PostHog + Honeycomb
+- Honeycomb Web SDK for auto-instrumentation
+
+**Mobile** (`apps/mobile/src/lib/analytics.js`):
+- `useAnalytics()` hook providing `trackEvent`, `trackPropositionVote`, `trackSimulationCompleted`
+- PostHog mobile SDK (Honeycomb not used due to React Native compatibility)
+
+### Shared Components & Hooks
+
+Many analytics calls are now encapsulated in shared hooks:
+- `useFeed()` - Tracks feed navigation and auto-advance
+- Component-level tracking in `Feed`, `Dashboard`, `PropCard`
 
 ## Key Metrics to Monitor
 

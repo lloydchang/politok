@@ -43,15 +43,26 @@ An interactive ballot simulation exploring how policy decisions impact equity an
 
 This is a monorepo containing:
 
-- `apps/web/` - React web app (Vite + Tailwind CSS)
+- `apps/web/` - Next.js web app (React + Tailwind CSS)
 - `apps/mobile/` - React Native mobile app (Expo)
-- `packages/shared/` - Shared simulation logic, propositions, and utilities
+- `packages/shared/` - Shared simulation logic, propositions, hooks, constants, and utilities
+
+### Shared Package Architecture
+
+The `packages/shared/` workspace provides:
+- **Core Logic**: `processVote()`, `getPercentileRanking()`, `getIdentityLabel()`
+- **Data**: `PROPOSITIONS`, `POLICIES`, `FEED_ITEMS`, `CHAT_DATA`, `STAT_GRADIENTS`
+- **Hooks**: `useFeed()`, `useChat()`, `usePropCard()`, `useStatCard()`, `useResultsCard()`
+- **Analytics**: Centralized analytics utilities for both platforms
+- **Policy Data**: Complete state and city policy datasets
+
+This architecture ensures a single source of truth for all business logic and data.
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js 18+
-- npm or yarn
+- npm (workspaces enabled)
 
 ### Install Dependencies
 ```bash
@@ -60,13 +71,13 @@ npm install
 
 ### Run Web App
 ```bash
-npm run web
+npm run dev --workspace=apps/web
 ```
-Visit http://localhost:5173
+Visit http://localhost:3000
 
 ### Run Mobile App
 ```bash
-npm run mobile
+npm run start --workspace=apps/mobile
 ```
 
 Scan the QR code with Expo Go app (iOS/Android)
@@ -117,20 +128,33 @@ npx eas build --platform all
 ### Adding/Modifying Propositions
 Edit `packages/shared/index.js` → `PROPOSITIONS` array
 
+### Updating Feed Content
+Edit `packages/shared/constants.js` → `FEED_ITEMS`, `POLICIES`, `CHAT_DATA`
+
 ### Changing Colors
 Edit `packages/shared/index.js` → `COLORS` object
 
 ### Adjusting Score Calculation
 Edit `packages/shared/index.js` → `processVote()` function
 
+### Modifying Component Logic
+Shared hooks in `packages/shared/hooks.js`:
+- `useFeed()` - Feed state management
+- `useChat()` - Chat message rotation
+- `usePropCard()` - Voting state
+- `useStatCard()` - Gradient selection
+- `useResultsCard()` - Results sorting
+
 ## Tech Stack
 
 - **Frontend**: React 18
-- **Web Build**: Vite
-- **Styling**: Tailwind CSS (web), React Native StyleSheet (mobile)
+- **Web**: Next.js 16 + Tailwind CSS
 - **Mobile**: Expo / React Native
+- **Styling**: Tailwind CSS (web), React Native StyleSheet (mobile)
 - **Monorepo**: npm workspaces
-- **Deployment**: Vercel (web), Expo (mobile)
+- **Shared Logic**: React hooks and utilities
+- **Analytics**: PostHog + Honeycomb
+- **Deployment**: Vercel (web), Expo/EAS (mobile)
 
 ## License
 

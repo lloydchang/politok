@@ -7,33 +7,58 @@ This document explains the comprehensive observability and analytics instrumenta
 ### 🍯 Honeycomb (Observability)
 - **Purpose**: Distributed tracing and performance monitoring
 - **Web**: Auto-instrumentation for network requests, page loads, and user interactions
-- **Mobile**: Auto-instrumentation for app startup, fetch requests, and error handling
-- **Custom Tracking**: All custom events sent via OpenTelemetry spans
+- **Mobile**: Not used (OpenTelemetry Web SDK incompatible with React Native)
+- **Custom Tracking**: All custom events sent via OpenTelemetry spans (web only)
 
 ### 📊 PostHog (Product Analytics)
 - **Purpose**: User behavior tracking and product analytics
-- **Custom Tracking**: All custom events sent via PostHog capture
+- **Custom Tracking**: All custom events sent via PostHog capture on both platforms
 
 ## Cross-Platform Architecture
 
-**All events are sent to BOTH Honeycomb AND PostHog** using unified tracking utilities:
-- **Web**: `analytics.js` with `trackEvent()` function
-- **Mobile**: `analytics.js` with `useAnalytics()` hook
+### Shared Analytics Module (`packages/shared/analytics.js`)
 
-This provides complete observability coverage across both platforms.
+Provides centralized utilities:
+- `generateViralShareText()` - Creates shareable content based on voting results
+- `IDENTITY_LABELS` - Identity label configurations
+- Consistent data structures for both platforms
+
+### Platform-Specific Implementation
+
+**Web** (`apps/web/src/lib/telemetry.js`):
+- **PostHog + Honeycomb**: Dual tracking for complete observability
+- `trackEvent(name, properties)` - Sends to both services
+- Auto-instrumentation via Honeycomb Web SDK
+
+**Mobile** (`apps/mobile/src/lib/analytics.js`):
+- **PostHog only**: React Hook-based analytics
+- `useAnalytics()` provides: `trackEvent`, `trackPropositionVote`, `trackSimulationCompleted`
+- No Honeycomb (compatibility limitations)
+
+### Shared Hooks with Built-in Analytics
+
+Components use shared React hooks that include tracking:
+- **`useFeed()`** - Automatically tracks feed navigation, voting, and completion
+- **`useChat()`** - Manages chat state
+- **`usePropCard()`** - Tracks proposition voting
+- Direct integration with platform analytics
 
 ## Events Tracked
 
 ### Main Page Events
-- **`politok_title_clicked`** - User clicks "Affordability" title
+- **`politok_title_clicked`** - User clicks app title
 - **`vote_button_clicked`** - User clicks VOTE button
 - **`simulation_started`** - Simulation begins
 
+### Feed Navigation
+- **`feed_auto_advance`** - Feed automatically advances to next card
+  - Properties: `card_index`, `card_type`
+- **`feed_dot_nav`** - User navigates via progress dots
+  - Properties: `from`, `to`
+
 ### Simulation Page Events
-- **`proposition_selected`** - User selects yes/no on a proposition
-  - Properties: `proposition_id`, `proposition_name`, `vote_value`
-- **`proposition_deselected`** - User deselects a choice
-  - Properties: `proposition_id`, `proposition_name`, `vote_value`
+- **`proposition_vote`** - User selects or changes vote on a proposition
+  - Properties: `proposition_id`, `proposition_title`, `option_id`, `is_deselection`
 - **`cast_vote_button_clicked`** - User clicks CAST VOTE button
   - Properties: `vote_count`, `skipped_count`
 - **`review_ballot_clicked`** - User chooses to review incomplete ballot
@@ -44,9 +69,11 @@ This provides complete observability coverage across both platforms.
   - **`vote_details`**: Array of `{id, name, vote}` for each proposition
   - **`vote_count`**: Number of propositions voted on
   - **`skipped_count`**: Number of propositions skipped
-  - **`outcome`**: Result text (e.g., "THE SQUEEZE\nContinues")
+  - **`outcome`**: Result text (e.g., "Reform Supporter")
   - **`equity_percent`**: Equity percentage
   - **`oligarchy_percent`**: Oligarchy percentage
+  - **`identity_label`**: Assigned identity label
+  - **`percentile_rank`**: User's percentile ranking
 - **`share_button_clicked`** - User shares results
   - Properties: `share_content`, `outcome`, `equity_percent`, `oligarchy_percent`, `vote_count`
 - **`start_over_clicked`** - User clicks START OVER
@@ -68,7 +95,7 @@ VITE_HONEYCOMB_API_KEY=your_honeycomb_api_key
 ```bash
 EXPO_PUBLIC_POSTHOG_KEY=your_posthog_project_api_key
 EXPO_PUBLIC_POSTHOG_HOST=https://app.posthog.com
-EXPO_PUBLIC_HONEYCOMB_API_KEY=your_honeycomb_api_key
+# Note: Honeycomb not used for mobile
 ```
 
 ## Getting API Keys
@@ -78,7 +105,7 @@ EXPO_PUBLIC_HONEYCOMB_API_KEY=your_honeycomb_api_key
 2. Create a project
 3. Copy the Project API Key from Settings
 
-### Honeycomb
+### Honeycomb (Web only)
 1. Sign up at [honeycomb.io](https://honeycomb.io)
 2. Create a team/environment
 3. Go to Settings → API Keys
@@ -107,9 +134,25 @@ You can query and aggregate this data in PostHog or Honeycomb to:
 
 ## Custom Event Tracking
 
-### Adding Custom Events (Web)
+### Using Shared Hooks (Recommended)
+
+Most components should use shared hooks which include built-in analytics:
+
 ```javascript
-import { trackEvent } from './lib/analytics';
+import { useFeed } from '@politok/shared/hooks';
+
+const { handleVote, currentIndex } = useFeed(FEED_ITEMS, {
+  trackEvent, // Pass platform-specific tracking function
+  trackPropositionVote,
+  trackSimulationCompleted
+});
+```
+
+### Direct Event Tracking
+
+**Web**:
+```javascript
+import { trackEvent } from '@/lib/telemetry';
 
 trackEvent('event_name', {
   property1: 'value1',
@@ -117,9 +160,9 @@ trackEvent('event_name', {
 });
 ```
 
-### Adding Custom Events (Mobile)
+**Mobile**:
 ```javascript
-import { useAnalytics } from './src/lib/analytics';
+import { useAnalytics } from '../lib/analytics';
 
 function MyComponent() {
   const { trackEvent } = useAnalytics();
@@ -131,22 +174,53 @@ function MyComponent() {
 }
 ```
 
-Events are automatically sent to both PostHog and Honeycomb.
+Events are automatically sent to PostHog (both platforms) and Honeycomb (web only).
 
 ## What's Being Tracked
 
-### Automatic (via Honeycomb)
-- **Web**: Network requests (fetch/XHR), page loads, user clicks, form submissions
-- **Mobile**: App startup, network requests, errors, slow event loops
+### Automatic (via Honeycomb - Web Only)
+- Network requests (fetch/XHR)
+- Page loads and navigation
+- User clicks and interactions
+- Form submissions
 
 ### Manual (via Unified Tracking)
-All UI interactions are tracked with detailed properties for comprehensive analytics and vote tallying.
+All UI interactions are tracked with detailed properties:
+- Vote selection and changes
+- Feed navigation (auto-advance, manual swipe, dot navigation)
+- Simulation completion with full breakdown
+- Social sharing
+- Results viewing
+
+### Component-Level Analytics
+
+Analytics are encapsulated at the component level using shared hooks:
+- **Feed**: Auto-advance, navigation, voting flow
+- **Dashboard**: Policy card interactions
+- **PropCard**: Individual proposition voting
 
 ## Development vs Production
 
 Both services check for environment variables before initializing. If the API keys are not set, the services will not run, making it safe to develop without API keys.
 
 For debugging PostHog in development (web only), events are logged to console when `import.meta.env.DEV` is true.
+
+## Architecture Benefits
+
+### Single Source of Truth
+- `packages/shared/analytics.js` centralizes utilities
+- `packages/shared/hooks.js` encapsulates tracking logic
+- Consistent events across platforms
+
+### DRY Principle
+- No duplicated tracking code
+- Hooks handle complex analytics flows
+- Platform adapters keep implementation simple
+
+### Maintainability
+- Update analytics in one place
+- Type-safe event names
+- Clear separation of concerns
 
 ## Privacy Considerations
 
