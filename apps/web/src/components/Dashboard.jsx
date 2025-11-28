@@ -10,17 +10,16 @@ function PolicyCard({ policy, data }) {
         data?.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
 
     return (
-        <div className="bg-white rounded-lg p-4 shadow-md">
-            <div className="flex items-center gap-3 mb-2">
+        <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 shadow-md">
+            <div className="flex items-center gap-3">
                 <span className="text-3xl">{policy.iconWeb}</span>
+                <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
                 <div className="flex-1">
-                    <h3 className="font-bold text-gray-900 text-sm">{policy.title}</h3>
+                    {data?.status !== 'loading' && (
+                        <p className="text-xs text-gray-900 leading-relaxed font-medium">{data?.text}</p>
+                    )}
                 </div>
-                <div className={`w-3 h-3 rounded-full ${statusColor}`} />
             </div>
-            {data?.status !== 'loading' && (
-                <p className="text-xs text-gray-600 leading-relaxed">{data?.text}</p>
-            )}
         </div>
     );
 }
@@ -30,6 +29,7 @@ export default function Dashboard() {
     const [travelMode, setTravelMode] = useState(false);
     const [loading, setLoading] = useState(true);
     const [currentLocationData, setCurrentLocationData] = useState({ location: 'Mesa', state: 'Arizona' });
+    const [backgroundImage, setBackgroundImage] = useState(null);
 
     const [locationName, stateName] = location ? location.split(', ') : ['Mesa', 'Arizona'];
     const policyData = getPolicyData(locationName, stateName);
@@ -53,6 +53,14 @@ export default function Dashboard() {
             return () => clearInterval(interval);
         }
     }, [travelMode]);
+
+    useEffect(() => {
+        const encodedLocation = encodeURIComponent(location);
+        // Using Pollinations.ai to generate/fetch a representative image of the location
+        // This simulates a "lookup" by generating a photorealistic image of the specific city
+        const imageUrl = `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}%20city%20landmark%20street%20view?width=1080&height=1920&nologo=true&seed=${Math.random()}`;
+        setBackgroundImage(imageUrl);
+    }, [location]);
 
     const detectUserLocation = async () => {
         setLoading(true);
@@ -115,7 +123,7 @@ export default function Dashboard() {
 
     const handleShare = async () => {
         const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
+        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}`;
 
         if (navigator.share) {
             try {
@@ -131,10 +139,16 @@ export default function Dashboard() {
 
     return (
         <div
-            className="w-full h-full flex flex-col text-white relative"
-            style={{ background: COLORS.BG_GRADIENT_WEB }}
+            className="w-full h-full flex flex-col text-white relative bg-cover bg-center transition-all duration-500"
+            style={{
+                backgroundImage: backgroundImage ? `url(${backgroundImage})` : COLORS.BG_GRADIENT_WEB,
+                backgroundColor: '#1e293b' // Fallback
+            }}
         >
-            <div className="flex-1 overflow-auto p-6">
+            {/* Dark Overlay for readability */}
+            <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+            <div className="flex-1 overflow-auto p-6 relative z-10">
                 <div className="max-w-2xl mx-auto">
                     {/* Location and Travel Mode Toggle - Single Line */}
                     <div className="mb-6 flex items-center justify-between gap-4">
@@ -169,7 +183,7 @@ export default function Dashboard() {
             <div className="absolute right-4 bottom-4 z-20">
                 <button
                     onClick={handleShare}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600/80 backdrop-blur-md text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
                 >
                     <div className="text-3xl mb-1">📤</div>
                     <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>

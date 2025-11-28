@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { STATE_POLICIES, STATE_PLACES, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
@@ -16,14 +16,13 @@ function PolicyCard({ policy, data }) {
         <View style={styles.card}>
             <View style={styles.cardHeader}>
                 <MaterialCommunityIcons name={policy.iconMobile} size={32} color="#1e293b" />
-                <View style={styles.cardTitleContainer}>
-                    <Text style={styles.cardTitle}>{policy.title}</Text>
-                </View>
                 <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+                <View style={styles.cardTitleContainer}>
+                    {data.status !== 'loading' && (
+                        <Text style={styles.cardText}>{data.text}</Text>
+                    )}
+                </View>
             </View>
-            {data.status !== 'loading' && (
-                <Text style={styles.cardText}>{data.text}</Text>
-            )}
         </View>
     );
 }
@@ -63,7 +62,7 @@ export default function Dashboard() {
 
     const handleShare = async () => {
         const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ FREEZE THE RENT: ${statusEmoji(cityData.rent.status)}\n🚌 FAST AND FREE BUSES: ${statusEmoji(cityData.transit.status)}\n🍼 CHILDCARE FOR ALL: ${statusEmoji(cityData.childcare.status)}`;
+        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}`;
 
         try {
             await Share.share({ message: shareText });
@@ -72,54 +71,68 @@ export default function Dashboard() {
         }
     };
 
+    const [backgroundImage, setBackgroundImage] = useState(null);
+
+    useEffect(() => {
+        const encodedLocation = encodeURIComponent(location);
+        const imageUrl = `https://image.pollinations.ai/prompt/photorealistic%20photo%20of%20${encodedLocation}%20city%20landmark%20street%20view?width=1080&height=1920&nologo=true&seed=${Math.random()}`;
+        setBackgroundImage(imageUrl);
+    }, [location]);
+
     return (
         <View style={styles.container}>
-            <LinearGradient
-                colors={COLORS.BG_GRADIENT_MOBILE}
-                style={styles.gradient}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
+            <ImageBackground
+                source={backgroundImage ? { uri: backgroundImage } : null}
+                style={styles.backgroundImage}
+                resizeMode="cover"
             >
-                <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-                    {/* Location and Toggle - Single Line */}
-                    <View style={styles.header}>
-                        <View>
-                            <Text style={styles.locationText}>{location}</Text>
-                        </View>
-
-                        <View style={styles.toggleContainer}>
-                            <Text style={styles.toggleLabel}>🇺🇸</Text>
-                            <Switch
-                                value={travelMode}
-                                onValueChange={setTravelMode}
-                                trackColor={{ false: '#4b5563', true: '#3b82f6' }}
-                                thumbColor={'#ffffff'}
-                            />
-                        </View>
-                    </View>
-
-                    <View style={styles.cardsContainer}>
-                        {POLICIES.map(policy => (
-                            <PolicyCard
-                                key={policy.id}
-                                policy={policy}
-                                data={cityData[policy.id]}
-                            />
-                        ))}
-                    </View>
-
-                </ScrollView>
-
-                {/* Share button */}
-                <TouchableOpacity
-                    onPress={handleShare}
-                    style={styles.shareButton}
-                    activeOpacity={0.8}
+                <LinearGradient
+                    colors={backgroundImage ? ['rgba(0,0,0,0.3)', 'rgba(0,0,0,0.7)'] : COLORS.BG_GRADIENT_MOBILE}
+                    style={styles.gradient}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
                 >
-                    <Text style={styles.shareEmoji}>📤</Text>
-                    <Text style={styles.shareText}>SHARE</Text>
-                </TouchableOpacity>
-            </LinearGradient>
+                    <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+                        {/* Location and Toggle - Single Line */}
+                        <View style={styles.header}>
+                            <View>
+                                <Text style={styles.locationText}>{location}</Text>
+                            </View>
+
+                            <View style={styles.toggleContainer}>
+                                <Text style={styles.toggleLabel}>🇺🇸</Text>
+                                <Switch
+                                    value={travelMode}
+                                    onValueChange={setTravelMode}
+                                    trackColor={{ false: '#4b5563', true: '#3b82f6' }}
+                                    thumbColor={'#ffffff'}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={styles.cardsContainer}>
+                            {POLICIES.map(policy => (
+                                <PolicyCard
+                                    key={policy.id}
+                                    policy={policy}
+                                    data={cityData[policy.id]}
+                                />
+                            ))}
+                        </View>
+
+                    </ScrollView>
+
+                    {/* Share button */}
+                    <TouchableOpacity
+                        onPress={handleShare}
+                        style={styles.shareButton}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={styles.shareEmoji}>📤</Text>
+                        <Text style={styles.shareText}>SHARE</Text>
+                    </TouchableOpacity>
+                </LinearGradient>
+            </ImageBackground>
         </View>
     );
 }
@@ -132,6 +145,11 @@ const styles = StyleSheet.create({
     },
     gradient: {
         flex: 1,
+    },
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
     },
     scrollContent: {
         paddingHorizontal: 20,
@@ -171,7 +189,7 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     card: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
         borderRadius: 12,
         padding: 16,
         shadowColor: '#000',
@@ -201,8 +219,9 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 12,
-        color: '#334155',
+        color: '#0f172a',
         lineHeight: 18,
+        fontWeight: '500',
     },
     shareButton: {
         position: 'absolute',
@@ -211,7 +230,7 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.8)',
         borderWidth: 2,
         borderColor: 'white',
         justifyContent: 'center',
