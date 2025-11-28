@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { MapPin, Share2 } from 'lucide-react';
-import { STATE_POLICIES, STATE_PLACES, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { STATE_POLICIES, STATE_LOCATIONS, LOCATION_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
 
 function PolicyCard({ policy, data }) {
-    const statusColor = data.status === 'green' ? 'bg-green-500' :
-        data.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
+    const statusColor = data?.status === 'green' ? 'bg-green-500' :
+        data?.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
 
     return (
         <div className="bg-white rounded-lg p-4 shadow-md">
@@ -18,8 +18,8 @@ function PolicyCard({ policy, data }) {
                 </div>
                 <div className={`w-3 h-3 rounded-full ${statusColor}`} />
             </div>
-            {data.status !== 'loading' && (
-                <p className="text-xs text-gray-600 leading-relaxed">{data.text}</p>
+            {data?.status !== 'loading' && (
+                <p className="text-xs text-gray-600 leading-relaxed">{data?.text}</p>
             )}
         </div>
     );
@@ -31,7 +31,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [currentLocationData, setCurrentLocationData] = useState({ location: 'Mesa', state: 'Arizona' });
 
-    const [locationName, stateName] = location.split(', ');
+    const [locationName, stateName] = location ? location.split(', ') : ['Mesa', 'Arizona'];
     const policyData = getPolicyData(locationName, stateName);
 
     const cityData = {
@@ -41,14 +41,16 @@ export default function Dashboard() {
     };
 
     useEffect(() => {
+        detectUserLocation();
+    }, []);
+
+    useEffect(() => {
         if (travelMode) {
             pickRandomLocation();
             const interval = setInterval(() => {
                 pickRandomLocation();
             }, 1000);
             return () => clearInterval(interval);
-        } else {
-            detectUserLocation();
         }
     }, [travelMode]);
 
@@ -75,7 +77,7 @@ export default function Dashboard() {
                     setLoading(false);
                 },
                 (error) => {
-                    console.error('Geolocation error:', error);
+                    // console.error('Geolocation error:', error); // Silently ignore
                     updateLocationState('Mesa', 'Arizona');
                     setLoading(false);
                 }
@@ -135,9 +137,9 @@ export default function Dashboard() {
             <div className="flex-1 overflow-auto p-6">
                 <div className="max-w-2xl mx-auto">
                     {/* Location and Travel Mode Toggle - Single Line */}
-                    <div className="mb-6 flex items-center justify-center gap-4">
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
-                            <span className="font-semibold text-white">{location}</span>
+                    <div className="mb-6 flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="font-bold text-xl text-white">{location}</span>
                         </div>
 
                         <label className="flex items-center gap-2 cursor-pointer">

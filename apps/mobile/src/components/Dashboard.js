@@ -83,7 +83,7 @@ export default function Dashboard() {
                 <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
                     {/* Location and Toggle - Single Line */}
                     <View style={styles.header}>
-                        <View style={styles.locationContainer}>
+                        <View>
                             <Text style={styles.locationText}>{location}</Text>
                         </View>
 
@@ -143,21 +143,14 @@ const styles = StyleSheet.create({
         marginBottom: 24,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         gap: 16,
     },
-    locationContainer: {
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        borderRadius: 20,
-        marginBottom: 12,
-    },
     locationText: {
-        fontSize: 16,
-        fontWeight: '600',
+        fontSize: 20,
+        fontWeight: 'bold',
         color: 'white',
-        textAlign: 'center',
+        textAlign: 'left',
     },
     toggleContainer: {
         flexDirection: 'row',
