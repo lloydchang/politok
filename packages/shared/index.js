@@ -155,10 +155,7 @@ export function processVote(votes) {
   // Determine outcome based on voting patterns and resulting scores
   let outcome = "";
 
-  // No votes cast – outcome defaults to oligarchy entrenches (0% oligarchy)
-  if (voteCount === 0) {
-    outcome = "Oligarchy Entrenches";
-  } else if (stats.oligarchy >= 90) {
+  if (stats.oligarchy >= 90) {
     outcome = "Oligarchy Dominates";
   } else if (stats.oligarchy >= 80) {
     outcome = "Oligarchy Reigns";

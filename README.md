@@ -33,10 +33,10 @@ An interactive ballot simulation exploring how policy decisions impact equity an
 - **Content Performance**: Track which scripts/cards perform best
 
 ## Dynamic Outcomes
-10 different outcomes based on voting patterns:
+9 different outcomes based on voting patterns:
   - `equity advances`, `equity gains`, `equity improves`
   - `equity stagnants`, `equity dwindles`
-  - `oligarchy entrenches`, `oligarchy seizes`, `oligarchy overpowers`
+  - `oligarchy seizes`, `oligarchy overpowers`
   - `oligarchy reigns`, `oligarchy dominates`
 
 ## Structure
