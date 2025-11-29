@@ -7,15 +7,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=apps/web",
-    "web": "npm run dev --workspace=apps/web",
-    "mobile": "npm start --workspace=apps/mobile",
-    "install:all": "npm install"
+    "dev": "pnpm run dev --filter @politok/web",
+    "build": "pnpm run build --filter @politok/web",
+    "web": "pnpm run dev --filter @politok/web",
+    "mobile": "pnpm start --filter apps/mobile",
+    "install:all": "pnpm install"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
   },
-  "devDependencies": {
-    "baseline-browser-mapping": "^2.8.32"
-  }
+  "packageManager": "pnpm@8.15.0"
 }
