@@ -90,11 +90,11 @@ export const PROPOSITIONS = [
     ]
   }];
 
-  /**
- * Process votes and calculate outcome
- * @param {Object} votes - Map of proposition IDs to selected option IDs
- * @returns {Object} Stats object with equity, oligarchy, and outcome
- */
+/**
+* Process votes and calculate outcome
+* @param {Object} votes - Map of proposition IDs to selected option IDs
+* @returns {Object} Stats object with equity, oligarchy, and outcome
+*/
 export function processVote(votes) {
   let stats = { equity: 5, oligarchy: 5 };
   let typeCounts = { status_quo: 0, reform: 0, systemic: 0 };
@@ -107,9 +107,9 @@ export function processVote(votes) {
     const selectedOptionId = votes[prop.id];
 
     if (!selectedOptionId) {
-      // Skipping individual props has a milder impact (40% of a No)
-      stats.equity -= 0.4;
-      stats.oligarchy += 0.4;
+      // Skipping individual props has a milder impact (30% of a No)
+      stats.equity -= 0.3;
+      stats.oligarchy += 0.3;
       return;
     }
 

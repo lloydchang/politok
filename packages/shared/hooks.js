@@ -61,7 +61,7 @@ export function useFeed(items, analytics = {}) {
     // Calculate results when all 3 props are voted
     useEffect(() => {
         const isResultsPage = currentItem?.type === "results";
-        const allVoted = votedProps.length === 3;
+        const allVoted = votedProps.length === PROPOSITIONS.length;
 
         if ((allVoted || isResultsPage) && !results) {
             const stats = processVote(votes);

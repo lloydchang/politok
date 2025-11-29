@@ -29,6 +29,11 @@
       "expo-localization",
       "expo-font"
     ],
+    "install": {
+      "exclude": [
+        "@politok/shared"
+      ]
+    },
     "extra": {
       "eas": {
         "projectId": "UPDATE_WITH_YOUR_EAS_PROJECT_ID"

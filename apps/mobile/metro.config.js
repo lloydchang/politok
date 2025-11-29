@@ -15,6 +15,14 @@ config.resolver.nodeModulesPaths = [
 ];
 config.resolver.disableHierarchicalLookup = true;
 
+// Explicitly set the project root to prevent Metro from looking in parent directories
+config.projectRoot = projectRoot;
+
+// Block the parent directory's node_modules
+config.resolver.blockList = [
+    /\/Users\/lloyd\/github\/antigravity\/node_modules\/.*/,
+];
+
 config.resolver.unstable_enablePackageExports = true;
 
 module.exports = config;

@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm run dev --filter @politok/web",
-    "build": "pnpm run build --filter @politok/web",
-    "web": "pnpm run dev --filter @politok/web",
-    "mobile": "pnpm start --filter apps/mobile",
+    "dev": "pnpm --filter @politok/web dev",
+    "build": "pnpm --filter @politok/web build",
+    "web": "pnpm --filter @politok/web dev",
+    "mobile": "pnpm --filter @politok/mobile start",
     "install:all": "pnpm install"
   },
   "engines": {
