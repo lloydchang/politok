@@ -29,7 +29,7 @@ function PolicyCard({ policy, data }) {
 
 export default function Dashboard() {
     const [location, setLocation] = useState('Mesa, Arizona');
-    const [travelMode, setTravelMode] = useState(false);
+    const [travelMode, setTravelMode] = useState(true);
     const [locationData, setLocationDataState] = useState({ location: 'Mesa', state: 'Arizona' });
 
     const [locationName, stateName] = location.split(', ');
@@ -44,10 +44,10 @@ export default function Dashboard() {
     useEffect(() => {
         if (travelMode) {
             pickRandomLocation();
-            // Pick a new random location every minute
+            // Pick a new random location every second
             const interval = setInterval(() => {
                 pickRandomLocation();
-            }, 60000);
+            }, 1000);
             return () => clearInterval(interval);
         }
     }, [travelMode]);
@@ -137,7 +137,7 @@ export default function Dashboard() {
                             </View>
 
                             <View style={styles.toggleContainer}>
-                                <Text style={styles.toggleLabel}>🔄</Text>
+                                <Text style={styles.toggleLabel}>🛰️</Text>
                                 <Switch
                                     value={travelMode}
                                     onValueChange={setTravelMode}

@@ -25,7 +25,7 @@ function PolicyCard({ policy, data }) {
 
 export default function Dashboard() {
     const [location, setLocation] = useState('Mesa, Arizona');
-    const [travelMode, setTravelMode] = useState(false);
+    const [travelMode, setTravelMode] = useState(true);
     const [loading, setLoading] = useState(true);
     const [currentLocationData, setCurrentLocationData] = useState({ location: 'Mesa', state: 'Arizona' });
     const [backgroundImage, setBackgroundImage] = useState(null);
@@ -46,10 +46,10 @@ export default function Dashboard() {
     useEffect(() => {
         if (travelMode) {
             pickRandomLocation();
-            // Pick a new random location every minute
+            // Pick a new random location every second
             const interval = setInterval(() => {
                 pickRandomLocation();
-            }, 60000);
+            }, 1000);
             return () => clearInterval(interval);
         }
     }, [travelMode]);
@@ -173,7 +173,7 @@ export default function Dashboard() {
                         </div>
 
                         <label className="flex items-center gap-2 cursor-pointer">
-                            <span className="text-2xl">🔄</span>
+                            <span className="text-2xl">🛰️</span>
                             <div className="relative inline-flex items-center">
                                 <input
                                     type="checkbox"
