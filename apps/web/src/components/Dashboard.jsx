@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { MapPin, Share2 } from 'lucide-react';
 import { STATE_POLICIES, STATE_LOCATIONS, LOCATION_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
@@ -154,23 +153,6 @@ export default function Dashboard() {
         );
     }
 
-
-    const handleShare = async () => {
-        const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}`;
-
-        if (navigator.share) {
-            try {
-                await navigator.share({ text: shareText });
-            } catch (err) {
-                console.log('Share cancelled');
-            }
-        } else {
-            navigator.clipboard.writeText(shareText);
-            alert('Dashboard copied to clipboard!');
-        }
-    };
-
     return (
         <div
             className="w-full h-full flex flex-col text-white relative bg-cover bg-center transition-all duration-500"
@@ -211,17 +193,6 @@ export default function Dashboard() {
                         ))}
                     </div>
                 </div>
-            </div>
-
-            {/* Share button */}
-            <div className="absolute right-4 bottom-4 z-20">
-                <button
-                    onClick={handleShare}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600/30 backdrop-blur-xl text-white border-2 border-white/30 shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
-                >
-                    <div className="text-3xl mb-1">📤</div>
-                    <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
-                </button>
             </div>
         </div>
     );
