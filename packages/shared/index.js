@@ -83,7 +83,7 @@ export const PROPOSITIONS = [
   {
     id: 4,
     title: "🏥 MEDICARE FOR ALL",
-    description: "Shall we cut insurance costs via single-payer healthcare?",
+    description: "Shall we lower insurance premiums via single-payer healthcare?",
     options: [
       { id: 'yes', label: "Yes", type: 'systemic', stats: { equity: 1, oligarchy: -1 } },
       { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
