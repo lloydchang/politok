@@ -9,15 +9,13 @@ function PolicyCard({ policy, data }) {
         data?.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
 
     return (
-        <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 shadow-xl border border-white/20">
-            <div className="flex items-center gap-3">
-                <span className="text-3xl">{policy.iconWeb}</span>
-                <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
-                <div className="flex-1">
-                    {data?.status !== 'loading' && (
-                        <p className="text-xs text-gray-900 leading-relaxed font-medium">{data?.text}</p>
-                    )}
-                </div>
+        <div className="flex items-center gap-3">
+            <span className="text-3xl">{policy.iconWeb}</span>
+            <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
+            <div className="flex-1">
+                {data?.status !== 'loading' && (
+                    <p className="text-s text-white leading-relaxed font-bold">{data?.text}</p>
+                )}
             </div>
         </div>
     );
