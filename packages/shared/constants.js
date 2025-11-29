@@ -81,7 +81,7 @@ export const FEED_ITEMS = [
         stat: {
             emoji: '🏠 💸',
             title: 'Housing Crisis',
-            description: 'Rent prices have increased 30% in the last 5 years'
+            description: 'Rent prices have increased 41% in the last 5 years'
         }
     },
     {
@@ -99,7 +99,7 @@ export const FEED_ITEMS = [
         stat: {
             emoji: '👶 💰',
             title: 'Childcare Costs',
-            description: 'Average cost is $1,200/mo in the US'
+            description: 'Average cost is $1,230/mo in the US'
         }
     },
     { type: 'results' }, // Show results after all votes
