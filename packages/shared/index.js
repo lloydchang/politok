@@ -514,12 +514,6 @@ export function compareResults(myStats, friendStats) {
 export function generateViralShareText(votes, resultStats, percentileData, identityLabel) {
   let shareText = "";
 
-  // URL at the top
-  shareText += `https://politok.vercel.app/\n`;
-
-  // Empty line
-  shareText += `\n`;
-
   // Identity label with emoji
   shareText += `${identityLabel.emoji} ${identityLabel.label}\n\n`;
 
@@ -559,6 +553,9 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
 
   // Call to action
   shareText += `\nHow would you vote?\n`;
+
+  // URL at the bottom
+  shareText += `\nhttps://politok.vercel.app/`;
 
   return shareText;
 }
