@@ -61,7 +61,7 @@ export default function Feed() {
         if (currentItem?.type === 'prop' && !hasVotedOnCurrent) {
             delay = 4000; // 4 seconds to vote on props
         } else if (currentItem?.type === 'prop' && hasVotedOnCurrent) {
-            delay = 1000; // Quick advance after voting
+            delay = 0; // Quick advance after voting
         } else if (currentItem?.type === 'results') {
             delay = 6000; // 6 seconds to see results
         } else if (currentItem?.type === 'dashboard') {

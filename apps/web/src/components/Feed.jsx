@@ -43,11 +43,11 @@ export default function Feed() {
     useEffect(() => {
         let delay;
         if (currentItem?.type === 'prop' && !hasVotedOnCurrent) {
-            delay = 1000; // 1 second to vote on props
+            delay = 4000; // 4 second to vote on props
         } else if (currentItem?.type === 'prop' && hasVotedOnCurrent) {
             delay = 0; // Quick advance after voting
         } else if (currentItem?.type === 'results') {
-            delay = 1000; // 1 second to see result
+            delay = 6000; // 6 second to see result
         } else if (currentItem?.type === 'dashboard') {
             delay = null; // Don't auto-advance from dashboard
         }
