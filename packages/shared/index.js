@@ -56,7 +56,7 @@ export const PROPOSITIONS = [
   {
     id: 1,
     title: "🏘️ FREEZE THE RENT",
-    description: "Shall we implement a freeze on rent increases for all residential units?",
+    description: "Shall we implement a freeze on rent increases for residential units?",
     options: [
       { id: 'yes', label: "Yes", type: 'reform', stats: { equity: 1, oligarchy: -1 } },
       { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
