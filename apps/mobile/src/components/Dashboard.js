@@ -137,13 +137,13 @@ export default function Dashboard() {
                             </View>
 
                             <View style={styles.toggleContainer}>
-                                <Text style={styles.toggleLabel}>🛰️</Text>
                                 <Switch
                                     value={travelMode}
                                     onValueChange={setTravelMode}
                                     trackColor={{ false: '#4b5563', true: '#3b82f6' }}
                                     thumbColor={'#ffffff'}
                                 />
+                                <Text style={styles.toggleLabel}>🛰️</Text>
                             </View>
                         </View>
 
