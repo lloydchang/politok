@@ -8,9 +8,13 @@ export const COLORS = {
 
   // Text colors
   TEXT_DARK: '#0f172a',
+  TEXT_RED_DARK: '#f87171', // Lighter red for dark mode text
+  TEXT_RED_LIGHT: '#dc2626',
+  TEXT_WHITE_DARK: '#f8fafc', // Slightly off-white for dark mode text
+  TEXT_WHITE_LIGHT: '#fff',
   TEXT_BLUE_DARK: '#60a5fa', // Lighter blue for dark mode text
   TEXT_BLUE_LIGHT: '#3b82f6',
-  TEXT_GRAY: '#94a3b8', // Lighter gray for dark mode
+  TEXT_GRAY: '#94a3b8', // Medium gray for dark mode
   TEXT_GRAY_MEDIUM: '#cbd5e1',
   TEXT_GRAY_LIGHT: '#e2e8f0',
 
@@ -70,7 +74,7 @@ export const PROPOSITIONS = [
   {
     id: 3,
     title: "🍼 CHILDCARE FOR ALL",
-    description: "Shall we guarantee free, publicly-funded child care for all families?",
+    description: "Shall we offer free, publicly-funded child care for all families?",
     options: [
       { id: 'yes', label: "Yes", type: 'systemic', stats: { equity: 1, oligarchy: -1 } },
       { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }

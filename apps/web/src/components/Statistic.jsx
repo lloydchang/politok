@@ -23,7 +23,7 @@ export default function Statistic({ stat }) {
                     <div className="text-6xl mb-6 animate-bounce">{stat.emoji}</div>
                 )}
 
-                <h2 className="text-4xl font-black mb-4 leading-tight" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
+                <h2 className="text-4xl font-black mb-4 leading-tight" style={{ color: COLORS.TEXT_RED_LIGHT }}>
                     {stat.title}
                 </h2>
 
@@ -31,7 +31,7 @@ export default function Statistic({ stat }) {
                     {stat.value}
                 </div>
 
-                <p className="text-lg font-medium leading-relaxed max-w-xs mx-auto" style={{ color: COLORS.TEXT_LIGHT_GRAY }}>
+                <p className="text-lg font-medium leading-relaxed max-w-xs mx-auto" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
                     {stat.description}
                 </p>
             </div>

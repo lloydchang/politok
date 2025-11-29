@@ -26,7 +26,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
                         {proposition.title}
                     </h1>
 
-                    <p className="text-lg leading-relaxed px-4 font-medium" style={{ color: COLORS.TEXT_LIGHT_GRAY }}>
+                    <p className="text-lg leading-relaxed px-4 font-medium" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
                         {proposition.description}
                     </p>
                 </div>

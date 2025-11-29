@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 32,
     fontWeight: '900',
-    color: COLORS.TEXT_BLUE_LIGHT,
+    color: COLORS.TEXT_RED_LIGHT,
     marginBottom: 16,
     textAlign: 'center',
   },

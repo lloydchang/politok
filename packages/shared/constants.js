@@ -81,8 +81,7 @@ export const FEED_ITEMS = [
         stat: {
             emoji: '🏠 💸',
             title: 'Housing Crisis',
-            description: 'Rent prices have increased 30% in the last 5 years',
-            badge: 'Did you know?'
+            description: 'Rent prices have increased 30% in the last 5 years'
         }
     },
     {
@@ -90,9 +89,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[1],
         stat: {
             emoji: '🚍 🚏',
-            title: 'Transit Facts',
-            description: 'Free public transit exists in 100+ cities worldwide',
-            badge: 'Did you know?'
+            title: 'Transit Burden',
+            description: 'Half of parents spend 5+ hours weekly shuttling kids'
         }
     },
     {
@@ -101,8 +99,7 @@ export const FEED_ITEMS = [
         stat: {
             emoji: '👶 💰',
             title: 'Childcare Costs',
-            description: 'Average cost is $1,200/mo in the US',
-            badge: 'Did you know?'
+            description: 'Average cost is $1,200/mo in the US'
         }
     },
     { type: 'results' }, // Show results after all votes

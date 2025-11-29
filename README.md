@@ -95,7 +95,7 @@ Voters decide on three politok measures:
 Shall we implement a freeze on rent increases for all residential units?
 2. 🚌 **FAST & FREE BUSES**
 Shall we make buses faster and eliminate all fares?
-3. 🍼 **CHILDCARE FOR ALL** - Shall we guarantee free, publicly-funded child care for all families?
+3. 🍼 **CHILDCARE FOR ALL** - Shall we offer free, publicly-funded child care for all families?
 
 ### Scoring System
 - Each vote affects two stats: **Equity** and **Oligarchy**
