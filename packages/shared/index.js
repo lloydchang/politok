@@ -353,7 +353,7 @@ export function getIdentityLabel(stats, votes) {
 
   // 7. Swing voter (50%)
   if (stats.equity === 50) {
-    return { label: 'Swing Voter', emoji: '🗳️', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 4 };
+    return { label: 'Swing Voter', emoji: '🤷', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 4 };
   }
 
   // 8. Moving toward oligarchy (40-49%)
