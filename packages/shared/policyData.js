@@ -934,22 +934,26 @@ export const LOCATION_OVERRIDES = {
     'Phoenix, Arizona': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'yellow', text: 'Valley Metro light rail expanding' },
-        childcare: { status: 'yellow', text: 'Quality First scholarships' }
+        childcare: { status: 'yellow', text: 'Quality First scholarships' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. AHCCCS covers low-income' }
     },
     'Mesa, Arizona': {
         rent: { status: 'red', text: 'No rent control permitted' },
         transit: { status: 'yellow', text: 'Valley Metro access' },
-        childcare: { status: 'yellow', text: 'MPS Early Childhood' }
+        childcare: { status: 'yellow', text: 'MPS Early Childhood' },
+        medicare: { status: 'yellow', text: 'AHCCCS coverage available' }
     },
     'Scottsdale, Arizona': {
         rent: { status: 'red', text: 'State preemption' },
         transit: { status: 'yellow', text: 'Valley Metro Trolley' },
-        childcare: { status: 'yellow', text: 'SUSD programs' }
+        childcare: { status: 'yellow', text: 'SUSD programs' },
+        medicare: { status: 'yellow', text: 'HonorHealth charity care available' }
     },
     'Tempe, Arizona': {
         rent: { status: 'red', text: 'No rent control allowed' },
         transit: { status: 'yellow', text: 'Valley Metro. Free Orbit' },
-        childcare: { status: 'yellow', text: 'TUHSD Early Learning' }
+        childcare: { status: 'yellow', text: 'TUHSD Early Learning' },
+        medicare: { status: 'yellow', text: 'AHCCCS and community health centers' }
     },
 
     // ========================================
@@ -958,17 +962,20 @@ export const LOCATION_OVERRIDES = {
     'Las Vegas, Nevada': {
         rent: { status: 'yellow', text: 'No rent control. Rapid increases' },
         transit: { status: 'yellow', text: 'RTC buses. Deuce on Strip' },
-        childcare: { status: 'yellow', text: 'Nevada Ready Pre-K' }
+        childcare: { status: 'yellow', text: 'Nevada Ready Pre-K' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Community Health Alliance' }
     },
     'Reno, Nevada': {
         rent: { status: 'yellow', text: 'No rent control. Housing crisis' },
         transit: { status: 'yellow', text: 'RTC RIDE buses' },
-        childcare: { status: 'yellow', text: 'WCSD Preschool Program' }
+        childcare: { status: 'yellow', text: 'WCSD Preschool Program' },
+        medicare: { status: 'yellow', text: 'Northern Nevada HOPES clinic' }
     },
     'Henderson, Nevada': {
         rent: { status: 'yellow', text: 'No rent control. Growing market' },
         transit: { status: 'yellow', text: 'RTC access' },
-        childcare: { status: 'yellow', text: 'CCSD programs' }
+        childcare: { status: 'yellow', text: 'CCSD programs' },
+        medicare: { status: 'yellow', text: 'Access to Las Vegas health resources' }
     },
 
     // ========================================
@@ -977,27 +984,32 @@ export const LOCATION_OVERRIDES = {
     'Miami, Florida': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'yellow', text: 'Metrorail/Metromover. Free circulator' },
-        childcare: { status: 'yellow', text: 'VPK (Voluntary Pre-K) program' }
+        childcare: { status: 'yellow', text: 'VPK (Voluntary Pre-K) program' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid. High uninsured' }
     },
     'Tampa, Florida': {
         rent: { status: 'red', text: 'No rent control allowed' },
         transit: { status: 'yellow', text: 'TECO streetcar free downtown' },
-        childcare: { status: 'yellow', text: 'School Readiness program' }
+        childcare: { status: 'yellow', text: 'School Readiness program' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. Tampa General charity care' }
     },
     'Orlando, Florida': {
         rent: { status: 'red', text: 'State preemption on rent control' },
         transit: { status: 'yellow', text: 'Lynx buses. SunRail commuter' },
-        childcare: { status: 'yellow', text: 'Early Learning Coalition' }
+        childcare: { status: 'yellow', text: 'Early Learning Coalition' },
+        medicare: { status: 'red', text: 'Medicaid not expanded. Orlando Health safety net' }
     },
     'Jacksonville, Florida': {
         rent: { status: 'red', text: 'State ban applies' },
         transit: { status: 'yellow', text: 'JTA buses. Skyway monorail' },
-        childcare: { status: 'yellow', text: 'VPK programs' }
+        childcare: { status: 'yellow', text: 'VPK programs' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. High uninsured rate' }
     },
     'St. Petersburg, Florida': {
         rent: { status: 'red', text: 'No rent control permitted' },
         transit: { status: 'yellow', text: 'PSTA buses. Free Looper' },
-        childcare: { status: 'yellow', text: 'Pinellas County programs' }
+        childcare: { status: 'yellow', text: 'Pinellas County programs' },
+        medicare: { status: 'red', text: 'Medicaid gap. Community health centers limited' }
     },
 
     // ========================================
@@ -1006,32 +1018,38 @@ export const LOCATION_OVERRIDES = {
     'Austin, Texas': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'yellow', text: 'CapMetro buses and light rail' },
-        childcare: { status: 'yellow', text: 'Texas Rising Star program' }
+        childcare: { status: 'yellow', text: 'Texas Rising Star program' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. CommUnityCare clinics' }
     },
     'Dallas, Texas': {
         rent: { status: 'red', text: 'No rent control allowed' },
         transit: { status: 'yellow', text: 'DART light rail extensive' },
-        childcare: { status: 'yellow', text: 'Dallas ISD Pre-K programs' }
+        childcare: { status: 'yellow', text: 'Dallas ISD Pre-K programs' },
+        medicare: { status: 'red', text: 'Medicaid not expanded. Parkland Hospital safety net' }
     },
     'Houston, Texas': {
         rent: { status: 'red', text: 'State preemption on rent control' },
         transit: { status: 'yellow', text: 'METRO rail and buses' },
-        childcare: { status: 'yellow', text: 'Houston ISD Pre-K4' }
+        childcare: { status: 'yellow', text: 'Houston ISD Pre-K4' },
+        medicare: { status: 'red', text: 'No expansion. Harris Health System for uninsured' }
     },
     'San Antonio, Texas': {
         rent: { status: 'red', text: 'Rent control banned statewide' },
         transit: { status: 'yellow', text: 'VIA buses. Expanding service' },
-        childcare: { status: 'green', text: 'Pre-K 4 SA comprehensive program' }
+        childcare: { status: 'green', text: 'Pre-K 4 SA comprehensive program' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. CentroMed clinics' }
     },
     'Fort Worth, Texas': {
         rent: { status: 'red', text: 'State ban applies' },
         transit: { status: 'yellow', text: 'The T buses. TEXRail' },
-        childcare: { status: 'yellow', text: 'FWISD Pre-K' }
+        childcare: { status: 'yellow', text: 'FWISD Pre-K' },
+        medicare: { status: 'red', text: 'JPS Health Network serves uninsured' }
     },
     'El Paso, Texas': {
         rent: { status: 'red', text: 'No rent control' },
         transit: { status: 'yellow', text: 'Sun Metro buses. Streetcar' },
-        childcare: { status: 'yellow', text: 'EPISD Early Childhood' }
+        childcare: { status: 'yellow', text: 'EPISD Early Childhood' },
+        medicare: { status: 'red', text: 'University Medical Center safety net' }
     },
 
     // ========================================
@@ -1040,17 +1058,20 @@ export const LOCATION_OVERRIDES = {
     'Chicago, Illinois': {
         rent: { status: 'red', text: 'State law bans rent control' },
         transit: { status: 'green', text: 'CTA. Reduced fares seniors/students' },
-        childcare: { status: 'yellow', text: 'Chicago Early Learning' }
+        childcare: { status: 'yellow', text: 'Chicago Early Learning' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Cook County Health' }
     },
     'Springfield, Illinois': {
         rent: { status: 'red', text: 'State ban applies' },
         transit: { status: 'yellow', text: 'SMTD buses' },
-        childcare: { status: 'yellow', text: 'District 186 Pre-K' }
+        childcare: { status: 'yellow', text: 'District 186 Pre-K' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Memorial Health access' }
     },
     'Naperville, Illinois': {
         rent: { status: 'red', text: 'No rent control allowed' },
         transit: { status: 'yellow', text: 'Pace buses. Metra' },
-        childcare: { status: 'yellow', text: 'District 203/204 programs' }
+        childcare: { status: 'yellow', text: 'District 203/204 programs' },
+        medicare: { status: 'yellow', text: 'DuPage County Health Department' }
     },
 
     // ========================================
@@ -1059,17 +1080,20 @@ export const LOCATION_OVERRIDES = {
     'Newark, New Jersey': {
         rent: { status: 'green', text: 'Rent control ordinance since 1973' },
         transit: { status: 'green', text: 'NJ Transit hub. Free senior buses' },
-        childcare: { status: 'yellow', text: 'Abbott Preschool Program' }
+        childcare: { status: 'yellow', text: 'Abbott Preschool Program' },
+        medicare: { status: 'yellow', text: 'University Hospital safety net' }
     },
     'Jersey City, New Jersey': {
         rent: { status: 'green', text: 'Rent control for buildings pre-1987' },
         transit: { status: 'green', text: 'PATH train to NYC. Light rail' },
-        childcare: { status: 'yellow', text: 'Expanded Pre-K programs' }
+        childcare: { status: 'yellow', text: 'Expanded Pre-K programs' },
+        medicare: { status: 'yellow', text: 'NJ FamilyCare available' }
     },
     'Paterson, New Jersey': {
         rent: { status: 'green', text: 'Rent control in effect' },
         transit: { status: 'yellow', text: 'NJ Transit buses' },
-        childcare: { status: 'yellow', text: 'Abbott district programs' }
+        childcare: { status: 'yellow', text: 'Abbott district programs' },
+        medicare: { status: 'yellow', text: 'St. Joseph Health safety net' }
     },
 
     // ========================================
@@ -1078,27 +1102,32 @@ export const LOCATION_OVERRIDES = {
     'Richmond, Virginia': {
         rent: { status: 'yellow', text: 'No rent control (Dillon Rule)' },
         transit: { status: 'green', text: 'GRTC fare-free (Zero Fare)' },
-        childcare: { status: 'yellow', text: 'VPI (Virginia Preschool Initiative)' }
+        childcare: { status: 'yellow', text: 'VPI (Virginia Preschool Initiative)' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. VCU Health safety net' }
     },
     'Virginia Beach, Virginia': {
         rent: { status: 'yellow', text: 'No state rent control' },
         transit: { status: 'yellow', text: 'HRT Wave buses' },
-        childcare: { status: 'yellow', text: 'VBCPS Pre-K' }
+        childcare: { status: 'yellow', text: 'VBCPS Pre-K' },
+        medicare: { status: 'yellow', text: 'Access to Norfolk health resources' }
     },
     'Norfolk, Virginia': {
         rent: { status: 'yellow', text: 'Dillon Rule prevents control' },
         transit: { status: 'yellow', text: 'HRT light rail. The Tide' },
-        childcare: { status: 'yellow', text: 'NPS Early Childhood' }
+        childcare: { status: 'yellow', text: 'NPS Early Childhood' },
+        medicare: { status: 'yellow', text: 'EVMS and Sentara charity care' }
     },
     'Alexandria, Virginia': {
         rent: { status: 'yellow', text: 'Committed Affordable units only' },
         transit: { status: 'green', text: 'DASH Bus fare-free' },
-        childcare: { status: 'yellow', text: 'ACPS Pre-K programs' }
+        childcare: { status: 'yellow', text: 'ACPS Pre-K programs' },
+        medicare: { status: 'yellow', text: 'Access to DC health resources' }
     },
     'Arlington, Virginia': {
         rent: { status: 'yellow', text: 'No state rent control. High costs' },
         transit: { status: 'green', text: 'Metro stations. Excellent access' },
-        childcare: { status: 'yellow', text: 'APS VPI programs' }
+        childcare: { status: 'yellow', text: 'APS VPI programs' },
+        medicare: { status: 'yellow', text: 'Access to DC/VA health networks' }
     },
 
     // ========================================
@@ -1107,12 +1136,14 @@ export const LOCATION_OVERRIDES = {
     'Baltimore, Maryland': {
         rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
         transit: { status: 'yellow', text: 'Charm City Circulator free' },
-        childcare: { status: 'yellow', text: 'Judy Centers for early learning' }
+        childcare: { status: 'yellow', text: 'Judy Centers for early learning' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Johns Hopkins safety net' }
     },
     'Takoma Park, Maryland': {
         rent: { status: 'green', text: 'Rent stabilization ordinance active' },
         transit: { status: 'green', text: 'Metro station. Free city buses' },
-        childcare: { status: 'yellow', text: 'Co-op preschools and state programs' }
+        childcare: { status: 'yellow', text: 'Co-op preschools and state programs' },
+        medicare: { status: 'yellow', text: 'Montgomery County Health Department' }
     },
 
     // ========================================
@@ -1121,17 +1152,20 @@ export const LOCATION_OVERRIDES = {
     'Nashville, Tennessee': {
         rent: { status: 'yellow', text: 'No rent control. Rapid growth' },
         transit: { status: 'yellow', text: 'WeGo buses. No rail yet' },
-        childcare: { status: 'yellow', text: 'Voluntary Pre-K program' }
+        childcare: { status: 'yellow', text: 'Voluntary Pre-K program' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
     'Memphis, Tennessee': {
         rent: { status: 'yellow', text: 'No rent control. Affordable overall' },
         transit: { status: 'yellow', text: 'MATA buses and trolley' },
-        childcare: { status: 'yellow', text: 'Pre-K programs expanding' }
+        childcare: { status: 'yellow', text: 'Pre-K programs expanding' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. Regional One safety net' }
     },
     'Knoxville, Tennessee': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'KAT buses' },
-        childcare: { status: 'yellow', text: 'Knox County Pre-K' }
+        childcare: { status: 'yellow', text: 'Knox County Pre-K' },
+        medicare: { status: 'red', text: 'No expansion. UT Medical Center charity care' }
     },
 
     // ========================================
@@ -1140,12 +1174,14 @@ export const LOCATION_OVERRIDES = {
     'Indianapolis, Indiana': {
         rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
         transit: { status: 'yellow', text: 'IndyGo. Red Line BRT' },
-        childcare: { status: 'yellow', text: 'On My Way Pre-K vouchers' }
+        childcare: { status: 'yellow', text: 'On My Way Pre-K vouchers' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded (HIP 2.0)' }
     },
     'Fort Wayne, Indiana': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'Citilink buses' },
-        childcare: { status: 'yellow', text: 'FWCS Early Childhood' }
+        childcare: { status: 'yellow', text: 'FWCS Early Childhood' },
+        medicare: { status: 'yellow', text: 'Parkview and Lutheran safety net' }
     },
 
     // ========================================
@@ -1154,12 +1190,14 @@ export const LOCATION_OVERRIDES = {
     'New Orleans, Louisiana': {
         rent: { status: 'yellow', text: 'No rent control. Post-Katrina issues' },
         transit: { status: 'yellow', text: 'Streetcar and RTA buses' },
-        childcare: { status: 'yellow', text: 'LA 4 and Cecil J. Picard programs' }
+        childcare: { status: 'yellow', text: 'LA 4 and Cecil J. Picard programs' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded 2016. Charity Hospital legacy' }
     },
     'Baton Rouge, Louisiana': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'yellow', text: 'CATS buses' },
-        childcare: { status: 'yellow', text: 'EBR Pre-K programs' }
+        childcare: { status: 'yellow', text: 'EBR Pre-K programs' },
+        medicare: { status: 'yellow', text: 'Our Lady of the Lake and LSU Health' }
     },
 
     // ========================================
@@ -1168,12 +1206,14 @@ export const LOCATION_OVERRIDES = {
     'Louisville, Kentucky': {
         rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
         transit: { status: 'yellow', text: 'TARC buses' },
-        childcare: { status: 'yellow', text: 'Kentucky Preschool Program' }
+        childcare: { status: 'yellow', text: 'Kentucky Preschool Program' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. UofL Health safety net' }
     },
     'Lexington, Kentucky': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'Lextran buses' },
-        childcare: { status: 'yellow', text: 'Fayette County Pre-K' }
+        childcare: { status: 'yellow', text: 'Fayette County Pre-K' },
+        medicare: { status: 'yellow', text: 'UK Healthcare charity care' }
     },
 
     // ========================================
@@ -1182,12 +1222,14 @@ export const LOCATION_OVERRIDES = {
     'Oklahoma City, Oklahoma': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'yellow', text: 'Embark buses and streetcar' },
-        childcare: { status: 'yellow', text: 'Reach Out and Read Oklahoma' }
+        childcare: { status: 'yellow', text: 'Reach Out and Read Oklahoma' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. OU Health access' }
     },
     'Tulsa, Oklahoma': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'Tulsa Transit buses' },
-        childcare: { status: 'green', text: 'Educare Tulsa comprehensive' }
+        childcare: { status: 'green', text: 'Educare Tulsa comprehensive' },
+        medicare: { status: 'yellow', text: 'OSU Medical Center and community clinics' }
     },
 
     // ========================================
@@ -1196,7 +1238,8 @@ export const LOCATION_OVERRIDES = {
     'St. Louis, Missouri': {
         rent: { status: 'yellow', text: 'No rent control. Low costs overall' },
         transit: { status: 'yellow', text: 'MetroLink light rail. Buses' },
-        childcare: { status: 'yellow', text: 'Universal Pre-K initiative' }
+        childcare: { status: 'yellow', text: 'Universal Pre-K initiative' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. BJC and SSM safety net' }
     },
 
     // ========================================
@@ -1205,17 +1248,20 @@ export const LOCATION_OVERRIDES = {
     'Des Moines, Iowa': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'DART buses' },
-        childcare: { status: 'yellow', text: 'Shared Visions preschool' }
+        childcare: { status: 'yellow', text: 'Shared Visions preschool' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Broadlawns Medical Center' }
     },
     'Iowa City, Iowa': {
         rent: { status: 'yellow', text: 'No rent control. University market' },
         transit: { status: 'green', text: 'Iowa City Transit free' },
-        childcare: { status: 'yellow', text: 'ICCSD Preschool Program' }
+        childcare: { status: 'yellow', text: 'ICCSD Preschool Program' },
+        medicare: { status: 'yellow', text: 'University of Iowa Hospitals access' }
     },
     'Cedar Rapids, Iowa': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'CR Transit buses' },
-        childcare: { status: 'yellow', text: 'CRCSD Early Childhood' }
+        childcare: { status: 'yellow', text: 'CRCSD Early Childhood' },
+        medicare: { status: 'yellow', text: 'UnityPoint and Mercy health systems' }
     },
 
     // ========================================
@@ -1224,17 +1270,20 @@ export const LOCATION_OVERRIDES = {
     'Wichita, Kansas': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'yellow', text: 'Wichita Transit' },
-        childcare: { status: 'yellow', text: 'USD 259 Pre-K' }
+        childcare: { status: 'yellow', text: 'USD 259 Pre-K' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
     'Lawrence, Kansas': {
         rent: { status: 'yellow', text: 'No rent control. College town' },
         transit: { status: 'green', text: 'KU buses free for students' },
-        childcare: { status: 'yellow', text: 'USD 497 Preschool' }
+        childcare: { status: 'yellow', text: 'USD 497 Preschool' },
+        medicare: { status: 'red', text: 'LMH Health safety net. No expansion' }
     },
     'Topeka, Kansas': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'yellow', text: 'Topeka Metro buses' },
-        childcare: { status: 'yellow', text: 'Parents as Teachers program' }
+        childcare: { status: 'yellow', text: 'Parents as Teachers program' },
+        medicare: { status: 'red', text: 'Stormont Vail charity care. No Medicaid expansion' }
     },
 
     // ========================================
@@ -1243,12 +1292,14 @@ export const LOCATION_OVERRIDES = {
     'Omaha, Nebraska': {
         rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
         transit: { status: 'yellow', text: 'Metro buses' },
-        childcare: { status: 'yellow', text: 'Step Up to Quality Nebraska' }
+        childcare: { status: 'yellow', text: 'Step Up to Quality Nebraska' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. CHI Health access' }
     },
     'Lincoln, Nebraska': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'StarTran buses' },
-        childcare: { status: 'yellow', text: 'LPS Early Childhood programs' }
+        childcare: { status: 'yellow', text: 'LPS Early Childhood programs' },
+        medicare: { status: 'yellow', text: 'Bryan Health and community clinics' }
     },
 
     // ========================================
@@ -1257,17 +1308,20 @@ export const LOCATION_OVERRIDES = {
     'Charleston, South Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Rising costs' },
         transit: { status: 'yellow', text: 'CARTA buses and trolleys' },
-        childcare: { status: 'yellow', text: 'SC First Steps' }
+        childcare: { status: 'yellow', text: 'SC First Steps' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
     'Columbia, South Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'The COMET buses' },
-        childcare: { status: 'yellow', text: 'Richland County Pre-K' }
+        childcare: { status: 'yellow', text: 'Richland County Pre-K' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. Prisma Health safety net' }
     },
     'Greenville, South Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'Greenlink buses' },
-        childcare: { status: 'yellow', text: 'ABC Quality program' }
+        childcare: { status: 'yellow', text: 'ABC Quality program' },
+        medicare: { status: 'red', text: 'No expansion. GHS charity care' }
     },
 
     // ========================================
@@ -1276,12 +1330,14 @@ export const LOCATION_OVERRIDES = {
     'Birmingham, Alabama': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'red', text: 'MAX buses limited service' },
-        childcare: { status: 'yellow', text: 'Alabama First Class Pre-K' }
+        childcare: { status: 'yellow', text: 'Alabama First Class Pre-K' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
     'Montgomery, Alabama': {
         rent: { status: 'red', text: 'State preemption' },
         transit: { status: 'red', text: 'The M buses limited' },
-        childcare: { status: 'yellow', text: 'First Class Pre-K' }
+        childcare: { status: 'yellow', text: 'First Class Pre-K' },
+        medicare: { status: 'red', text: 'No Medicaid expansion. Baptist Health safety net' }
     },
 
     // ========================================
@@ -1290,7 +1346,8 @@ export const LOCATION_OVERRIDES = {
     'Jackson, Mississippi': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'red', text: 'JATRAN buses very limited' },
-        childcare: { status: 'yellow', text: 'MS Early Learning Guidelines' }
+        childcare: { status: 'yellow', text: 'MS Early Learning Guidelines' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid. Highest uninsured' }
     },
 
     // ========================================
@@ -1299,7 +1356,8 @@ export const LOCATION_OVERRIDES = {
     'Little Rock, Arkansas': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'red', text: 'Rock Region Metro limited' },
-        childcare: { status: 'yellow', text: 'Arkansas Better Chance (ABC)' }
+        childcare: { status: 'yellow', text: 'Arkansas Better Chance (ABC)' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded via Private Option' }
     },
 
     // ========================================
@@ -1308,12 +1366,14 @@ export const LOCATION_OVERRIDES = {
     'Salt Lake City, Utah': {
         rent: { status: 'yellow', text: 'No rent control. Moderate increases' },
         transit: { status: 'yellow', text: 'TRAX light rail. UTA buses' },
-        childcare: { status: 'yellow', text: 'School Readiness Initiative' }
+        childcare: { status: 'yellow', text: 'School Readiness Initiative' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Intermountain Healthcare' }
     },
     'Provo, Utah': {
         rent: { status: 'yellow', text: 'No rent control. College market' },
         transit: { status: 'yellow', text: 'UVX BRT. UTA buses' },
-        childcare: { status: 'yellow', text: 'PSD Early Learning' }
+        childcare: { status: 'yellow', text: 'PSD Early Learning' },
+        medicare: { status: 'yellow', text: 'Utah County health clinics' }
     },
 
     // ========================================
@@ -1322,7 +1382,8 @@ export const LOCATION_OVERRIDES = {
     'Boise, Idaho': {
         rent: { status: 'yellow', text: 'No rent control. Rapid growth' },
         transit: { status: 'yellow', text: 'ValleyRide buses' },
-        childcare: { status: 'yellow', text: 'Idaho Stars program' }
+        childcare: { status: 'yellow', text: 'Idaho Stars program' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. St. Lukes and community clinics' }
     },
 
     // ========================================
@@ -1331,12 +1392,14 @@ export const LOCATION_OVERRIDES = {
     'Billings, Montana': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'MET Transit buses' },
-        childcare: { status: 'yellow', text: 'Best Beginnings' }
+        childcare: { status: 'yellow', text: 'Best Beginnings' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. RiverStone Health' }
     },
     'Missoula, Montana': {
         rent: { status: 'yellow', text: 'No rent control. University town' },
         transit: { status: 'green', text: 'Mountain Line buses free' },
-        childcare: { status: 'yellow', text: 'Best Beginnings scholarships' }
+        childcare: { status: 'yellow', text: 'Best Beginnings scholarships' },
+        medicare: { status: 'yellow', text: 'Partnership Health Center' }
     },
 
     // ========================================
@@ -1345,7 +1408,8 @@ export const LOCATION_OVERRIDES = {
     'Anchorage, Alaska': {
         rent: { status: 'yellow', text: 'No rent control. Seasonal variation' },
         transit: { status: 'yellow', text: 'People Mover buses' },
-        childcare: { status: 'yellow', text: 'Learn & Grow programs' }
+        childcare: { status: 'yellow', text: 'Learn & Grow programs' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
 
     // ========================================
@@ -1354,7 +1418,8 @@ export const LOCATION_OVERRIDES = {
     'Honolulu, Hawaii': {
         rent: { status: 'yellow', text: 'No rent control. Highest costs in US' },
         transit: { status: 'yellow', text: 'TheBus extensive. Rail under construction' },
-        childcare: { status: 'yellow', text: 'Preschool Open Doors program' }
+        childcare: { status: 'yellow', text: 'Preschool Open Doors program' },
+        medicare: { status: 'green', text: 'Prepaid Health Care Act. QUEST for low-income' }
     },
 
     // ========================================
@@ -1363,7 +1428,8 @@ export const LOCATION_OVERRIDES = {
     'Burlington, Vermont': {
         rent: { status: 'yellow', text: 'No rent control. Tight market' },
         transit: { status: 'green', text: 'Green Mountain Transit free' },
-        childcare: { status: 'yellow', text: 'Act 166 Universal Pre-K' }
+        childcare: { status: 'yellow', text: 'Act 166 Universal Pre-K' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Dr. Dynasaur for children' }
     },
 
     // ========================================
@@ -1372,7 +1438,8 @@ export const LOCATION_OVERRIDES = {
     'Portland, Maine': {
         rent: { status: 'yellow', text: 'No rent control. Increasing costs' },
         transit: { status: 'yellow', text: 'Metro buses seasonal' },
-        childcare: { status: 'yellow', text: 'Maine Roads to Quality' }
+        childcare: { status: 'yellow', text: 'Maine Roads to Quality' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. MaineCare' }
     },
 
     // ========================================
@@ -1381,7 +1448,8 @@ export const LOCATION_OVERRIDES = {
     'Manchester, New Hampshire': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
         transit: { status: 'yellow', text: 'MTA buses' },
-        childcare: { status: 'yellow', text: 'NH Scholarships' }
+        childcare: { status: 'yellow', text: 'NH Scholarships' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded 2014' }
     },
 
     // ========================================
@@ -1390,7 +1458,8 @@ export const LOCATION_OVERRIDES = {
     'Providence, Rhode Island': {
         rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
         transit: { status: 'yellow', text: 'RIPTA buses statewide' },
-        childcare: { status: 'yellow', text: 'RI Pre-K expanding' }
+        childcare: { status: 'yellow', text: 'RI Pre-K expanding' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. RIte Care program' }
     },
 
     // ========================================
@@ -1399,12 +1468,14 @@ export const LOCATION_OVERRIDES = {
     'Hartford, Connecticut': {
         rent: { status: 'yellow', text: 'No rent control. Mediation available' },
         transit: { status: 'yellow', text: 'CTtransit bus system' },
-        childcare: { status: 'yellow', text: 'School Readiness program' }
+        childcare: { status: 'yellow', text: 'School Readiness program' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. HUSKY Health' }
     },
     'New Haven, Connecticut': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'CT Transit buses' },
-        childcare: { status: 'yellow', text: 'NHPS Early Childhood' }
+        childcare: { status: 'yellow', text: 'NHPS Early Childhood' },
+        medicare: { status: 'yellow', text: 'Access to Yale New Haven Hospital' }
     },
 
     // ========================================
@@ -1413,7 +1484,8 @@ export const LOCATION_OVERRIDES = {
     'Wilmington, Delaware': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'DART First State buses' },
-        childcare: { status: 'yellow', text: 'Delaware Stars for Early Success' }
+        childcare: { status: 'yellow', text: 'Delaware Stars for Early Success' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. ChristianaCare access' }
     },
 
     // ========================================
@@ -1422,7 +1494,8 @@ export const LOCATION_OVERRIDES = {
     'Charleston, West Virginia': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'yellow', text: 'KRT buses limited' },
-        childcare: { status: 'yellow', text: 'WV Birth to Three. Pre-K' }
+        childcare: { status: 'yellow', text: 'WV Birth to Three. Pre-K' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. CAMC regional access' }
     },
 
     // ========================================
@@ -1431,7 +1504,8 @@ export const LOCATION_OVERRIDES = {
     'Sioux Falls, South Dakota': {
         rent: { status: 'yellow', text: 'No rent control. Growing market' },
         transit: { status: 'red', text: 'SAM buses very limited' },
-        childcare: { status: 'yellow', text: 'Birth to 3 Connections' }
+        childcare: { status: 'yellow', text: 'Birth to 3 Connections' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     },
 
     // ========================================
@@ -1440,7 +1514,8 @@ export const LOCATION_OVERRIDES = {
     'Fargo, North Dakota': {
         rent: { status: 'yellow', text: 'No rent control. Oil boom effects' },
         transit: { status: 'yellow', text: 'MATBUS buses' },
-        childcare: { status: 'yellow', text: 'ND Early Childhood Programs' }
+        childcare: { status: 'yellow', text: 'ND Early Childhood Programs' },
+        medicare: { status: 'yellow', text: 'Medicaid expanded. Essentia Health' }
     },
 
     // ========================================
@@ -1449,7 +1524,8 @@ export const LOCATION_OVERRIDES = {
     'Cheyenne, Wyoming': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
         transit: { status: 'red', text: 'Cheyenne Transit very limited' },
-        childcare: { status: 'yellow', text: 'WY Early Childhood' }
+        childcare: { status: 'yellow', text: 'WY Early Childhood' },
+        medicare: { status: 'red', text: 'State has not expanded Medicaid' }
     }
 };
 
