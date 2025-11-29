@@ -318,49 +318,38 @@ export function getIdentityLabel(stats, votes) {
   const noCount = Object.values(votes).filter(v => v === 'no').length;
   const skippedCount = PROPOSITIONS.length - Object.keys(votes).length;
 
-  // 1. Easter Egg: 67% oligarchy (33% equity / 67% oligarchy)
-  if (stats.oligarchy === 67) {
-    return { label: '6-7 brain rot', emoji: '👌 👇', color: COLORS.OUTCOME_WHITE, description: 'IDGAF', groupNumber: 2 };
-  }
-
-  // 2. High Equity (70-99%)
-  if (stats.equity >= 70) {
-    if (yesCount === PROPOSITIONS.length) {
-      return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'All yes - maximum equity vibes', groupNumber: 7 };
-    }
-    return { label: 'Reform Supporter', emoji: '✊', color: COLORS.OUTCOME_GREEN, description: 'Fighting for change and politok', groupNumber: 7 };
-  }
-
-  // 3. Very high oligarchy (0-32% equity / 68-99% oligarchy)
-  if (stats.oligarchy >= 71) {
+  // 1. Very high oligarchy (0-20% equity / 80-99% oligarchy) - narrow extreme (20%)
+  if (stats.oligarchy >= 80) {
     return { label: 'Naysayer', emoji: '👎', color: COLORS.OUTCOME_RED, description: 'No to government solutions', groupNumber: 1 };
   }
 
-  // 4. High oligarchy (34-39% equity / 61-66% oligarchy)
-  if (stats.oligarchy >= 61) {
-    return { label: 'Status Quo', emoji: '🫤', color: COLORS.OUTCOME_ORANGE, description: 'Preferring most things as they are', groupNumber: 2 };
+  // 2. Easter Egg: 67% oligarchy (33% equity / 67% oligarchy) - SPECIAL
+  if (stats.oligarchy === 67) {
+    return { label: '6-7 Oligarchy', emoji: '👌 👇', color: COLORS.OUTCOME_WHITE, description: 'Nonsensical expression', groupNumber: 2 };
   }
 
-  // 5. Good equity (60-69%)
-  if (stats.equity >= 60) {
-    return { label: 'Change Minded', emoji: '🙌', color: COLORS.OUTCOME_GREEN, description: 'Open to reform and new ideas', groupNumber: 6 };
+  // 3. High oligarchy (51-79% oligarchy, excluding 67) - wider (28%)
+  if (stats.oligarchy > 50) {
+    return { label: 'Status Quo', emoji: '🫤', color: COLORS.OUTCOME_ORANGE, description: 'Prefer most things as they are', groupNumber: 3 };
   }
 
-  // 6. Leaning equity (51-59%)
-  if (stats.equity >= 51) {
-    return { label: 'Leaning Yes', emoji: '🙂', color: COLORS.OUTCOME_GREEN, description: 'Cautiously optimistic about change', groupNumber: 5 };
-  }
-
-  // 7. Swing voter (50%)
+  // 4. Swing voter (exactly 50%) - SPECIAL (1%)
   if (stats.equity === 50) {
     return { label: 'Swing Voter', emoji: '🤷', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 4 };
   }
 
-  // 8. Moving toward oligarchy (40-49%)
-  // Note: This catches remaining cases where Oligarchy >= 40 (Equity < 50)
-  if (stats.oligarchy >= 40) {
-    return { label: 'Selective Voter', emoji: '💁', color: COLORS.OUTCOME_ORANGE, description: 'What did you expect?', groupNumber: 3 };
+  // 5. Easter Egg: 33% oligarchy (67% equity / 33% oligarchy) - SPECIAL
+  if (stats.oligarchy === 33) {
+    return { label: '6-7 Equity', emoji: '👌 👆', color: COLORS.OUTCOME_WHITE, description: 'No fixed meaning', groupNumber: 5 };
   }
+
+  // 6. High equity (21-49% oligarchy, excluding 33) - wider (28%)
+  if (stats.oligarchy >= 21) {
+    return { label: 'Change Minded', emoji: '🙌', color: COLORS.OUTCOME_GREEN, description: 'Open to reform and new ideas', groupNumber: 6 };
+  }
+
+  // 7. Very High Equity - All Yes (1-20% oligarchy) - narrow extreme (20%)
+  return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'Equity vibes', groupNumber: 7 };
 
   // Fallback (shouldn't reach here with full coverage)
   return { label: 'Undecided', emoji: '🤔', color: COLORS.OUTCOME_GRAY, description: 'Still figuring it out', groupNumber: 0 };
