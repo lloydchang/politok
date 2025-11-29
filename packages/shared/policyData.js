@@ -329,7 +329,7 @@ export const STATE_POLICIES = {
         rent: { status: 'red', text: 'Rent control banned by state law (1981)' },
         transit: { status: 'green', text: 'Youth ride free statewide (Move Ahead WA)' },
         childcare: { status: 'green', text: 'Fair Start for Kids Act investment' },
-        medicare: { status: 'yellow', text: 'Apple Health available to all regardless of status' }
+        medicare: { status: 'yellow', text: 'Apple Health available to eligible residents' }
     },
     // WEST VIRGINIA
     'West Virginia': {
