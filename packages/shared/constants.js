@@ -113,8 +113,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[3],
         stat: {
             emoji: '💸 📈',
-            title: 'Premium Shock',
-            description: 'Insurance costs doubled in 2026'
+            title: 'Premiums Shock',
+            description: 'Insurance premiums doubled in 2026'
         }
     },
     { type: 'results' }, // Show results after all votes
