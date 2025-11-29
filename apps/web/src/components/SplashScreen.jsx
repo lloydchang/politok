@@ -20,7 +20,7 @@ export default function SplashScreen({ onFinish }) {
             <div className="w-48 h-48 md:w-64 md:h-64 relative animate-pulse">
                 <img
                     src="/logo.png"
-                    alt="PoliTok Logo"
+                    alt="poliTok Logo"
                     className="w-full h-full object-contain"
                 />
             </div>
