@@ -297,10 +297,10 @@ export function getPercentileRanking(oligarchyPercent) {
   const isMedian = oligarchyPercent === 50;
 
   const message = isMedian
-    ? `at the 50% for equity support`
+    ? `at 50% for equity support`
     : isEquitable
-      ? `in the top ${100 - percentile}% for equity support`
-      : `in the bottom ${percentile}% for equity support`;
+      ? `in top ${100 - percentile}% for equity support`
+      : `in bottom ${percentile}% for equity support`;
 
   return {
     percentile,
