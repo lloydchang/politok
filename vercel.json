@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build --workspace=@politok/web",
+  "buildCommand": "pnpm run build --filter=@politok/web",
   "outputDirectory": "apps/web/.next",
-  "installCommand": "npm install",
+  "installCommand": "pnpm install",
   "framework": "nextjs",
-  "devCommand": "npm run dev --workspace=@politok/web"
+  "devCommand": "pnpm run dev --filter=@politok/web"
 }
