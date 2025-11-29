@@ -35,7 +35,7 @@ export const STATE_POLICIES = {
         rent: { status: 'yellow', text: 'Statewide rent cap (AB 1482) of 5% + inflation' },
         transit: { status: 'yellow', text: 'Extensive transit networks. Fares vary by agency' },
         childcare: { status: 'yellow', text: 'State preschool expansion. Subsidies available' },
-        medicare: { status: 'green', text: 'Medi-Cal expanded to all income-eligible residents' }
+        medicare: { status: 'yellow', text: 'Medi-Cal expanded to all income-eligible residents' }
     },
     // COLORADO
     'Colorado': {
@@ -49,7 +49,7 @@ export const STATE_POLICIES = {
         rent: { status: 'yellow', text: 'Fair Rent Commissions allowed. No hard caps' },
         transit: { status: 'yellow', text: 'CTtransit fares standard. U-Pass for students' },
         childcare: { status: 'yellow', text: 'Care 4 Kids program. Waitlists common' },
-        medicare: { status: 'green', text: 'HUSKY Health covers low-income residents broadly' }
+        medicare: { status: 'yellow', text: 'HUSKY Health covers low-income residents broadly' }
     },
     // DELAWARE
     'Delaware': {
@@ -77,7 +77,7 @@ export const STATE_POLICIES = {
         rent: { status: 'yellow', text: 'No state ban. High cost of living adjustments' },
         transit: { status: 'yellow', text: 'TheBus (Honolulu) widely used. Fares standard' },
         childcare: { status: 'yellow', text: 'Preschool Open Doors program' },
-        medicare: { status: 'green', text: 'Prepaid Health Care Act mandates employer coverage' }
+        medicare: { status: 'yellow', text: 'Prepaid Health Care Act mandates employer coverage' }
     },
     // IDAHO
     'Idaho': {
@@ -147,7 +147,7 @@ export const STATE_POLICIES = {
         rent: { status: 'red', text: 'Rent control banned statewide since 1994' },
         transit: { status: 'yellow', text: 'MBTA fares standard. Free bus pilots in Boston' },
         childcare: { status: 'yellow', text: 'Commonwealth Preschool Partnership' },
-        medicare: { status: 'green', text: 'MassHealth provides near-universal coverage' }
+        medicare: { status: 'yellow', text: 'MassHealth provides near-universal coverage' }
     },
     // MICHIGAN
     'Michigan': {
@@ -161,7 +161,7 @@ export const STATE_POLICIES = {
         rent: { status: 'yellow', text: 'Local rent control allowed with voter approval' },
         transit: { status: 'yellow', text: 'Metro Transit fares standard' },
         childcare: { status: 'yellow', text: 'Early Learning Scholarships' },
-        medicare: { status: 'green', text: 'MinnesotaCare provides public option-like coverage' }
+        medicare: { status: 'yellow', text: 'MinnesotaCare provides public option-like coverage' }
     },
     // MISSISSIPPI
     'Mississippi': {
@@ -224,7 +224,7 @@ export const STATE_POLICIES = {
         rent: { status: 'green', text: 'Rent Stabilization system in NYC and suburbs' },
         transit: { status: 'yellow', text: 'MTA/regional transit extensive' },
         childcare: { status: 'yellow', text: 'Empire State Child Credit' },
-        medicare: { status: 'green', text: 'Essential Plan covers low-income residents' }
+        medicare: { status: 'yellow', text: 'Essential Plan covers low-income residents' }
     },
     // NORTH CAROLINA
     'North Carolina': {
@@ -259,7 +259,7 @@ export const STATE_POLICIES = {
         rent: { status: 'green', text: 'First statewide rent control (Cap: 7% + CPI)' },
         transit: { status: 'yellow', text: 'TriMet/LTD fares standard' },
         childcare: { status: 'yellow', text: 'Employment Related Day Care (ERDC)' },
-        medicare: { status: 'green', text: 'Oregon Health Plan covers 95%+ of children/adults' }
+        medicare: { status: 'yellow', text: 'Oregon Health Plan covers 95%+ of children/adults' }
     },
     // PENNSYLVANIA
     'Pennsylvania': {
@@ -315,7 +315,7 @@ export const STATE_POLICIES = {
         rent: { status: 'yellow', text: 'No state ban. Burlington charter change proposed' },
         transit: { status: 'green', text: 'GMT currently Zero Fare (state funded)' },
         childcare: { status: 'green', text: 'Act 76 (2023) massive childcare investment' },
-        medicare: { status: 'green', text: 'Dr. Dynasaur covers children/pregnant women broadly' }
+        medicare: { status: 'yellow', text: 'Dr. Dynasaur covers children/pregnant women broadly' }
     },
     // VIRGINIA
     'Virginia': {
@@ -329,7 +329,7 @@ export const STATE_POLICIES = {
         rent: { status: 'red', text: 'Rent control banned by state law (1981)' },
         transit: { status: 'green', text: 'Youth ride free statewide (Move Ahead WA)' },
         childcare: { status: 'green', text: 'Fair Start for Kids Act investment' },
-        medicare: { status: 'green', text: 'Apple Health available to all regardless of status' }
+        medicare: { status: 'yellow', text: 'Apple Health available to all regardless of status' }
     },
     // WEST VIRGINIA
     'West Virginia': {
@@ -357,7 +357,7 @@ export const STATE_POLICIES = {
         rent: { status: 'green', text: 'Rent control active since 1985. Caps on increases.' },
         transit: { status: 'green', text: 'Metro expanding. Reduced fares for low-income' },
         childcare: { status: 'yellow', text: 'Federal/local programs available. High cost of living' },
-        medicare: { status: 'green', text: 'DC Healthcare Alliance covers eligible residents' }
+        medicare: { status: 'yellow', text: 'DC Healthcare Alliance covers eligible residents' }
     },
     // PUERTO RICO
     'Puerto Rico': {
@@ -465,43 +465,43 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'green', text: 'Strong rent control caps increases at 60% of CPI' },
         transit: { status: 'green', text: 'MUNI free for youth, seniors get discounts' },
         childcare: { status: 'green', text: 'Universal preschool. Subsidies for families <$150k' },
-        medicare: { status: 'green', text: 'Healthy San Francisco provides universal access' }
+        medicare: { status: 'yellow', text: 'Healthy San Francisco provides universal access' }
     },
     'Los Angeles, California': {
         rent: { status: 'green', text: 'RSO covers pre-1978 units. 4% cap (2024)' },
         transit: { status: 'yellow', text: 'Metro $1.75. Free for students (GoPass)' },
         childcare: { status: 'yellow', text: 'UPK expansion ongoing' },
-        medicare: { status: 'green', text: 'My Health LA covers uninsured residents' }
+        medicare: { status: 'yellow', text: 'My Health LA covers uninsured residents' }
     },
     'Oakland, California': {
         rent: { status: 'green', text: 'Rent Adjustment Program with strict caps' },
         transit: { status: 'yellow', text: 'AC Transit free for youth under 18' },
         childcare: { status: 'green', text: 'Oakland Preschool for All (Measure AA)' },
-        medicare: { status: 'green', text: 'Alameda County HealthPAC available' }
+        medicare: { status: 'yellow', text: 'Alameda County HealthPAC available' }
     },
     'Berkeley, California': {
         rent: { status: 'green', text: 'Rent Stabilization Board sets strict limits' },
         transit: { status: 'green', text: 'AC Transit. EasyPass for students' },
         childcare: { status: 'green', text: 'Universal preschool initiative' },
-        medicare: { status: 'green', text: 'Berkeley Free Clinic available' }
+        medicare: { status: 'yellow', text: 'Berkeley Free Clinic available' }
     },
     'San Jose, California': {
         rent: { status: 'green', text: 'Apartment Rent Ordinance limits increases' },
         transit: { status: 'yellow', text: 'VTA light rail. Youth ride free' },
         childcare: { status: 'yellow', text: 'Preschool for All program expanding' },
-        medicare: { status: 'green', text: 'Valley Health Plan covers low-income' }
+        medicare: { status: 'yellow', text: 'Valley Health Plan covers low-income' }
     },
     'Santa Monica, California': {
         rent: { status: 'green', text: 'Rent Control Charter Amendment active since 1979' },
         transit: { status: 'green', text: 'Big Blue Bus $1.10. Free for seniors/disabled' },
         childcare: { status: 'green', text: 'Cradle to Career initiative' },
-        medicare: { status: 'green', text: 'Westside Family Health Center access' }
+        medicare: { status: 'yellow', text: 'Westside Family Health Center access' }
     },
     'West Hollywood, California': {
         rent: { status: 'green', text: 'Rent Stabilization Ordinance active' },
         transit: { status: 'green', text: 'Free CityLine shuttle service' },
         childcare: { status: 'yellow', text: 'Limited local programs, state support' },
-        medicare: { status: 'green', text: 'Saban Community Clinic partnership' }
+        medicare: { status: 'yellow', text: 'Saban Community Clinic partnership' }
     },
     'Beverly Hills, California': {
         rent: { status: 'green', text: 'Rent stabilization for older units' },
@@ -513,133 +513,133 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'green', text: 'Rent stabilization passed 2016' },
         transit: { status: 'yellow', text: 'Caltrain and SamTrans access' },
         childcare: { status: 'yellow', text: 'State programs, limited local funding' },
-        medicare: { status: 'green', text: 'Ravenswood Family Health Network' }
+        medicare: { status: 'yellow', text: 'Ravenswood Family Health Network' }
     },
     'Alameda, California': {
         rent: { status: 'green', text: 'Rent review and just cause eviction protections' },
         transit: { status: 'yellow', text: 'AC Transit serves city' },
         childcare: { status: 'yellow', text: 'Alameda Unified programs' },
-        medicare: { status: 'green', text: 'Alameda Health System access' }
+        medicare: { status: 'yellow', text: 'Alameda Health System access' }
     },
     'Richmond, California': {
         rent: { status: 'green', text: 'Rent control ordinance covers most units' },
         transit: { status: 'yellow', text: 'AC Transit and BART access' },
         childcare: { status: 'yellow', text: 'West Contra Costa USD programs' },
-        medicare: { status: 'green', text: 'Contra Costa Health Plan' }
+        medicare: { status: 'yellow', text: 'Contra Costa Health Plan' }
     },
     'San Diego, California': {
         rent: { status: 'yellow', text: 'AB 1482 state protections. No local control' },
         transit: { status: 'yellow', text: 'MTS Trolley and buses. Youth discounts' },
         childcare: { status: 'yellow', text: 'First 5 San Diego programs' },
-        medicare: { status: 'green', text: 'Family Health Centers of San Diego' }
+        medicare: { status: 'yellow', text: 'Family Health Centers of San Diego' }
     },
     'Sacramento, California': {
         rent: { status: 'yellow', text: 'State protections only. Working on local ordinance' },
         transit: { status: 'yellow', text: 'SacRT light rail and buses' },
         childcare: { status: 'yellow', text: 'SCUSD Early Learning programs' },
-        medicare: { status: 'green', text: 'Sacramento County Health Center' }
+        medicare: { status: 'yellow', text: 'Sacramento County Health Center' }
     },
     'Fresno, California': {
         rent: { status: 'yellow', text: 'State AB 1482 protections apply' },
         transit: { status: 'yellow', text: 'FAX buses, standard fares' },
         childcare: { status: 'yellow', text: 'Fresno USD State Preschool' },
-        medicare: { status: 'green', text: 'Clinica Sierra Vista access' }
+        medicare: { status: 'yellow', text: 'Clinica Sierra Vista access' }
     },
     'Long Beach, California': {
         rent: { status: 'yellow', text: 'State rent cap, no local ordinance' },
         transit: { status: 'yellow', text: 'Metro, LB Transit. Some free routes' },
         childcare: { status: 'yellow', text: 'LBUSD Early Childhood Education' },
-        medicare: { status: 'green', text: 'Long Beach Health Department clinics' }
+        medicare: { status: 'yellow', text: 'Long Beach Health Department clinics' }
     },
     'Pasadena, California': {
         rent: { status: 'yellow', text: 'Tenant protections, relocation assistance' },
         transit: { status: 'yellow', text: 'Metro Gold Line, Pasadena Transit' },
         childcare: { status: 'yellow', text: 'PUSD preschool programs' },
-        medicare: { status: 'green', text: 'Pasadena Public Health Department' }
+        medicare: { status: 'yellow', text: 'Pasadena Public Health Department' }
     },
     'Glendale, California': {
         rent: { status: 'yellow', text: 'Just cause eviction, no rent control' },
         transit: { status: 'yellow', text: 'Beeline buses, Metro access' },
         childcare: { status: 'yellow', text: 'GUSD Early Childhood programs' },
-        medicare: { status: 'green', text: 'Comprehensive Health Center access' }
+        medicare: { status: 'yellow', text: 'Comprehensive Health Center access' }
     },
     'Santa Clara, California': {
         rent: { status: 'green', text: 'Rent Stabilization Ordinance 2017' },
         transit: { status: 'yellow', text: 'VTA light rail and buses' },
         childcare: { status: 'yellow', text: 'Santa Clara USD programs' },
-        medicare: { status: 'green', text: 'Valley Medical Center access' }
+        medicare: { status: 'yellow', text: 'Valley Medical Center access' }
     },
     'Fremont, California': {
         rent: { status: 'yellow', text: 'Tenant protections, state AB 1482 applies' },
         transit: { status: 'yellow', text: 'AC Transit, BART Warm Springs station' },
         childcare: { status: 'yellow', text: 'FUSD Early Learning' },
-        medicare: { status: 'green', text: 'Tri-City Health Center' }
+        medicare: { status: 'yellow', text: 'Tri-City Health Center' }
     },
     'Hayward, California': {
         rent: { status: 'green', text: 'Rent Review Ordinance with caps' },
         transit: { status: 'yellow', text: 'AC Transit, BART stations' },
         childcare: { status: 'yellow', text: 'HUSD preschool programs' },
-        medicare: { status: 'green', text: 'Tiburcio Vasquez Health Center' }
+        medicare: { status: 'yellow', text: 'Tiburcio Vasquez Health Center' }
     },
     'Sunnyvale, California': {
         rent: { status: 'yellow', text: 'Rental rights ordinance, no caps' },
         transit: { status: 'yellow', text: 'VTA and Caltrain access' },
         childcare: { status: 'yellow', text: 'Community Resources for Children' },
-        medicare: { status: 'green', text: 'MayView Community Health Center' }
+        medicare: { status: 'yellow', text: 'MayView Community Health Center' }
     },
     'Mountain View, California': {
         rent: { status: 'green', text: 'Community Stabilization and Fair Rent Act' },
         transit: { status: 'yellow', text: 'VTA, Caltrain, Google shuttles' },
         childcare: { status: 'yellow', text: 'MVWSD Early Childhood' },
-        medicare: { status: 'green', text: 'MayView Community Health Center' }
+        medicare: { status: 'yellow', text: 'MayView Community Health Center' }
     },
     'Concord, California': {
         rent: { status: 'yellow', text: 'Just cause eviction protections' },
         transit: { status: 'yellow', text: 'County Connection buses, BART' },
         childcare: { status: 'yellow', text: 'MDUSD preschool programs' },
-        medicare: { status: 'green', text: 'Contra Costa Health Services' }
+        medicare: { status: 'yellow', text: 'Contra Costa Health Services' }
     },
     'Daly City, California': {
         rent: { status: 'yellow', text: 'State AB 1482 protections' },
         transit: { status: 'yellow', text: 'BART, SamTrans buses' },
         childcare: { status: 'yellow', text: 'JUHSD Early Learning' },
-        medicare: { status: 'green', text: 'San Mateo Medical Center clinics' }
+        medicare: { status: 'yellow', text: 'San Mateo Medical Center clinics' }
     },
     'San Mateo, California': {
         rent: { status: 'yellow', text: 'Just cause eviction, relocation assistance' },
         transit: { status: 'yellow', text: 'Caltrain, SamTrans buses' },
         childcare: { status: 'yellow', text: 'SMFCSD programs' },
-        medicare: { status: 'green', text: 'San Mateo Medical Center' }
+        medicare: { status: 'yellow', text: 'San Mateo Medical Center' }
     },
     'Redwood City, California': {
         rent: { status: 'yellow', text: 'Rental assistance programs available' },
         transit: { status: 'yellow', text: 'Caltrain hub, SamTrans' },
         childcare: { status: 'yellow', text: 'RCSD Early Childhood' },
-        medicare: { status: 'green', text: 'Fair Oaks Health Center' }
+        medicare: { status: 'yellow', text: 'Fair Oaks Health Center' }
     },
     'Union City, California': {
         rent: { status: 'green', text: 'Rent Review Ordinance active' },
         transit: { status: 'yellow', text: 'AC Transit, BART Warm Springs nearby' },
         childcare: { status: 'yellow', text: 'NHUSD preschool' },
-        medicare: { status: 'green', text: 'Tiburcio Vasquez Health Center' }
+        medicare: { status: 'yellow', text: 'Tiburcio Vasquez Health Center' }
     },
     'San Leandro, California': {
         rent: { status: 'yellow', text: 'Just cause eviction protections' },
         transit: { status: 'yellow', text: 'AC Transit, BART stations' },
         childcare: { status: 'yellow', text: 'SLZUSD Early Learning' },
-        medicare: { status: 'green', text: 'Davis Street Family Resource Center' }
+        medicare: { status: 'yellow', text: 'Davis Street Family Resource Center' }
     },
     'Burbank, California': {
         rent: { status: 'yellow', text: 'Tenant protections, no rent control' },
         transit: { status: 'yellow', text: 'Metro B Line, Metrolink' },
         childcare: { status: 'yellow', text: 'BUSD Early Childhood' },
-        medicare: { status: 'green', text: 'Providence Saint Joseph Medical Center' }
+        medicare: { status: 'yellow', text: 'Providence Saint Joseph Medical Center' }
     },
     'Inglewood, California': {
         rent: { status: 'yellow', text: 'State AB 1482 applies' },
         transit: { status: 'green', text: 'Metro K Line. Free youth transit' },
         childcare: { status: 'yellow', text: 'IUSD preschool programs' },
-        medicare: { status: 'green', text: 'South Bay Family Health Care' }
+        medicare: { status: 'yellow', text: 'South Bay Family Health Care' }
     },
 
     // ========================================
@@ -649,85 +649,85 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'green', text: 'Rent Stabilization covers 1M+ units' },
         transit: { status: 'green', text: 'Fair Fares NYC (50% off). Free buses pilot' },
         childcare: { status: 'green', text: '3-K and Pre-K for All (Universal)' },
-        medicare: { status: 'green', text: 'NYC Care guarantees healthcare for all' }
+        medicare: { status: 'yellow', text: 'NYC Care guarantees healthcare for all' }
     },
     'Albany, New York': {
         rent: { status: 'green', text: 'Emergency Tenant Protection Act applies' },
         transit: { status: 'yellow', text: 'CDTA bus system' },
         childcare: { status: 'yellow', text: 'Universal Pre-K available' },
-        medicare: { status: 'green', text: 'Whitney M. Young, Jr. Health Center' }
+        medicare: { status: 'yellow', text: 'Whitney M. Young, Jr. Health Center' }
     },
     'Boston, Massachusetts': {
         rent: { status: 'red', text: 'Rent control banned statewide (1994 referendum)' },
         transit: { status: 'green', text: 'Free Bus Routes 23, 28, 29' },
         childcare: { status: 'green', text: 'Universal Pre-K expansion' },
-        medicare: { status: 'green', text: 'Boston Medical Center safety net' }
+        medicare: { status: 'yellow', text: 'Boston Medical Center safety net' }
     },
     'Cambridge, Massachusetts': {
         rent: { status: 'red', text: 'State ban on rent control since 1994' },
         transit: { status: 'green', text: 'MBTA Red Line. Buses free for youth' },
         childcare: { status: 'green', text: 'Cambridge Preschool Program (Universal)' },
-        medicare: { status: 'green', text: 'Cambridge Health Alliance safety net' }
+        medicare: { status: 'yellow', text: 'Cambridge Health Alliance safety net' }
     },
     'Seattle, Washington': {
         rent: { status: 'red', text: 'State ban prevents rent control' },
         transit: { status: 'green', text: 'Free transit for youth (18 & under)' },
         childcare: { status: 'green', text: 'Seattle Preschool Program (SPP)' },
-        medicare: { status: 'green', text: 'Neighborcare Health clinics' }
+        medicare: { status: 'yellow', text: 'Neighborcare Health clinics' }
     },
     'Olympia, Washington': {
         rent: { status: 'red', text: 'State preemption on rent control' },
         transit: { status: 'green', text: 'Intercity Transit Zero Fare since 2020' },
         childcare: { status: 'yellow', text: 'Early learning programs, ECEAP' },
-        medicare: { status: 'green', text: 'Sea Mar Community Health Centers' }
+        medicare: { status: 'yellow', text: 'Sea Mar Community Health Centers' }
     },
     'Portland, Oregon': {
         rent: { status: 'green', text: 'State rent control (7% + CPI). Local protections' },
         transit: { status: 'green', text: 'TriMet. Free for low-income (Honored Citizen)' },
         childcare: { status: 'green', text: 'Preschool for All (Multnomah County)' },
-        medicare: { status: 'green', text: 'Multnomah County Health Centers' }
+        medicare: { status: 'yellow', text: 'Multnomah County Health Centers' }
     },
     'Eugene, Oregon': {
         rent: { status: 'green', text: 'Covered by state rent control law' },
         transit: { status: 'yellow', text: 'LTD EmX bus rapid transit' },
         childcare: { status: 'yellow', text: 'Relief nurseries and Head Start' },
-        medicare: { status: 'green', text: 'Community Health Centers of Lane County' }
+        medicare: { status: 'yellow', text: 'Community Health Centers of Lane County' }
     },
     'Denver, Colorado': {
         rent: { status: 'yellow', text: 'Working to repeal state rent control ban' },
         transit: { status: 'yellow', text: 'RTD light rail. Youth discounts' },
         childcare: { status: 'green', text: 'Denver Preschool Program (DPP)' },
-        medicare: { status: 'green', text: 'Denver Health provides safety net care' }
+        medicare: { status: 'yellow', text: 'Denver Health provides safety net care' }
     },
     'St. Paul, Minnesota': {
         rent: { status: 'green', text: 'Rent Stabilization Ordinance - 3% cap' },
         transit: { status: 'green', text: 'Metro Transit. Reduced fare programs' },
         childcare: { status: 'yellow', text: 'Saint Paul Promise Neighborhood' },
-        medicare: { status: 'green', text: 'Ramsey County public health clinics' }
+        medicare: { status: 'yellow', text: 'Ramsey County public health clinics' }
     },
     'Minneapolis, Minnesota': {
         rent: { status: 'yellow', text: 'Considering rent control, strong protections exist' },
         transit: { status: 'green', text: 'Metro Transit light rail and buses' },
         childcare: { status: 'yellow', text: 'Early Learning Scholarships' },
-        medicare: { status: 'green', text: 'Hennepin County Medical Center safety net' }
+        medicare: { status: 'yellow', text: 'Hennepin County Medical Center safety net' }
     },
     'Kansas City, Missouri': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'green', text: 'RideKC Zero Fare - first major US city!' },
         childcare: { status: 'yellow', text: 'KC Early Learning program' },
-        medicare: { status: 'green', text: 'Truman Medical Centers safety net' }
+        medicare: { status: 'yellow', text: 'Truman Medical Centers safety net' }
     },
     'Tucson, Arizona': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'green', text: 'Sun Tran fare-free permanently' },
         childcare: { status: 'yellow', text: 'Pima Early Education Program' },
-        medicare: { status: 'green', text: 'El Rio Community Health Center' }
+        medicare: { status: 'yellow', text: 'El Rio Community Health Center' }
     },
     'Albuquerque, New Mexico': {
         rent: { status: 'red', text: 'State ban on rent control' },
         transit: { status: 'green', text: 'Zero Fares pilot made permanent' },
         childcare: { status: 'green', text: 'Free childcare for most families (NM)' },
-        medicare: { status: 'green', text: 'UNM Hospital safety net' }
+        medicare: { status: 'yellow', text: 'UNM Hospital safety net' }
     },
 
     // ========================================
@@ -737,13 +737,13 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Fair Housing enforced' },
         transit: { status: 'green', text: 'SEPTA. Free for K-12 students' },
         childcare: { status: 'green', text: 'PHLpreK for 3- and 4-year-olds' },
-        medicare: { status: 'green', text: 'City health centers provide free care' }
+        medicare: { status: 'yellow', text: 'City health centers provide free care' }
     },
     'Pittsburgh, Pennsylvania': {
         rent: { status: 'yellow', text: 'Rental registration. No rent control' },
         transit: { status: 'yellow', text: 'Port Authority buses and light rail' },
         childcare: { status: 'yellow', text: 'PA Pre-K Counts program' },
-        medicare: { status: 'green', text: 'UPMC and AHN charity care programs' }
+        medicare: { status: 'yellow', text: 'UPMC and AHN charity care programs' }
     },
     'Erie, Pennsylvania': {
         rent: { status: 'yellow', text: 'No rent control. Affordable overall' },
@@ -771,19 +771,19 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Tenant protections' },
         transit: { status: 'yellow', text: 'COTA. Free for kids under 6' },
         childcare: { status: 'yellow', text: 'Publicly Funded Child Care (PFCC)' },
-        medicare: { status: 'green', text: 'PrimaryOne Health centers' }
+        medicare: { status: 'yellow', text: 'PrimaryOne Health centers' }
     },
     'Cleveland, Ohio': {
         rent: { status: 'yellow', text: 'Lead Safe Cleveland includes rentals' },
         transit: { status: 'yellow', text: 'RTA light rail and buses' },
         childcare: { status: 'yellow', text: 'PRE4CLE preschool initiative' },
-        medicare: { status: 'green', text: 'MetroHealth system safety net' }
+        medicare: { status: 'yellow', text: 'MetroHealth system safety net' }
     },
     'Cincinnati, Ohio': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
         transit: { status: 'yellow', text: 'Metro buses, streetcar free' },
         childcare: { status: 'yellow', text: 'Cincinnati Preschool Promise' },
-        medicare: { status: 'green', text: 'Cincinnati Health Department clinics' }
+        medicare: { status: 'yellow', text: 'Cincinnati Health Department clinics' }
     },
     'Toledo, Ohio': {
         rent: { status: 'yellow', text: 'No rent control. Low costs' },
@@ -811,7 +811,7 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'red', text: 'No rent control. Low vacancy rates' },
         transit: { status: 'yellow', text: 'DDOT/SMART buses. QLine streetcar' },
         childcare: { status: 'yellow', text: 'Great Start Readiness Program' },
-        medicare: { status: 'green', text: 'Detroit Health Department clinics' }
+        medicare: { status: 'yellow', text: 'Detroit Health Department clinics' }
     },
     'Grand Rapids, Michigan': {
         rent: { status: 'yellow', text: 'No rent control. Moderate costs' },
@@ -823,13 +823,13 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Strong tenant rights' },
         transit: { status: 'green', text: 'TheRide buses free for UM students' },
         childcare: { status: 'yellow', text: 'Strong preschool programs' },
-        medicare: { status: 'green', text: 'Packard Health clinics' }
+        medicare: { status: 'yellow', text: 'Packard Health clinics' }
     },
     'Flint, Michigan': {
         rent: { status: 'yellow', text: 'No rent control. Very low costs' },
         transit: { status: 'yellow', text: 'MTA buses' },
         childcare: { status: 'yellow', text: 'Recovery programs post-crisis' },
-        medicare: { status: 'green', text: 'Hamilton Community Health Network' }
+        medicare: { status: 'yellow', text: 'Hamilton Community Health Network' }
     },
     'Lansing, Michigan': {
         rent: { status: 'yellow', text: 'No rent control. Affordable' },
@@ -845,13 +845,13 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'red', text: 'State ban on rent control since 1995' },
         transit: { status: 'yellow', text: 'Metro Transit free for UW students' },
         childcare: { status: 'yellow', text: '4-K program for 4-year-olds' },
-        medicare: { status: 'green', text: 'Access Community Health Centers' }
+        medicare: { status: 'yellow', text: 'Access Community Health Centers' }
     },
     'Milwaukee, Wisconsin': {
         rent: { status: 'red', text: 'State preemption prevents rent control' },
         transit: { status: 'yellow', text: 'MCTS bus system. Hop streetcar' },
         childcare: { status: 'yellow', text: 'Milwaukee Succeeds early learning' },
-        medicare: { status: 'green', text: 'Milwaukee Health Services' }
+        medicare: { status: 'yellow', text: 'Milwaukee Health Services' }
     },
     'Green Bay, Wisconsin': {
         rent: { status: 'red', text: 'State ban on rent control' },
@@ -873,7 +873,7 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Inclusionary zoning' },
         transit: { status: 'yellow', text: 'MARTA rail/bus. Student discounts' },
         childcare: { status: 'yellow', text: 'Atlanta Pre-K expanding' },
-        medicare: { status: 'green', text: 'Grady Health System safety net' }
+        medicare: { status: 'yellow', text: 'Grady Health System safety net' }
     },
     'Savannah, Georgia': {
         rent: { status: 'yellow', text: 'Historic preservation affects rentals' },
@@ -901,19 +901,19 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Tenant rights exist' },
         transit: { status: 'yellow', text: 'CATS light rail and buses' },
         childcare: { status: 'yellow', text: 'NC Pre-K program' },
-        medicare: { status: 'green', text: 'Atrium Health community clinics' }
+        medicare: { status: 'yellow', text: 'Atrium Health community clinics' }
     },
     'Raleigh, North Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Affordable housing push' },
         transit: { status: 'yellow', text: 'GoRaleigh buses' },
         childcare: { status: 'yellow', text: 'Wake County Smart Start' },
-        medicare: { status: 'green', text: 'Advance Community Health' }
+        medicare: { status: 'yellow', text: 'Advance Community Health' }
     },
     'Durham, North Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Housing initiatives' },
         transit: { status: 'yellow', text: 'GoDurham. GoTriangle' },
         childcare: { status: 'yellow', text: 'Durham Pre-K' },
-        medicare: { status: 'green', text: 'Lincoln Community Health Center' }
+        medicare: { status: 'yellow', text: 'Lincoln Community Health Center' }
     },
     'Greensboro, North Carolina': {
         rent: { status: 'yellow', text: 'No rent control. Moderate' },
@@ -1419,7 +1419,7 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'yellow', text: 'No rent control. Highest costs in US' },
         transit: { status: 'yellow', text: 'TheBus extensive. Rail under construction' },
         childcare: { status: 'yellow', text: 'Preschool Open Doors program' },
-        medicare: { status: 'green', text: 'Prepaid Health Care Act. QUEST for low-income' }
+        medicare: { status: 'yellow', text: 'Prepaid Health Care Act. QUEST for low-income' }
     },
 
     // ========================================
