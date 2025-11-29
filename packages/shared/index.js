@@ -164,9 +164,9 @@ export function processVote(votes) {
   } else if (stats.oligarchy >= 60) {
     outcome = "Oligarchy Seizes";
   } else if (stats.equity === 50) {
-    outcome = "Oligarchy | Equity";
+    outcome = "Oligarchy vs Equity";
   } else if (stats.equity < 50) {
-    outcome = "Equity Dwindles";
+    outcome = "Equity Declines";
   } else {
     // equity > 50% – green outcomes
     if (typeCounts.reform >= 2 && typeCounts.systemic >= 1) {
