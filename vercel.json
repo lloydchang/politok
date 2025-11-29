@@ -1,7 +1,7 @@
 {
-  "buildCommand": "pnpm run build --filter=@politok/web",
+  "buildCommand": "pnpm --filter=@politok/web run build",
   "outputDirectory": "apps/web/.next",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "devCommand": "pnpm run dev --filter=@politok/web"
+  "devCommand": "pnpm --filter=@politok/web run dev"
 }
