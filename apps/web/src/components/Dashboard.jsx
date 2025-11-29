@@ -155,7 +155,7 @@ export default function Dashboard() {
 
     return (
         <div
-            className="w-full h-full flex flex-col text-white relative bg-cover bg-center transition-all duration-500"
+            className="w-full h-full flex flex-col text-white relative bg-cover bg-center"
             style={{
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : COLORS.BG_GRADIENT_WEB,
                 backgroundColor: '#1e293b' // Fallback
