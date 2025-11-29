@@ -5,7 +5,7 @@ const { getDefaultConfig } = require('expo/metro-config');
 const config = getDefaultConfig(__dirname);
 
 const path = require('path');
-const workspaceRoot = path.resolve(__dirname, '../..');
+const workspaceRoot = path.resolve(__dirname, '.');
 const projectRoot = __dirname;
 
 config.watchFolders = [workspaceRoot];
@@ -20,7 +20,6 @@ config.projectRoot = projectRoot;
 
 // Block the parent directory's node_modules
 config.resolver.blockList = [
-    /\/Users\/lloyd\/github\/antigravity\/node_modules\/.*/,
 ];
 
 config.resolver.unstable_enablePackageExports = true;
