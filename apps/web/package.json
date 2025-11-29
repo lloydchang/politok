@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@honeycombio/opentelemetry-web": "^1.1.0",
-    "@politok/shared": "^1.0.0",
+    "@politok/shared": "workspace:*",
     "html2canvas": "^1.4.1",
     "lucide-react": "^0.555.0",
     "next": "16.0.5",
