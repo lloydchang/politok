@@ -107,9 +107,9 @@ export function processVote(votes) {
     const selectedOptionId = votes[prop.id];
 
     if (!selectedOptionId) {
-      // Skipping individual props has a milder impact (30% of a No)
-      stats.equity -= 0.3;
-      stats.oligarchy += 0.3;
+      // Skipping individual props has a milder impact (20% of a No)
+      stats.equity -= 0.2;
+      stats.oligarchy += 0.2;
       return;
     }
 
