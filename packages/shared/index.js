@@ -164,7 +164,7 @@ export function processVote(votes) {
   } else if (stats.oligarchy >= 60) {
     outcome = "Oligarchy Seizes";
   } else if (stats.equity === 50) {
-    outcome = "Equity Stagnants";
+    outcome = "Oligarchy | Equity";
   } else if (stats.equity < 50) {
     outcome = "Equity Dwindles";
   } else {
@@ -537,7 +537,7 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
 
   // Outcome
   shareText += `${resultStats.outcome}\n`;
-  if (resultStats.oligarchy > resultStats.equity) {
+  if (resultStats.oligarchy >= resultStats.equity) {
     shareText += `Oligarchy ${resultStats.oligarchy}%\nEquity ${resultStats.equity}%\n\n`;
   } else {
     shareText += `Equity ${resultStats.equity}%\nOligarchy ${resultStats.oligarchy}%\n\n`;
