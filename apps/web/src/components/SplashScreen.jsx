@@ -4,11 +4,11 @@ export default function SplashScreen({ onFinish }) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        // Wait for 2 seconds then fade out
+        // Wait for 1 second then fade out
         const timer = setTimeout(() => {
             setIsVisible(false);
-            if (onFinish) setTimeout(onFinish, 500); // Allow fade out animation to finish
-        }, 2000);
+            if (onFinish) setTimeout(onFinish, 0); // Allow fade out animation to finish
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, [onFinish]);
