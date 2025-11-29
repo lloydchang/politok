@@ -80,9 +80,17 @@ export const PROPOSITIONS = [
       { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
     ]
   },
-];
+  {
+    id: 4,
+    title: "🏥 MEDICARE FOR ALL",
+    description: "Shall we cut healthcare costs by eliminating insurance?",
+    options: [
+      { id: 'yes', label: "Yes", type: 'systemic', stats: { equity: 1, oligarchy: -1 } },
+      { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
+    ]
+  }];
 
-/**
+  /**
  * Process votes and calculate outcome
  * @param {Object} votes - Map of proposition IDs to selected option IDs
  * @returns {Object} Stats object with equity, oligarchy, and outcome
@@ -386,6 +394,14 @@ export function getControversyHook(votes) {
     controversies.push({
       statement: "no childcare = parents paying $2000+/month or one parent quits their job",
       proposition: "CHILDCARE FOR ALL",
+      isControversial: true
+    });
+  }
+
+  if (votes[4] === 'no') { // No on medicare for all
+    controversies.push({
+      statement: "no medicare for all = medical bankruptcy remains the #1 cause of bankruptcy",
+      proposition: "MEDICARE FOR ALL",
       isControversial: true
     });
   }

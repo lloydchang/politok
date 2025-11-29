@@ -18,6 +18,12 @@ export const POLICIES = [
         iconWeb: '🍼',
         iconMobile: 'baby-bottle',
         title: 'CHILDCARE FOR ALL'
+    },
+    {
+        id: 'medicare',
+        iconWeb: '🏥',
+        iconMobile: 'hospital-box',
+        title: 'MEDICARE FOR ALL'
     }
 ];
 
@@ -79,7 +85,7 @@ export const FEED_ITEMS = [
         type: 'prop',
         data: PROPOSITIONS[0],
         stat: {
-            emoji: '🏠 💸',
+            emoji: '🏠 💵',
             title: 'Housing Crisis',
             description: 'Rent prices have increased 41% in the last 5 years'
         }
@@ -102,8 +108,15 @@ export const FEED_ITEMS = [
             description: 'Average cost is $1,230/mo in the US'
         }
     },
+    {
+        type: 'prop',
+        data: PROPOSITIONS[3],
+        stat: {
+            emoji: '💸 📈',
+            title: 'Premium Shock',
+            description: 'Insurance costs doubled in 2026'
+        }
+    },
     { type: 'results' }, // Show results after all votes
     { type: 'dashboard' }, // Dashboard as final page
 ];
-
-

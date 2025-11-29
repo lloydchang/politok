@@ -36,7 +36,8 @@ export default function Dashboard() {
     const cityData = {
         rent: policyData.rent,
         transit: policyData.transit,
-        childcare: policyData.childcare
+        childcare: policyData.childcare,
+        medicare: policyData.medicare
     };
 
     useEffect(() => {
@@ -121,7 +122,8 @@ export default function Dashboard() {
                     // console.error('Geolocation error:', error); // Silently ignore
                     updateLocationState('Mesa', 'Arizona');
                     setLoading(false);
-                }
+                },
+                { timeout: 1000 } // Timeout location detection after 1 second
             );
         } else {
             updateLocationState('Mesa', 'Arizona');
