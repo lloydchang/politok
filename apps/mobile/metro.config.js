@@ -1,27 +1,21 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
 const { getDefaultConfig } = require('expo/metro-config');
+const path = require('path');
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
-const path = require('path');
-const workspaceRoot = path.resolve(__dirname, '.');
+const workspaceRoot = path.resolve(__dirname, '../..');
 const projectRoot = __dirname;
 
+// Watch the workspace for changes
 config.watchFolders = [workspaceRoot];
-config.resolver.nodeModulesPaths = [
-    path.resolve(projectRoot, 'node_modules'),
-    path.resolve(workspaceRoot, 'node_modules'),
-];
-config.resolver.disableHierarchicalLookup = true;
 
-// Explicitly set the project root to prevent Metro from looking in parent directories
-config.projectRoot = projectRoot;
-
-// Block the parent directory's node_modules
-config.resolver.blockList = [
-];
-
-config.resolver.unstable_enablePackageExports = true;
+// Force Metro to use the mobile app's React version (critical for avoiding version conflicts)
+config.resolver.extraNodeModules = {
+    'react': path.resolve(projectRoot, 'node_modules/react'),
+    'react-dom': path.resolve(projectRoot, 'node_modules/react-dom'),
+    'react-native': path.resolve(projectRoot, 'node_modules/react-native'),
+};
 
 module.exports = config;
