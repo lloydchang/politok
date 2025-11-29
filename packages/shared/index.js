@@ -323,7 +323,7 @@ export function getIdentityLabel(stats, votes) {
     return { label: 'Naysayer', emoji: '👎', color: COLORS.OUTCOME_RED, description: 'No to government solutions', groupNumber: 1 };
   }
 
-  // 2. Easter Egg: 67% oligarchy (33% equity / 67% oligarchy) - SPECIAL
+  // 2. Easter Egg: 67% oligarchy (33% equity / 67% oligarchy) - SPECIAL to reference a social media meme
   if (stats.oligarchy === 67) {
     return { label: '6-7 Oligarchy', emoji: '👌 👇', color: COLORS.OUTCOME_WHITE, description: 'Nonsensical expression', groupNumber: 2 };
   }
@@ -333,23 +333,23 @@ export function getIdentityLabel(stats, votes) {
     return { label: 'Status Quo', emoji: '🫤', color: COLORS.OUTCOME_ORANGE, description: 'Prefer most things as they are', groupNumber: 3 };
   }
 
-  // 4. Swing voter (exactly 50%) - SPECIAL (1%)
+  // 7. Swing voter (exactly 50%) - SPECIAL (1%), thus "Group 7" to reference a social media trend
   if (stats.equity === 50) {
-    return { label: 'Swing Voter', emoji: '🤷', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 4 };
+    return { label: 'Swing Voter', emoji: '🤷', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 7 };
   }
 
-  // 5. Easter Egg: 33% oligarchy (67% equity / 33% oligarchy) - SPECIAL
+  // 4. Easter Egg: 33% oligarchy (67% equity / 33% oligarchy) - SPECIAL to reference a social media meme
   if (stats.oligarchy === 33) {
-    return { label: '6-7 Equity', emoji: '👌 👆', color: COLORS.OUTCOME_WHITE, description: 'No fixed meaning', groupNumber: 5 };
+    return { label: '6-7 Equity', emoji: '👌 👆', color: COLORS.OUTCOME_WHITE, description: 'No fixed meaning', groupNumber: 4 };
   }
 
-  // 6. High equity (21-49% oligarchy, excluding 33) - wider (28%)
+  // 5. High equity (21-49% oligarchy, excluding 33) - wider (28%)
   if (stats.oligarchy >= 21) {
-    return { label: 'Change Minded', emoji: '🙌', color: COLORS.OUTCOME_GREEN, description: 'Open to reform and new ideas', groupNumber: 6 };
+    return { label: 'Change Minded', emoji: '🙌', color: COLORS.OUTCOME_GREEN, description: 'Open to reform and new ideas', groupNumber: 5 };
   }
 
-  // 7. Very High Equity - All Yes (1-20% oligarchy) - narrow extreme (20%)
-  return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'Equity vibes', groupNumber: 7 };
+  // 6. Very High Equity - All Yes (1-20% oligarchy) - narrow extreme (20%)
+  return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'Equity vibes', groupNumber: 6 };
 
   // Fallback (shouldn't reach here with full coverage)
   return { label: 'Undecided', emoji: '🤔', color: COLORS.OUTCOME_GRAY, description: 'Still figuring it out', groupNumber: 0 };
