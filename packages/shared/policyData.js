@@ -357,7 +357,7 @@ export const STATE_POLICIES = {
         rent: { status: 'green', text: 'Rent control active since 1985. Caps on increases.' },
         transit: { status: 'green', text: 'Metro expanding. Reduced fares for low-income' },
         childcare: { status: 'yellow', text: 'Federal/local programs available. High cost of living' },
-        medicare: { status: 'green', text: 'DC Healthcare Alliance covers all residents' }
+        medicare: { status: 'green', text: 'DC Healthcare Alliance covers eligible residents' }
     },
     // PUERTO RICO
     'Puerto Rico': {
