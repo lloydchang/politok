@@ -37,7 +37,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
                 <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                     <button
                         onClick={() => handleVote('no')}
-                        className={`h-16 rounded-2xl bg-red-600 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-400 ${votedOption && votedOption !== 'no'
+                        className={`h-16 rounded-2xl bg-red-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'no'
                             ? 'opacity-0 scale-75 pointer-events-none'
                             : votedOption === 'no'
                                 ? 'scale-110'
@@ -45,11 +45,12 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
                             }`}
                         disabled={votedOption !== null}
                     >
-                        ❌ NO
+                        <span>❌</span>
+                        <span>NO</span>
                     </button>
                     <button
                         onClick={() => handleVote('yes')}
-                        className={`h-16 rounded-2xl bg-blue-600 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-blue-400 ${votedOption && votedOption !== 'yes'
+                        className={`h-16 rounded-2xl bg-blue-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-blue-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'yes'
                             ? 'opacity-0 scale-75 pointer-events-none'
                             : votedOption === 'yes'
                                 ? 'scale-110'
@@ -57,7 +58,8 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
                             }`}
                         disabled={votedOption !== null}
                     >
-                        ✅ YES
+                        <span>✅</span>
+                        <span>YES</span>
                     </button>
                 </div>
             </div>

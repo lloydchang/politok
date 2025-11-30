@@ -1,25 +1,93 @@
 import React, { useState } from 'react';
-import { COLORS } from '@politok/shared';
+import { COLORS, generateViralShareText } from '@politok/shared';
+import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
+import Result from './Result';
+import Proposition from './Proposition';
+import Statistic from './Statistic';
 
-export default function Profile({ onNavigate }) {
+export default function Profile({ onNavigate, votes, results }) {
     const [activeTab, setActiveTab] = useState('videos');
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [followersCount, setFollowersCount] = useState(0);
 
     const displayName = 'poliTok';
     const username = '@politok_vercel_app';
     const websiteUrl = 'politok.vercel.app';
 
-    // Stats for politok_vercel_app profile (brand new account)
+    // Handle follow/unfollow
+    const handleFollowToggle = () => {
+        setIsFollowing(!isFollowing);
+        setFollowersCount(prev => isFollowing ? prev - 1 : prev + 1);
+    };
+
+    // Stats for politok_vercel_app profile
     const stats = {
         following: '0',
-        followers: '0',
+        followers: followersCount.toString(),
         likes: '0'
     };
 
-    // Content navigation items
-    const contentItems = [
-        { id: 'dashboard', title: '📊 Dashboard', type: 'dashboard', targetIndex: 5 }
-    ];
+    // Handle share button - share result page text format
+    const handleShare = async () => {
+        // Generate share text using the same format as Result page
+        const shareText = results
+            ? generateViralShareText(votes, results.stats, results.percentile, results.identity)
+            : `How would you vote ?\n\nhttps://${websiteUrl}`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    text: shareText
+                });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('Error sharing:', err);
+                }
+            }
+        } else {
+            // Fallback: copy to clipboard
+            await navigator.clipboard.writeText(shareText);
+            alert('Share text copied to clipboard!');
+        }
+    };
+
+    // Content navigation items - reverse order (most recent first)
+    // Filter out the profile item (to avoid recursion) and expand prop items to show both stat and prop
+    const contentItems = [];
+
+    FEED_ITEMS.forEach((item, index) => {
+        // Skip the profile item itself
+        if (item.type === 'profile') return;
+
+        // For prop items with stats, create two thumbnails: stat first, then prop
+        if (item.type === 'prop' && item.stat) {
+            // Add stat thumbnail
+            contentItems.push({
+                type: 'stat',
+                stat: item.stat,
+                targetIndex: index,
+                id: `stat-${index}`
+            });
+            // Add prop thumbnail
+            contentItems.push({
+                type: 'prop',
+                data: item.data,
+                targetIndex: index,
+                id: `prop-${index}`
+            });
+        } else {
+            // For other items (results, dashboard), add as-is
+            contentItems.push({
+                ...item,
+                targetIndex: index,
+                id: `item-${index}`
+            });
+        }
+    });
+
+    // Reverse to show most recent first
+    contentItems.reverse();
 
     return (
         <div className="w-full h-full bg-black text-white overflow-auto">
@@ -27,15 +95,15 @@ export default function Profile({ onNavigate }) {
             <div className="px-4 pt-0 pb-0 text-center">
                 {/* Avatar */}
                 <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center mx-auto">
-                    <img 
-                        src="/logo.png" 
-                        alt="poliTok logo" 
+                    <img
+                        src="/logo.png"
+                        alt="poliTok logo"
                         className="w-full h-full object-cover"
                     />
                 </div>
 
                 {/* Username/Title */}
-                <div className="flex items-center justify-center gap-0 mb-0">
+                <div className="flex items-center justify-center gap-2 mb-0">
                     <h1 className="font-bold text-xl">{displayName}</h1>
                     <span className="text-blue-500 text-lg">☑️</span>
                 </div>
@@ -63,16 +131,19 @@ export default function Profile({ onNavigate }) {
 
                 {/* Action Buttons Row */}
                 <div className="flex items-center justify-center gap-2 mb-4 px-2">
-                    <button className="bg-red-500 text-white font-bold px-8 py-2 rounded-md hover:bg-red-600 flex-1 max-w-[120px]">
-                        Follow
+                    <button
+                        onClick={handleFollowToggle}
+                        className={`${isFollowing
+                            ? 'bg-gray-700 border border-gray-600'
+                            : 'bg-red-500'
+                            } text-white font-bold px-0 py-2 rounded-md hover:opacity-90 transition flex-1 max-w-[100px] flex items-center justify-center`}
+                    >
+                        {isFollowing ? 'Following' : 'Follow'}
                     </button>
-                    <button className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900">
-                        ⌲
-                    </button>
-                    <button className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900">
-                        +👤
-                    </button>
-                    <button className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900">
+                    <button
+                        onClick={handleShare}
+                        className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900"
+                    >
                         ↪
                     </button>
                 </div>
@@ -106,6 +177,53 @@ export default function Profile({ onNavigate }) {
             {/* Content Grid */}
             <div className="grid grid-cols-3 gap-1 p-1">
                 {contentItems.map((item, index) => {
+                    // Render appropriate live preview based on item type
+                    const renderLivePreview = () => {
+                        switch (item.type) {
+                            case 'dashboard':
+                                return <Dashboard />;
+                            case 'results':
+                                // Use actual results data if available, otherwise show mock
+                                if (results) {
+                                    return (
+                                        <Result
+                                            resultStats={results.stats}
+                                            identityLabel={results.identity}
+                                            percentileData={results.percentile}
+                                            votes={votes}
+                                            onReset={() => { }}
+                                        />
+                                    );
+                                }
+                                // Fallback to mock data if results not ready
+                                return (
+                                    <Result
+                                        resultStats={{ equity: 0, oligarchy: 0 }}
+                                        identityLabel={{ title: 'Vote to see results', color: '#6b7280' }}
+                                        percentileData={{ equity: 0, oligarchy: 0 }}
+                                        votes={{}}
+                                        onReset={() => { }}
+                                    />
+                                );
+                            case 'prop':
+                                // Check if user has voted on this proposition
+                                const hasVoted = votes && votes[item.data.id] !== undefined;
+                                const selectedVote = votes ? votes[item.data.id] : undefined;
+                                return (
+                                    <Proposition
+                                        proposition={item.data}
+                                        onVote={() => { }}
+                                        hasVoted={hasVoted}
+                                        selectedVote={selectedVote}
+                                    />
+                                );
+                            case 'stat':
+                                return <Statistic stat={item.stat} />;
+                            default:
+                                return null;
+                        }
+                    };
+
                     return (
                         <div
                             key={item.id}
@@ -119,9 +237,9 @@ export default function Profile({ onNavigate }) {
                             }}
                             className="aspect-square bg-black rounded-sm relative overflow-hidden group cursor-pointer"
                         >
-                            {/* Live Dashboard Preview */}
+                            {/* Live Preview */}
                             <div className="absolute inset-0 w-[300%] h-[300%] origin-top-left transform scale-[0.333] pointer-events-none">
-                                <Dashboard />
+                                {renderLivePreview()}
                             </div>
 
                             {/* View count overlay */}

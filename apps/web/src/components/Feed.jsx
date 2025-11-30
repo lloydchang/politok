@@ -160,7 +160,7 @@ export default function Feed() {
                 return <Dashboard />;
 
             case 'profile':
-                return <Profile onNavigate={(index) => setCurrentIndex(index)} />;
+                return <Profile onNavigate={(index) => setCurrentIndex(index)} votes={votes} results={results} />;
 
             default:
                 return null;
@@ -191,8 +191,8 @@ export default function Feed() {
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30 pointer-events-none">
                         {FEED_ITEMS.map((_, idx) => {
                             const isProfile = currentItem?.type === 'profile';
-                            const activeColor = isProfile ? 'bg-black' : 'bg-white';
-                            const inactiveColor = isProfile ? 'bg-black/30 hover:bg-black/50' : 'bg-white/50 hover:bg-white/75';
+                            const activeColor = isProfile ? 'bg-white' : 'bg-white';
+                            const inactiveColor = isProfile ? 'bg-white/30 hover:bg-white/50' : 'bg-white/50 hover:bg-white/75';
 
                             return (
                                 <button

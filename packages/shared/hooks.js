@@ -50,7 +50,7 @@ export function useChat(options = {}) {
 export function useFeed(items, analytics = {}) {
     const { trackEvent, trackPropositionVote, trackSimulationCompleted } = analytics;
 
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(items.length - 1); // Start at profile page
     const [votes, setVotes] = useState({});
     const [results, setResults] = useState(null);
 
