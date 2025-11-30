@@ -24,7 +24,7 @@ export default function Profile({ onNavigate }) {
     return (
         <div className="w-full h-full bg-black text-white overflow-auto">
             {/* Profile Header */}
-            <div className="px-4 pt-4 pb-2 text-center">
+            <div className="px-4 pt-0 pb-0 text-center">
                 {/* Avatar */}
                 <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center mx-auto">
                     <img 
@@ -35,7 +35,7 @@ export default function Profile({ onNavigate }) {
                 </div>
 
                 {/* Username/Title */}
-                <div className="flex items-center justify-center gap-1 mb-3">
+                <div className="flex items-center justify-center gap-0 mb-0">
                     <h1 className="font-bold text-xl">{displayName}</h1>
                     <span className="text-blue-500 text-lg">☑️</span>
                 </div>
@@ -43,6 +43,22 @@ export default function Profile({ onNavigate }) {
                 {/* Username handle */}
                 <div className="text-gray-400 text-sm mb-3">
                     {username}
+                </div>
+
+                {/* Stats Row */}
+                <div className="flex justify-center gap-8 mb-3 pb-0">
+                    <div className="text-center">
+                        <div className="font-bold text-lg">{stats.following}</div>
+                        <div className="text-gray-500 text-xs">Following</div>
+                    </div>
+                    <div className="text-center">
+                        <div className="font-bold text-lg">{stats.followers}</div>
+                        <div className="text-gray-500 text-xs">Followers</div>
+                    </div>
+                    <div className="text-center">
+                        <div className="font-bold text-lg">{stats.likes}</div>
+                        <div className="text-gray-500 text-xs">Likes</div>
+                    </div>
                 </div>
 
                 {/* Action Buttons Row */}
@@ -59,22 +75,6 @@ export default function Profile({ onNavigate }) {
                     <button className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900">
                         ↪
                     </button>
-                </div>
-
-                {/* Stats Row */}
-                <div className="flex justify-center gap-8 mb-3 border-b border-gray-800 pb-3">
-                    <div className="text-center">
-                        <div className="font-bold text-lg">{stats.following}</div>
-                        <div className="text-gray-500 text-xs">Following</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="font-bold text-lg">{stats.followers}</div>
-                        <div className="text-gray-500 text-xs">Followers</div>
-                    </div>
-                    <div className="text-center">
-                        <div className="font-bold text-lg">{stats.likes}</div>
-                        <div className="text-gray-500 text-xs">Likes</div>
-                    </div>
                 </div>
 
                 {/* Bio */}
