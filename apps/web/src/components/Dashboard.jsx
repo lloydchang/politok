@@ -142,6 +142,23 @@ export default function Dashboard() {
         updateLocationState(randomLocation, randomState);
     };
 
+    const handleShare = () => {
+        const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
+        const shareText = `${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}\n\nHow would you vote?\n\nhttps://politok.vercel.app/`;
+
+        if (navigator.share) {
+            navigator.share({
+                text: shareText
+            }).catch((error) => {
+                console.log('Error sharing:', error);
+            });
+        } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText(shareText);
+            alert('Share text copied to clipboard!');
+        }
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -193,6 +210,17 @@ export default function Dashboard() {
                         ))}
                     </div>
                 </div>
+            </div>
+
+            {/* Share button */}
+            <div className="absolute right-4 bottom-4 z-20">
+                <button
+                    onClick={handleShare}
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 backdrop-blur-sm text-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
+                >
+                    <div className="text-3xl mb-1">📤</div>
+                    <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
+                </button>
             </div>
         </div>
     );

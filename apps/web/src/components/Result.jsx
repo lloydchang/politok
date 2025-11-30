@@ -97,7 +97,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
             <div className="absolute right-4 bottom-4 z-20">
                 <button
                     onClick={handleNativeShare}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-600 text-white border-2 border-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 backdrop-blur-sm text-white shadow-2xl hover:scale-110 active:scale-95 transition transform flex flex-col items-center justify-center"
                 >
                     <div className="text-3xl mb-1">📤</div>
                     <div className="text-[10px] font-black uppercase tracking-wider">SHARE</div>
