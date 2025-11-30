@@ -42,7 +42,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
         <div
             className="relative w-full h-full flex items-center justify-center overflow-hidden"
             style={{
-                background: `linear-gradient(135deg, ${identityLabel.color}20 0%, ${COLORS.BG_LIGHT_BLUE} 100%)`,
+                background: `linear-gradient(135deg, ${COLORS.BG_LIGHT_BLUE} 0%, ${identityLabel.color}20 100%)`,
             }}
         >
             {/* Animated background */}
