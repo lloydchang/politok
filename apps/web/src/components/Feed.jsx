@@ -17,6 +17,7 @@ import Proposition from './Proposition';
 import Result from './Result';
 import Statistic from './Statistic';
 import Dashboard from './Dashboard';
+import Profile from './Profile';
 import { trackEvent } from '@/lib/telemetry';
 
 export default function Feed() {
@@ -48,8 +49,8 @@ export default function Feed() {
             delay = 0; // Quick advance after voting
         } else if (currentItem?.type === 'results') {
             delay = 6000; // 6 second to see result
-        } else if (currentItem?.type === 'dashboard') {
-            delay = null; // Don't auto-advance from dashboard
+        } else if (currentItem?.type === 'dashboard' || currentItem?.type === 'profile') {
+            delay = null; // Don't auto-advance from dashboard or profile
         }
 
         if (delay) {
@@ -157,6 +158,9 @@ export default function Feed() {
 
             case 'dashboard':
                 return <Dashboard />;
+
+            case 'profile':
+                return <Profile onNavigate={(index) => setCurrentIndex(index)} />;
 
             default:
                 return null;

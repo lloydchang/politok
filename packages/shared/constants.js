@@ -119,4 +119,5 @@ export const FEED_ITEMS = [
     },
     { type: 'results' }, // Show results after all votes
     { type: 'dashboard' }, // Dashboard as final page
+    { type: 'profile' }, // Profile page
 ];
