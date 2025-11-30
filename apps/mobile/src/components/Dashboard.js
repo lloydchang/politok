@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch, ImageBackground, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { STATE_POLICIES, STATE_PLACES, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { STATE_POLICIES, STATE_LOCATIONS, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
 
 const { width, height } = Dimensions.get('window');
 
 function PolicyCard({ policy, data }) {
+    // Defensive check for undefined data
+    if (!data) {
+        console.warn('PolicyCard received undefined data for policy:', policy);
+        return null;
+    }
+
     const statusColor = data.status === 'green' ? '#22c55e' :
         data.status === 'yellow' ? '#eab308' : '#ef4444';
 
@@ -35,10 +41,21 @@ export default function Dashboard() {
     const [locationName, stateName] = location.split(', ');
     const policyData = getPolicyData(locationName, stateName);
 
+    console.log('Dashboard policyData for', location, ':', policyData);
+
     const cityData = { // Kept name as cityData for PolicyCard compatibility
         rent: policyData.rent,
         transit: policyData.transit,
-        childcare: policyData.childcare
+        childcare: policyData.childcare,
+        medicare: policyData.medicare
+    };
+
+    // Map policy IDs to data keys
+    const policyKeyMap = {
+        1: 'rent',
+        2: 'transit',
+        3: 'childcare',
+        4: 'medicare'
     };
 
     useEffect(() => {
@@ -67,7 +84,7 @@ export default function Dashboard() {
 
     const handleShare = async () => {
         const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}`;
+        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}`;
 
         try {
             await Share.share({ message: shareText });
@@ -152,7 +169,7 @@ export default function Dashboard() {
                                 <PolicyCard
                                     key={policy.id}
                                     policy={policy}
-                                    data={cityData[policy.id]}
+                                    data={cityData[policyKeyMap[policy.id]]}
                                 />
                             ))}
                         </View>
