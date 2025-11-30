@@ -147,7 +147,7 @@ export const STATE_POLICIES = {
         rent: { status: 'red', text: 'Rent control banned statewide since 1994' },
         transit: { status: 'yellow', text: 'MBTA fares standard. Free bus pilots in Boston' },
         childcare: { status: 'yellow', text: 'Commonwealth Preschool Partnership' },
-        medicare: { status: 'yellow', text: 'MassHealth provides near-universal coverage' }
+        medicare: { status: 'yellow', text: 'MassHealth serves eligible residents' }
     },
     // MICHIGAN
     'Michigan': {
@@ -465,7 +465,7 @@ export const LOCATION_OVERRIDES = {
         rent: { status: 'green', text: 'Strong rent control caps increases at 60% of CPI' },
         transit: { status: 'green', text: 'MUNI free for youth, seniors get discounts' },
         childcare: { status: 'green', text: 'Universal preschool. Subsidies for families <$150k' },
-        medicare: { status: 'yellow', text: 'Healthy San Francisco provides universal access' }
+        medicare: { status: 'yellow', text: 'Healthy San Francisco serves eligible residents' }
     },
     'Los Angeles, California': {
         rent: { status: 'green', text: 'RSO covers pre-1978 units. 4% cap (2024)' },
