@@ -94,7 +94,7 @@ export const FEED_ITEMS = [
         type: 'prop',
         data: PROPOSITIONS[1],
         stat: {
-            emoji: '🚍 🚏',
+            emoji: '🚗 ⏳',
             title: 'Transit Burden',
             description: 'Half of parents spend 5+ hours weekly shuttling kids'
         }
