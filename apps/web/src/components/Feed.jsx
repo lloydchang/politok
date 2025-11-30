@@ -188,18 +188,24 @@ export default function Feed() {
                     {renderCard()}
 
                     {/* Progress dots */}
-                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
-                        {FEED_ITEMS.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setCurrentIndex(idx)}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex
-                                    ? 'bg-white w-6'
-                                    : 'bg-white/50 hover:bg-white/75'
-                                    }`}
-                                aria-label={`Go to page ${idx + 1}`}
-                            />
-                        ))}
+                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30 pointer-events-none">
+                        {FEED_ITEMS.map((_, idx) => {
+                            const isProfile = currentItem?.type === 'profile';
+                            const activeColor = isProfile ? 'bg-black' : 'bg-white';
+                            const inactiveColor = isProfile ? 'bg-black/30 hover:bg-black/50' : 'bg-white/50 hover:bg-white/75';
+
+                            return (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentIndex(idx)}
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 pointer-events-auto ${idx === currentIndex
+                                        ? `${activeColor} w-6`
+                                        : inactiveColor
+                                        }`}
+                                    aria-label={`Go to page ${idx + 1}`}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
 
