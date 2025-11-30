@@ -65,7 +65,7 @@ export const PROPOSITIONS = [
   {
     id: 2,
     title: "🚌 FAST & FREE BUSES",
-    description: "Shall we make buses faster and eliminate all fares?",
+    description: "Shall we make buses fast and free so you spend less time in traffic?",
     options: [
       { id: 'yes', label: "Yes", type: 'reform', stats: { equity: 1, oligarchy: -1 } },
       { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
