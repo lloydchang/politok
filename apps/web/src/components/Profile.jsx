@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { COLORS, generateViralShareText } from '@politok/shared';
+import { COLORS, generateViralShareText, processVote, getPercentileRanking, getIdentityLabel } from '@politok/shared';
 import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
 import Result from './Result';
@@ -33,7 +33,7 @@ export default function Profile({ onNavigate, votes, results }) {
         // Generate share text using the same format as Result page
         const shareText = results
             ? generateViralShareText(votes, results.stats, results.percentile, results.identity)
-            : `How would you vote ?\n\nhttps://${websiteUrl}`;
+            : `How would you vote?\n\nhttps://${websiteUrl}`;
 
         if (navigator.share) {
             try {
@@ -183,7 +183,7 @@ export default function Profile({ onNavigate, votes, results }) {
                             case 'dashboard':
                                 return <Dashboard />;
                             case 'results':
-                                // Use actual results data if available, otherwise show mock
+                                // Use actual results data if available
                                 if (results) {
                                     return (
                                         <Result
@@ -195,13 +195,18 @@ export default function Profile({ onNavigate, votes, results }) {
                                         />
                                     );
                                 }
-                                // Fallback to mock data if results not ready
+
+                                // Calculate live intermediate results based on current votes
+                                const currentStats = processVote(votes || {});
+                                const currentPercentile = getPercentileRanking(currentStats.oligarchy);
+                                const currentIdentity = getIdentityLabel(currentStats, votes || {});
+
                                 return (
                                     <Result
-                                        resultStats={{ equity: 0, oligarchy: 0 }}
-                                        identityLabel={{ title: 'Vote to see results', color: '#6b7280' }}
-                                        percentileData={{ equity: 0, oligarchy: 0 }}
-                                        votes={{}}
+                                        resultStats={currentStats}
+                                        identityLabel={currentIdentity}
+                                        percentileData={currentPercentile}
+                                        votes={votes || {}}
                                         onReset={() => { }}
                                     />
                                 );
