@@ -121,7 +121,7 @@ export default function Dashboard() {
                     updateLocationState('Mesa', 'Arizona');
                     setLoading(false);
                 },
-                { timeout: 1000 } // Timeout location detection after 1 second
+                { timeout: 50 } // Timeout location detection after 50ms
             );
         } else {
             updateLocationState('Mesa', 'Arizona');
