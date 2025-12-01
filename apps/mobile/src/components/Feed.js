@@ -43,6 +43,15 @@ export default function Feed() {
         scrollViewRef.current?.scrollTo({ y: index * height, animated: true });
     };
 
+    // Initial scroll to start index
+    useEffect(() => {
+        if (currentIndex > 0) {
+            setTimeout(() => {
+                scrollToIndex(currentIndex);
+            }, 100);
+        }
+    }, []);
+
     // Sync hook index changes to scroll position
     useEffect(() => {
         scrollToIndex(currentIndex);
@@ -272,7 +281,7 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         position: 'absolute',
-        bottom: 20, // Lowered from 100 to avoid overlapping buttons
+        bottom: 10, // Lowered further to 10
         left: 0,
         right: 0,
         alignItems: 'center',

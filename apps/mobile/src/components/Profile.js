@@ -239,6 +239,7 @@ export default function Profile({ onNavigate, votes, results }) {
                                 <View
                                     style={styles.livePreviewContainer}
                                     collapsable={false}
+                                    pointerEvents="none"
                                 >
                                     <View
                                         style={styles.livePreview}
@@ -427,7 +428,7 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: '100%',
-        overflow: 'hidden',
+        // overflow: 'hidden', // Commented out to debug rendering
         backgroundColor: 'transparent',
     },
     livePreview: {
@@ -435,12 +436,12 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         backgroundColor: 'transparent',
-        width: width,
-        height: height,
+        width: width * 3, // 300% width like web
+        height: height * 3, // 300% height like web
         transform: [
-            { scale: ((width - 6) / 3) / width }, // Scale to fit thumbnail
-            { translateX: -width * (1 - ((width - 6) / 3) / width) / 2 }, // Shift to top-left
-            { translateY: -height * (1 - ((width - 6) / 3) / width) / 2 }, // Shift to top-left
+            { scale: 0.3333 }, // Scale to 1/3
+            { translateX: -width }, // Shift back to origin (-width because center is at 1.5w, scaled left is at 1w, need to move to 0)
+            { translateY: -height }, // Shift back to origin
         ],
     },
     thumbnailOverlay: {

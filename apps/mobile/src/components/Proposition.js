@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         position: 'absolute',
-        bottom: 40, // Moved down slightly
+        bottom: 60, // Lowered to be closer to bottom but above dots
         left: 0,
         right: 0,
         paddingHorizontal: 24,
