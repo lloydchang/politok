@@ -148,10 +148,11 @@ export default function Profile({ onNavigate, votes, results }) {
                             Discover U.S. locations 🛰️
                         </Text>
                         <Text style={styles.websiteLink}>
-                            🔗 {websiteUrl}
+                            🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
+                                {websiteUrl}
+                            </Text>
                         </Text>
                     </View>
-                </View>
 
                 {/* Content Tabs */}
                 <View style={styles.tabsContainer}>

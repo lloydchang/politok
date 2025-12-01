@@ -153,9 +153,11 @@ export default function Profile({ onNavigate, votes, results }) {
                     <p className="text-sm mb-1 leading-relaxed">
                         Discover U.S. locations 🛰️
                     </p>
-                    <a href={`https://${websiteUrl}`} className="text-sm font-semibold text-blue-400 flex items-center justify-center gap-1 hover:underline">
-                        🔗 {websiteUrl}
-                    </a>
+                    <p className="text-sm font-semibold text-blue-400">
+                        🔗 <a href={`https://${websiteUrl}`} className="text-blue-400 hover:underline">
+                            {websiteUrl}
+                        </a>
+                    </p>
                 </div>
             </div>
 
