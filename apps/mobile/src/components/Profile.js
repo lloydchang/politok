@@ -145,7 +145,7 @@ export default function Profile({ onNavigate, votes, results }) {
                     {/* Bio */}
                     <View style={styles.bioContainer}>
                         <Text style={styles.bioText}>
-                            
+
                         </Text>
                         <Text style={styles.websiteLink}>
                             🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
@@ -153,6 +153,7 @@ export default function Profile({ onNavigate, votes, results }) {
                             </Text>
                         </Text>
                     </View>
+                </View>
 
                 {/* Content Tabs */}
                 <View style={styles.tabsContainer}>
@@ -409,7 +410,7 @@ const styles = StyleSheet.create({
         width: (width - 6) / 3, // Adjusted for 1px padding (2px total) and 4px gap (2*2px)
         height: (width - 6) / 3, // Square aspect ratio like web
         margin: 1, // Match web gap-1
-        backgroundColor: '#000',
+        backgroundColor: 'transparent',
         borderRadius: 4,
         overflow: 'hidden',
         position: 'relative',
@@ -421,17 +422,19 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         overflow: 'hidden',
+        backgroundColor: 'transparent',
     },
     livePreview: {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: width, // Full viewport width
-        height: height, // Full viewport height
+        backgroundColor: 'transparent',
+        width: width,
+        height: height,
         transform: [
             { scale: ((width - 6) / 3) / width }, // Scale to fit thumbnail
-            { translateX: -width / 2 * (1 - ((width - 6) / 3) / width) }, // Move to top-left
-            { translateY: -height / 2 * (1 - ((width - 6) / 3) / width) }, // Move to top-left
+            { translateX: -width * (1 - ((width - 6) / 3) / width) / 2 }, // Shift to top-left
+            { translateY: -height * (1 - ((width - 6) / 3) / width) / 2 }, // Shift to top-left
         ],
     },
     thumbnailOverlay: {
