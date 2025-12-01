@@ -236,8 +236,14 @@ export default function Profile({ onNavigate, votes, results }) {
                                 style={styles.gridItem}
                             >
                                 {/* Live Preview - scaled down to fit in thumbnail */}
-                                <View style={styles.livePreviewContainer}>
-                                    <View style={styles.livePreview}>
+                                <View
+                                    style={styles.livePreviewContainer}
+                                    collapsable={false}
+                                >
+                                    <View
+                                        style={styles.livePreview}
+                                        collapsable={false}
+                                    >
                                         {renderLivePreview()}
                                     </View>
                                 </View>

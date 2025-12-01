@@ -12,7 +12,7 @@ export default function Statistic({ stat }) {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={gradient.mobile}
+        colors={['#000000', '#000000']} // Match web's "no color" look (black background)
         style={styles.gradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

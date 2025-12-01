@@ -22,6 +22,7 @@ export default function Feed() {
     const analytics = useAnalytics();
     const { trackEvent } = analytics;
 
+    const profileIndex = FEED_ITEMS.findIndex(item => item.type === 'profile');
     const {
         currentIndex,
         setCurrentIndex,
@@ -32,7 +33,7 @@ export default function Feed() {
         handleVote,
         handleReset,
         goToNext
-    } = useFeed(FEED_ITEMS, analytics);
+    } = useFeed(FEED_ITEMS, analytics, profileIndex !== -1 ? profileIndex : 0);
 
 
 
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 20, // Lowered from 100 to avoid overlapping buttons
         left: 0,
         right: 0,
         alignItems: 'center',

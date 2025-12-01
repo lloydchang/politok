@@ -41,8 +41,6 @@ export default function Dashboard() {
     const [locationName, stateName] = location.split(', ');
     const policyData = getPolicyData(locationName, stateName);
 
-    console.log('Dashboard policyData for', location, ':', policyData);
-
     const cityData = {
         rent: policyData?.rent || { status: 'loading', text: 'Loading...' },
         transit: policyData?.transit || { status: 'loading', text: 'Loading...' },
