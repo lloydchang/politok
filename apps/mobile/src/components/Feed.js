@@ -14,6 +14,7 @@ import Proposition from './Proposition';
 import Statistic from './Statistic';
 import Result from './Result';
 import Dashboard from './Dashboard';
+import Profile from './Profile';
 
 const { width, height } = Dimensions.get('window');
 
@@ -64,8 +65,8 @@ export default function Feed() {
             delay = 0; // Quick advance after voting
         } else if (currentItem?.type === 'results') {
             delay = 6000; // 6 seconds to see results
-        } else if (currentItem?.type === 'dashboard') {
-            delay = null; // Don't auto-advance from dashboard
+        } else if (currentItem?.type === 'dashboard' || currentItem?.type === 'profile') {
+            delay = null; // Don't auto-advance from dashboard or profile
         }
 
         if (delay) {
@@ -119,6 +120,8 @@ export default function Feed() {
                 return <Statistic stat={item.data} />;
             case 'dashboard':
                 return <Dashboard />;
+            case 'profile':
+                return <Profile onNavigate={(index) => setCurrentIndex(index)} votes={votes} results={results} />;
             default:
                 return null;
         }

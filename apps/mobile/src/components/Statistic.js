@@ -26,7 +26,7 @@ export default function Statistic({ stat }) {
             <Text style={styles.emoji}>{stat.emoji}</Text>
           )}
 
-          <Text style={[styles.title, { color: COLORS.PRIMARY_BLUE }]}>
+          <Text style={[styles.title, { color: COLORS.TEXT_RED_LIGHT }]}>
             {stat.title}
           </Text>
 
@@ -36,7 +36,7 @@ export default function Statistic({ stat }) {
             </Text>
           )}
 
-          <Text style={styles.description}>
+          <Text style={[styles.description, { color: COLORS.TEXT_LIGHT_WHITE }]}>
             {stat.description}
           </Text>
         </View>
@@ -94,12 +94,8 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   title: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: 'black',
     fontSize: 32,
     fontWeight: '900',
-    color: COLORS.TEXT_RED_LIGHT,
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -112,7 +108,6 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    color: COLORS.TEXT_LIGHT_GRAY,
     fontWeight: '500',
     textAlign: 'center',
     lineHeight: 26,

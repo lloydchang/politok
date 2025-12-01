@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch, ImageBackground, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { STATE_POLICIES, STATE_LOCATIONS, PLACE_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
+import { STATE_POLICIES, STATE_LOCATIONS, LOCATION_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
 
@@ -21,7 +21,7 @@ function PolicyCard({ policy, data }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <MaterialCommunityIcons name={policy.iconMobile} size={32} color="#1e293b" />
+                <MaterialCommunityIcons name={policy.iconMobile} size={32} color="white" />
                 <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
                 <View style={styles.cardTitleContainer}>
                     {data.status !== 'loading' && (
@@ -43,20 +43,17 @@ export default function Dashboard() {
 
     console.log('Dashboard policyData for', location, ':', policyData);
 
-    const cityData = { // Kept name as cityData for PolicyCard compatibility
-        rent: policyData.rent,
-        transit: policyData.transit,
-        childcare: policyData.childcare,
-        medicare: policyData.medicare
+    const cityData = {
+        rent: policyData?.rent || { status: 'loading', text: 'Loading...' },
+        transit: policyData?.transit || { status: 'loading', text: 'Loading...' },
+        childcare: policyData?.childcare || { status: 'loading', text: 'Loading...' },
+        medicare: policyData?.medicare || { status: 'loading', text: 'Loading...' }
     };
 
     // Map policy IDs to data keys
-    const policyKeyMap = {
-        1: 'rent',
-        2: 'transit',
-        3: 'childcare',
-        4: 'medicare'
-    };
+    // Map policy IDs to data keys
+    // IDs in POLICIES are 'rent', 'transit', 'childcare', 'medicare' which match cityData keys
+    // No mapping needed if IDs match keys
 
     useEffect(() => {
         if (travelMode) {
@@ -84,7 +81,7 @@ export default function Dashboard() {
 
     const handleShare = async () => {
         const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
-        const shareText = `https://politok.vercel.app/\n\n${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}`;
+        const shareText = `${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}\n\nHow would you vote?\n\nhttps://politok.vercel.app/`;
 
         try {
             await Share.share({ message: shareText });
@@ -169,7 +166,7 @@ export default function Dashboard() {
                                 <PolicyCard
                                     key={policy.id}
                                     policy={policy}
-                                    data={cityData[policyKeyMap[policy.id]]}
+                                    data={cityData[policy.id]}
                                 />
                             ))}
                         </View>
@@ -243,21 +240,13 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     card: {
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        borderRadius: 16,
-        padding: 16,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.2)',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 12,
-        elevation: 5,
+        // Removed card background/border to match web
+        paddingVertical: 8,
+        paddingHorizontal: 0,
     },
     cardHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 8,
         gap: 12,
     },
     cardTitleContainer: {
@@ -266,7 +255,7 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#0f172a',
+        color: 'white', // White text
     },
     statusDot: {
         width: 12,
@@ -274,10 +263,10 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     cardText: {
-        fontSize: 12,
-        color: '#0f172a',
-        lineHeight: 18,
-        fontWeight: '500',
+        fontSize: 16, // Increased font size slightly
+        color: 'white', // White text
+        lineHeight: 24,
+        fontWeight: 'bold', // Bold text
     },
     shareButton: {
         position: 'absolute',
@@ -286,9 +275,8 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: 'rgba(59, 130, 246, 0.3)',
-        borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)', // White transparent
+        borderWidth: 0, // No border
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
@@ -297,10 +285,17 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 8,
         zIndex: 20,
+        backdropFilter: 'blur(10px)', // Note: backdropFilter not supported in RN directly, but keeping for intent
     },
-    shareButtonText: {
+    shareEmoji: {
+        fontSize: 32,
+        marginBottom: 4,
+    },
+    shareText: {
         color: 'white',
-        fontWeight: '600',
-        fontSize: 14,
+        fontWeight: '900',
+        fontSize: 10,
+        letterSpacing: 1,
+        textTransform: 'uppercase',
     },
 });

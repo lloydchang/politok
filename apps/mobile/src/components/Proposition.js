@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 24,
-        paddingBottom: 100, // Space for buttons
+        paddingBottom: 180, // Increased space for buttons to prevent overlap
     },
     emoji: {
         fontSize: 80,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 40, // Moved down slightly
         left: 0,
         right: 0,
         paddingHorizontal: 24,

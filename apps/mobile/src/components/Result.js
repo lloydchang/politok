@@ -25,7 +25,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={[`${identityLabel.color}20`, COLORS.BG_LIGHT_BLUE]}
+                colors={[COLORS.BG_LIGHT_BLUE, `${identityLabel.color}20`]}
                 style={styles.gradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
@@ -66,17 +66,20 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
                         </View>
                     )}
 
-                    {/* Share Button */}
+                </ScrollView>
+
+                {/* Share Button - Fixed Position */}
+                <View style={styles.shareButtonContainer}>
                     <TouchableOpacity
                         onPress={handleShare}
                         style={styles.shareButton}
                     >
                         <Text style={styles.shareButtonIcon}>📤</Text>
-                        <Text style={styles.shareButtonText}>SHARE RESULTS</Text>
+                        <Text style={styles.shareButtonText}>SHARE</Text>
                     </TouchableOpacity>
-                </ScrollView>
+                </View>
             </LinearGradient>
-        </View>
+        </View >
     );
 }
 
@@ -104,17 +107,16 @@ const styles = StyleSheet.create({
         fontSize: 80,
         marginBottom: 16,
     },
-    title: {
-        fontSize: 36,
+    label: {
+        fontSize: 42,
         fontWeight: '900',
-        color: 'white',
-        marginBottom: 8,
         textAlign: 'center',
+        marginBottom: 8,
     },
-    subtitle: {
+    description: {
         fontSize: 18,
-        color: COLORS.TEXT_LIGHT_GRAY,
-        fontWeight: '500',
+        color: '#475569', // slate-600
+        fontStyle: 'italic',
         textAlign: 'center',
     },
     scoreCard: {
@@ -140,12 +142,12 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     scoreLabel: {
-        fontSize: 18,
+        fontSize: 20, // Match web xl
         fontWeight: 'bold',
         color: '#334155', // slate-700
     },
     scoreValue: {
-        fontSize: 24,
+        fontSize: 30, // Match web 3xl
         fontWeight: '900',
     },
     barBg: {
@@ -172,29 +174,37 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
     },
+    shareButtonContainer: {
+        position: 'absolute',
+        bottom: 40,
+        right: 24,
+        zIndex: 20,
+    },
     shareButton: {
-        flexDirection: 'row',
+        width: 96,
+        height: 96,
+        borderRadius: 48,
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         alignItems: 'center',
-        backgroundColor: '#2563eb', // blue-600
-        paddingVertical: 16,
-        paddingHorizontal: 32,
-        borderRadius: 50,
-        marginBottom: 16,
+        justifyContent: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 6,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.2)',
     },
     shareButtonIcon: {
-        fontSize: 24,
-        marginRight: 8,
+        fontSize: 32,
+        marginBottom: 4,
     },
     shareButtonText: {
         color: 'white',
         fontWeight: '900',
-        fontSize: 16,
+        fontSize: 10,
         letterSpacing: 1,
+        textTransform: 'uppercase',
     },
     resetButton: {
         padding: 12,

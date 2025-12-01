@@ -12,6 +12,7 @@ export const COLORS = {
   TEXT_RED_LIGHT: '#dc2626',
   TEXT_WHITE_DARK: '#f8fafc', // Slightly off-white for dark mode text
   TEXT_WHITE_LIGHT: '#fff',
+  TEXT_LIGHT_WHITE: '#f8fafc', // Alias for off-white, used in Statistic component
   TEXT_BLUE_DARK: '#60a5fa', // Lighter blue for dark mode text
   TEXT_BLUE_LIGHT: '#3b82f6',
   TEXT_GRAY: '#94a3b8', // Medium gray for dark mode
