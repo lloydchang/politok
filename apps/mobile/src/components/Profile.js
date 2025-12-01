@@ -145,7 +145,7 @@ export default function Profile({ onNavigate, votes, results }) {
                     {/* Bio */}
                     <View style={styles.bioContainer}>
                         <Text style={styles.bioText}>
-                            Discover U.S. locations 🛰️
+                            
                         </Text>
                         <Text style={styles.websiteLink}>
                             🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
