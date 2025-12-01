@@ -47,10 +47,10 @@ export function useChat(options = {}) {
     return chatMessages;
 }
 
-export function useFeed(items, analytics = {}, initialIndex = 0) {
+export function useFeed(items, analytics = {}) {
     const { trackEvent, trackPropositionVote, trackSimulationCompleted } = analytics;
 
-    const [currentIndex, setCurrentIndex] = useState(initialIndex);
+    const [currentIndex, setCurrentIndex] = useState(items.length - 1); // Start at profile page
     const [votes, setVotes] = useState({});
     const [results, setResults] = useState(null);
 
