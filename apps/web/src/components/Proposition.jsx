@@ -33,7 +33,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
-            <div className="absolute bottom-24 left-0 right-0 p-6 bg-gradient-to-t from-black/20 to-transparent">
+            <div className="absolute bottom-24 left-0 right-0 p-6">
                 <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                     <button
                         onClick={() => handleVote('no')}

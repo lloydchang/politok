@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     },
     locationText: {
         fontSize: 20, // Match web text-xl
-        fontWeight: '900',
+        fontWeight: 'bold', // Match web font-bold (700)
         color: 'white',
         flex: 1,
         textShadowColor: 'rgba(0, 0, 0, 0.3)',
