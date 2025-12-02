@@ -6,22 +6,8 @@ let cachedStats = null;
 let cacheTime = 0;
 const CACHE_TTL = 60000; // 60 seconds
 
-// Check if KV is configured
-const isKVConfigured = () => {
-    return process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN;
-};
-
 export async function GET() {
     try {
-        // Return empty stats if KV not configured
-        if (!isKVConfigured()) {
-            return Response.json({
-                likes: {},
-                views: {},
-                follows: 0
-            });
-        }
-
         // Return cached data if available
         const now = Date.now();
         if (cachedStats && (now - cacheTime) < CACHE_TTL) {
@@ -73,7 +59,8 @@ export async function GET() {
         return Response.json(stats);
 
     } catch (error) {
-        // Silent failure - return empty stats on error
+        console.error('Stats fetch error:', error);
+        // Return empty stats on error
         return Response.json({
             likes: {},
             views: {},

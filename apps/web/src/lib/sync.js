@@ -36,8 +36,8 @@ export async function syncToServer(interactions) {
         const data = await response.json();
         return data;
     } catch (error) {
-        // Fail silently - app continues in local-only mode
-        return { success: false, synced: 0 };
+        console.error('Sync error:', error);
+        throw error;
     }
 }
 
@@ -56,7 +56,7 @@ export async function fetchGlobalStats() {
         const data = await response.json();
         return data;
     } catch (error) {
-        // Fail silently - return empty stats
+        console.error('Fetch stats error:', error);
         return { likes: {}, views: {}, follows: 0 };
     }
 }
