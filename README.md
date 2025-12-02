@@ -1,6 +1,6 @@
-# politok
+# poliTok
 
-An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on four key politok propositions and see the societal outcomes.
+An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on four key poliTok propositions and see the societal outcomes.
 
 ## Features
 
