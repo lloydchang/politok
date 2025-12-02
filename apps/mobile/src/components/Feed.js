@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Animated, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Animated, StatusBar, TouchableWithoutFeedback, Image } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as FileSystem from 'expo-file-system';
@@ -80,6 +80,28 @@ export default function Feed() {
             incrementView(currentId);
         }
     }, [currentId, incrementView]);
+
+    const [showHearts, setShowHearts] = useState([]);
+    const lastTap = useRef(0);
+
+    const handleDoubleTap = (e, item) => {
+        const now = Date.now();
+        const DOUBLE_TAP_DELAY = 300;
+        if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+            // Double tap detected
+            const { locationX, locationY } = e.nativeEvent;
+            const itemId = item?.data?.id || item?.id;
+
+            if (itemId) {
+                toggleLike(itemId, true);
+
+                const heartId = now;
+                const rotation = Math.random() * 30 - 15;
+                setShowHearts(prev => [...prev, { id: heartId, x: locationX, y: locationY, rotation }]);
+            }
+        }
+        lastTap.current = now;
+    };
 
     const scrollViewRef = useRef(null);
 
@@ -209,7 +231,22 @@ export default function Feed() {
                 >
                     {FEED_ITEMS.map((item, index) => (
                         <View key={index} style={styles.pageContainer}>
-                            {renderCard(item, index)}
+                            <TouchableWithoutFeedback onPress={(e) => handleDoubleTap(e, item)}>
+                                <View style={{ flex: 1, width: '100%' }}>
+                                    {renderCard(item, index)}
+                                </View>
+                            </TouchableWithoutFeedback>
+
+                            {/* Double Tap Hearts for this page */}
+                            {index === currentIndex && showHearts.map(heart => (
+                                <HeartAnimation
+                                    key={heart.id}
+                                    x={heart.x}
+                                    y={heart.y}
+                                    rotation={heart.rotation}
+                                    onComplete={() => setShowHearts(prev => prev.filter(h => h.id !== heart.id))}
+                                />
+                            ))}
                         </View>
                     ))}
                 </ScrollView>
@@ -220,16 +257,30 @@ export default function Feed() {
                         {/* 1. Profile Picture (Placeholder) */}
                         <View style={styles.sidebarItem}>
                             <View style={styles.avatarContainer}>
-                                <View style={styles.avatarWrapper}>
-                                    <Image
-                                        source={require('../../../mobile/assets/logo.png')}
-                                        style={styles.sidebarAvatar}
-                                        resizeMode="contain"
-                                    />
-                                </View>
-                                <View style={styles.followBadge}>
-                                    <Text style={styles.followBadgeText}>+</Text>
-                                </View>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        const profileIndex = FEED_ITEMS.findIndex(item => item.type === 'profile');
+                                        if (profileIndex !== -1) setCurrentIndex(profileIndex);
+                                    }}
+                                    activeOpacity={0.8}
+                                >
+                                    <View style={styles.avatarWrapper}>
+                                        <Image
+                                            source={require('../../../mobile/assets/logo.png')}
+                                            style={styles.sidebarAvatar}
+                                            resizeMode="contain"
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                                {!interactions.isFollowing && (
+                                    <TouchableOpacity
+                                        style={styles.followBadge}
+                                        onPress={() => toggleFollow()}
+                                        activeOpacity={0.8}
+                                    >
+                                        <Text style={styles.followBadgeText}>+</Text>
+                                    </TouchableOpacity>
+                                )}
                             </View>
                         </View>
 

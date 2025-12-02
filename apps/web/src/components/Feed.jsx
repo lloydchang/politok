@@ -271,6 +271,31 @@ export default function Feed() {
         }
     };
 
+    const [showHearts, setShowHearts] = useState([]);
+
+    const handleDoubleClick = (e) => {
+        if (!currentId) return;
+
+        // Get click position relative to the container
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Trigger like (force true)
+        toggleLike(currentId, true);
+
+        // Add temporary heart
+        const heartId = Date.now();
+        const rotation = Math.random() * 30 - 15; // Random rotation between -15 and 15 deg
+
+        setShowHearts(prev => [...prev, { id: heartId, x, y, rotation }]);
+
+        // Remove heart after animation
+        setTimeout(() => {
+            setShowHearts(prev => prev.filter(h => h.id !== heartId));
+        }, 800);
+    };
+
     return (
         <div
             ref={containerRef}
@@ -294,20 +319,53 @@ export default function Feed() {
                         maxWidth: '450px',
                         height: '100%'
                     }}
+                    onDoubleClick={handleDoubleClick}
                 >
                     {renderCard()}
+
+                    {/* Double Tap Heart Animation Overlay */}
+                    {showHearts.map(heart => (
+                        <div
+                            key={heart.id}
+                            className="absolute pointer-events-none z-50 animate-heart-pop"
+                            style={{
+                                left: heart.x,
+                                top: heart.y,
+                                transform: `translate(-50%, -50%) rotate(${heart.rotation}deg)`
+                            }}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ef4444" className="w-24 h-24 drop-shadow-xl filter">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                            </svg>
+                        </div>
+                    ))}
 
                     {/* Right Sidebar (Interaction Icons) - Only show if not on profile */}
                     {currentItem?.type !== 'profile' && (
                         <div className="absolute right-2 bottom-32 flex flex-col items-center gap-6 z-20">
                             {/* 1. Profile Picture (Placeholder) */}
                             <div className="relative group cursor-pointer">
-                                <div className="w-12 h-12 rounded-full border border-white overflow-hidden bg-black flex items-center justify-center">
+                                <div
+                                    className="w-12 h-12 rounded-full border border-white overflow-hidden bg-black flex items-center justify-center transition-transform active:scale-95"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        const profileIndex = FEED_ITEMS.findIndex(item => item.type === 'profile');
+                                        if (profileIndex !== -1) setCurrentIndex(profileIndex);
+                                    }}
+                                >
                                     <img src="/logo.png" alt="Profile" className="w-full h-full object-contain" />
                                 </div>
-                                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center border border-white">
-                                    <span className="text-white text-xs font-bold">+</span>
-                                </div>
+                                {!interactions.isFollowing && (
+                                    <div
+                                        className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-red-500 rounded-full w-5 h-5 flex items-center justify-center border border-white transition-transform hover:scale-110 active:scale-90 z-10"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFollow();
+                                        }}
+                                    >
+                                        <span className="text-white text-xs font-bold">+</span>
+                                    </div>
+                                )}
                             </div>
 
                             {/* 2. Like Button (Heart) */}

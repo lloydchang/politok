@@ -262,11 +262,17 @@ export function useInteractions(storage) {
         }));
     }, []);
 
-    const toggleLike = useCallback((id) => {
+    const toggleLike = useCallback((id, forceState) => {
         if (!id) return;
         setInteractions(prev => {
             const item = prev.items[id] || { likes: 0, liked: false, views: 0 };
-            const isLiked = !item.liked;
+            // If forceState is provided, use it. Otherwise toggle.
+            const isLiked = forceState !== undefined ? forceState : !item.liked;
+
+            // If forcing state and it's already in that state, do nothing
+            if (forceState !== undefined && item.liked === forceState) {
+                return prev;
+            }
 
             return {
                 ...prev,
