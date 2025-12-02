@@ -117,7 +117,7 @@ export const FEED_ITEMS = [
             description: 'Insurance premiums doubled in 2026'
         }
     },
-    { type: 'results' }, // Show results after all votes
-    { type: 'dashboard' }, // Dashboard as final page
-    { type: 'profile' }, // Profile page
+    { type: 'results', id: 'results_card' }, // Show results after all votes
+    { type: 'dashboard', id: 'dashboard_card' }, // Dashboard as final page
+    { type: 'profile', id: 'profile_card' }, // Profile page
 ];

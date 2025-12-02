@@ -210,3 +210,106 @@ export function useResultsCard(resultStats) {
 
     return { sortedStats };
 }
+
+// Hook for managing persistent interactions (likes, views, follow)
+export function useInteractions(storage) {
+    const STORAGE_KEY = 'politok_interactions';
+
+    // Default state
+    const [interactions, setInteractions] = useState({
+        isFollowing: false,
+        items: {}
+    });
+
+    // Load from storage on mount
+    useEffect(() => {
+        const loadInteractions = async () => {
+            try {
+                if (storage && storage.getItem) {
+                    const stored = await storage.getItem(STORAGE_KEY);
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        setInteractions(prev => ({ ...prev, ...parsed }));
+                    }
+                }
+            } catch (e) {
+                console.error('Failed to load interactions:', e);
+            }
+        };
+        loadInteractions();
+    }, [storage]);
+
+    // Save to storage whenever state changes
+    useEffect(() => {
+        const saveInteractions = async () => {
+            try {
+                if (storage && storage.setItem) {
+                    await storage.setItem(STORAGE_KEY, JSON.stringify(interactions));
+                }
+            } catch (e) {
+                console.error('Failed to save interactions:', e);
+            }
+        };
+        // Debounce saving slightly or just save on every change (it's local)
+        const timer = setTimeout(saveInteractions, 500);
+        return () => clearTimeout(timer);
+    }, [interactions, storage]);
+
+    const toggleFollow = useCallback(() => {
+        setInteractions(prev => ({
+            ...prev,
+            isFollowing: !prev.isFollowing
+        }));
+    }, []);
+
+    const toggleLike = useCallback((id) => {
+        if (!id) return;
+        setInteractions(prev => {
+            const item = prev.items[id] || { likes: 0, liked: false, views: 0 };
+            const isLiked = !item.liked;
+
+            return {
+                ...prev,
+                items: {
+                    ...prev.items,
+                    [id]: {
+                        ...item,
+                        liked: isLiked,
+                        likes: isLiked ? (item.likes || 0) + 1 : Math.max(0, (item.likes || 0) - 1)
+                    }
+                }
+            };
+        });
+    }, []);
+
+    const incrementView = useCallback((id) => {
+        if (!id) return;
+        setInteractions(prev => {
+            const item = prev.items[id] || { likes: 0, liked: false, views: 0 };
+
+            return {
+                ...prev,
+                items: {
+                    ...prev.items,
+                    [id]: {
+                        ...item,
+                        views: (item.views || 0) + 1
+                    }
+                }
+            };
+        });
+    }, []);
+
+    // Calculate total likes for profile
+    const totalLikes = useMemo(() => {
+        return Object.values(interactions.items).reduce((sum, item) => sum + (item.likes || 0), 0);
+    }, [interactions.items]);
+
+    return {
+        interactions,
+        toggleFollow,
+        toggleLike,
+        incrementView,
+        totalLikes
+    };
+}

@@ -9,10 +9,8 @@ import Statistic from './Statistic';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Profile({ onNavigate, votes, results }) {
+export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes }) {
     const [activeTab, setActiveTab] = useState('videos');
-    const [isFollowing, setIsFollowing] = useState(false);
-    const [followersCount, setFollowersCount] = useState(0);
 
     const displayName = 'poliTok';
     const username = '@politok_vercel_app';
@@ -20,15 +18,18 @@ export default function Profile({ onNavigate, votes, results }) {
 
     // Handle follow/unfollow
     const handleFollowToggle = () => {
-        setIsFollowing(!isFollowing);
-        setFollowersCount(prev => isFollowing ? prev - 1 : prev + 1);
+        if (toggleFollow) toggleFollow();
     };
+
+    const isFollowing = interactions?.isFollowing || false;
+    const followersBase = 0;
+    const followersCount = followersBase + (isFollowing ? 1 : 0);
 
     // Stats for politok_vercel_app profile
     const stats = {
         following: '0',
-        followers: followersCount.toString(),
-        likes: '0'
+        followers: followersCount.toLocaleString(),
+        likes: (totalLikes || 0).toLocaleString()
     };
 
     // Handle share button - share result page text format
@@ -73,21 +74,24 @@ export default function Profile({ onNavigate, votes, results }) {
                     type: 'stat',
                     stat: item.stat,
                     targetIndex: index,
-                    id: `stat-${index}`
+                    id: `stat-${index}`,
+                    lookupId: item.data.id // Use prop ID for interactions
                 });
                 // Add prop thumbnail
                 items.push({
                     type: 'prop',
                     data: item.data,
                     targetIndex: index,
-                    id: `prop-${index}`
+                    id: `prop-${index}`,
+                    lookupId: item.data.id
                 });
             } else {
                 // For other items (results, dashboard), add as-is
                 items.push({
                     ...item,
                     targetIndex: index,
-                    id: `item-${index}`
+                    id: `item-${index}`,
+                    lookupId: item.id // Use item ID (results_card, dashboard_card)
                 });
             }
         });
@@ -237,6 +241,7 @@ export default function Profile({ onNavigate, votes, results }) {
                         };
 
                         const scale = (width - 9) / 3 / width; // Adjusted for safety
+                        const viewCount = interactions?.items[item.lookupId]?.views || 0;
 
                         return (
                             <TouchableOpacity
@@ -263,7 +268,14 @@ export default function Profile({ onNavigate, votes, results }) {
                                         {renderLivePreview()}
                                     </View>
                                 </View>
-                                {/* ... */}
+
+                                {/* View count overlay */}
+                                <View style={styles.thumbnailOverlay}>
+                                    <View style={styles.viewCount}>
+                                        <Text style={styles.viewIcon}>▶</Text>
+                                        <Text style={styles.viewText}>{viewCount}</Text>
+                                    </View>
+                                </View>
                             </TouchableOpacity>
                         );
                     })}

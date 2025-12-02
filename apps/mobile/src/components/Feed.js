@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, Animated, StatusBar } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as FileSystem from 'expo-file-system';
+import { Ionicons } from '@expo/vector-icons';
 import {
     POLICIES,
     CHAT_DATA,
     FEED_ITEMS
 } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
-import { useFeed } from '@politok/shared/hooks';
+import { useFeed, useInteractions } from '@politok/shared/hooks';
 import { useAnalytics } from '../lib/analytics';
 import Proposition from './Proposition';
 import Statistic from './Statistic';
@@ -17,6 +19,29 @@ import Dashboard from './Dashboard';
 import Profile from './Profile';
 
 const { width, height } = Dimensions.get('window');
+
+// Mobile storage adapter using Expo FileSystem
+const mobileStorage = {
+    getItem: async (key) => {
+        try {
+            const fileUri = FileSystem.documentDirectory + key + '.json';
+            const info = await FileSystem.getInfoAsync(fileUri);
+            if (!info.exists) return null;
+            return await FileSystem.readAsStringAsync(fileUri);
+        } catch (e) {
+            console.error('Storage read error:', e);
+            return null;
+        }
+    },
+    setItem: async (key, value) => {
+        try {
+            const fileUri = FileSystem.documentDirectory + key + '.json';
+            await FileSystem.writeAsStringAsync(fileUri, value);
+        } catch (e) {
+            console.error('Storage write error:', e);
+        }
+    }
+};
 
 export default function Feed() {
     const analytics = useAnalytics();
@@ -35,7 +60,26 @@ export default function Feed() {
         goToNext
     } = useFeed(FEED_ITEMS, analytics, profileIndex !== -1 ? profileIndex : 0);
 
+    const {
+        interactions,
+        toggleLike,
+        incrementView,
+        toggleFollow,
+        totalLikes
+    } = useInteractions(mobileStorage);
 
+    // Get current item ID and interaction state
+    const currentId = currentItem?.data?.id || currentItem?.id;
+    const currentInteraction = currentId ? interactions.items[currentId] : null;
+    const isLiked = currentInteraction?.liked || false;
+    const likeCount = currentInteraction?.likes || 0;
+
+    // Track views
+    useEffect(() => {
+        if (currentId) {
+            incrementView(currentId);
+        }
+    }, [currentId, incrementView]);
 
     const scrollViewRef = useRef(null);
 
@@ -131,7 +175,16 @@ export default function Feed() {
             case 'dashboard':
                 return <Dashboard />;
             case 'profile':
-                return <Profile onNavigate={(index) => setCurrentIndex(index)} votes={votes} results={results} />;
+                return (
+                    <Profile
+                        onNavigate={(index) => setCurrentIndex(index)}
+                        votes={votes}
+                        results={results}
+                        interactions={interactions}
+                        toggleFollow={toggleFollow}
+                        totalLikes={totalLikes}
+                    />
+                );
             default:
                 return null;
         }
@@ -161,13 +214,68 @@ export default function Feed() {
                     ))}
                 </ScrollView>
 
+                {/* Right Sidebar (Interaction Icons) - Only show if not on profile */}
+                {currentItem?.type !== 'profile' && (
+                    <View style={styles.rightSidebar}>
+                        {/* 1. Profile Picture (Placeholder) */}
+                        <View style={styles.sidebarItem}>
+                            <View style={styles.avatarContainer}>
+                                <View style={styles.avatarWrapper}>
+                                    <Image
+                                        source={require('../../../mobile/assets/logo.png')}
+                                        style={styles.sidebarAvatar}
+                                        resizeMode="contain"
+                                    />
+                                </View>
+                                <View style={styles.followBadge}>
+                                    <Text style={styles.followBadgeText}>+</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        {/* 2. Like Button (Heart) */}
+                        <TouchableOpacity
+                            onPress={() => currentId && toggleLike(currentId)}
+                            style={styles.sidebarItem}
+                        >
+                            <Ionicons
+                                name="heart"
+                                size={35}
+                                color={isLiked ? '#ef4444' : 'white'}
+                                style={styles.shadowIcon}
+                            />
+                            <Text style={styles.actionText}>{likeCount}</Text>
+                        </TouchableOpacity>
+
+                        {/* 3. Comment Icon (Placeholder) */}
+                        <TouchableOpacity style={styles.sidebarItem}>
+                            <Ionicons
+                                name="chatbubble-ellipses"
+                                size={35}
+                                color="white"
+                                style={styles.shadowIcon}
+                            />
+                            <Text style={styles.actionText}>0</Text>
+                        </TouchableOpacity>
+
+                        {/* 4. Share Icon (Placeholder) */}
+                        <TouchableOpacity style={styles.sidebarItem}>
+                            <Ionicons
+                                name="arrow-redo"
+                                size={35}
+                                color="white"
+                                style={styles.shadowIcon}
+                            />
+                            <Text style={styles.actionText}>Share</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+
                 {/* PoliTok Simulation Overlay */}
                 <View style={styles.overlayHeader} pointerEvents="box-none">
                     <View style={styles.liveTagContainer}>
                         {/* LIVE indicator removed */}
                     </View>
-
-
                 </View>
 
                 {/* Progress dots */}
@@ -185,8 +293,6 @@ export default function Feed() {
                         ))}
                     </BlurView>
                 </View>
-
-                {/* Live Comments Stream removed */}
 
             </LinearGradient>
         </View>
@@ -208,6 +314,73 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
     },
+    rightSidebar: {
+        position: 'absolute',
+        right: 8,
+        bottom: 140, // Raised slightly to account for more items
+        alignItems: 'center',
+        zIndex: 50,
+        gap: 16,
+    },
+    sidebarItem: {
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    avatarContainer: {
+        width: 48,
+        height: 48,
+        marginBottom: 12, // Extra space for the badge
+        position: 'relative',
+    },
+    avatarWrapper: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        borderWidth: 1,
+        borderColor: 'white',
+        backgroundColor: 'black',
+        overflow: 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    sidebarAvatar: {
+        width: '100%',
+        height: '100%',
+    },
+    followBadge: {
+        position: 'absolute',
+        bottom: -10,
+        left: 14, // Center horizontally relative to 48px width (48/2 - 20/2 = 14)
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        backgroundColor: '#ef4444',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: 'white',
+    },
+    followBadgeText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
+        marginTop: -2, // Visual centering
+    },
+    shadowIcon: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+    },
+    actionText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
+        textShadowColor: 'black',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2,
+        marginTop: 4,
+    },
     overlayHeader: {
         position: 'absolute',
         top: 50,
@@ -221,67 +394,9 @@ const styles = StyleSheet.create({
     liveTagContainer: {
         gap: 4,
     },
-    blurBadge: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 20,
-        overflow: 'hidden',
-        gap: 8,
-    },
-    liveDot: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: '#ef4444',
-    },
-    liveText: {
-        color: 'white',
-        fontSize: 12,
-        fontWeight: 'bold',
-    },
-    hashtagText: {
-        color: 'rgba(255, 255, 255, 0.8)',
-        fontSize: 12,
-        fontFamily: 'Courier', // Monospace feel
-        marginLeft: 4,
-    },
-    resetButton: {
-        backgroundColor: 'white',
-        paddingHorizontal: 16,
-        paddingVertical: 6,
-        borderRadius: 20,
-        borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.5)',
-    },
-    resetButtonText: {
-        color: 'black',
-        fontSize: 12,
-        fontWeight: 'bold',
-    },
-    statsContainer: {
-        alignItems: 'flex-end',
-    },
-    statRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-    },
-    statLabel: {
-        color: 'white',
-        fontSize: 12,
-        fontWeight: 'bold',
-    },
-    statValue: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: '900',
-        fontFamily: 'Courier',
-    },
     progressContainer: {
         position: 'absolute',
-        bottom: 10, // Lowered further to 10
+        bottom: 10,
         left: 0,
         right: 0,
         alignItems: 'center',
@@ -306,93 +421,5 @@ const styles = StyleSheet.create({
     inactiveDot: {
         width: 8,
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    },
-    chatContainer: {
-        position: 'absolute',
-        bottom: 140,
-        left: 16,
-        width: 250,
-        height: 150,
-        justifyContent: 'flex-end',
-        zIndex: 40,
-    },
-    chatMessage: {
-        flexDirection: 'row',
-        marginBottom: 4,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-    },
-    chatUser: {
-        fontWeight: 'bold',
-        fontSize: 14,
-        marginRight: 6,
-        textShadowColor: 'black',
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 1,
-    },
-    chatText: {
-        color: 'white',
-        fontSize: 14,
-        textShadowColor: 'black',
-        textShadowOffset: { width: 1, height: 1 },
-        textShadowRadius: 1,
-    },
-    bottomNav: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 64,
-        backgroundColor: 'black',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: 'rgba(255, 255, 255, 0.1)',
-        zIndex: 50,
-    },
-    navItem: {
-        alignItems: 'center',
-    },
-    navIcon: {
-        fontSize: 24,
-        color: 'white',
-        marginBottom: 4,
-    },
-    navIconLarge: {
-        fontSize: 32,
-        color: 'white',
-    },
-    navLabel: {
-        color: 'white',
-        fontSize: 10,
-        fontWeight: 'bold',
-    },
-    createButtonContainer: {
-        width: 45,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    createButtonBg: {
-        position: 'absolute',
-        width: 45,
-        height: 30,
-        borderRadius: 8,
-    },
-    createButton: {
-        width: 38,
-        height: 30,
-        backgroundColor: 'white',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    plusIcon: {
-        color: 'black',
-        fontSize: 20,
-        fontWeight: 'bold',
     },
 });
