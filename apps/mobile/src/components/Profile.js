@@ -442,13 +442,12 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         backgroundColor: 'transparent',
-        width: width, // Use full screen width because components use Dimensions.get('window')
+        width: width,
         height: height,
         transform: [
-            { scale: ((width - 8) / 3) / width }, // Scale to fit thumbnail
-            { translateX: -width * (1 - ((width - 8) / 3) / width) / 2 }, // Center horizontally
-            { translateY: -height * (1 - ((width - 8) / 3) / width) / 2 }, // Center vertically
+            { scale: (width - 8) / 3 / width }, // Scale to fit thumbnail
         ],
+        transformOrigin: 'top left', // Supported in RN 0.73+
     },
     thumbnailOverlay: {
         position: 'absolute',
