@@ -41,7 +41,28 @@ export default function Feed() {
     const [mouseStart, setMouseStart] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [giftAnimation, setGiftAnimation] = useState(null);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [transitionDirection, setTransitionDirection] = useState(null); // 'up' or 'down'
+    const [previousIndex, setPreviousIndex] = useState(currentIndex);
     const containerRef = useRef(null);
+
+    // Track index changes for transitions
+    useEffect(() => {
+        if (currentIndex !== previousIndex) {
+            const direction = currentIndex > previousIndex ? 'up' : 'down';
+            setTransitionDirection(direction);
+            setIsTransitioning(true);
+            setPreviousIndex(currentIndex);
+
+            // End transition after animation completes
+            const timer = setTimeout(() => {
+                setIsTransitioning(false);
+                setTransitionDirection(null);
+            }, 300); // Match CSS transition duration
+
+            return () => clearTimeout(timer);
+        }
+    }, [currentIndex, previousIndex]);
 
     // Auto-play: ALWAYS auto-advance (zero friction like TikTok)
     useEffect(() => {
@@ -234,7 +255,12 @@ export default function Feed() {
             {/* Main feed container (9:16 aspect ratio, centered) */}
             <div className="w-full h-full flex items-center justify-center">
                 <div
-                    className="relative w-full h-full text-white overflow-hidden"
+                    className={`relative w-full h-full text-white overflow-hidden transition-transform duration-300 ease-out ${isTransitioning
+                            ? transitionDirection === 'up'
+                                ? 'animate-slide-up'
+                                : 'animate-slide-down'
+                            : ''
+                        }`}
                     style={{
                         background: COLORS.BG_GRADIENT_WEB,
                         width: '100%',
