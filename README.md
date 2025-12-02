@@ -97,7 +97,7 @@ Voters decide on four policy measures:
 ### Outcomes
 Outcomes are determined by:
 1. **Voting patterns** (all yes, all no, mixed)
-2. **Final score percentages** (gradient scale from 96-99% oligarchy)
+2. **Final score percentages** (gradient scale)
 
 ## Deployment
 
