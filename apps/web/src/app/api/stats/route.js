@@ -1,10 +1,19 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 import { FEED_ITEMS } from '@politok/shared/constants';
 
 // Cache stats for 60 seconds
 let cachedStats = null;
 let cacheTime = 0;
 const CACHE_TTL = 60000; // 60 seconds
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+const isRedisConfigured = () => {
+    return process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
+};
 
 export async function GET() {
     try {
@@ -30,7 +39,7 @@ export async function GET() {
         keys.push('follows:profile');
 
         // Fetch all in one batch
-        const values = await kv.mget(...keys);
+        const values = await redis.mget(...keys);
 
         // Parse results
         const stats = {

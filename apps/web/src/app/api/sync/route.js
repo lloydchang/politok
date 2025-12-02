@@ -1,7 +1,16 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
 const RATE_LIMIT_WINDOW = 60; // 60 seconds
 const RATE_LIMIT_MAX = 100; // Max 100 requests per minute per fingerprint
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+const isRedisConfigured = () => {
+    return process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
+};
 
 /**
  * Check rate limit for a fingerprint
@@ -11,10 +20,10 @@ const RATE_LIMIT_MAX = 100; // Max 100 requests per minute per fingerprint
 async function checkRateLimit(fingerprint) {
     const key = `ratelimit:${fingerprint}`;
     try {
-        const current = await kv.incr(key);
+        const current = await redis.incr(key);
         if (current === 1) {
             // First request, set expiry
-            await kv.expire(key, RATE_LIMIT_WINDOW);
+            await redis.expire(key, RATE_LIMIT_WINDOW);
         }
         return current <= RATE_LIMIT_MAX;
     } catch (e) {
@@ -34,7 +43,7 @@ async function checkRateLimit(fingerprint) {
 async function hasPerformedAction(fingerprint, contentId, type) {
     const key = `fp:${fingerprint}:${type}:${contentId}`;
     try {
-        const exists = await kv.exists(key);
+        const exists = await redis.exists(key);
         return exists === 1;
     } catch (e) {
         console.error('Action check error:', e);
@@ -51,7 +60,7 @@ async function hasPerformedAction(fingerprint, contentId, type) {
 async function markActionPerformed(fingerprint, contentId, type) {
     const key = `fp:${fingerprint}:${type}:${contentId}`;
     try {
-        await kv.set(key, 1, { ex: 30 * 24 * 60 * 60 }); // 30 days TTL
+        await redis.set(key, 1, { ex: 30 * 24 * 60 * 60 }); // 30 days TTL
     } catch (e) {
         console.error('Mark action error:', e);
     }
@@ -78,7 +87,7 @@ export async function POST(request) {
         }
 
         const results = [];
-        const pipeline = kv.pipeline();
+        const pipeline = redis.pipeline();
 
         for (const interaction of interactions) {
             const { id, type } = interaction;

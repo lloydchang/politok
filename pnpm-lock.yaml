@@ -121,9 +121,9 @@ importers:
       '@politok/shared':
         specifier: workspace:*
         version: link:../../packages/shared
-      '@vercel/kv':
-        specifier: ^3.0.0
-        version: 3.0.0
+      '@upstash/redis':
+        specifier: ^1.35.7
+        version: 1.35.7
       html2canvas:
         specifier: ^1.4.1
         version: 1.4.1
@@ -1945,10 +1945,6 @@ packages:
     resolution: {integrity: sha512-TQMCz2pFJMfpNxmSfX1VSfTjwUIFx/mL+p1bnfM1xjjdla7Z+KnGMW/EhFbpckp3LyWAH4PgOsMwOMnIN+MBFg==}
     peerDependencies:
       '@urql/core': ^5.0.0
-
-  '@vercel/kv@3.0.0':
-    resolution: {integrity: sha512-pKT8fRnfyYk2MgvyB6fn6ipJPCdfZwiKDdw7vB+HL50rjboEBHDVBEcnwfkEpVSp2AjNtoaOUH7zG+bVC/rvSg==}
-    engines: {node: '>=14.6'}
 
   '@xmldom/xmldom@0.7.13':
     resolution: {integrity: sha512-lm2GW5PkosIzccsaZIz7tp8cPADSIlIHWDFTR1N0SzfinhhYgeIQjFMz4rYzanCScr3DqQLeomUDArp6MWKm+g==}
@@ -7682,10 +7678,6 @@ snapshots:
     dependencies:
       '@urql/core': 5.2.0(graphql@15.8.0)
       wonka: 6.3.5
-
-  '@vercel/kv@3.0.0':
-    dependencies:
-      '@upstash/redis': 1.35.7
 
   '@xmldom/xmldom@0.7.13': {}
 

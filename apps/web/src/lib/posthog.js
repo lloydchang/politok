@@ -1,12 +1,14 @@
 import posthog from 'posthog-js';
 
 export const initPostHog = () => {
-  if (import.meta.env.VITE_POSTHOG_KEY) {
-    posthog.init(import.meta.env.VITE_POSTHOG_KEY, {
-      api_host: import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com',
-      loaded: (posthog) => {
-        if (import.meta.env.DEV) posthog.debug();
-      },
-    });
+  if (typeof window !== 'undefined') {
+    if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+        loaded: (posthog) => {
+          if (process.env.NODE_ENV === 'development') posthog.debug();
+        },
+      });
+    }
   }
 };
