@@ -34,9 +34,21 @@ export default function Profile({ onNavigate, votes, results }) {
     // Handle share button - share result page text format
     const handleShare = async () => {
         // Generate share text using the same format as Result page
-        const shareText = results
-            ? generateViralShareText(votes, results.stats, results.percentile, results.identity)
-            : `How would you vote?\n\nhttps://${websiteUrl}`;
+        let shareText;
+
+        if (results) {
+            // Use existing results if available
+            shareText = generateViralShareText(votes, results.stats, results.percentile, results.identity);
+        } else if (votes && Object.keys(votes).length > 0) {
+            // Calculate results on-demand if user has voted but hasn't seen results page
+            const currentStats = processVote(votes);
+            const currentPercentile = getPercentileRanking(currentStats.oligarchy);
+            const currentIdentity = getIdentityLabel(currentStats, votes);
+            shareText = generateViralShareText(votes, currentStats, currentPercentile, currentIdentity);
+        } else {
+            // No votes yet, use generic message
+            shareText = `How would you vote?\n\nhttps://${websiteUrl}`;
+        }
 
         try {
             await Share.share({ message: shareText });
