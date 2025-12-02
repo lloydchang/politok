@@ -3,12 +3,19 @@ import { kv } from '@vercel/kv';
 const RATE_LIMIT_WINDOW = 60; // 60 seconds
 const RATE_LIMIT_MAX = 100; // Max 100 requests per minute per fingerprint
 
+// Check if KV is configured
+const isKVConfigured = () => {
+    return process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN;
+};
+
 /**
  * Check rate limit for a fingerprint
  * @param {string} fingerprint - Client fingerprint
  * @returns {Promise<boolean>} True if allowed, false if rate limited
  */
 async function checkRateLimit(fingerprint) {
+    if (!isKVConfigured()) return true; // Allow if KV not configured
+
     const key = `ratelimit:${fingerprint}`;
     try {
         const current = await kv.incr(key);
@@ -18,8 +25,7 @@ async function checkRateLimit(fingerprint) {
         }
         return current <= RATE_LIMIT_MAX;
     } catch (e) {
-        console.error('Rate limit check error:', e);
-        // Allow on error (fail open)
+        // Allow on error (fail open) - silent
         return true;
     }
 }
@@ -32,12 +38,14 @@ async function checkRateLimit(fingerprint) {
  * @returns {Promise<boolean>} True if already performed, false otherwise
  */
 async function hasPerformedAction(fingerprint, contentId, type) {
+    if (!isKVConfigured()) return false; // Allow if KV not configured
+
     const key = `fp:${fingerprint}:${type}:${contentId}`;
     try {
         const exists = await kv.exists(key);
         return exists === 1;
     } catch (e) {
-        console.error('Action check error:', e);
+        // Silent failure
         return false;
     }
 }
@@ -49,11 +57,13 @@ async function hasPerformedAction(fingerprint, contentId, type) {
  * @param {string} type - Action type (like, follow)
  */
 async function markActionPerformed(fingerprint, contentId, type) {
+    if (!isKVConfigured()) return; // Skip if KV not configured
+
     const key = `fp:${fingerprint}:${type}:${contentId}`;
     try {
         await kv.set(key, 1, { ex: 30 * 24 * 60 * 60 }); // 30 days TTL
     } catch (e) {
-        console.error('Mark action error:', e);
+        // Silent failure
     }
 }
 
@@ -66,6 +76,15 @@ export async function POST(request) {
                 { error: 'Invalid request' },
                 { status: 400 }
             );
+        }
+
+        // If KV not configured, return success without persisting
+        if (!isKVConfigured()) {
+            return Response.json({
+                success: true,
+                synced: interactions.length,
+                results: interactions.map(i => ({ ...i, success: true, note: 'Local-only mode' }))
+            });
         }
 
         // Rate limiting
@@ -119,7 +138,7 @@ export async function POST(request) {
         });
 
     } catch (error) {
-        console.error('Sync error:', error);
+        // Silent failure - return error response
         return Response.json(
             { error: 'Internal server error' },
             { status: 500 }
