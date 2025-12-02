@@ -29,21 +29,6 @@ This document outlines all analytics events tracked in the politok application u
 | `identity_label_shown` | Identity label displayed | `label`, `emoji`, `equity_percent` |
 | `controversy_reaction` | User reacts to hot take | `reaction` ('agree'/'disagree'), `statement` |
 
-### TikTok Content
-
-| Event Name | Description | Properties |
-|------------|-------------|------------|
-| `tiktok_script_copied` | User copies TikTok script | `script_type` ('hook', 'controversy', 'challenge') |
-| `tiktok_caption_copied` | User copies TikTok caption | - |
-
-### Downloadable Cards
-
-| Event Name | Description | Properties |
-|------------|-------------|------------|
-| `card_download_started` | Card generation begins | `card_type` ('score', 'hottake', 'comparison', 'challenge') |
-| `card_download_completed` | Card successfully downloaded | `card_type` |
-| `card_download_failed` | Card generation failed | `card_type`, `error` |
-
 ### Conversion Events
 
 | Event Name | Description | Properties |
@@ -52,14 +37,13 @@ This document outlines all analytics events tracked in the politok application u
 | `ballot_search` | User searches for their ballot | `zip_code` |
 | `org_clicked` | User clicks on organization link | `org_name` |
 
-### Navigation
+### Navigation & Feed Events
 
 | Event Name | Description | Properties |
 |------------|-------------|------------|
-| `politok_title_clicked` | User clicks app title | - |
-| `vote_button_clicked` | User clicks main VOTE button | - |
 | `feed_auto_advance` | Feed automatically advances | `card_index`, `card_type` |
 | `feed_dot_nav` | User navigates via progress dots | `from`, `to` |
+| `profile_thumbnail_clicked` | User clicks content thumbnail in profile | `content_type`, `target_index` |
 
 ## Analytics Architecture
 

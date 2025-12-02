@@ -4,40 +4,31 @@ An interactive ballot simulation exploring how policy decisions impact equity an
 
 ## Features
 
-### Core Experience
-- **Interactive Voting**: Vote yes/no on three propositions or skip them
+### TikTok-Style Feed Experience
+- **Swipeable Feed**: Vertical scrolling feed with auto-advance (4s for voting, 6s for results)
+- **Live Content**: Dashboard (travel mode + local policies), Statistics (Did You Know facts), Propositions (voting cards), Results (identity reveal)
+- **Profile Page**: 3-column grid of all content thumbnails with live previews
+- **Progress Dots**: Bottom navigation for quick jumping between cards
+- **Keyboard/Touch Navigation**: Arrow keys (web) or swipe gestures (mobile)
+
+### Core Voting Experience
+- **Interactive Voting**: Vote yes/no on four key policy propositions
 - **Real-time Results**: See immediate impact on Equity and Oligarchy percentages
-- **Identity Labels**: Get labeled based on your voting pattern (e.g., "Reform Supporter", "Policy Skeptic")
+- **Identity Labels**: Get labeled based on your voting pattern (e.g., "Reform Supporter", "Swing Voter", "Policy Skeptic")
 - **Percentile Ranking**: See how you compare to other users
+- **Smart Sharing**: Share button calculates and shares your results even before viewing the results page
 
-### TikTok Content Engine (Phase 1)
-- **Auto-Generated Scripts**: Get 3 ready-to-use TikTok scripts (Hook, Hot Take, Challenge)
-- **Shareable Cards**: Download 4 card types optimized for TikTok/Instagram (9:16 format)
-  - Score Card, Hot Take Card, Comparison Card, Challenge Card
-- **Copy-Paste Captions**: One-click copy complete captions with trending hashtags
-- **Voter Registration**: Direct link to register to vote via Vote.org
+### Dashboard Features
+- **Travel Mode**: Auto-rotate through random US cities every 15 seconds
+- **Local Policies**: Real-time display of city-specific policies (rent control, transit, childcare, medicare)
+- **Policy Data**: 200+ cities with customized policy statuses
+- **Background Images**: AI-generated location imagery for visual context
 
-### Gamification (Phase 2)
-- **Weekly Leaderboard**: See top creators and claim your spot with your TikTok handle
-- **Trending Feed**: View most copied scripts and viral content
-- **Share Tracking**: Local tracking of your shares and engagement
-
-### Conversion Path (Phase 3)
-- **Daily Challenge**: New themed prompts each day of the week
-- **Ballot Finder**: Search your local ballot by zip code
-- **Organization Recommendations**: Get matched with advocacy orgs based on your score
-
-### Analytics
-- **Comprehensive Tracking**: 24+ tracked events via PostHog
-- **User Journey**: Complete funnel from landing to action
-- **Content Performance**: Track which scripts/cards perform best
-
-## Dynamic Outcomes
-9 different outcomes based on voting patterns:
-  - `equity advances`, `equity gains`, `equity improves`
-  - `equity stagnants`, `equity dwindles`
-  - `oligarchy seizes`, `oligarchy overpowers`
-  - `oligarchy reigns`, `oligarchy dominates`
+### Platform Parity
+- **Unified Codebase**: Shared logic, hooks, and constants between web and mobile
+- **Consistent UI**: Matching layouts, fonts, colors, and spacing across platforms
+- **Live Previews**: Profile grid shows actual rendered components at scale
+- **Responsive Design**: Adapts seamlessly to different screen sizes
 
 ## Structure
 
@@ -90,12 +81,11 @@ npm run build --workspace=apps/web
 ## How It Works
 
 ### Propositions
-Voters decide on three politok measures:
-1. 🏘️ **FREEZE THE RENT**
-Shall we implement a freeze on rent increases for all residential units?
-2. 🚌 **FAST & FREE BUSES**
-Shall we make buses faster and eliminate all fares?
-3. 🍼 **CHILDCARE FOR ALL** - Shall we offer free, publicly-funded child care for all families?
+Voters decide on four policy measures:
+1. 🏘️ **FREEZE THE RENT** - Implement a freeze on rent increases for all residential units
+2. 🚌 **FAST & FREE BUSES** - Make buses faster and eliminate all fares
+3. 🍼 **CHILDCARE FOR ALL** - Offer free, publicly-funded child care for all families
+4. 🏥 **MEDICARE FOR ALL** - Expand Medicare to cover all Americans
 
 ### Scoring System
 - Each vote affects two stats: **Equity** and **Oligarchy**
