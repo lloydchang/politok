@@ -85,8 +85,6 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
 
 const styles = StyleSheet.create({
     container: {
-        width: width,
-        height: height,
         flex: 1,
         backgroundColor: 'white',
     },

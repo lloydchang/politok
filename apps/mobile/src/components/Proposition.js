@@ -4,13 +4,13 @@ import { COLORS } from '@politok/shared';
 import { usePropCard } from '@politok/shared/hooks';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const { width, height } = Dimensions.get('window');
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
-export default function Proposition({ proposition, onVote, hasVoted }) {
+export default function Proposition({ proposition, onVote, hasVoted, width = windowWidth, height = windowHeight }) {
     const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { width, height }]}>
             <LinearGradient
                 colors={[`${COLORS.PRIMARY_BLUE}20`, `${COLORS.OUTCOME_RED}20`]}
                 style={styles.gradient}
@@ -72,8 +72,6 @@ export default function Proposition({ proposition, onVote, hasVoted }) {
 
 const styles = StyleSheet.create({
     container: {
-        width: width,
-        height: height,
         flex: 1,
         backgroundColor: 'black',
     },

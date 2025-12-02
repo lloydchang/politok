@@ -4,13 +4,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useStatCard } from '@politok/shared/hooks';
 import { COLORS } from '@politok/shared';
 
-const { width, height } = Dimensions.get('window');
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
-export default function Statistic({ stat }) {
+export default function Statistic({ stat, width = windowWidth, height = windowHeight }) {
+  // Fix ReferenceError by ensuring width/height are passed as props or defaults
   const gradient = useStatCard();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width, height }]}>
       <LinearGradient
         colors={['#000000', '#000000']} // Match web's "no color" look (black background)
         style={styles.gradient}
@@ -47,8 +48,6 @@ export default function Statistic({ stat }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: width,
-    height: height,
     flex: 1,
   },
   gradient: {

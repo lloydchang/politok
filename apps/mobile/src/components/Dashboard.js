@@ -188,8 +188,6 @@ export default function Dashboard() {
 
 const styles = StyleSheet.create({
     container: {
-        width: width,
-        height: height,
         flex: 1,
     },
     gradient: {

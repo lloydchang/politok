@@ -178,9 +178,13 @@ export default function Profile({ onNavigate, votes, results }) {
                     {contentItems.map((item) => {
                         // Render appropriate live preview based on item type
                         const renderLivePreview = () => {
+                            // Pass square dimensions (width x width) to force components to layout in a square
+                            // This matches web behavior where components adapt to the square thumbnail container
+                            const squareProps = { width: width, height: width };
+
                             switch (item.type) {
                                 case 'dashboard':
-                                    return <Dashboard />;
+                                    return <Dashboard {...squareProps} />;
                                 case 'results':
                                     // Use actual results data if available
                                     if (results) {
@@ -191,6 +195,7 @@ export default function Profile({ onNavigate, votes, results }) {
                                                 percentileData={results.percentile}
                                                 votes={votes}
                                                 onReset={() => { }}
+                                                {...squareProps}
                                             />
                                         );
                                     }
@@ -208,6 +213,7 @@ export default function Profile({ onNavigate, votes, results }) {
                                             percentileData={currentPercentile}
                                             votes={votes || {}}
                                             onReset={() => { }}
+                                            {...squareProps}
                                         />
                                     );
                                 case 'prop':
@@ -220,10 +226,11 @@ export default function Profile({ onNavigate, votes, results }) {
                                             onVote={() => { }}
                                             hasVoted={hasVoted}
                                             selectedVote={selectedVote}
+                                            {...squareProps}
                                         />
                                     );
                                 case 'stat':
-                                    return <Statistic stat={item.stat} />;
+                                    return <Statistic stat={item.stat} {...squareProps} />;
                                 default:
                                     return null;
                             }
@@ -443,7 +450,7 @@ const styles = StyleSheet.create({
         left: 0,
         backgroundColor: 'transparent',
         width: width,
-        height: height,
+        height: width, // Square aspect ratio to match web behavior
         transform: [
             { scale: (width - 8) / 3 / width }, // Scale to fit thumbnail
         ],
