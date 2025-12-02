@@ -414,10 +414,15 @@ const styles = StyleSheet.create({
         padding: 1, // Match web gap-1
     },
     gridItem: {
-        width: (width - 6) / 3, // Adjusted for 1px padding (2px total) and 4px gap (2*2px)
-        height: (width - 6) / 3, // Square aspect ratio like web
-        margin: 1, // Match web gap-1
-        backgroundColor: 'transparent',
+        width: (width - 8) / 3, // Adjusted for padding: (w - 2 (container pad) - 6 (item margins)) / 3 is wrong.
+        // Available space: width - 2 (padding).
+        // 3 items * (w_item + 2 margin) <= width - 2.
+        // 3 * w_item + 6 <= width - 2.
+        // 3 * w_item <= width - 8.
+        // w_item <= (width - 8) / 3.
+        height: (width - 8) / 3,
+        margin: 1,
+        backgroundColor: '#111', // Dark background for thumbnails
         borderRadius: 4,
         overflow: 'hidden',
         position: 'relative',
@@ -428,20 +433,21 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         height: '100%',
-        // overflow: 'hidden', // Commented out to debug rendering
+        overflow: 'hidden',
         backgroundColor: 'transparent',
+        pointerEvents: 'none',
     },
     livePreview: {
         position: 'absolute',
         top: 0,
         left: 0,
         backgroundColor: 'transparent',
-        width: width * 3, // 300% width like web
-        height: height * 3, // 300% height like web
+        width: width, // Use full screen width because components use Dimensions.get('window')
+        height: height,
         transform: [
-            { scale: 0.3333 }, // Scale to 1/3
-            { translateX: -width }, // Shift back to origin (-width because center is at 1.5w, scaled left is at 1w, need to move to 0)
-            { translateY: -height }, // Shift back to origin
+            { scale: ((width - 8) / 3) / width }, // Scale to fit thumbnail
+            { translateX: -width * (1 - ((width - 8) / 3) / width) / 2 }, // Center horizontally
+            { translateY: -height * (1 - ((width - 8) / 3) / width) / 2 }, // Center vertically
         ],
     },
     thumbnailOverlay: {
