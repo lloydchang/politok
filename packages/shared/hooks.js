@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
     processVote,
     getPercentileRanking,
@@ -47,45 +47,56 @@ export function useChat(options = {}) {
     return chatMessages;
 }
 
-export function useFeed(items, analytics = {}) {
+export function useFeed(items, analytics = {}, startIndex = 0) {
     const { trackEvent, trackPropositionVote, trackSimulationCompleted } = analytics;
 
-    const [currentIndex, setCurrentIndex] = useState(items.length - 1); // Start at profile page
-    const [votes, setVotes] = useState({});
-    const [results, setResults] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(startIndex);
+
+    // Initialize votes with null (skipped) for all propositions
+    const [votes, setVotes] = useState(() => {
+        const initialVotes = {};
+        return initialVotes;
+    });
+
+    // Calculate results reactively based on votes
+    // This ensures results are always up-to-date, whether on initial load (empty) or after voting
+    const results = useMemo(() => {
+        const stats = processVote(votes);
+        const percentile = getPercentileRanking(stats.oligarchy);
+        const identity = getIdentityLabel(stats, votes);
+
+        return {
+            stats,
+            percentile,
+            identity
+        };
+    }, [votes]);
 
     const currentItem = items[currentIndex];
     const votedProps = Object.keys(votes);
     const hasVotedOnCurrent = currentItem?.type === 'prop' && votes[currentItem.data.id];
 
-    // Calculate results when all 3 props are voted
+    // Track completion events
+    const [hasTrackedCompletion, setHasTrackedCompletion] = useState(false);
+
     useEffect(() => {
         const isResultsPage = currentItem?.type === "results";
         const allVoted = votedProps.length === PROPOSITIONS.length;
 
-        if ((allVoted || isResultsPage) && !results) {
-            const stats = processVote(votes);
-            const percentile = getPercentileRanking(stats.oligarchy);
-            const identity = getIdentityLabel(stats, votes);
-
-            setResults({
-                stats,
-                percentile,
-                identity
-            });
-
+        if ((allVoted || isResultsPage) && !hasTrackedCompletion) {
             if (trackEvent) {
                 trackEvent('feed_quiz_completed', {
-                    equity_score: stats.equity,
-                    identity_label: identity.label
+                    equity_score: results.stats.equity,
+                    identity_label: results.identity.label
                 });
             }
 
             if (trackSimulationCompleted) {
-                trackSimulationCompleted(votes, stats, PROPOSITIONS);
+                trackSimulationCompleted(votes, results.stats, PROPOSITIONS);
             }
+            setHasTrackedCompletion(true);
         }
-    }, [votes, results, votedProps.length, currentItem, trackEvent, trackSimulationCompleted]);
+    }, [votes, results, votedProps.length, currentItem, hasTrackedCompletion, trackEvent, trackSimulationCompleted]);
 
     // Safety: Reset index if out of bounds
     useEffect(() => {

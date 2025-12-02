@@ -21,6 +21,7 @@ import Profile from './Profile';
 import { trackEvent } from '@/lib/telemetry';
 
 export default function Feed() {
+    const profileIndex = FEED_ITEMS.findIndex(item => item.type === 'profile');
     const {
         currentIndex,
         setCurrentIndex,
@@ -32,11 +33,13 @@ export default function Feed() {
         handleReset,
         goToNext,
         goToPrev
-    } = useFeed(FEED_ITEMS, { trackEvent });
+    } = useFeed(FEED_ITEMS, { trackEvent }, profileIndex !== -1 ? profileIndex : 0);
 
 
 
     const [touchStart, setTouchStart] = useState(0);
+    const [mouseStart, setMouseStart] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
     const [giftAnimation, setGiftAnimation] = useState(null);
     const containerRef = useRef(null);
 
@@ -63,7 +66,7 @@ export default function Feed() {
         }
     }, [currentIndex, currentItem, hasVotedOnCurrent, goToNext]);
 
-    // Touch/swipe handling
+    // Touch/swipe handling (mobile)
     const handleTouchStart = (e) => {
         setTouchStart(e.touches[0].clientY);
     };
@@ -82,13 +85,64 @@ export default function Feed() {
         }
     };
 
+    // Mouse drag handling (desktop)
+    const handleMouseDown = (e) => {
+        // Don't interfere with button clicks
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            return;
+        }
+
+        setMouseStart(e.clientY);
+        setIsDragging(false); // Don't set to true immediately
+    };
+
+    const handleMouseMove = (e) => {
+        if (mouseStart === 0) return;
+
+        const diff = Math.abs(mouseStart - e.clientY);
+
+        // Only consider it a drag if moved more than 10 pixels
+        if (diff > 10 && !isDragging) {
+            setIsDragging(true);
+        }
+    };
+
+    const handleMouseUp = (e) => {
+        if (mouseStart === 0) return;
+
+        const mouseEnd = e.clientY;
+        const diff = mouseStart - mouseEnd;
+
+        // Only navigate if this was actually a drag (not just a click)
+        if (isDragging && Math.abs(diff) > 50) {
+            // Swipe up (drag down, next card)
+            if (diff > 50) {
+                goToNext();
+            }
+            // Swipe down (drag up, prev card)
+            else if (diff < -50) {
+                goToPrev();
+            }
+        }
+
+        // Reset states
+        setIsDragging(false);
+        setMouseStart(0);
+    };
+
+    const handleMouseLeave = () => {
+        // Cancel drag if mouse leaves the container
+        setIsDragging(false);
+        setMouseStart(0);
+    };
+
     // Keyboard navigation
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === 'ArrowUp' || e.key === ' ') {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
                 goToNext();
-            } else if (e.key === 'ArrowDown') {
+            } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
                 e.preventDefault();
                 goToPrev();
             }
@@ -172,6 +226,10 @@ export default function Feed() {
             className="fixed inset-0 bg-black overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
         >
             {/* Main feed container (9:16 aspect ratio, centered) */}
             <div className="w-full h-full flex items-center justify-center">

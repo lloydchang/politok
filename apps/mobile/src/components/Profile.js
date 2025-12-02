@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Share, ScrollView, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Share, ScrollView, Dimensions, Image, Linking } from 'react-native';
 import { COLORS, generateViralShareText, processVote, getPercentileRanking, getIdentityLabel } from '@politok/shared';
 import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
@@ -156,8 +156,9 @@ export default function Profile({ onNavigate, votes, results }) {
 
                     {/* Bio */}
                     <View style={styles.bioContainer}>
-                        {/* Only render bio text if it exists to avoid empty space */}
-                        {/* For now, it's empty in the code, so we can conditionally render or just leave it empty if dynamic */}
+                        <Text style={styles.bioText}>
+                            Vote on propositions in this simulation & see how they affect oligarchy vs equity 🗳️
+                        </Text>
                         <Text style={styles.websiteLink}>
                             🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
                                 {websiteUrl}
