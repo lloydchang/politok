@@ -144,9 +144,8 @@ export default function Profile({ onNavigate, votes, results }) {
 
                     {/* Bio */}
                     <View style={styles.bioContainer}>
-                        <Text style={styles.bioText}>
-
-                        </Text>
+                        {/* Only render bio text if it exists to avoid empty space */}
+                        {/* For now, it's empty in the code, so we can conditionally render or just leave it empty if dynamic */}
                         <Text style={styles.websiteLink}>
                             🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
                                 {websiteUrl}
@@ -186,55 +185,17 @@ export default function Profile({ onNavigate, votes, results }) {
                                 case 'dashboard':
                                     return <Dashboard {...squareProps} />;
                                 case 'results':
-                                    // Use actual results data if available
-                                    if (results) {
-                                        return (
-                                            <Result
-                                                resultStats={results.stats}
-                                                identityLabel={results.identity}
-                                                percentileData={results.percentile}
-                                                votes={votes}
-                                                onReset={() => { }}
-                                                {...squareProps}
-                                            />
-                                        );
-                                    }
-
-                                    // Calculate live intermediate results based on current votes
-                                    const { processVote, getPercentileRanking, getIdentityLabel } = require('@politok/shared');
-                                    const currentStats = processVote(votes || {});
-                                    const currentPercentile = getPercentileRanking(currentStats.oligarchy);
-                                    const currentIdentity = getIdentityLabel(currentStats, votes || {});
-
-                                    return (
-                                        <Result
-                                            resultStats={currentStats}
-                                            identityLabel={currentIdentity}
-                                            percentileData={currentPercentile}
-                                            votes={votes || {}}
-                                            onReset={() => { }}
-                                            {...squareProps}
-                                        />
-                                    );
+                                    return <Result {...squareProps} {...item.data} />;
                                 case 'prop':
-                                    // Check if user has voted on this proposition
-                                    const hasVoted = votes && votes[item.data.id] !== undefined;
-                                    const selectedVote = votes ? votes[item.data.id] : undefined;
-                                    return (
-                                        <Proposition
-                                            proposition={item.data}
-                                            onVote={() => { }}
-                                            hasVoted={hasVoted}
-                                            selectedVote={selectedVote}
-                                            {...squareProps}
-                                        />
-                                    );
+                                    return <Proposition {...squareProps} proposition={item.data} />;
                                 case 'stat':
-                                    return <Statistic stat={item.stat} {...squareProps} />;
+                                    return <Statistic {...squareProps} stat={item.stat} />;
                                 default:
                                     return null;
                             }
                         };
+
+                        const scale = (width - 9) / 3 / width; // Adjusted for safety
 
                         return (
                             <TouchableOpacity
@@ -249,20 +210,19 @@ export default function Profile({ onNavigate, votes, results }) {
                                     pointerEvents="none"
                                 >
                                     <View
-                                        style={styles.livePreview}
+                                        style={[styles.livePreview, {
+                                            transform: [
+                                                { translateX: -width * (1 - scale) / 2 },
+                                                { translateY: -width * (1 - scale) / 2 },
+                                                { scale: scale },
+                                            ]
+                                        }]}
                                         collapsable={false}
                                     >
                                         {renderLivePreview()}
                                     </View>
                                 </View>
-
-                                {/* View count overlay */}
-                                <View style={styles.thumbnailOverlay}>
-                                    <View style={styles.viewCount}>
-                                        <Text style={styles.viewIcon}>▶</Text>
-                                        <Text style={styles.viewText}>0</Text>
-                                    </View>
-                                </View>
+                                {/* ... */}
                             </TouchableOpacity>
                         );
                     })}
@@ -381,6 +341,7 @@ const styles = StyleSheet.create({
     bioContainer: {
         alignItems: 'center',
         paddingHorizontal: 16,
+        marginBottom: 12, // Reduced spacing
     },
     bioText: {
         color: '#fff',
@@ -394,6 +355,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     tabsContainer: {
+        width: '100%', // Ensure full width
         borderBottomWidth: 1,
         borderBottomColor: '#1f2937',
         flexDirection: 'row',
@@ -404,6 +366,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: 'transparent',
         alignItems: 'center',
+        justifyContent: 'center', // Center content vertically and horizontally
     },
     activeTab: {
         borderBottomColor: '#fff',
@@ -421,13 +384,8 @@ const styles = StyleSheet.create({
         padding: 1, // Match web gap-1
     },
     gridItem: {
-        width: (width - 8) / 3, // Adjusted for padding: (w - 2 (container pad) - 6 (item margins)) / 3 is wrong.
-        // Available space: width - 2 (padding).
-        // 3 items * (w_item + 2 margin) <= width - 2.
-        // 3 * w_item + 6 <= width - 2.
-        // 3 * w_item <= width - 8.
-        // w_item <= (width - 8) / 3.
-        height: (width - 8) / 3,
+        width: (width - 9) / 3, // Adjusted for safety
+        height: (width - 9) / 3,
         margin: 1,
         backgroundColor: '#111', // Dark background for thumbnails
         borderRadius: 4,
@@ -450,11 +408,8 @@ const styles = StyleSheet.create({
         left: 0,
         backgroundColor: 'transparent',
         width: width,
-        height: width, // Square aspect ratio to match web behavior
-        transform: [
-            { scale: (width - 8) / 3 / width }, // Scale to fit thumbnail
-        ],
-        transformOrigin: 'top left', // Supported in RN 0.73+
+        height: width, // Square aspect ratio
+        // Transform is applied inline in the render function
     },
     thumbnailOverlay: {
         position: 'absolute',

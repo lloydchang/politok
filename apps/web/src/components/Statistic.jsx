@@ -7,15 +7,9 @@ export default function Statistic({ stat }) {
 
     return (
         <div
-            className={`relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br ${gradient.web}`}
+            className="relative w-full h-full flex items-center justify-center overflow-hidden bg-black"
         >
-            {/* Pattern overlay */}
-            <div className="absolute inset-0 opacity-10"
-                style={{
-                    backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)',
-                    backgroundSize: '50px 50px'
-                }}
-            />
+            {/* Pattern overlay removed for cleaner look matching mobile */}
 
             {/* Main content */}
             <div className="relative z-10 px-8 md:px-16 max-w-3xl mx-auto text-center">

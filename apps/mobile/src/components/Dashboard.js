@@ -21,7 +21,7 @@ function PolicyCard({ policy, data }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <MaterialCommunityIcons name={policy.iconMobile} size={32} color="white" />
+                <MaterialCommunityIcons name={policy.iconMobile} size={30} color="white" />
                 <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
                 <View style={styles.cardTitleContainer}>
                     {data.status !== 'loading' && (
@@ -33,7 +33,7 @@ function PolicyCard({ policy, data }) {
     );
 }
 
-export default function Dashboard() {
+export default function Dashboard({ width = Dimensions.get('window').width, height = Dimensions.get('window').height } = {}) {
     const [location, setLocation] = useState('Mesa, Arizona');
     const [travelMode, setTravelMode] = useState(true);
     const [locationData, setLocationDataState] = useState({ location: 'Mesa', state: 'Arizona' });
@@ -129,7 +129,7 @@ export default function Dashboard() {
     }, [location, travelMode]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { width, height }]}>
             <ImageBackground
                 source={backgroundImage ? { uri: backgroundImage } : null}
                 style={styles.backgroundImage}
@@ -199,12 +199,14 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     scrollContent: {
-        paddingHorizontal: 20,
-        paddingTop: 60,
+        paddingHorizontal: 24, // Match web padding
+        paddingTop: 40, // Reduced from 60 to show more content in thumbnail
         paddingBottom: 100,
-        minHeight: height,
+        minHeight: '100%', // Use percentage or passed height if needed, but 100% of container is safer
+        alignItems: 'center', // Center content horizontally
     },
     header: {
+        width: '100%', // Ensure full width for space-between
         marginBottom: 24,
         flexDirection: 'row',
         alignItems: 'center',
@@ -212,26 +214,28 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     locationText: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 20, // Match web text-xl
+        fontWeight: '900',
         color: 'white',
-        textAlign: 'left',
+        flex: 1,
+        textShadowColor: 'rgba(0, 0, 0, 0.3)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
     },
     toggleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 12,
-        paddingVertical: 6,
+        paddingVertical: 4,
+        paddingHorizontal: 8,
         borderRadius: 20,
     },
     toggleLabel: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: COLORS.TEXT_LIGHT_GRAY,
+        fontSize: 16,
     },
     cardsContainer: {
+        width: '100%', // Ensure full width
         gap: 12,
         marginBottom: 24,
     },
@@ -259,9 +263,9 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
     cardText: {
-        fontSize: 16, // Increased font size slightly
+        fontSize: 14, // Match web text-s
         color: 'white', // White text
-        lineHeight: 24,
+        lineHeight: 21, // Adjusted for smaller font
         fontWeight: 'bold', // Bold text
     },
     shareButton: {
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 8,
         zIndex: 20,
-        backdropFilter: 'blur(10px)', // Note: backdropFilter not supported in RN directly, but keeping for intent
+        // backdropFilter not supported in RN, but opacity handles the look
     },
     shareEmoji: {
         fontSize: 32,

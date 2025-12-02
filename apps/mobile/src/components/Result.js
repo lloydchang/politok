@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Result({ resultStats, identityLabel, percentileData, votes, onReset }) {
+export default function Result({ resultStats, identityLabel, percentileData, votes, onReset, width = Dimensions.get('window').width, height = Dimensions.get('window').height }) {
     const { sortedStats } = useResultsCard(resultStats);
 
     if (!resultStats || !identityLabel) return null;
@@ -23,7 +23,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { width, height }]}>
             <LinearGradient
                 colors={[COLORS.BG_LIGHT_BLUE, `${identityLabel.color}20`]}
                 style={styles.gradient}
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         paddingHorizontal: 24,
-        paddingTop: 60,
+        paddingTop: 40, // Reduced from 60
         paddingBottom: 100,
         alignItems: 'center',
     },
@@ -174,14 +174,14 @@ const styles = StyleSheet.create({
     },
     shareButtonContainer: {
         position: 'absolute',
-        bottom: 40,
-        right: 24,
+        bottom: 16,
+        right: 16,
         zIndex: 20,
     },
     shareButton: {
-        width: 96,
-        height: 96,
-        borderRadius: 48,
+        width: 80,
+        height: 80,
+        borderRadius: 40,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         alignItems: 'center',
         justifyContent: 'center',
@@ -190,8 +190,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 6,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.2)',
+        borderWidth: 0,
     },
     shareButtonIcon: {
         fontSize: 32,
