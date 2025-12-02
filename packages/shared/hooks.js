@@ -212,16 +212,25 @@ export function useResultsCard(resultStats) {
 }
 
 // Hook for managing persistent interactions (likes, views, follow)
-export function useInteractions(storage) {
+/**
+ * Custom hook for managing interactions (likes, views, follows)
+ * with local persistence and optional server sync
+ *
+ * @param {Object} storage - Storage adapter (localStorage, AsyncStorage, etc)
+ * @param {Object} syncAdapter - Optional sync adapter with {sync, fetchStats} methods
+ */
+export function useInteractions(storage, syncAdapter = null) {
     const STORAGE_KEY = 'politok_interactions';
 
-    // Default state
     const [interactions, setInteractions] = useState({
         isFollowing: false,
-        items: {}
+        items: {} // { id: { likes: 0, liked: false, views: 0 } }
     });
 
-    // Load from storage on mount
+    const [globalStats, setGlobalStats] = useState(null); // { likes: {}, views: {}, follows: 0 }
+    const [pendingSync, setPendingSync] = useState([]);
+
+    // Load interactions and pending sync queue from storage
     useEffect(() => {
         const loadInteractions = async () => {
             try {
@@ -231,15 +240,49 @@ export function useInteractions(storage) {
                         const parsed = JSON.parse(stored);
                         setInteractions(prev => ({ ...prev, ...parsed }));
                     }
+
+                    // Load pending sync queue
+                    if (syncAdapter) {
+                        const pending = await storage.getItem('pending_sync');
+                        if (pending) {
+                            const queue = JSON.parse(pending);
+                            setPendingSync(queue);
+                        }
+                    }
                 }
             } catch (e) {
                 console.error('Failed to load interactions:', e);
             }
         };
         loadInteractions();
-    }, [storage]);
+    }, [storage, syncAdapter]);
 
-    // Save to storage whenever state changes
+    // Fetch global stats on mount (if sync enabled)
+    useEffect(() => {
+        if (syncAdapter && syncAdapter.fetchStats) {
+            syncAdapter.fetchStats()
+                .then(stats => setGlobalStats(stats))
+                .catch(err => console.error('Failed to fetch global stats:', err));
+        }
+    }, [syncAdapter]);
+
+    // Process pending sync queue on mount
+    useEffect(() => {
+        if (syncAdapter && pendingSync.length > 0) {
+            syncAdapter.sync(pendingSync)
+                .then(() => {
+                    // Clear queue on success
+                    setPendingSync([]);
+                    storage.setItem('pending_sync', JSON.stringify([]));
+                })
+                .catch(err => {
+                    console.error('Retry sync failed:', err);
+                    // Keep queue for next attempt
+                });
+        }
+    }, [syncAdapter, storage]); // Only run once on mount
+
+    // Save interactions to storage
     useEffect(() => {
         const saveInteractions = async () => {
             try {
@@ -260,19 +303,39 @@ export function useInteractions(storage) {
             ...prev,
             isFollowing: !prev.isFollowing
         }));
-    }, []);
+
+        // Sync to server
+        if (syncAdapter) {
+            const action = { type: 'follow', id: 'profile' };
+            syncAdapter.sync([action])
+                .catch(err => {
+                    console.error('Follow sync failed:', err);
+                    // Add to retry queue
+                    setPendingSync(prev => {
+                        const newQueue = [...prev, action];
+                        storage.setItem('pending_sync', JSON.stringify(newQueue));
+                        return newQueue;
+                    });
+                });
+        }
+    }, [syncAdapter, storage]);
 
     const toggleLike = useCallback((id, forceState) => {
         if (!id) return;
+
+        let syncNeeded = false;
         setInteractions(prev => {
             const item = prev.items[id] || { likes: 0, liked: false, views: 0 };
-            // If forceState is provided, use it. Otherwise toggle.
+            //If forceState is provided, use it. Otherwise toggle.
             const isLiked = forceState !== undefined ? forceState : !item.liked;
 
             // If forcing state and it's already in that state, do nothing
             if (forceState !== undefined && item.liked === forceState) {
                 return prev;
             }
+
+            // Mark that we need to sync (state changed)
+            syncNeeded = true;
 
             return {
                 ...prev,
@@ -286,7 +349,22 @@ export function useInteractions(storage) {
                 }
             };
         });
-    }, []);
+
+        // Sync to server (only if state changed)
+        if (syncAdapter && syncNeeded) {
+            const action = { type: 'like', id };
+            syncAdapter.sync([action])
+                .catch(err => {
+                    console.error('Like sync failed:', err);
+                    // Add to retry queue
+                    setPendingSync(prev => {
+                        const newQueue = [...prev, action];
+                        storage.setItem('pending_sync', JSON.stringify(newQueue));
+                        return newQueue;
+                    });
+                });
+        }
+    }, [syncAdapter, storage]);
 
     const incrementView = useCallback((id) => {
         if (!id) return;
@@ -304,7 +382,13 @@ export function useInteractions(storage) {
                 }
             };
         });
-    }, []);
+
+        // Sync view to server (fire and forget, no retry)
+        if (syncAdapter) {
+            syncAdapter.sync([{ type: 'view', id }])
+                .catch(err => console.error('View sync failed (ignored):', err));
+        }
+    }, [syncAdapter]);
 
     // Calculate total likes for profile
     const totalLikes = useMemo(() => {
@@ -316,6 +400,7 @@ export function useInteractions(storage) {
         toggleFollow,
         toggleLike,
         incrementView,
-        totalLikes
+        totalLikes,
+        globalStats // Include global stats for display
     };
 }

@@ -154,7 +154,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                             onPress={handleShare}
                             style={styles.shareIconButton}
                         >
-                            <Text style={styles.shareIcon}>↪</Text>
+                            <Text style={styles.shareIcon}>📤</Text>
                         </TouchableOpacity>
                     </View>
 

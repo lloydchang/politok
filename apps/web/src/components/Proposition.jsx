@@ -34,7 +34,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
             <div className="absolute bottom-24 left-0 right-0 p-6">
-                <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+                <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
                     <button
                         onClick={() => handleVote('no')}
                         className={`h-16 rounded-2xl bg-red-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'no'

@@ -17,6 +17,7 @@ import Statistic from './Statistic';
 import Result from './Result';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
+import { mobileSyncAdapter } from '../lib/sync';
 
 const { width, height } = Dimensions.get('window');
 
@@ -65,8 +66,9 @@ export default function Feed() {
         toggleLike,
         incrementView,
         toggleFollow,
-        totalLikes
-    } = useInteractions(mobileStorage);
+        totalLikes,
+        globalStats
+    } = useInteractions(mobileStorage, mobileSyncAdapter);
 
     // Get current item ID and interaction state
     const currentId = currentItem?.data?.id || currentItem?.id;

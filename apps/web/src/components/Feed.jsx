@@ -19,6 +19,7 @@ import Statistic from './Statistic';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
 import { trackEvent } from '@/lib/telemetry';
+import { webSyncAdapter } from '@/lib/sync';
 
 // Web storage adapter
 const webStorage = {
@@ -52,17 +53,15 @@ export default function Feed() {
         toggleLike,
         incrementView,
         toggleFollow,
-        totalLikes
-    } = useInteractions(webStorage);
+        totalLikes,
+        globalStats
+    } = useInteractions(webStorage, webSyncAdapter);
 
     const [touchStart, setTouchStart] = useState(0);
     const [mouseStart, setMouseStart] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
     const [giftAnimation, setGiftAnimation] = useState(null);
-    const [animationKey, setAnimationKey] = useState(0);
-    const [slideDirection, setSlideDirection] = useState(null);
     const containerRef = useRef(null);
-    const prevIndexRef = useRef(currentIndex);
 
     // Get current item ID
     const currentId = currentItem?.data?.id || currentItem?.id;
@@ -76,16 +75,6 @@ export default function Feed() {
             incrementView(currentId);
         }
     }, [currentId, incrementView]);
-
-    // Trigger animation on index change
-    useEffect(() => {
-        if (currentIndex !== prevIndexRef.current) {
-            const direction = currentIndex > prevIndexRef.current ? 'up' : 'down';
-            setSlideDirection(direction);
-            setAnimationKey(prev => prev + 1);
-            prevIndexRef.current = currentIndex;
-        }
-    }, [currentIndex]);
 
     // Auto-play: ALWAYS auto-advance (zero friction like TikTok)
     useEffect(() => {
@@ -197,67 +186,44 @@ export default function Feed() {
     }, [currentIndex]);
 
     // Render current card
-    const renderCard = () => {
-        if (!currentItem) return null;
+    const renderCard = (item = currentItem, index = currentIndex) => {
+        if (!item) return null;
 
-        // Check if prop has associated stat data for split view
-        if (currentItem.type === 'prop' && currentItem.stat) {
-            return (
-                <div className="w-full h-full flex flex-col">
-                    {/* Stat context (compressed at top) */}
-                    <div className="h-1/2 overflow-hidden relative">
-                        <div className="relative w-full h-full">
-                            <Statistic stat={currentItem.stat} />
-                        </div>
-                    </div>
-
-                    {/* Current prop (bottom half) */}
-                    <div className="h-1/2 relative overflow-auto">
-                        <Proposition
-                            key={currentItem.data.id}
-                            proposition={currentItem.data}
-                            onVote={(option) => handleVote(currentItem.data.id, option)}
-                            hasVoted={hasVotedOnCurrent}
-                        />
-                    </div>
-                </div>
-            );
-        }
-
-        // Normal rendering for all other cases
-        switch (currentItem.type) {
+        switch (item.type) {
             case 'prop':
                 return (
                     <Proposition
-                        key={currentItem.data.id}
-                        proposition={currentItem.data}
-                        onVote={(option) => handleVote(currentItem.data.id, option)}
-                        hasVoted={hasVotedOnCurrent}
+                        key={item.data.id}
+                        proposition={item.data}
+                        onVote={handleVote}
+                        hasVoted={hasVotedOnCurrent && index === currentIndex}
+                        selectedVote={votes[item.data.id]}
                     />
                 );
 
             case 'results':
-                if (results) {
-                    return (
-                        <Result
-                            resultStats={results.stats}
-                            identityLabel={results.identity}
-                            percentileData={results.percentile}
-                            votes={votes}
-                            onReset={handleReset}
-                        />
-                    );
-                }
-                // Skip results card if not ready yet
-                return <div className="w-full h-full bg-slate-100" />;
+                return (
+                    <Result
+                        key="results"
+                        resultStats={results.stats}
+                        identityLabel={results.identity}
+                        percentileData={results.percentile}
+                        votes={votes}
+                        onReset={handleReset}
+                    />
+                );
+
+            case 'stat':
+                return <Statistic key={`stat-${index}`} stat={item.stat} />;
 
             case 'dashboard':
-                return <Dashboard />;
+                return <Dashboard key="dashboard" />;
 
             case 'profile':
                 return (
                     <Profile
-                        onNavigate={(index) => setCurrentIndex(index)}
+                        key="profile"
+                        onNavigate={setCurrentIndex}
                         votes={votes}
                         results={results}
                         interactions={interactions}
@@ -310,9 +276,7 @@ export default function Feed() {
             {/* Main feed container (9:16 aspect ratio, centered) */}
             <div className="w-full h-full flex items-center justify-center">
                 <div
-                    key={animationKey}
-                    className={`relative w-full h-full text-white overflow-hidden ${slideDirection === 'up' ? 'animate-slide-up' : slideDirection === 'down' ? 'animate-slide-down' : ''
-                        }`}
+                    className="relative w-full h-full overflow-hidden"
                     style={{
                         background: COLORS.BG_GRADIENT_WEB,
                         width: '100%',
@@ -321,7 +285,25 @@ export default function Feed() {
                     }}
                     onDoubleClick={handleDoubleClick}
                 >
-                    {renderCard()}
+                    {/* Carousel container - all pages stacked vertically */}
+                    <div
+                        className="absolute inset-0 transition-transform duration-300 ease-out"
+                        style={{
+                            transform: `translateY(-${currentIndex * 100}%)`
+                        }}
+                    >
+                        {FEED_ITEMS.map((item, index) => (
+                            <div
+                                key={index}
+                                className="absolute top-0 left-0 w-full h-full"
+                                style={{
+                                    transform: `translateY(${index * 100}%)`
+                                }}
+                            >
+                                {renderCard(item, index)}
+                            </div>
+                        ))}
+                    </div>
 
                     {/* Double Tap Heart Animation Overlay */}
                     {showHearts.map(heart => (

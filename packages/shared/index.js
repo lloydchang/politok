@@ -1,4 +1,8 @@
 // Shared constants, logic, and utilities for politok vote app
+export * from './policyData.js';
+export { getWebFingerprint, getMobileFingerprint } from './fingerprint.js';
+
+
 
 // Color constants used across web and mobile
 export const COLORS = {
