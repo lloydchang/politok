@@ -120,7 +120,8 @@ The `simulation_completed` event includes detailed proposition data that enables
   vote_details: [
     { id: 'freeze_rent', name: 'FREEZE THE RENT', vote: 'yes' },
     { id: 'free_buses', name: 'FAST & FREE BUSES', vote: 'no' },
-    { id: 'childcare', name: 'CHILDCARE FOR ALL', vote: 'skipped' }
+    { id: 'childcare', name: 'CHILDCARE FOR ALL', vote: 'skipped' },
+    { id: 'medicare', name: 'MEDICARE FOR ALL', vote: 'skipped' }
   ],
   // ... other properties
 }
