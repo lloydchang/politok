@@ -107,8 +107,7 @@ export default function Feed() {
             return (
                 <div className="w-full h-full flex flex-col">
                     {/* Stat context (compressed at top) */}
-                    <div className="h-1/2 overflow-hidden relative border-b-4 border-black/10 pt-8">
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 pointer-events-none z-10" />
+                    <div className="h-1/2 overflow-hidden relative">
                         <div className="relative w-full h-full">
                             <Statistic stat={currentItem.stat} />
                         </div>

@@ -7,7 +7,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
 
     return (
         <div
-            className="relative w-full h-full flex flex-col overflow-hidden"
+            className="relative w-full h-full flex flex-col overflow-hidden bg-black"
             style={{
                 background: `linear-gradient(135deg, ${COLORS.PRIMARY_BLUE}20 0%, ${COLORS.OUTCOME_RED}20 100%)`,
             }}

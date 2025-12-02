@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, ScrollView, Dimensions, Image } from 'react-native';
-import { COLORS, generateViralShareText } from '@politok/shared';
+import { COLORS, generateViralShareText, processVote, getPercentileRanking, getIdentityLabel } from '@politok/shared';
 import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
 import Result from './Result';
@@ -185,7 +185,35 @@ export default function Profile({ onNavigate, votes, results }) {
                                 case 'dashboard':
                                     return <Dashboard {...squareProps} />;
                                 case 'results':
-                                    return <Result {...squareProps} {...item.data} />;
+                                    // Use actual results data if available
+                                    if (results) {
+                                        return (
+                                            <Result
+                                                {...squareProps}
+                                                resultStats={results.stats}
+                                                identityLabel={results.identity}
+                                                percentileData={results.percentile}
+                                                votes={votes}
+                                                onReset={() => { }}
+                                            />
+                                        );
+                                    }
+
+                                    // Calculate live intermediate results based on current votes
+                                    const currentStats = processVote(votes || {});
+                                    const currentPercentile = getPercentileRanking(currentStats.oligarchy);
+                                    const currentIdentity = getIdentityLabel(currentStats, votes || {});
+
+                                    return (
+                                        <Result
+                                            {...squareProps}
+                                            resultStats={currentStats}
+                                            identityLabel={currentIdentity}
+                                            percentileData={currentPercentile}
+                                            votes={votes || {}}
+                                            onReset={() => { }}
+                                        />
+                                    );
                                 case 'prop':
                                     return <Proposition {...squareProps} proposition={item.data} />;
                                 case 'stat':
@@ -341,7 +369,6 @@ const styles = StyleSheet.create({
     bioContainer: {
         alignItems: 'center',
         paddingHorizontal: 16,
-        marginBottom: 12, // Reduced spacing
     },
     bioText: {
         color: '#fff',
