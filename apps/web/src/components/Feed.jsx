@@ -326,15 +326,7 @@ export default function Feed() {
                                 <span className="text-xs font-bold drop-shadow-md">{likeCount}</span>
                             </button>
 
-                            {/* 3. Share Icon (Placeholder) */}
-                            <button className="flex flex-col items-center gap-1 group opacity-90">
-                                <div className="text-white">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-9 h-9 drop-shadow-xl">
-                                        <path fillRule="evenodd" d="M15.75 4.5a3 3 0 11.825 2.066l-8.421 4.679a3.002 3.002 0 010 1.51l8.421 4.679a3 3 0 11-.729 1.31l-8.421-4.678a3 3 0 100-4.132l8.421-4.679a3 3 0 01-.096-.755z" clipRule="evenodd" />
-                                    </svg>
-                                </div>
-                                <span className="text-xs font-bold drop-shadow-md">Share</span>
-                            </button>
+
                         </div>
                     )}
 

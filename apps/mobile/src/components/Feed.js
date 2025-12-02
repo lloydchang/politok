@@ -247,16 +247,7 @@ export default function Feed() {
                             <Text style={styles.actionText}>{likeCount}</Text>
                         </TouchableOpacity>
 
-                        {/* 3. Share Icon (Placeholder) */}
-                        <TouchableOpacity style={styles.sidebarItem}>
-                            <Ionicons
-                                name="arrow-redo"
-                                size={35}
-                                color="white"
-                                style={styles.shadowIcon}
-                            />
-                            <Text style={styles.actionText}>Share</Text>
-                        </TouchableOpacity>
+
                     </View>
                 )}
 
