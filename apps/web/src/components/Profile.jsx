@@ -160,7 +160,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                         onClick={handleShare}
                         className="border border-gray-700 w-10 h-10 rounded-md flex items-center justify-center hover:bg-gray-900"
                     >
-                        ↪
+                        📤
                     </button>
                 </div>
 
