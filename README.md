@@ -1,6 +1,6 @@
-# politok
+# poliTok
 
-An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on three key politok propositions and see the societal outcomes.
+An interactive ballot simulation exploring how policy decisions impact equity and oligarchy in society. Vote on four key poliTok propositions and see the societal outcomes.
 
 ## Features
 
@@ -97,7 +97,7 @@ Voters decide on four policy measures:
 ### Outcomes
 Outcomes are determined by:
 1. **Voting patterns** (all yes, all no, mixed)
-2. **Final score percentages** (gradient scale from 96-99% oligarchy)
+2. **Final score percentages** (gradient scale)
 
 ## Deployment
 

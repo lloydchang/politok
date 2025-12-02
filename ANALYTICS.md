@@ -74,7 +74,7 @@ Many analytics calls are now encapsulated in shared hooks:
 
 ### Engagement Funnel
 1. **Landing → Quiz Start**: % of visitors who click "VOTE"
-2. **Quiz Started → Completed**: % who finish all 3 questions
+2. **Quiz Started → Completed**: % who finish all 4 questions
 3. **Results Viewed → Action Taken**: % who share, download cards, or register
 
 ### Viral Loop
