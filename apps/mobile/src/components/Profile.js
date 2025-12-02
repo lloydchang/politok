@@ -161,7 +161,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     {/* Bio */}
                     <View style={styles.bioContainer}>
                         <Text style={styles.bioText}>
-                            Vote on propositions in this simulation & see how they affect oligarchy vs equity 🗳️
+                            Vote on propositions in this simulation and see how they affect oligarchy vs equity 🗳️
                         </Text>
                         <Text style={styles.websiteLink}>
                             🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>

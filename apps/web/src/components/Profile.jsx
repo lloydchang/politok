@@ -167,7 +167,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                 {/* Bio */}
                 <div className="text-center px-4">
                     <p className="text-sm mb-1 leading-relaxed">
-                        Vote on propositions in this simulation & see how they affect oligarchy vs equity 🗳️
+                        Vote on propositions in this simulation and see how they affect oligarchy vs equity 🗳️
                     </p>
                     <p className="text-sm font-semibold text-blue-400">
                         🔗 <a href={`https://${websiteUrl}`} className="text-blue-400 hover:underline">
