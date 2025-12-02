@@ -247,18 +247,7 @@ export default function Feed() {
                             <Text style={styles.actionText}>{likeCount}</Text>
                         </TouchableOpacity>
 
-                        {/* 3. Comment Icon (Placeholder) */}
-                        <TouchableOpacity style={styles.sidebarItem}>
-                            <Ionicons
-                                name="chatbubble-ellipses"
-                                size={35}
-                                color="white"
-                                style={styles.shadowIcon}
-                            />
-                            <Text style={styles.actionText}>0</Text>
-                        </TouchableOpacity>
-
-                        {/* 4. Share Icon (Placeholder) */}
+                        {/* 3. Share Icon (Placeholder) */}
                         <TouchableOpacity style={styles.sidebarItem}>
                             <Ionicons
                                 name="arrow-redo"
