@@ -92,7 +92,6 @@ Voters decide on four policy measures:
 - Scores are normalized to sum to 100% (range: 1-99%)
 - Voting "Yes" increases Equity, decreases Oligarchy
 - Voting "No" decreases Equity, increases Oligarchy
-- Skipping votes also decreases Equity, increases Oligarchy
 
 ### Outcomes
 Outcomes are determined by:
