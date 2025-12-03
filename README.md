@@ -6,7 +6,7 @@ An interactive ballot simulation exploring how policy decisions impact equity an
 
 ### TikTok-Style Feed Experience
 - **Swipeable Feed**: Vertical scrolling feed with auto-advance (4s for voting, 6s for results)
-- **Live Content**: Dashboard (travel mode + local policies), Statistics (Did You Know facts), Propositions (voting cards), Results (identity reveal)
+- **Live Content**: Dashboard (travel mode + local policies), Statistic, Propositions (voting cards), Results (identity reveal)
 - **Profile Page**: 3-column grid of all content thumbnails with live previews
 - **Progress Dots**: Bottom navigation for quick jumping between cards
 - **Keyboard/Touch Navigation**: Arrow keys (web) or swipe gestures (mobile)

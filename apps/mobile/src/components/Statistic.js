@@ -82,16 +82,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 4,
   },
-  didYouKnowText: {
-    fontSize: 18,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    letterSpacing: 1.5,
-    color: 'white',
-    opacity: 0.9,
-    textAlign: 'center',
-    marginBottom: 24,
-  },
+
   title: {
     fontSize: 32,
     fontWeight: '900',

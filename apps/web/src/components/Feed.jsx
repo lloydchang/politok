@@ -192,13 +192,22 @@ export default function Feed() {
         switch (item.type) {
             case 'prop':
                 return (
-                    <Proposition
-                        key={item.data.id}
-                        proposition={item.data}
-                        onVote={handleVote}
-                        hasVoted={hasVotedOnCurrent && index === currentIndex}
-                        selectedVote={votes[item.data.id]}
-                    />
+                    <div className="h-full flex flex-col">
+                        {item.stat && (
+                            <div className="h-[45%] relative z-10">
+                                <Statistic stat={item.stat} />
+                            </div>
+                        )}
+                        <div className="flex-1 relative z-20 -mt-4">
+                            <Proposition
+                                key={item.data.id}
+                                proposition={item.data}
+                                onVote={handleVote}
+                                hasVoted={hasVotedOnCurrent && index === currentIndex}
+                                selectedVote={votes[item.data.id]}
+                            />
+                        </div>
+                    </div>
                 );
 
             case 'results':
