@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { COLORS, generateViralShareText, processVote, getPercentileRanking, getIdentityLabel } from '@politok/shared';
+import { UserCheck } from 'lucide-react';
 import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
 import Result from './Result';
@@ -157,11 +158,11 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     <button
                         onClick={handleFollowToggle}
                         className={`${isFollowing
-                            ? 'bg-gray-700 border border-gray-600'
-                            : 'bg-red-500'
-                            } text-white font-bold px-0 py-2 rounded-md hover:opacity-90 transition flex-1 max-w-[100px] flex items-center justify-center`}
+                            ? 'bg-gray-700 border border-gray-600 w-10 h-10'
+                            : 'bg-red-500 flex-1 max-w-[100px] py-2'
+                            } text-white font-bold rounded-md hover:opacity-90 transition flex items-center justify-center`}
                     >
-                        {isFollowing ? 'Following' : 'Follow'}
+                        {isFollowing ? <UserCheck size={20} fill="white" className="text-white" /> : 'Follow'}
                     </button>
                     <button
                         onClick={handleShare}

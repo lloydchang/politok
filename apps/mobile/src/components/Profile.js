@@ -5,6 +5,7 @@ import { FEED_ITEMS } from '@politok/shared/constants';
 import Dashboard from './Dashboard';
 import Result from './Result';
 import Proposition from './Proposition';
+import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import Statistic from './Statistic';
 
 const { width, height } = Dimensions.get('window');
@@ -55,7 +56,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
             shareText = generateViralShareText(votes, currentStats, currentPercentile, currentIdentity);
         } else {
             // No votes yet, use generic message
-            shareText = `How would you vote?\n\nhttps://${websiteUrl}`;
+            shareText = `How would you vote ?\n\nhttps://${websiteUrl}`;
         }
 
         try {
@@ -153,9 +154,11 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                 isFollowing ? styles.followingButton : styles.notFollowingButton
                             ]}
                         >
-                            <Text style={styles.followButtonText}>
-                                {isFollowing ? 'Following' : 'Follow'}
-                            </Text>
+                            {isFollowing ? (
+                                <MaterialCommunityIcons name="account-check" size={24} color="#fff" />
+                            ) : (
+                                <Text style={styles.followButtonText}>Follow</Text>
+                            )}
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={handleShare}
@@ -366,20 +369,22 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
     },
     followButton: {
-        paddingVertical: 8,
-        paddingHorizontal: 0,
         borderRadius: 6,
-        flex: 1,
-        maxWidth: 100,
         alignItems: 'center',
+        justifyContent: 'center',
     },
     notFollowingButton: {
         backgroundColor: '#ef4444',
+        flex: 1,
+        maxWidth: 100,
+        paddingVertical: 8,
     },
     followingButton: {
         backgroundColor: '#374151',
         borderWidth: 1,
         borderColor: '#4b5563',
+        width: 40,
+        height: 40,
     },
     followButtonText: {
         color: '#fff',
