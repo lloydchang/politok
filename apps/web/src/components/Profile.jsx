@@ -21,9 +21,8 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
 
     const isFollowing = interactions?.isFollowing || false;
 
-    // Use aggregated follower count from Upstash if available
-    // Otherwise fall back to local follow state (0 or 1)
-    const followersCount = globalStats?.follows ?? (isFollowing ? 1 : 0);
+    // Use optimistic follower count from interactions if available, otherwise global stats
+    const followersCount = interactions?.followersCount ?? (globalStats?.follows ?? 0);
 
     // Calculate total likes from global stats (aggregated across all users)
     const totalLikesCount = globalStats?.likes

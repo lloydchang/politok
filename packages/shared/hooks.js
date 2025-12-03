@@ -192,6 +192,7 @@ export function useInteractions(storage, syncAdapter = null) {
 
     const [interactions, setInteractions] = useState({
         isFollowing: false,
+        followersCount: 0, // Optimistic follower count
         items: {} // { id: { likes: 0, liked: false, views: 0 } }
     });
 
@@ -249,7 +250,12 @@ export function useInteractions(storage, syncAdapter = null) {
                             });
                         }
 
-                        return { ...prev, items: updatedItems };
+                        return {
+                            ...prev,
+                            items: updatedItems,
+                            // Initialize followersCount if not already set (or if 0)
+                            followersCount: prev.followersCount || stats.follows || 0
+                        };
                     });
                 })
                 .catch(err => console.error('Failed to fetch global stats:', err));
@@ -289,10 +295,15 @@ export function useInteractions(storage, syncAdapter = null) {
     }, [interactions, storage]);
 
     const toggleFollow = useCallback(() => {
-        setInteractions(prev => ({
-            ...prev,
-            isFollowing: !prev.isFollowing
-        }));
+        setInteractions(prev => {
+            const isNowFollowing = !prev.isFollowing;
+            return {
+                ...prev,
+                isFollowing: isNowFollowing,
+                // Optimistically update count: +1 if following, -1 if unfollowing
+                followersCount: Math.max(0, (prev.followersCount || 0) + (isNowFollowing ? 1 : -1))
+            };
+        });
 
         // Sync to server
         if (syncAdapter) {
