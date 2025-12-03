@@ -26,7 +26,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
 
     // Calculate total likes from global stats (aggregated across all users)
     const totalLikesCount = globalStats?.likes
-        ? Object.values(globalStats.likes).reduce((sum, count) => sum + (count || 0), 0)
+        ? Object.values(globalStats.likes).reduce((sum, count) => sum + (Number(count) || 0), 0)
         : totalLikes || 0;
 
     // Stats for politok_vercel_app profile

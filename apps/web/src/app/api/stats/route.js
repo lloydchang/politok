@@ -52,14 +52,14 @@ export async function GET() {
         FEED_ITEMS.forEach(item => {
             const id = item.data?.id || item.id;
             if (id) {
-                stats.likes[id] = values[keyIndex] || 0;
+                stats.likes[id] = parseInt(values[keyIndex] || 0, 10);
                 keyIndex++;
-                stats.views[id] = values[keyIndex] || 0;
+                stats.views[id] = parseInt(values[keyIndex] || 0, 10);
                 keyIndex++;
             }
         });
 
-        stats.follows = values[keyIndex] || 0;
+        stats.follows = parseInt(values[keyIndex] || 0, 10);
 
         // Cache the results
         cachedStats = stats;
