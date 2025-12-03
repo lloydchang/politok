@@ -18,8 +18,8 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Main content - CENTERED with proper spacing */}
-            <div className="flex-1 flex items-start justify-center px-6 pr-20 pt-2 pb-16">
-                <div className="relative z-10 max-w-xl mx-auto text-center">
+            <div className="flex-1 flex items-start justify-center px-6 pt-2 pb-16">
+                <div className="relative z-10 max-w-md mx-auto text-center">
                     <div className="text-7xl mb-6">{proposition.emoji}</div>
 
                     <h1 className="text-3xl font-black mb-4 leading-tight px-2" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
@@ -33,8 +33,8 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
-            <div className="absolute bottom-24 left-0 right-0 px-6 pr-20">
-                <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+            <div className="absolute bottom-24 left-0 right-0 px-6">
+                <div className="grid grid-cols-2 gap-3 max-w-[280px] mx-auto">
                     <button
                         onClick={() => handleVote('no')}
                         className={`h-16 rounded-2xl bg-red-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'no'

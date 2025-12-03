@@ -94,9 +94,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 24,
-        paddingRight: 80, // Extra padding on right to avoid sidebar overlap
-        paddingBottom: 180, // Increased space for buttons to prevent overlap
+        paddingHorizontal: 40, // Increased for better centering
+        paddingBottom: 180,
     },
     emoji: {
         fontSize: 80,
@@ -108,6 +107,7 @@ const styles = StyleSheet.create({
         color: COLORS.TEXT_BLUE_LIGHT,
         marginBottom: 16,
         textAlign: 'center',
+        paddingHorizontal: 8,
     },
     description: {
         fontSize: 20,
@@ -115,18 +115,19 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign: 'center',
         lineHeight: 28,
+        paddingHorizontal: 8,
     },
     buttonsContainer: {
         position: 'absolute',
-        bottom: 60, // Lowered to be closer to bottom but above dots
+        bottom: 60,
         left: 0,
         right: 0,
-        paddingHorizontal: 24,
-        paddingRight: 80, // Extra padding on right to avoid sidebar overlap
+        alignItems: 'center',
     },
     buttonsRow: {
         flexDirection: 'row',
         gap: 12,
+        width: 280, // Fixed width like web's max-w-[280px]
         justifyContent: 'center',
     },
     button: {

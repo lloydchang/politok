@@ -198,7 +198,7 @@ export default function Feed() {
                                 <Statistic stat={item.stat} />
                             </div>
                         )}
-                        <div className="flex-1 relative z-20 -mt-4">
+                        <div className="flex-1 relative z-20">
                             <Proposition
                                 key={item.data.id}
                                 proposition={item.data}

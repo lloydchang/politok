@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollContent: {
-        paddingHorizontal: 24,
-        paddingTop: 40, // Reduced from 60
+        paddingHorizontal: 40, // Increased for better centering
+        paddingTop: 40,
         paddingBottom: 100,
         alignItems: 'center',
     },
@@ -110,15 +110,18 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         textAlign: 'center',
         marginBottom: 8,
+        paddingHorizontal: 8,
     },
     description: {
         fontSize: 18,
         color: '#475569', // slate-600
         fontStyle: 'italic',
         textAlign: 'center',
+        paddingHorizontal: 8,
     },
     scoreCard: {
         width: '100%',
+        maxWidth: 400, // Constrain like web's max-w-lg
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         borderRadius: 24,
         padding: 24,
