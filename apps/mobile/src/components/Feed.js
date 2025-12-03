@@ -6,7 +6,6 @@ import * as FileSystem from 'expo-file-system';
 import { Ionicons } from '@expo/vector-icons';
 import {
     POLICIES,
-    CHAT_DATA,
     FEED_ITEMS
 } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';

@@ -9,7 +9,6 @@ import {
 } from '@politok/shared';
 import {
     POLICIES,
-    CHAT_DATA,
     FEED_ITEMS
 } from '@politok/shared/constants';
 import { useFeed, useInteractions } from '@politok/shared/hooks';

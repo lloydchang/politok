@@ -29,7 +29,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
             navigator.share({
                 text: shareText
             }).catch((error) => {
-                console.log('Error sharing:', error);
+                console.error('Error sharing:', error);
             });
         } else {
             // Fallback: copy to clipboard

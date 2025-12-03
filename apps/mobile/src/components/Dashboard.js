@@ -84,7 +84,7 @@ export default function Dashboard({ width = Dimensions.get('window').width, heig
         try {
             await Share.share({ message: shareText });
         } catch (error) {
-            console.log('Error sharing:', error);
+            console.error('Error sharing:', error);
         }
     };
 

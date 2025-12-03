@@ -150,7 +150,7 @@ export default function Dashboard() {
             navigator.share({
                 text: shareText
             }).catch((error) => {
-                console.log('Error sharing:', error);
+                console.error('Error sharing:', error);
             });
         } else {
             // Fallback: copy to clipboard
