@@ -9,7 +9,7 @@ import Statistic from './Statistic';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes }) {
+export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes, globalStats }) {
     const [activeTab, setActiveTab] = useState('videos');
 
     const displayName = 'poliTok';
@@ -22,14 +22,21 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
     };
 
     const isFollowing = interactions?.isFollowing || false;
-    const followersBase = 0;
-    const followersCount = followersBase + (isFollowing ? 1 : 0);
+
+    // Use aggregated follower count from Upstash if available
+    // Otherwise fall back to local follow state (0 or 1)
+    const followersCount = globalStats?.follows ?? (isFollowing ? 1 : 0);
+
+    // Calculate total likes from global stats (aggregated across all users)
+    const totalLikesCount = globalStats?.likes
+        ? Object.values(globalStats.likes).reduce((sum, count) => sum + (count || 0), 0)
+        : totalLikes || 0;
 
     // Stats for politok_vercel_app profile
     const stats = {
         following: '0',
         followers: followersCount.toLocaleString(),
-        likes: (totalLikes || 0).toLocaleString()
+        likes: totalLikesCount.toLocaleString()
     };
 
     // Handle share button - share result page text format
@@ -241,7 +248,8 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                         };
 
                         const scale = (width - 9) / 3 / width; // Adjusted for safety
-                        const viewCount = interactions?.items[item.lookupId]?.views || 0;
+                        // Use global view count from Upstash (aggregated across all users)
+                        const viewCount = globalStats?.views?.[item.lookupId] ?? (interactions?.items[item.lookupId]?.views || 0);
 
                         return (
                             <TouchableOpacity

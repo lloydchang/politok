@@ -229,7 +229,29 @@ export function useInteractions(storage, syncAdapter = null) {
     useEffect(() => {
         if (syncAdapter && syncAdapter.fetchStats) {
             syncAdapter.fetchStats()
-                .then(stats => setGlobalStats(stats))
+                .then(stats => {
+                    setGlobalStats(stats);
+
+                    // Initialize local counts from global stats to prevent jumps
+                    setInteractions(prev => {
+                        const updatedItems = { ...prev.items };
+
+                        // For each item in global stats, initialize local if not already interacted
+                        if (stats.likes) {
+                            Object.keys(stats.likes).forEach(id => {
+                                if (!updatedItems[id]) {
+                                    updatedItems[id] = {
+                                        likes: stats.likes[id] || 0,
+                                        liked: false,
+                                        views: stats.views?.[id] || 0
+                                    };
+                                }
+                            });
+                        }
+
+                        return { ...prev, items: updatedItems };
+                    });
+                })
                 .catch(err => console.error('Failed to fetch global stats:', err));
         }
     }, [syncAdapter]);

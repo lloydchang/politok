@@ -76,7 +76,10 @@ export default function Feed() {
     const currentId = currentItem?.data?.id || currentItem?.id;
     const currentInteraction = currentId ? interactions.items[currentId] : null;
     const isLiked = currentInteraction?.liked || false;
-    const likeCount = currentInteraction?.likes || 0;
+
+    // Optimistic UI: Show local count immediately, fall back to global (TikTok-style instant feedback)
+    // Use ?? instead of || so that 0 is treated as valid
+    const likeCount = (currentInteraction?.likes ?? globalStats?.likes?.[currentId]) ?? 0;
 
     // Track views
     useEffect(() => {
@@ -209,6 +212,7 @@ export default function Feed() {
                         interactions={interactions}
                         toggleFollow={toggleFollow}
                         totalLikes={totalLikes}
+                        globalStats={globalStats}
                     />
                 );
             default:
@@ -334,6 +338,53 @@ export default function Feed() {
     );
 }
 
+// Heart Animation Component for double-tap likes
+function HeartAnimation({ x, y, rotation, onComplete }) {
+    const opacity = useRef(new Animated.Value(1)).current;
+    const translateY = useRef(new Animated.Value(0)).current;
+    const scale = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.parallel([
+            Animated.timing(scale, {
+                toValue: 1,
+                duration: 200,
+                useNativeDriver: true,
+            }),
+            Animated.timing(opacity, {
+                toValue: 0,
+                duration: 800,
+                useNativeDriver: true,
+            }),
+            Animated.timing(translateY, {
+                toValue: -100,
+                duration: 800,
+                useNativeDriver: true,
+            }),
+        ]).start(onComplete);
+    }, []);
+
+    return (
+        <Animated.View
+            style={{
+                position: 'absolute',
+                left: x,
+                top: y,
+                opacity,
+                transform: [
+                    { translateX: -50 },
+                    { translateY: translateY },
+                    { rotate: `${rotation}deg` },
+                    { scale },
+                ],
+            }}
+            pointerEvents="none"
+        >
+            <Ionicons name="heart" size={80} color="#ef4444" />
+        </Animated.View>
+    );
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -373,7 +424,7 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         borderWidth: 1,
         borderColor: 'white',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'center',

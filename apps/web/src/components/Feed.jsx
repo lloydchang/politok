@@ -66,7 +66,10 @@ export default function Feed() {
     const currentId = currentItem?.data?.id || currentItem?.id;
     const currentInteraction = currentId ? interactions.items[currentId] : null;
     const isLiked = currentInteraction?.liked || false;
-    const likeCount = currentInteraction?.likes || 0;
+
+    // Optimistic UI: Show local count immediately, fall back to global (TikTok-style instant feedback)
+    // Use ?? instead of || so that 0 is treated as valid
+    const likeCount = (currentInteraction?.likes ?? globalStats?.likes?.[currentId]) ?? 0;
 
     // Track views
     useEffect(() => {
@@ -237,6 +240,7 @@ export default function Feed() {
                         interactions={interactions}
                         toggleFollow={toggleFollow}
                         totalLikes={totalLikes}
+                        globalStats={globalStats}
                     />
                 );
 
