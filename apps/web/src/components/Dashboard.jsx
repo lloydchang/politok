@@ -186,7 +186,10 @@ export default function Dashboard() {
                     {/* Location and Travel Mode Toggle - Single Line */}
                     <div className="mb-6 flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">
-                            <span className="font-bold text-xl text-white">{location}</span>
+                            <div className="flex flex-col">
+                                <span className="font-bold text-xl text-white leading-tight">{locationName}</span>
+                                <span className="font-semibold text-base text-white/90 leading-tight">{stateName}</span>
+                            </div>
                         </div>
 
                         <label className="flex items-center gap-2 cursor-pointer">
