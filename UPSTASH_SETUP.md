@@ -1,8 +1,8 @@
-# Vercel KV Setup Instructions (via Upstash Marketplace)
+# Upstash Redis Setup Instructions
 
-Follow these steps to set up Upstash Redis (Vercel KV) for global interaction sync.
+Follow these steps to set up Upstash Redis for global interaction sync.
 
-> **Note:** Vercel now provides KV through the Marketplace via Upstash. The free tier is very generous!
+> **Note:** We use Upstash Redis directly via the Vercel Marketplace integration.
 
 ## 1. Create Upstash Redis Database via Vercel Marketplace
 
@@ -33,38 +33,36 @@ UPSTASH_REDIS_REST_URL
 UPSTASH_REDIS_REST_TOKEN
 ```
 
-## 3. Update API Routes to Use Upstash Env Vars
+## 3. Install Dependencies
 
-The `@vercel/kv` package can use either Vercel KV or Upstash env vars. Update both API routes:
+We use the native Upstash client:
 
-**Edit `apps/web/src/app/api/sync/route.js`:**
-```javascript
-// At the top, after imports
-const isKVConfigured = () => {
-    // Check for either Vercel KV or Upstash env vars
-    return (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
-           (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
-};
+```bash
+pnpm add @upstash/redis --filter @politok/web
 ```
 
-**Edit `apps/web/src/app/api/stats/route.js`:**
+## 4. Code Configuration
+
+The API routes are configured to use the Upstash environment variables directly:
+
+**`apps/web/src/app/api/sync/route.js` & `stats/route.js`:**
 ```javascript
-// At the top, after imports
-const isKVConfigured = () => {
-    // Check for either Vercel KV or Upstash env vars
-    return (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
-           (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
-};
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 ```
 
-## 4. Pull Environment Variables Locally
+## 5. Pull Environment Variables Locally
+
+To run locally, you need the credentials in your `.env.local` file:
 
 ```bash
 cd /Users/lloyd/github/antigravity/politok
 vercel env pull apps/web/.env.local
 ```
-
-This downloads the Upstash credentials to your local `.env.local` file.
 
 Your `.env.local` should now contain:
 ```
@@ -72,7 +70,7 @@ UPSTASH_REDIS_REST_URL="https://..."
 UPSTASH_REDIS_REST_TOKEN="..."
 ```
 
-## 5. Test Locally
+## 6. Test Locally
 
 ### Web
 ```bash
@@ -80,7 +78,7 @@ cd /Users/lloyd/github/antigravity/politok
 pnpm web
 ```
 
-Visit `http://localhost:3000`, like a video, and you should see **no errors** in the console (silent sync).
+Visit `http://localhost:3000`, like a video, and you should see **no errors** in the console.
 
 ### Check Upstash Dashboard
 1. Go to your Upstash Console: [console.upstash.com](https://console.upstash.com)
@@ -91,15 +89,15 @@ Visit `http://localhost:3000`, like a video, and you should see **no errors** in
    - `views:prop1`
    - `follows:profile`
 
-## 6. Deploy to Production
+## 7. Deploy to Production
 
 ```bash
 vercel --prod
 ```
 
-The environment variables are already connected, so sync will work immediately.
+**Important:** If you just added the integration, you MUST redeploy for the environment variables to take effect.
 
-## 7. Monitor Usage
+## 8. Monitor Usage
 
 - Go to Upstash Console → Your Database → **Metrics**
 - **Free tier**: 10,000 commands/day (~300K/month)
@@ -107,7 +105,7 @@ The environment variables are already connected, so sync will work immediately.
 
 ---
 
-## Upstash Free Tier vs Vercel KV
+## Upstash Free Tier vs Vercel KV (Deprecated)
 
 | Feature | Upstash (via Marketplace) | Old Vercel KV |
 |---------|---------------------------|---------------|
@@ -117,11 +115,15 @@ The environment variables are already connected, so sync will work immediately.
 | **Cost** | **FREE** | FREE |
 | **Your usage** | 5% of limit | 50% of limit |
 
-**Upstash is actually more generous!** 🎉
+**Upstash is significantly more generous!** 🎉
 
 ---
 
 ## Troubleshooting
+
+### "Failed to parse URL from /pipeline"
+- This means `UPSTASH_REDIS_REST_URL` is missing.
+- **Fix:** Redeploy your project (`vercel --prod`) to pick up the new environment variables.
 
 ### "Still seeing errors locally"
 - Make sure you ran `vercel env pull apps/web/.env.local`
@@ -132,9 +134,4 @@ The environment variables are already connected, so sync will work immediately.
 - Very unlikely with Upstash's 10K/day limit
 - If it happens: Data queues locally and retries
 - App continues working (local-only mode)
-
-### "Can't find database in Upstash"
-- Go to [console.upstash.com](https://console.upstash.com)
-- Login with the account you used for Vercel integration
-- Your database should be listed there
 

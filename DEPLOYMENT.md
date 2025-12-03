@@ -40,9 +40,11 @@ All platforms support the full feature set including animations, observability, 
    
    | Variable | Value | Environment |
    |----------|-------|-------------|
-   | `VITE_POSTHOG_KEY` | Your PostHog API key | Production, Preview, Development |
-   | `VITE_POSTHOG_HOST` | `https://app.posthog.com` | Production, Preview, Development |
-   | `VITE_HONEYCOMB_API_KEY` | Your Honeycomb API key | Production, Preview, Development |
+   | `NEXT_PUBLIC_POSTHOG_KEY` | Your PostHog API key | Production, Preview, Development |
+   | `NEXT_PUBLIC_POSTHOG_HOST` | `https://app.posthog.com` | Production, Preview, Development |
+   | `NEXT_PUBLIC_HONEYCOMB_API_KEY` | Your Honeycomb API key | Production, Preview, Development |
+   | `UPSTASH_REDIS_REST_URL` | Upstash URL (auto-added by integration) | Production, Preview, Development |
+   | `UPSTASH_REDIS_REST_TOKEN` | Upstash Token (auto-added by integration) | Production, Preview, Development |
 
 4. **Deploy**
    - Click "Deploy"
@@ -67,6 +69,8 @@ Once configured, Vercel will automatically:
 
 ## Web App Deployment (GitHub Pages)
 
+> **Warning:** GitHub Pages only supports static sites. The Global Sync feature (which requires server-side API routes) will **NOT work** on GitHub Pages. Use Vercel for full functionality.
+
 GitHub Pages provides free static hosting directly from your GitHub repository.
 
 ### Prerequisites
@@ -88,9 +92,9 @@ GitHub Pages provides free static hosting directly from your GitHub repository.
    Add these repository secrets:
    | Secret Name | Value |
    |------------|-------|
-   | `VITE_POSTHOG_KEY` | Your PostHog API key |
-   | `VITE_POSTHOG_HOST` | `https://app.posthog.com` |
-   | `VITE_HONEYCOMB_API_KEY` | Your Honeycomb API key |
+   | `NEXT_PUBLIC_POSTHOG_KEY` | Your PostHog API key |
+   | `NEXT_PUBLIC_POSTHOG_HOST` | `https://app.posthog.com` |
+   | `NEXT_PUBLIC_HONEYCOMB_API_KEY` | Your Honeycomb API key |
 
 3. **Deploy**
    - The GitHub Actions workflow is already configured in `.github/workflows/deploy-github-pages.yml`
@@ -330,7 +334,7 @@ jobs:
 - Verify EAS secrets are set correctly
 
 ### Environment Variables Not Working
-- **Web**: Ensure variables start with `VITE_`
+- **Web**: Ensure variables start with `NEXT_PUBLIC_` (for client-side access)
 - **Mobile**: Ensure variables start with `EXPO_PUBLIC_`
 - Verify they're set in the correct environment (Vercel dashboard or EAS secrets)
 - Rebuild after setting new variables

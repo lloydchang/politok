@@ -14,6 +14,11 @@ This document explains the comprehensive observability and analytics instrumenta
 - **Purpose**: User behavior tracking and product analytics
 - **Custom Tracking**: All custom events sent via PostHog capture on both platforms
 
+### ⚡ Vercel Speed Insights (Performance)
+- **Purpose**: Real-time performance monitoring (Core Web Vitals)
+- **Web**: Auto-instrumented via `<SpeedInsights />` component
+- **Metrics**: LCP, FID, CLS, INP
+
 ## Cross-Platform Architecture
 
 ### Shared Analytics Module (`packages/shared/analytics.js`)
@@ -84,11 +89,11 @@ All events include:
 
 ## Environment Variables
 
-### Web App (`apps/web/.env`)
+### Web App (`apps/web/.env.local`)
 ```bash
-VITE_POSTHOG_KEY=your_posthog_project_api_key
-VITE_POSTHOG_HOST=https://app.posthog.com
-VITE_HONEYCOMB_API_KEY=your_honeycomb_api_key
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_project_api_key
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+NEXT_PUBLIC_HONEYCOMB_API_KEY=your_honeycomb_api_key
 ```
 
 ### Mobile App (`apps/mobile/.env`)
@@ -204,7 +209,7 @@ Analytics are encapsulated at the component level using shared hooks:
 
 Both services check for environment variables before initializing. If the API keys are not set, the services will not run, making it safe to develop without API keys.
 
-For debugging PostHog in development (web only), events are logged to console when `import.meta.env.DEV` is true.
+For debugging PostHog in development (web only), events are logged to console when `process.env.NODE_ENV === 'development'`.
 
 ## Architecture Benefits
 

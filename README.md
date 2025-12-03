@@ -29,6 +29,7 @@ An interactive ballot simulation exploring how policy decisions impact equity an
 - **Consistent UI**: Matching layouts, fonts, colors, and spacing across platforms
 - **Live Previews**: Profile grid shows actual rendered components at scale
 - **Responsive Design**: Adapts seamlessly to different screen sizes
+- **Global Sync**: Likes, views, and follows are synchronized globally across all users and devices via Upstash Redis
 
 ## Structure
 
@@ -142,7 +143,8 @@ Shared hooks in `packages/shared/hooks.js`:
 - **Styling**: Tailwind CSS (web), React Native StyleSheet (mobile)
 - **Monorepo**: npm workspaces
 - **Shared Logic**: React hooks and utilities
-- **Analytics**: PostHog + Honeycomb
+- **Database**: Upstash Redis (for global sync)
+- **Analytics**: PostHog + Honeycomb + Vercel Speed Insights
 - **Deployment**: Vercel (web), Expo/EAS (mobile)
 
 ## License

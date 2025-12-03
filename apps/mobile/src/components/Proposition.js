@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         paddingHorizontal: 24,
+        paddingRight: 80, // Extra padding on right to avoid sidebar overlap
     },
     buttonsRow: {
         flexDirection: 'row',
