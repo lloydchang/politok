@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 24,
         paddingRight: 56, // Subtle shift left
-        paddingBottom: 180,
+        paddingBottom: 220, // Increased to create more space above buttons
     },
     emoji: {
         fontSize: 80,

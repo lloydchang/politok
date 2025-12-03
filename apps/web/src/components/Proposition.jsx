@@ -18,7 +18,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Main content - CENTERED with proper spacing */}
-            <div className="flex-1 flex items-start justify-center pl-6 pr-14 pt-2 pb-16">
+            <div className="flex-1 flex items-start justify-center pl-6 pr-14 pt-2 pb-56">
                 <div className="relative z-10 max-w-xl mx-auto text-center">
                     <div className="text-7xl mb-6">{proposition.emoji}</div>
 
