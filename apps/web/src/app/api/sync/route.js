@@ -118,12 +118,15 @@ export async function POST(request) {
             results.push({ id, type, success: true });
         }
 
-        // Execute pipeline
-        await pipeline.exec();
+        // Execute pipeline only if there are commands
+        const successfulResults = results.filter(r => r.success);
+        if (successfulResults.length > 0) {
+            await pipeline.exec();
+        }
 
         return Response.json({
             success: true,
-            synced: results.filter(r => r.success).length,
+            synced: successfulResults.length,
             results
         });
 
