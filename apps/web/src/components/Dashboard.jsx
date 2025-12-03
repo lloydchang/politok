@@ -10,7 +10,7 @@ function PolicyCard({ policy, data }) {
 
     return (
         <div className="flex items-center gap-3">
-            <span className="text-3xl">{policy.iconWeb}</span>
+            <span className="text-3xl">{policy.icon}</span>
             <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
             <div className="flex-1">
                 {data?.status !== 'loading' && (

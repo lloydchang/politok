@@ -21,7 +21,7 @@ function PolicyCard({ policy, data }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <Text style={{ fontSize: 30 }}>{policy.iconMobile}</Text>
+                <Text style={{ fontSize: 30 }}>{policy.icon}</Text>
                 <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
                 <View style={styles.cardTitleContainer}>
                     {data.status !== 'loading' && (

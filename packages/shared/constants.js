@@ -3,26 +3,22 @@ import { PROPOSITIONS } from './index.js';
 export const POLICIES = [
     {
         id: 'rent',
-        iconWeb: '🏘️',
-        iconMobile: '🏘️',
+        icon: '🏘️',
         title: 'FREEZE THE RENT'
     },
     {
         id: 'transit',
-        iconWeb: '🚌',
-        iconMobile: '🚌',
+        icon: '🚌',
         title: 'FAST AND FREE BUSES'
     },
     {
         id: 'childcare',
-        iconWeb: '🍼',
-        iconMobile: '🍼',
+        icon: '🍼',
         title: 'CHILDCARE FOR ALL'
     },
     {
         id: 'medicare',
-        iconWeb: '🏥',
-        iconMobile: '🏥',
+        icon: '🏥',
         title: 'MEDICARE FOR ALL'
     }
 ];
