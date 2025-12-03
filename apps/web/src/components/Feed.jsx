@@ -254,6 +254,9 @@ export default function Feed() {
     const handleDoubleClick = (e) => {
         if (!currentId) return;
 
+        // Disable double-click animation on profile page
+        if (currentItem?.type === 'profile') return;
+
         // Get click position relative to the container
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;

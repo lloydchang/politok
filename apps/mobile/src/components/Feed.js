@@ -99,6 +99,9 @@ export default function Feed() {
             const { locationX, locationY } = e.nativeEvent;
             const itemId = item?.data?.id || item?.id;
 
+            // Disable double-tap animation on profile page
+            if (item?.type === 'profile') return;
+
             if (itemId) {
                 toggleLike(itemId, true);
 

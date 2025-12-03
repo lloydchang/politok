@@ -296,7 +296,11 @@ export function useInteractions(storage, syncAdapter = null) {
 
         // Sync to server
         if (syncAdapter) {
-            const action = { type: 'follow', id: 'profile' };
+            // Determine action type based on NEW state (which is !prev.isFollowing)
+            // If we were following (prev.isFollowing = true), new state is false -> unfollow
+            // If we were NOT following (prev.isFollowing = false), new state is true -> follow
+            const actionType = interactions.isFollowing ? 'unfollow' : 'follow';
+            const action = { type: actionType, id: 'profile' };
             syncAdapter.sync([action])
                 .catch(err => {
                     console.error('Follow sync failed:', err);

@@ -65,6 +65,20 @@ async function markActionPerformed(fingerprint, contentId, type) {
         console.error('Mark action error:', e);
     }
 }
+/**
+ * Remove action record for fingerprint (allow re-action later)
+ * @param {string} fingerprint - Client fingerprint
+ * @param {string} contentId - Content item ID
+ * @param {string} type - Action type (like, follow)
+ */
+async function removeActionPerformed(fingerprint, contentId, type) {
+    const key = `fp:${fingerprint}:${type}:${contentId}`;
+    try {
+        await redis.del(key);
+    } catch (e) {
+        console.error('Remove action error:', e);
+    }
+}
 
 export async function POST(request) {
     try {
@@ -94,6 +108,22 @@ export async function POST(request) {
 
             if (!id || !type) {
                 results.push({ id, type, success: false, error: 'Missing id or type' });
+                continue;
+            }
+
+            // Handle Un-actions (unlike, unfollow)
+            if (type === 'unlike' || type === 'unfollow') {
+                // Determine the original action type (unlike -> like, unfollow -> follow)
+                const originalType = type === 'unlike' ? 'like' : 'follow';
+
+                // Decrement counter
+                const key = `${originalType === 'follow' ? 'follows:profile' : `${originalType}s:${id}`}`;
+                pipeline.decr(key);
+
+                // Remove fingerprint record so they can like/follow again
+                await removeActionPerformed(fingerprint, id, originalType);
+
+                results.push({ id, type, success: true });
                 continue;
             }
 
