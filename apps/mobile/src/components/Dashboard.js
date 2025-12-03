@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Share, Dimensions, ScrollView, Switch, ImageBackground, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { STATE_POLICIES, STATE_LOCATIONS, LOCATION_OVERRIDES, getPolicyData } from '@politok/shared/policyData';
 import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
@@ -21,7 +21,7 @@ function PolicyCard({ policy, data }) {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <Text style={{ fontSize: 30 }}>{policy.iconMobile}</Text>
+                <MaterialCommunityIcons name={policy.iconMobile} size={30} color="white" />
                 <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
                 <View style={styles.cardTitleContainer}>
                     {data.status !== 'loading' && (

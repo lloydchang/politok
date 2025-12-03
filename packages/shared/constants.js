@@ -4,25 +4,25 @@ export const POLICIES = [
     {
         id: 'rent',
         iconWeb: '🏘️',
-        iconMobile: '🏘️',
+        iconMobile: 'home-city',
         title: 'FREEZE THE RENT'
     },
     {
         id: 'transit',
         iconWeb: '🚌',
-        iconMobile: '🚌',
+        iconMobile: 'bus',
         title: 'FAST AND FREE BUSES'
     },
     {
         id: 'childcare',
         iconWeb: '🍼',
-        iconMobile: '🍼',
+        iconMobile: 'baby-bottle',
         title: 'CHILDCARE FOR ALL'
     },
     {
         id: 'medicare',
         iconWeb: '🏥',
-        iconMobile: '🏥',
+        iconMobile: 'hospital-box',
         title: 'MEDICARE FOR ALL'
     }
 ];
