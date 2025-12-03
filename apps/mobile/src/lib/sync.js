@@ -64,9 +64,11 @@ export async function fetchGlobalStats() {
 }
 
 /**
- * Mobile sync adapter for useInteractions hook
+ * Create mobile sync adapter for useInteractions hook
+ * @param {Object} storage - Mobile storage adapter
+ * @returns {Object} Sync adapter with sync and fetchStats methods
  */
-export const mobileSyncAdapter = {
-    sync: (interactions) => syncToServer(null, interactions), // Storage passed separately
+export const createMobileSyncAdapter = (storage) => ({
+    sync: (interactions) => syncToServer(storage, interactions),
     fetchStats: fetchGlobalStats
-};
+});

@@ -18,15 +18,15 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Main content - CENTERED with proper spacing */}
-            <div className="flex-1 flex items-start justify-center px-6 pt-2 pb-16">
+            <div className="flex-1 flex items-start justify-center px-6 pr-20 pt-2 pb-16">
                 <div className="relative z-10 max-w-xl mx-auto text-center">
                     <div className="text-7xl mb-6">{proposition.emoji}</div>
 
-                    <h1 className="text-3xl font-black mb-4 leading-tight px-4" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
+                    <h1 className="text-3xl font-black mb-4 leading-tight px-2" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
                         {proposition.title}
                     </h1>
 
-                    <p className="text-lg leading-relaxed px-4 font-medium" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
+                    <p className="text-lg leading-relaxed px-2 font-medium" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
                         {proposition.description}
                     </p>
                 </div>

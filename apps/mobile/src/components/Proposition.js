@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 24,
+        paddingRight: 80, // Extra padding on right to avoid sidebar overlap
         paddingBottom: 180, // Increased space for buttons to prevent overlap
     },
     emoji: {
@@ -142,12 +143,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     noButton: {
-        backgroundColor: '#dc2626', // red-600
-        borderColor: '#f87171', // red-400
+        backgroundColor: '#7f1d1d', // red-900 (match web)
+        borderColor: '#b91c1c', // red-700 (match web)
     },
     yesButton: {
-        backgroundColor: '#2563eb', // blue-600
-        borderColor: '#60a5fa', // blue-400
+        backgroundColor: '#1e3a8a', // blue-900 (match web)
+        borderColor: '#1d4ed8', // blue-700 (match web)
     },
     buttonText: {
         color: 'white',

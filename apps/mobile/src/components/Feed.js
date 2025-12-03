@@ -17,7 +17,7 @@ import Statistic from './Statistic';
 import Result from './Result';
 import Dashboard from './Dashboard';
 import Profile from './Profile';
-import { mobileSyncAdapter } from '../lib/sync';
+import { createMobileSyncAdapter } from '../lib/sync';
 
 const { width, height } = Dimensions.get('window');
 
@@ -43,6 +43,9 @@ const mobileStorage = {
         }
     }
 };
+
+// Create mobile sync adapter with storage
+const mobileSyncAdapter = createMobileSyncAdapter(mobileStorage);
 
 export default function Feed() {
     const analytics = useAnalytics();
