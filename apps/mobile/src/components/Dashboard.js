@@ -144,8 +144,9 @@ export default function Dashboard({ width = Dimensions.get('window').width, heig
                     <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
                         {/* Location and Toggle - Single Line */}
                         <View style={styles.header}>
-                            <View>
-                                <Text style={styles.locationText}>{location}</Text>
+                            <View style={styles.locationContainer}>
+                                <Text style={styles.locationText}>{locationName}</Text>
+                                <Text style={styles.stateText}>{stateName}</Text>
                             </View>
 
                             <View style={styles.toggleContainer}>
@@ -217,7 +218,17 @@ const styles = StyleSheet.create({
         fontSize: 20, // Match web text-xl
         fontWeight: 'bold', // Match web font-bold (700)
         color: 'white',
+        textShadowColor: 'rgba(0, 0, 0, 0.3)',
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
+    },
+    locationContainer: {
         flex: 1,
+    },
+    stateText: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: 'rgba(255, 255, 255, 0.9)',
         textShadowColor: 'rgba(0, 0, 0, 0.3)',
         textShadowOffset: { width: 0, height: 2 },
         textShadowRadius: 4,
