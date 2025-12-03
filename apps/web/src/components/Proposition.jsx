@@ -7,7 +7,7 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
 
     return (
         <div
-            className="relative w-full h-full flex flex-col overflow-hidden bg-black"
+            className="relative w-full h-full flex flex-col overflow-hidden"
             style={{
                 background: `linear-gradient(135deg, ${COLORS.PRIMARY_BLUE}20 0%, ${COLORS.OUTCOME_RED}20 100%)`,
             }}
@@ -18,32 +18,31 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
             </div>
 
             {/* Main content - CENTERED with proper spacing */}
-            <div className="flex-1 flex items-start justify-center px-6 pt-2 pb-16">
-                <div className="relative z-10 max-w-md mx-auto text-center">
+            <div className="flex-1 flex items-start justify-center pl-6 pr-14 pt-2 pb-16">
+                <div className="relative z-10 max-w-xl mx-auto text-center">
                     <div className="text-7xl mb-6">{proposition.emoji}</div>
 
-                    <h1 className="text-3xl font-black mb-4 leading-tight px-2" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
+                    <h1 className="text-3xl font-black mb-4 leading-tight px-4" style={{ color: COLORS.TEXT_BLUE_LIGHT }}>
                         {proposition.title}
                     </h1>
 
-                    <p className="text-lg leading-relaxed px-2 font-medium" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
+                    <p className="text-lg leading-relaxed px-4 font-medium" style={{ color: COLORS.TEXT_LIGHT_WHITE }}>
                         {proposition.description}
                     </p>
                 </div>
             </div>
 
             {/* Vote buttons - BOTTOM (like TikTok comments) */}
-            <div className="absolute bottom-24 left-0 right-0 px-6">
+            <div className="absolute bottom-24 left-0 right-0 pl-6 pr-14">
                 <div className="grid grid-cols-2 gap-3 max-w-[280px] mx-auto">
                     <button
                         onClick={() => handleVote('no')}
                         className={`h-16 rounded-2xl bg-red-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-red-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'no'
-                            ? 'opacity-0 scale-75 pointer-events-none'
+                            ? 'opacity-50 scale-95' // Dim unselected instead of hiding
                             : votedOption === 'no'
-                                ? 'scale-110'
+                                ? 'scale-110 ring-4 ring-white/30' // Highlight selected
                                 : 'hover:scale-105 active:scale-95'
                             }`}
-                        disabled={votedOption !== null}
                     >
                         <span>❌</span>
                         <span>NO</span>
@@ -51,12 +50,11 @@ export default function Proposition({ proposition, onVote, hasVoted, selectedVot
                     <button
                         onClick={() => handleVote('yes')}
                         className={`h-16 rounded-2xl bg-blue-900 text-white shadow-lg font-bold text-lg transition-all duration-300 border-2 border-blue-700 flex items-center justify-center gap-8 ${votedOption && votedOption !== 'yes'
-                            ? 'opacity-0 scale-75 pointer-events-none'
+                            ? 'opacity-50 scale-95' // Dim unselected instead of hiding
                             : votedOption === 'yes'
-                                ? 'scale-110'
+                                ? 'scale-110 ring-4 ring-white/30' // Highlight selected
                                 : 'hover:scale-105 active:scale-95'
                             }`}
-                        disabled={votedOption !== null}
                     >
                         <span>✅</span>
                         <span>YES</span>

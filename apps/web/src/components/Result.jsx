@@ -55,7 +55,7 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
             </div>
 
             {/* Main content */}
-            <div className="relative z-10 px-6 max-w-lg mx-auto text-center">
+            <div className="relative z-10 pl-6 pr-14 max-w-lg mx-auto text-center">
                 {/* Identity reveal */}
                 <div className="mb-8 animate-fade-in">
                     <div className="text-8xl mb-4 animate-bounce">{identityLabel.emoji}</div>

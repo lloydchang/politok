@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Result({ resultStats, identityLabel, percentileData, votes, onReset, width = Dimensions.get('window').width, height = Dimensions.get('window').height }) {
+export default function Result({ resultStats, identityLabel, percentileData, votes, onReset }) {
     const { sortedStats } = useResultsCard(resultStats);
 
     if (!resultStats || !identityLabel) return null;
@@ -23,76 +23,90 @@ export default function Result({ resultStats, identityLabel, percentileData, vot
     };
 
     return (
-        <View style={[styles.container, { width, height }]}>
+        <View style={styles.container}>
             <LinearGradient
-                colors={[COLORS.BG_LIGHT_BLUE, `${identityLabel.color}20`]}
-                style={styles.gradient}
+                colors={[COLORS.BG_LIGHT_BLUE, `${identityLabel.color}40`]} // Increased opacity to 40% for visibility
+                style={StyleSheet.absoluteFill} // Use absoluteFill to ensure it covers the background
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-            >
-                <ScrollView contentContainerStyle={styles.scrollContent}>
-                    {/* Identity reveal */}
-                    <View style={styles.identityContainer}>
-                        <Text style={styles.emoji}>{identityLabel.emoji}</Text>
-                        <Text style={[styles.label, { color: identityLabel.color }]}>
-                            {identityLabel.label}
-                        </Text>
-                        <Text style={styles.description}>
-                            "{identityLabel.description}"
-                        </Text>
-                    </View>
+            />
 
-                    {/* Score bars */}
-                    <View style={styles.scoreCard}>
-                        {sortedStats.map((stat) => (
-                            <View key={stat.key} style={styles.scoreRow}>
-                                <View style={styles.scoreHeader}>
-                                    <Text style={styles.scoreLabel}>{stat.label}</Text>
-                                    <Text style={[styles.scoreValue, { color: stat.color }]}>{stat.value}%</Text>
-                                </View>
-                                <View style={styles.barBg}>
-                                    <View style={[styles.barFill, { width: `${stat.value}%`, backgroundColor: stat.color }]} />
-                                </View>
-                            </View>
-                        ))}
-                    </View>
+            {/* Radial gradient simulation */}
+            <View style={[styles.radialOverlay, { backgroundColor: identityLabel.color }]} />
 
-                    {/* Percentile */}
-                    {percentileData && (
-                        <View style={styles.percentileBox}>
-                            <Text style={styles.percentileText}>
-                                {percentileData.message}
-                            </Text>
-                        </View>
-                    )}
-
-                </ScrollView>
-
-                {/* Share Button - Fixed Position */}
-                <View style={styles.shareButtonContainer}>
-                    <TouchableOpacity
-                        onPress={handleShare}
-                        style={styles.shareButton}
-                    >
-                        <Text style={styles.shareButtonIcon}>📤</Text>
-                        <Text style={styles.shareButtonText}>SHARE</Text>
-                    </TouchableOpacity>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                {/* Identity reveal */}
+                <View style={styles.identityContainer}>
+                    <Text style={styles.emoji}>{identityLabel.emoji}</Text>
+                    <Text style={[styles.label, { color: identityLabel.color }]}>
+                        {identityLabel.label}
+                    </Text>
+                    <Text style={styles.description}>
+                        "{identityLabel.description}"
+                    </Text>
                 </View>
-            </LinearGradient>
+
+                {/* Score bars */}
+                <View style={styles.scoreCard}>
+                    {sortedStats.map((stat) => (
+                        <View key={stat.key} style={styles.scoreRow}>
+                            <View style={styles.scoreHeader}>
+                                <Text style={styles.scoreLabel}>{stat.label}</Text>
+                                <Text style={[styles.scoreValue, { color: stat.color }]}>{stat.value}%</Text>
+                            </View>
+                            <View style={styles.barBg}>
+                                <View style={[styles.barFill, { width: `${stat.value}%`, backgroundColor: stat.color }]} />
+                            </View>
+                        </View>
+                    ))}
+                </View>
+
+                {/* Percentile */}
+                {percentileData && (
+                    <View style={styles.percentileBox}>
+                        <Text style={styles.percentileText}>
+                            {percentileData.message}
+                        </Text>
+                    </View>
+                )}
+
+            </ScrollView>
+
+            {/* Share Button - Fixed Position */}
+            <View style={styles.shareButtonContainer}>
+                <TouchableOpacity
+                    onPress={handleShare}
+                    style={styles.shareButton}
+                >
+                    <Text style={styles.shareButtonIcon}>📤</Text>
+                    <Text style={styles.shareButtonText}>SHARE</Text>
+                </TouchableOpacity>
+            </View>
         </View >
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        width: width,
+        height: height,
         flex: 1,
-        backgroundColor: 'white',
+        // backgroundColor: 'white', // Removed to let gradient show
     },
     gradient: {
         flex: 1,
     },
+    radialOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        opacity: 0.1, // Match web opacity-10
+    },
     scrollContent: {
-        paddingHorizontal: 40, // Increased for better centering
+        paddingLeft: 24,
+        paddingRight: 56, // Subtle shift left
         paddingTop: 40,
         paddingBottom: 100,
         alignItems: 'center',
@@ -110,18 +124,15 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         textAlign: 'center',
         marginBottom: 8,
-        paddingHorizontal: 8,
     },
     description: {
         fontSize: 18,
         color: '#475569', // slate-600
         fontStyle: 'italic',
         textAlign: 'center',
-        paddingHorizontal: 8,
     },
     scoreCard: {
         width: '100%',
-        maxWidth: 400, // Constrain like web's max-w-lg
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         borderRadius: 24,
         padding: 24,
@@ -177,14 +188,14 @@ const styles = StyleSheet.create({
     },
     shareButtonContainer: {
         position: 'absolute',
-        bottom: 16,
-        right: 16,
+        bottom: 40,
+        right: 24,
         zIndex: 20,
     },
     shareButton: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 96,
+        height: 96,
+        borderRadius: 48,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         alignItems: 'center',
         justifyContent: 'center',
@@ -193,7 +204,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 8,
         elevation: 6,
-        borderWidth: 0,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.2)',
     },
     shareButtonIcon: {
         fontSize: 32,

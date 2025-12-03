@@ -4,13 +4,13 @@ import { COLORS } from '@politok/shared';
 import { usePropCard } from '@politok/shared/hooks';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-export default function Proposition({ proposition, onVote, hasVoted, width = windowWidth, height = windowHeight }) {
+export default function Proposition({ proposition, onVote, hasVoted }) {
     const { votedOption, handleVote } = usePropCard(onVote);
 
     return (
-        <View style={[styles.container, { width, height }]}>
+        <View style={styles.container}>
             <LinearGradient
                 colors={[`${COLORS.PRIMARY_BLUE}20`, `${COLORS.OUTCOME_RED}20`]}
                 style={styles.gradient}
@@ -40,11 +40,10 @@ export default function Proposition({ proposition, onVote, hasVoted, width = win
                     <View style={styles.buttonsRow}>
                         <TouchableOpacity
                             onPress={() => handleVote('no')}
-                            disabled={votedOption !== null}
                             style={[
                                 styles.button,
                                 styles.noButton,
-                                votedOption && votedOption !== 'no' && styles.buttonHidden,
+                                votedOption && votedOption !== 'no' && styles.buttonDimmed, // Dim unselected
                                 votedOption === 'no' && styles.buttonSelected
                             ]}
                         >
@@ -53,11 +52,10 @@ export default function Proposition({ proposition, onVote, hasVoted, width = win
 
                         <TouchableOpacity
                             onPress={() => handleVote('yes')}
-                            disabled={votedOption !== null}
                             style={[
                                 styles.button,
                                 styles.yesButton,
-                                votedOption && votedOption !== 'yes' && styles.buttonHidden,
+                                votedOption && votedOption !== 'yes' && styles.buttonDimmed, // Dim unselected
                                 votedOption === 'yes' && styles.buttonSelected
                             ]}
                         >
@@ -72,6 +70,8 @@ export default function Proposition({ proposition, onVote, hasVoted, width = win
 
 const styles = StyleSheet.create({
     container: {
+        width: width,
+        height: height,
         flex: 1,
         backgroundColor: 'black',
     },
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 40, // Increased for better centering
+        paddingLeft: 24,
+        paddingRight: 56, // Subtle shift left
         paddingBottom: 180,
     },
     emoji: {
@@ -107,7 +108,6 @@ const styles = StyleSheet.create({
         color: COLORS.TEXT_BLUE_LIGHT,
         marginBottom: 16,
         textAlign: 'center',
-        paddingHorizontal: 8,
     },
     description: {
         fontSize: 20,
@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign: 'center',
         lineHeight: 28,
-        paddingHorizontal: 8,
     },
     buttonsContainer: {
         position: 'absolute',
@@ -123,6 +122,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         alignItems: 'center',
+        paddingLeft: 24,
+        paddingRight: 56, // Match content alignment
     },
     buttonsRow: {
         flexDirection: 'row',
@@ -156,9 +157,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    buttonHidden: {
-        opacity: 0,
-        transform: [{ scale: 0.8 }],
+    buttonDimmed: {
+        opacity: 0.5,
+        transform: [{ scale: 0.95 }],
     },
     buttonSelected: {
         transform: [{ scale: 1.1 }],

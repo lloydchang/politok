@@ -176,8 +176,14 @@ export function useFeed(items, analytics = {}, startIndex = 0) {
     };
 }
 
-export function usePropCard(onVote) {
-    const [votedOption, setVotedOption] = useState(null);
+export function usePropCard(onVote, initialVote = null) {
+    const [votedOption, setVotedOption] = useState(initialVote);
+
+    useEffect(() => {
+        if (initialVote) {
+            setVotedOption(initialVote);
+        }
+    }, [initialVote]);
 
     const handleVote = useCallback((option) => {
         setVotedOption(option);
@@ -404,3 +410,4 @@ export function useInteractions(storage, syncAdapter = null) {
         globalStats // Include global stats for display
     };
 }
+
