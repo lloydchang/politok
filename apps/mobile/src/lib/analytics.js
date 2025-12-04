@@ -1,5 +1,11 @@
 import { usePostHog } from 'posthog-react-native';
 import { sendHoneycombEvent } from './honeycomb';
+import {
+    trackInteraction,
+    trackRender,
+    trackNavigation,
+    setupAppStateTracking
+} from './performance';
 
 /**
  * Hook for unified tracking to PostHog and Honeycomb
@@ -71,6 +77,11 @@ export const useAnalytics = () => {
     return {
         trackEvent,
         trackPropositionVote,
-        trackSimulationCompleted
+        trackSimulationCompleted,
+        // Performance tracking methods
+        trackInteraction,
+        trackRender,
+        trackNavigation,
+        setupAppStateTracking
     };
 };
