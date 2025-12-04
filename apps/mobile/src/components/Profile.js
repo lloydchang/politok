@@ -27,10 +27,10 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
     // Use optimistic follower count from interactions if available, otherwise global stats
     const followersCount = interactions?.followersCount ?? (globalStats?.follows ?? 0);
 
-    // Calculate total likes from global stats (aggregated across all users)
-    const totalLikesCount = globalStats?.likes
+    // Calculate total likes: prioritize optimistic totalLikes (from hooks) over raw globalStats
+    const totalLikesCount = totalLikes || (globalStats?.likes
         ? Object.values(globalStats.likes).reduce((sum, count) => sum + (Number(count) || 0), 0)
-        : totalLikes || 0;
+        : 0);
 
     // Stats for politok_vercel_app profile
     const stats = {
@@ -250,8 +250,8 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                         };
 
                         const scale = (width - 9) / 3 / width; // Adjusted for safety
-                        // Use global view count from Upstash (aggregated across all users)
-                        const viewCount = globalStats?.views?.[item.lookupId] ?? (interactions?.items[item.lookupId]?.views || 0);
+                        // Use optimistic view count from interactions if available, otherwise global stats
+                        const viewCount = interactions?.items?.[item.lookupId]?.views ?? (globalStats?.views?.[item.lookupId] || 0);
 
                         return (
                             <TouchableOpacity
