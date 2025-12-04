@@ -6,12 +6,14 @@ import Dashboard from './Dashboard';
 import Result from './Result';
 import Proposition from './Proposition';
 import Statistic from './Statistic';
+import { TIKTOK_ACCOUNTS } from '@politok/shared';
 
 export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes, globalStats }) {
     const [activeTab, setActiveTab] = useState('videos');
+    const [showFollowingModal, setShowFollowingModal] = useState(false);
 
     const displayName = 'poliTok';
-    const username = '@politok_vercel_app';
+    const username = 'politok_vercel_app';
     const websiteUrl = 'politok.vercel.app';
 
     // Handle follow/unfollow
@@ -43,9 +45,12 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
         }, 0);
     })();
 
+    // Get accounts the politok app follows (all generated accounts)
+    const followedAccounts = TIKTOK_ACCOUNTS;
+
     // Stats for politok_vercel_app profile
     const stats = {
-        following: '0',
+        following: followedAccounts.length.toString(),
         followers: followersCount.toLocaleString(),
         likes: totalLikesCount.toLocaleString()
     };
@@ -152,10 +157,13 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
 
                 {/* Stats Row */}
                 <div className="flex justify-center gap-8 mb-3 pb-0">
-                    <div className="text-center">
+                    <button
+                        className="text-center cursor-pointer hover:opacity-80 transition"
+                        onClick={() => setShowFollowingModal(true)}
+                    >
                         <div className="font-bold text-lg">{stats.following}</div>
                         <div className="text-gray-500 text-xs">Following</div>
-                    </div>
+                    </button>
                     <div className="text-center">
                         <div className="font-bold text-lg">{stats.followers}</div>
                         <div className="text-gray-500 text-xs">Followers</div>
@@ -298,6 +306,52 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     );
                 })}
             </div>
+
+            {/* Following List Modal */}
+            {showFollowingModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-[1000]" onClick={() => setShowFollowingModal(false)}>
+                    <div className="bg-[#1a1a1a] rounded-2xl w-[90%] max-w-md max-h-[80vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
+                        {/* Header */}
+                        <div className="flex justify-between items-center p-4 border-b border-gray-700">
+                            <h3 className="text-white text-lg font-bold">Following</h3>
+                            <button
+                                onClick={() => setShowFollowingModal(false)}
+                                className="text-white hover:text-gray-300 transition"
+                            >
+                                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        {/* Accounts List */}
+                        <div className="overflow-y-auto max-h-96 p-2">
+                            {followedAccounts.map((account, index) => (
+                                <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
+                                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                                        <img
+                                            src={account.profilePic}
+                                            alt={account.displayName}
+                                            className="w-12 h-12 rounded-full bg-gray-700 object-cover flex-shrink-0"
+                                        />
+                                        <div className="min-w-0">
+                                            <div className="text-white font-bold text-base truncate">{account.displayName}</div>
+                                            <div className="text-gray-400 text-sm truncate">{account.username}</div>
+                                        </div>
+                                    </div>
+                                    <a
+                                        href={`https://www.tiktok.com/${account.username}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="bg-[#fe2c55] text-white font-bold text-sm px-4 py-2 rounded hover:opacity-90 transition ml-3 flex-shrink-0"
+                                    >
+                                        Follow
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );

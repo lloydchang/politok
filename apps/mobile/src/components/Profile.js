@@ -7,14 +7,16 @@ import Result from './Result';
 import Proposition from './Proposition';
 import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import Statistic from './Statistic';
+import { TIKTOK_ACCOUNTS } from '@politok/shared';
 
 const { width, height } = Dimensions.get('window');
 
 export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes, globalStats }) {
     const [activeTab, setActiveTab] = useState('videos');
+    const [showFollowingModal, setShowFollowingModal] = useState(false);
 
     const displayName = 'poliTok';
-    const username = '@politok_vercel_app';
+    const username = 'politok_vercel_app';
     const websiteUrl = 'politok.vercel.app';
 
     // Handle follow/unfollow
@@ -46,9 +48,12 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
         }, 0);
     })();
 
+    // Get accounts the politok app follows (all generated accounts)
+    const followedAccounts = TIKTOK_ACCOUNTS;
+
     // Stats for politok_vercel_app profile
     const stats = {
-        following: '0',
+        following: followedAccounts.length.toString(),
         followers: followersCount.toLocaleString(),
         likes: totalLikesCount.toLocaleString()
     };
@@ -144,10 +149,13 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
 
                     {/* Stats Row */}
                     <View style={styles.statsRow}>
-                        <View style={styles.statItem}>
+                        <TouchableOpacity
+                            style={styles.statItem}
+                            onPress={() => setShowFollowingModal(true)}
+                        >
                             <Text style={styles.statValue}>{stats.following}</Text>
                             <Text style={styles.statLabel}>Following</Text>
-                        </View>
+                        </TouchableOpacity>
                         <View style={styles.statItem}>
                             <Text style={styles.statValue}>{stats.followers}</Text>
                             <Text style={styles.statLabel}>Followers</Text>
@@ -305,6 +313,46 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     })}
                 </View>
             </ScrollView>
+
+            {/* Following List Modal */}
+            {showFollowingModal && (
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalTitle}>Following</Text>
+                            <TouchableOpacity onPress={() => setShowFollowingModal(false)}>
+                                <Ionicons name="close" size={28} color="#fff" />
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView style={styles.modalScrollView}>
+                            {followedAccounts.map((account, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={styles.followingItem}
+                                    onPress={() => Linking.openURL(`https://www.tiktok.com/${account.username}`)}
+                                >
+                                    <View style={styles.followingItemContent}>
+                                        <Image
+                                            source={{ uri: account.profilePic }}
+                                            style={styles.followingAvatar}
+                                        />
+                                        <View style={styles.followingInfo}>
+                                            <Text style={styles.followingDisplayName} numberOfLines={1}>{account.displayName}</Text>
+                                            <Text style={styles.followingUsername} numberOfLines={1}>{account.username}</Text>
+                                        </View>
+                                        <TouchableOpacity
+                                            style={styles.modalFollowButton}
+                                            onPress={() => Linking.openURL(`https://www.tiktok.com/${account.username}`)}
+                                        >
+                                            <Text style={styles.modalFollowButtonText}>Follow</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                </View>
+            )}
         </View>
     );
 }
@@ -511,5 +559,81 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         fontWeight: '600',
+    },
+    modalOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+    },
+    modalContent: {
+        backgroundColor: '#1a1a1a',
+        borderRadius: 16,
+        width: '90%',
+        maxHeight: '80%',
+        overflow: 'hidden',
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#333',
+    },
+    modalTitle: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    modalScrollView: {
+        maxHeight: 400,
+    },
+    followingItem: {
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#2a2a2a',
+    },
+    followingItemContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    followingAvatar: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        marginRight: 12,
+        backgroundColor: '#333',
+    },
+    followingInfo: {
+        flex: 1,
+        marginRight: 12,
+    },
+    followingDisplayName: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 2,
+    },
+    followingUsername: {
+        color: '#9ca3af',
+        fontSize: 14,
+    },
+    modalFollowButton: {
+        backgroundColor: '#fe2c55', // TikTok red
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        borderRadius: 4,
+    },
+    modalFollowButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 14,
     },
 });
