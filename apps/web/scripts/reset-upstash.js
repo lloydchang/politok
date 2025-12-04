@@ -33,17 +33,26 @@ async function reset() {
     console.log('Resetting Upstash stats to 0...');
     const pipeline = redis.pipeline();
 
-    // Reset IDs 1-4 (Propositions)
+    // Reset Propositions (IDs 1-4)
     for (let id = 1; id <= 4; id++) {
         pipeline.set(`likes:${id}`, 0);
         pipeline.set(`views:${id}`, 0);
     }
+
+    // Reset Results and Dashboard cards
+    pipeline.set('likes:results_card', 0);
+    pipeline.set('views:results_card', 0);
+    pipeline.set('likes:dashboard_card', 0);
+    pipeline.set('views:dashboard_card', 0);
 
     // Reset Followers
     pipeline.set('follows:profile', 0);
 
     await pipeline.exec();
     console.log('Reset complete. Stats are now 0.');
+    console.log('\n⚠️  IMPORTANT: Clear your browser localStorage to see the reset:');
+    console.log('   Web: Open DevTools Console → Run: localStorage.clear() → Reload');
+    console.log('   Mobile: Clear app data or reinstall the app');
 }
 
 reset().catch(console.error);

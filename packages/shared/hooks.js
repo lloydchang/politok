@@ -253,8 +253,8 @@ export function useInteractions(storage, syncAdapter = null) {
                         return {
                             ...prev,
                             items: updatedItems,
-                            // Initialize followersCount ONLY if never set (undefined/null), don't overwrite 0
-                            followersCount: prev.followersCount !== undefined ? prev.followersCount : (stats.follows || 0)
+                            // Always sync fresh global stats on load for followersCount
+                            followersCount: stats.follows || 0
                         };
                     });
                 })
