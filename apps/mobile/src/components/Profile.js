@@ -337,7 +337,12 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                             style={styles.followingAvatar}
                                         />
                                         <View style={styles.followingInfo}>
-                                            <Text style={styles.followingDisplayName} numberOfLines={1}>{account.displayName}</Text>
+                                            <View style={styles.nameRow}>
+                                                <Text style={styles.followingDisplayName} numberOfLines={1}>{account.displayName}</Text>
+                                                {account.isVerified && (
+                                                    <MaterialCommunityIcons name="check-decagram" size={14} color="#20D5EC" style={styles.verifiedIcon} />
+                                                )}
+                                            </View>
                                             <Text style={styles.followingUsername} numberOfLines={1}>{account.username}</Text>
                                         </View>
                                         <TouchableOpacity
@@ -620,6 +625,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 2,
+    },
+    nameRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
+    },
+    verifiedIcon: {
+        marginTop: 2,
     },
     followingUsername: {
         color: '#9ca3af',
