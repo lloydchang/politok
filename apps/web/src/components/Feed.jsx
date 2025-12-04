@@ -396,7 +396,7 @@ export default function Feed() {
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentIndex(idx)}
-                                    className={`w-2 h-2 rounded-full transition-all duration-300 pointer-events-auto ${idx === currentIndex
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 pointer-events-auto p-2 ${idx === currentIndex
                                         ? `${activeColor} w-6`
                                         : inactiveColor
                                         }`}
