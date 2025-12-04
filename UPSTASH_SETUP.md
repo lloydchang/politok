@@ -135,3 +135,70 @@ vercel --prod
 - If it happens: Data queues locally and retries
 - App continues working (local-only mode)
 
+## Debugging Tools
+
+### Check Current Stats
+
+To inspect the current values in Upstash:
+
+```bash
+node apps/web/scripts/check-upstash.js
+```
+
+This will display:
+- Likes and views for each proposition (1-4)
+- Likes and views for results and dashboard cards
+- Total follower count
+- Calculated total likes
+
+Use this to debug discrepancies between what you see in the app and what's stored in Upstash.
+
+## Resetting Stats
+
+To reset all interaction stats (likes, views, followers) to zero:
+
+### 1. Reset Upstash Database
+
+```bash
+node apps/web/scripts/reset-upstash.js
+```
+
+This will set all stats to 0 in Upstash.
+
+### 2. Clear Local Cache
+
+After resetting Upstash, you need to clear cached data on each platform:
+
+#### Web Browser
+```javascript
+// Open DevTools Console (F12)
+localStorage.clear()
+// Then reload the page
+```
+
+#### Mobile - iOS Simulator
+```bash
+# 1. Stop Expo (Ctrl+C in terminal)
+
+# 2. Find the booted simulator
+xcrun simctl list devices | grep "iPhone"
+
+# 3. Shutdown and erase (replace UUID with your simulator's ID)
+xcrun simctl shutdown [UUID] && xcrun simctl erase [UUID]
+
+# 4. Restart Expo and press "i"
+npm run mobile
+```
+
+#### Mobile - Physical Device
+- **iOS**: Settings → [Your App] → Clear Data (or reinstall)
+- **Android**: Settings → Apps → [Your App] → Storage → Clear Data (or reinstall)
+
+### 3. Verify Reset
+
+```bash
+# Check current Upstash values
+node apps/web/scripts/check-upstash.js
+```
+
+All counts should show 0.

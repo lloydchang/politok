@@ -50,9 +50,17 @@ async function reset() {
 
     await pipeline.exec();
     console.log('Reset complete. Stats are now 0.');
-    console.log('\n⚠️  IMPORTANT: Clear your browser localStorage to see the reset:');
-    console.log('   Web: Open DevTools Console → Run: localStorage.clear() → Reload');
-    console.log('   Mobile: Clear app data or reinstall the app');
+    console.log('\n⚠️  IMPORTANT: Clear your app storage to see the reset:');
+    console.log('\n📱 Web:');
+    console.log('   Open DevTools Console → Run: localStorage.clear() → Reload');
+    console.log('\n📱 Mobile (iOS Simulator):');
+    console.log('   1. Stop Expo (Ctrl+C)');
+    console.log('   2. Run: xcrun simctl list devices | grep "iPhone"');
+    console.log('   3. Find the Booted simulator UUID');
+    console.log('   4. Run: xcrun simctl shutdown [UUID] && xcrun simctl erase [UUID]');
+    console.log('   5. Restart Expo and press "i"');
+    console.log('\n📱 Mobile (Physical Device):');
+    console.log('   Clear app data in Settings or reinstall the app');
 }
 
 reset().catch(console.error);
