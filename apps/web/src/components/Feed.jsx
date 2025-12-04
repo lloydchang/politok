@@ -204,7 +204,7 @@ export default function Feed() {
                             <Proposition
                                 key={item.data.id}
                                 proposition={item.data}
-                                onVote={handleVote}
+                                onVote={(option) => handleVote(item.data.id, option)}
                                 hasVoted={hasVotedOnCurrent && index === currentIndex}
                                 selectedVote={votes[item.data.id]}
                             />

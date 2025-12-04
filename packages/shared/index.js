@@ -69,7 +69,7 @@ export const PROPOSITIONS = [
   },
   {
     id: 2,
-    title: "🚌 FAST & FREE BUSES",
+    title: "🚌 FAST, FARE FREE BUSES",
     description: "Shall we make buses fast and free so you spend less time in traffic?",
     options: [
       { id: 'yes', label: "Yes", type: 'reform', stats: { equity: 1, oligarchy: -1 } },

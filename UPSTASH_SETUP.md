@@ -133,7 +133,16 @@ vercel --prod
 ### "Rate limit exceeded" (429)
 - Very unlikely with Upstash's 10K/day limit
 - If it happens: Data queues locally and retries
+- If it happens: Data queues locally and retries
 - App continues working (local-only mode)
+
+## Sync Strategy
+
+We use a **Fetch on Mount** strategy for global statistics (followers, likes, views), similar to TikTok's approach.
+
+- **Behavior**: Stats are fetched once when the app/component loads.
+- **Updates**: Local interactions (your likes/follows) update optimistically and instantly. Global counts from other users update only on app restart or page reload.
+- **Reasoning**: This prioritizes battery life and performance over real-time accuracy. Constant polling (e.g., every 60s) drains resources and is unnecessary for this type of engagement metric.
 
 ## Debugging Tools
 
