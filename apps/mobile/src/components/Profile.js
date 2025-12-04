@@ -332,10 +332,6 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                     onPress={() => Linking.openURL(`https://www.tiktok.com/${account.username}`)}
                                 >
                                     <View style={styles.followingItemContent}>
-                                        <Image
-                                            source={{ uri: account.profilePic }}
-                                            style={styles.followingAvatar}
-                                        />
                                         <View style={styles.followingInfo}>
                                             <View style={styles.nameRow}>
                                                 <Text style={styles.followingDisplayName} numberOfLines={1}>{account.displayName}</Text>

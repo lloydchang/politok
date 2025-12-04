@@ -328,11 +328,6 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                             {followedAccounts.map((account, index) => (
                                 <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
                                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                                        <img
-                                            src={account.profilePic}
-                                            alt={account.displayName}
-                                            className="w-12 h-12 rounded-full bg-gray-700 object-cover flex-shrink-0"
-                                        />
                                         <div className="min-w-0">
                                             <div className="flex items-center gap-1">
                                                 <div className="text-white font-bold text-base truncate">{account.displayName}</div>

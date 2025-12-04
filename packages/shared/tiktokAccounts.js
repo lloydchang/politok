@@ -1,31 +1,31 @@
 import { STATE_LOCATIONS } from './policyData.js';
 
-// MINIMAL VERIFIED ACCOUNTS LIST
-// Only includes accounts that have been manually confirmed to:
-// 1. Exist on TikTok
-// 2. Have a blue verified checkmark
-// 3. Are official government/mayor accounts
+// VERIFIED ACCOUNTS ONLY
+// Each account has been manually confirmed by user to have a blue checkmark on TikTok
 const VERIFIED_ACCOUNTS = {
-    // Confirmed Verified Accounts
+    // Mayors (1)
     'New York City, New York': {
         username: '@zohran_k_mamdani',
         displayName: 'Zohran Mamdani',
-        type: 'mayor',
-        profilePic: 'https://ui-avatars.com/api/?name=Zohran+Mamdani&background=random&color=fff&size=200&font-size=0.5&length=2'
+        type: 'mayor'
     },
-    'Oneonta, Alabama': {
-        username: '@mayorshenanigans',
-        displayName: 'Mayor Richard Phillips',
-        type: 'mayor',
-        profilePic: 'https://ui-avatars.com/api/?name=Mayor+Richard+Phillips&background=random&color=fff&size=200&font-size=0.5&length=2'
+
+    // Cities (3)
+    'Minneapolis, Minnesota': {
+        username: '@cityminneapolis',
+        displayName: 'City of Minneapolis',
+        type: 'city'
     },
-    'Seattle, Washington': {
-        username: '@visitseattle',
-        displayName: 'Visit Seattle',
-        type: 'city',
-        profilePic: 'https://ui-avatars.com/api/?name=Visit+Seattle&background=random&color=fff&size=200&font-size=0.5&length=2'
+    'Las Vegas, Nevada': {
+        username: '@cityoflasvegas',
+        displayName: 'City of Las Vegas',
+        type: 'city'
     },
-    // Add more verified accounts here as they are confirmed
+    'Miami, Florida': {
+        username: '@miami',
+        displayName: 'City of Miami',
+        type: 'city'
+    },
 };
 
 /**
@@ -40,6 +40,7 @@ export const TIKTOK_ACCOUNTS = (() => {
         accounts.push({
             ...account,
             location,
+            profilePic: null, // No profile pictures for now
             isReal: true,
             isVerified: true
         });
