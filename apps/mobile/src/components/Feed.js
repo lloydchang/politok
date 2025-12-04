@@ -327,6 +327,7 @@ export default function Feed() {
                             <TouchableOpacity
                                 key={idx}
                                 onPress={() => setCurrentIndex(idx)}
+                                hitSlop={{ top: 15, bottom: 15, left: 10, right: 10 }}
                                 style={[
                                     styles.dot,
                                     idx === currentIndex ? styles.activeDot : styles.inactiveDot
