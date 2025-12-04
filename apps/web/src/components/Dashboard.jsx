@@ -181,7 +181,7 @@ export default function Dashboard() {
             {/* Dark Overlay for readability */}
             <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-            <div className="flex-1 overflow-auto p-6 relative z-10">
+            <div className="flex-1 overflow-auto p-6 pb-28 relative z-10">
                 <div className="max-w-2xl mx-auto">
                     {/* Location and Travel Mode Toggle - Single Line */}
                     <div className="mb-6 flex items-center justify-between gap-4">
@@ -207,7 +207,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Policy Cards */}
-                    <div className="space-y-4">
+                    <div className="space-y-2">
                         {POLICIES.map(policy => (
                             <PolicyCard key={policy.id} policy={policy} data={cityData[policy.id]} />
                         ))}

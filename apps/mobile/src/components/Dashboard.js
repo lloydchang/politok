@@ -200,11 +200,11 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     scrollContent: {
-        paddingHorizontal: 24, // Match web padding
-        paddingTop: 40, // Reduced from 60 to show more content in thumbnail
-        paddingBottom: 100,
-        minHeight: '100%', // Use percentage or passed height if needed, but 100% of container is safer
-        alignItems: 'center', // Center content horizontally
+        paddingHorizontal: 24,
+        paddingTop: 20,
+        paddingBottom: 120,
+        minHeight: '100%',
+        alignItems: 'center',
     },
     header: {
         width: '100%', // Ensure full width for space-between
@@ -246,8 +246,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     cardsContainer: {
-        width: '100%', // Ensure full width
-        gap: 12,
+        width: '100%',
+        gap: 6, // Reduced gap to make rows more compact vertically
         marginBottom: 24,
     },
     card: {
