@@ -27,10 +27,24 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
     // Use optimistic follower count from interactions if available, otherwise global stats
     const followersCount = interactions?.followersCount ?? (globalStats?.follows ?? 0);
 
-    // Calculate total likes: prioritize optimistic totalLikes (from hooks) over raw globalStats
-    const totalLikesCount = totalLikes || (globalStats?.likes
-        ? Object.values(globalStats.likes).reduce((sum, count) => sum + (Number(count) || 0), 0)
-        : 0);
+    // Calculate total likes: merge local optimistic counts with global stats
+    // For each item, use local count if available (optimistic), otherwise global
+    const totalLikesCount = (() => {
+        if (!globalStats?.likes) return totalLikes || 0;
+
+        // Get all unique item IDs from both sources
+        const allIds = new Set([
+            ...Object.keys(globalStats.likes),
+            ...Object.keys(interactions?.items || {})
+        ]);
+
+        // Sum up likes: prefer local optimistic count, fall back to global
+        return Array.from(allIds).reduce((sum, id) => {
+            const localCount = interactions?.items?.[id]?.likes;
+            const globalCount = globalStats.likes[id] || 0;
+            return sum + (localCount ?? globalCount);
+        }, 0);
+    })();
 
     // Stats for politok_vercel_app profile
     const stats = {
