@@ -7,7 +7,7 @@ import { COLORS } from '@politok/shared';
 function PolicyCard({ policy, data }) {
     // PARODY: Oligarch hand ratings (inverted - good for people = oligarch disapproves)
     const statusEmoji = data?.status === 'green' ? '🤌' :
-        data?.status === 'yellow' ? '👎' : '👍';
+        data?.status === 'yellow' ? '🫰' : '👍';
 
     return (
         <div className="flex items-center gap-3">
@@ -145,7 +145,7 @@ export default function Dashboard() {
 
     const handleShare = () => {
         // PARODY: Oligarch hand ratings
-        const statusEmoji = (status) => status === 'green' ? '🤌' : status === 'yellow' ? '👎' : '👍';
+        const statusEmoji = (status) => status === 'green' ? '🤌' : status === 'yellow' ? '🫰' : '👍';
         const shareText = `${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}\n\nHow would you vote?\n\nhttps://politok.vercel.app/`;
 
         if (navigator.share) {
