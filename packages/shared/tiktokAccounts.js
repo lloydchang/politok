@@ -1,9 +1,9 @@
-// Official verified TikTok accounts for cities
-// Only mayors with verified blue checkmark accounts
+// Official verified TikTok accounts for locations
+// Only mayors with White Checkmarks on Cyan Backgrounds accounts
 
 export const VERIFIED_TIKTOK_ACCOUNTS = {
     // ========================================
-    // CITIES (Mayors with White Checkmarks on Cyan Backgrounds)
+    // LOCATIONS (Mayors with White Checkmarks on Cyan Backgrounds)
     // ========================================
     'Boston, Massachusetts': {
         accounts: [
@@ -72,6 +72,6 @@ export function getAllVerifiedAccounts() {
         }
     });
 
-    return allAccounts.sort((a, b) => a.displayName.localeCompare(b.displayName));
+    return allAccounts.sort((a, b) => a.username.localeCompare(b.username));
 }
 

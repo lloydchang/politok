@@ -345,8 +345,9 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                             <div className="flex items-center gap-1">
                                                 <div className="text-white font-bold text-base truncate">{account.displayName}</div>
                                                 {account.isVerified && (
-                                                    <svg className="w-3.5 h-3.5 text-[#20D5EC]" viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6 12.6l1.5-1.5 2.6 2.6 6.9-6.9 1.5 1.5-8.4 8.4z" />
+                                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                        <circle cx="12" cy="12" r="10" fill="#20D5EC" />
+                                                        <path d="M9.1 16.7L6 12.6l1.5-1.5 2.6 2.6 6.9-6.9 1.5 1.5-8.4 8.4z" fill="#FFFFFF" />
                                                     </svg>
                                                 )}
                                             </div>
