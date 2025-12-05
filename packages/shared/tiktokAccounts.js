@@ -17,7 +17,8 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             { type: 'government', username: 'gavinnewsom', displayName: 'Gavin Newsom', verified: true },
             { type: 'government', username: 'cagovernor', displayName: 'Office of the Governor', verified: true },
-            { type: 'tourism', username: 'visitcalifornia', displayName: 'Visit California', verified: true }
+            { type: 'congress', username: 'adamschiff', displayName: 'Adam Schiff', verified: true }, // Blue checkmark verified 2024-12-05 - US Senator
+            { type: 'tourism', username: 'visitcalifornia', displayName: 'Visit California', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.ca.gov'
     },
@@ -29,27 +30,32 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     },
     'Illinois': {
         accounts: [
-            { type: 'tourism', username: 'enjoyillinois', displayName: 'Enjoy Illinois', verified: true }
+            { type: 'tourism', username: 'enjoyillinois', displayName: 'Enjoy Illinois', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.illinois.gov'
     },
     'North Carolina': {
         accounts: [
-            { type: 'tourism', username: 'visitnc', displayName: 'Visit NC', verified: true }
+            { type: 'tourism', username: 'visitnc', displayName: 'Visit NC', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.nc.gov'
     },
     'Oregon': {
         accounts: [
-            { type: 'tourism', username: 'traveloregon', displayName: 'Travel Oregon', verified: true }
+            { type: 'tourism', username: 'traveloregon', displayName: 'Travel Oregon', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.oregon.gov'
+    },
+    'Pennsylvania': {
+        accounts: [
+            { type: 'government', username: 'governorshapiro', displayName: 'Governor Josh Shapiro', verified: true } // Blue checkmark verified 2024-12-05
+        ],
+        website: 'https://www.pa.gov'
     },
     // Texas: Banned on government devices
     // Ohio: Banned on government devices
     // Georgia: Banned on government devices
     // Nevada: Banned on government devices
-    // Pennsylvania: No official verified tourism account found
 
     // ========================================
     // CITIES
@@ -58,14 +64,15 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             // Mayor Adams: Active but verification unclear/mixed reports. Omitting for now to be safe.
             // NYC Gov: Banned on government devices
-            { type: 'tourism', username: 'nycgo', displayName: 'NYC Tourism', verified: true } // Assuming verified based on tourism prominence, need to double check if not banned
+            { type: 'tourism', username: 'nyctourism', displayName: 'NYC Tourism', verified: true }, // Blue checkmark verified 2024-12-05
+            { type: 'congress', username: 'aoc', displayName: 'Alexandria Ocasio-Cortez', verified: true } // Blue checkmark verified 2024-12-05 - US Representative
         ],
         website: 'https://www.nyc.gov'
     },
     'Los Angeles, California': {
         accounts: [
             // Mayor Bass: No official verified TikTok found
-            { type: 'tourism', username: 'discoverLA', displayName: 'Discover Los Angeles', verified: true }
+            { type: 'tourism', username: 'discoverLA', displayName: 'Discover Los Angeles', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://lacity.gov'
     },
@@ -73,28 +80,28 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             // Mayor Johnson: No official verified TikTok found
             // City: No official verified TikTok found
-            { type: 'tourism', username: 'enjoyillinois', displayName: 'Enjoy Illinois (State)', verified: true } // Fallback to state
+            { type: 'tourism', username: 'enjoyillinois', displayName: 'Enjoy Illinois (State)', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.chicago.gov'
     },
     'Philadelphia, Pennsylvania': {
         accounts: [
             // Mayor Parker: No official verified TikTok found
-            { type: 'tourism', username: 'visitphilly', displayName: 'Visit Philly', verified: true }
+            { type: 'tourism', username: 'visitphilly', displayName: 'Visit Philly', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.phila.gov'
     },
     'Las Vegas, Nevada': {
         accounts: [
-            { type: 'government', username: 'cityoflasvegas', displayName: 'City of Las Vegas', verified: true },
-            { type: 'tourism', username: 'vegas', displayName: 'Las Vegas', verified: true }
+            { type: 'government', username: 'cityoflasvegas', displayName: 'City of Las Vegas', verified: false }, // No blue checkmark verified 2024-12-05
+            { type: 'tourism', username: 'vegas', displayName: 'Las Vegas', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.lasvegasnevada.gov'
     },
     'Miami, Florida': {
         accounts: [
             // Mayor Suarez: No official verified TikTok found
-            { type: 'tourism', username: 'visitmiami', displayName: 'Visit Miami', verified: true }
+            { type: 'tourism', username: 'visitmiami', displayName: 'Visit Miami', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.miami.gov'
     },
@@ -103,7 +110,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
             // Mayor Breed: No official verified TikTok found
             // Mayor-elect Lurie: No official verified TikTok found
             // City: No official verified TikTok found
-            { type: 'tourism', username: 'onlyinsf', displayName: 'San Francisco Travel', verified: true } // Found in previous search context implicitly
+            { type: 'tourism', username: 'onlyinsf', displayName: 'San Francisco Travel', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://sf.gov'
     },
@@ -111,7 +118,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             // Mayor Watson: No official verified TikTok found
             // City: No official verified TikTok found
-            { type: 'tourism', username: 'visitaustintexas', displayName: 'Visit Austin', verified: true }
+            { type: 'tourism', username: 'visitaustintexas', displayName: 'Visit Austin', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.austintexas.gov'
     },
@@ -119,7 +126,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             // Mayor Harrell: No official verified TikTok found
             // City: No official verified TikTok found
-            { type: 'tourism', username: 'visitseattle', displayName: 'Visit Seattle', verified: true }
+            { type: 'tourism', username: 'visitseattle', displayName: 'Visit Seattle', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.seattle.gov'
     },
@@ -165,7 +172,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Minneapolis, Minnesota': {
         accounts: [
             // Mayor Frey: No official verified TikTok found
-            { type: 'government', username: 'cityminneapolis', displayName: 'City of Minneapolis', verified: true },
+            { type: 'government', username: 'cityminneapolis', displayName: 'City of Minneapolis', verified: false }, // No blue checkmark verified 2024-12-05
             // Tourism: No official verified TikTok found
         ],
         website: 'https://www.minneapolismn.gov'
@@ -182,20 +189,20 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         accounts: [
             // Mayor Wheeler: No official verified TikTok found
             // City: No official verified TikTok found
-            { type: 'tourism', username: 'travelportland', displayName: 'Travel Portland', verified: true } // Verified via website link
+            { type: 'tourism', username: 'travelportland', displayName: 'Travel Portland', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.portland.gov'
     },
     'San Diego, California': {
         accounts: [
             // Mayor Gloria: No official verified TikTok found
-            { type: 'tourism', username: 'visitsandiego', displayName: 'Visit San Diego', verified: true }
+            { type: 'tourism', username: 'visitsandiego', displayName: 'Visit San Diego', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.sandiego.gov'
     },
     'San Jose, California': {
         accounts: [
-            { type: 'mayor', username: 'mattmahansj', displayName: 'Mayor Matt Mahan', verified: true },
+            { type: 'mayor', username: 'mattmahansj', displayName: 'Mayor Matt Mahan', verified: false }, // No blue checkmark verified 2024-12-05
             // Tourism: No official verified TikTok found
         ],
         website: 'https://www.sanjoseca.gov'
@@ -203,7 +210,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Columbus, Ohio': {
         accounts: [
             // Mayor Ginther: No official verified TikTok found
-            { type: 'tourism', username: 'experiencecolumbus', displayName: 'Experience Columbus', verified: true }
+            { type: 'tourism', username: 'experiencecolumbus', displayName: 'Experience Columbus', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.columbus.gov'
     },
@@ -238,7 +245,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'St. Louis, Missouri': {
         accounts: [
             // Mayor Jones: No official verified TikTok found
-            { type: 'tourism', username: 'explorestlouis', displayName: 'Explore St. Louis', verified: true }
+            { type: 'tourism', username: 'explorestlouis', displayName: 'Explore St. Louis', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.stlouis-mo.gov'
     },
@@ -281,7 +288,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Indianapolis, Indiana': {
         accounts: [
             // Mayor Hogsett: No official verified TikTok found
-            { type: 'tourism', username: 'visitindy', displayName: 'Visit Indy', verified: true }
+            { type: 'tourism', username: 'visitindy', displayName: 'Visit Indy', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.indy.gov'
     },
@@ -337,14 +344,14 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Salt Lake City, Utah': {
         accounts: [
             // Mayor Mendenhall: No official verified TikTok found
-            { type: 'tourism', username: 'visitsaltlake', displayName: 'Visit Salt Lake', verified: true }
+            { type: 'tourism', username: 'visitsaltlake', displayName: 'Visit Salt Lake', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.slc.gov'
     },
     'Albuquerque, New Mexico': {
         accounts: [
             // Mayor Keller: No official verified TikTok found (previously listed @mayorkeller is invalid)
-            { type: 'tourism', username: 'visitalbuquerque', displayName: 'Visit Albuquerque', verified: true }
+            { type: 'tourism', username: 'visitalbuquerque', displayName: 'Visit Albuquerque', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.cabq.gov'
     },
@@ -470,7 +477,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Billings, Montana': {
         accounts: [
             // Mayor Cole: No official verified TikTok found
-            { type: 'tourism', username: 'visitbillingsmt', displayName: 'Visit Billings', verified: true } // Official per website
+            { type: 'tourism', username: 'visitbillingsmt', displayName: 'Visit Billings', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.billingsmt.gov'
     },
@@ -498,7 +505,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     'Portland, Maine': {
         accounts: [
             // Mayor Dion: No official verified TikTok found
-            { type: 'tourism', username: 'visitportland', displayName: 'Visit Portland', verified: true }
+            { type: 'tourism', username: 'visitportland', displayName: 'Visit Portland', verified: false } // No blue checkmark verified 2024-12-05
         ],
         website: 'https://www.portlandmaine.gov'
     },
