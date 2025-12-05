@@ -57,7 +57,7 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[2],
         stat: {
             emoji: '👶 💰',
-            title: 'Parental Burden',
+            title: 'Childcare Costs',
             description: '$1,230/mo average childcare. Get back to work!'
         }
     },
