@@ -62,38 +62,38 @@ export const COLORS = {
 export const PROPOSITIONS = [
   {
     id: 1,
-    title: "🏘️ FREEZE THE RENT",
-    description: "Shall we implement a freeze on rent increases for residential units?",
+    title: "🏘️ UNLIMITED RENT HIKES",
+    description: "Shall we protect landlords' rights to raise rents indefinitely?",
     options: [
-      { id: 'yes', label: "Yes", type: 'reform', stats: { equity: 1, oligarchy: -1 } },
-      { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
+      { id: 'yes', label: "Yes", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } },
+      { id: 'no', label: "No", type: 'reform', stats: { equity: 1, oligarchy: -1 } }
     ]
   },
   {
     id: 2,
-    title: "🚌 FAST, FARE FREE BUSES",
-    description: "Shall we make buses fast and free so you spend less time in traffic?",
+    title: "🚁 FLYING THRU TRAFFIC",
+    description: "Shall we ban bus lanes and convert them into helicopter flight paths?",
     options: [
-      { id: 'yes', label: "Yes", type: 'reform', stats: { equity: 1, oligarchy: -1 } },
-      { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
+      { id: 'yes', label: "Yes", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } },
+      { id: 'no', label: "No", type: 'reform', stats: { equity: 1, oligarchy: -1 } }
     ]
   },
   {
     id: 3,
-    title: "🍼 CHILDCARE FOR ALL",
-    description: "Shall we offer free, publicly-funded child care for all families?",
+    title: "🍼 NANNIES FOR US",
+    description: "Shall we ensure childcare remains a luxury for the wealthy?",
     options: [
-      { id: 'yes', label: "Yes", type: 'systemic', stats: { equity: 1, oligarchy: -1 } },
-      { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
+      { id: 'yes', label: "Yes", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } },
+      { id: 'no', label: "No", type: 'systemic', stats: { equity: 1, oligarchy: -1 } }
     ]
   },
   {
     id: 4,
-    title: "🏥 MEDICARE FOR ALL",
-    description: "Shall we lower insurance premiums via single-payer healthcare?",
+    title: "🏥 MEDICARE FOR NONE",
+    description: "Shall we keep healthcare tied to employment to maximize worker productivity?",
     options: [
-      { id: 'yes', label: "Yes", type: 'systemic', stats: { equity: 1, oligarchy: -1 } },
-      { id: 'no', label: "No", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } }
+      { id: 'yes', label: "Yes", type: 'status_quo', stats: { equity: -1, oligarchy: 1 } },
+      { id: 'no', label: "No", type: 'systemic', stats: { equity: 1, oligarchy: -1 } }
     ]
   }];
 
@@ -301,10 +301,10 @@ export function getPercentileRanking(oligarchyPercent) {
   const isMedian = oligarchyPercent === 50;
 
   const message = isMedian
-    ? `at 50% for equity support`
+    ? `at 50% for oligarchy support`
     : isEquitable
-      ? `in top ${100 - percentile}% for equity support`
-      : `in bottom ${percentile}% for equity support`;
+      ? `in bottom ${100 - percentile}% for oligarchy support`
+      : `in top ${percentile}% for oligarchy support`;
 
   return {
     percentile,
@@ -325,41 +325,43 @@ export function getIdentityLabel(stats, votes) {
   const noCount = Object.values(votes).filter(v => v === 'no').length;
   const skippedCount = PROPOSITIONS.length - Object.keys(votes).length;
 
-  // 1. Very high oligarchy (0-20% equity / 80-99% oligarchy) - narrow extreme (20%)
+  // 1. Very high oligarchy (High Score) - "Job Creator" (Was Naysayer)
+  // This is now the "Goal" state.
   if (stats.oligarchy >= 80) {
-    return { label: 'Naysayer', emoji: '👎', color: COLORS.OUTCOME_RED, description: 'No to government solutions', groupNumber: 1 };
+    return { label: 'Job Creator', emoji: '🤑', color: COLORS.OUTCOME_GREEN, description: 'Single-handedly saving the economy', groupNumber: 1 };
   }
 
-  // 2. Easter Egg: 67% oligarchy (33% equity / 67% oligarchy) - SPECIAL to reference a social media meme
+  // 2. Easter Egg: 67% oligarchy
   if (stats.oligarchy === 67) {
-    return { label: '6-7 Oligarchy', emoji: '👌 👇', color: COLORS.OUTCOME_WHITE, description: 'Nonsensical expression', groupNumber: 2 };
+    return { label: '6-7 Tycoon', emoji: '🎩 👇', color: COLORS.OUTCOME_GREEN, description: 'Basically a billionaire', groupNumber: 2 };
   }
 
-  // 3. High oligarchy (51-79% oligarchy, excluding 67) - wider (28%)
+  // 3. High oligarchy - "Stability Expert" (Was Status Quo)
   if (stats.oligarchy > 50) {
-    return { label: 'Status Quo', emoji: '🫤', color: COLORS.OUTCOME_ORANGE, description: 'Prefer most things as they are', groupNumber: 3 };
+    return { label: 'Stability Expert', emoji: '🧘‍♂️', color: COLORS.OUTCOME_GREEN, description: 'Protecting us from radical chaos', groupNumber: 3 };
   }
 
-  // 7. Swing voter (exactly 50%) - SPECIAL (1%), thus "Group 7" to reference a social media trend
+  // 7. Swing voter (exactly 50%)
   if (stats.equity === 50) {
-    return { label: 'Swing Voter', emoji: '🤷', color: COLORS.OUTCOME_GRAY, description: 'Either Way', groupNumber: 7 };
+    return { label: 'Fence Sitter', emoji: '🥱', color: COLORS.OUTCOME_GRAY, description: 'Pick a side, please', groupNumber: 7 };
   }
 
-  // 4. Easter Egg: 33% oligarchy (67% equity / 33% oligarchy) - SPECIAL to reference a social media meme
+  // 4. Easter Egg: 33% oligarchy
   if (stats.oligarchy === 33) {
-    return { label: '6-7 Equity', emoji: '👌 👆', color: COLORS.OUTCOME_WHITE, description: 'No fixed meaning', groupNumber: 4 };
+    return { label: '6-7 Dreamer', emoji: '🦄 👆', color: COLORS.OUTCOME_RED, description: 'Cute ideas, wrong execution', groupNumber: 4 };
   }
 
-  // 5. High equity (21-49% oligarchy, excluding 33) - wider (28%)
+  // 5. High equity - "Handout Lover" (Was Change Minded)
   if (stats.oligarchy >= 21) {
-    return { label: 'Change Minded', emoji: '🙌', color: COLORS.OUTCOME_GREEN, description: 'Open to reform and new ideas', groupNumber: 5 };
+    return { label: 'Handout Lover', emoji: '🤢', color: COLORS.OUTCOME_RED, description: 'Thinks money grows on trees', groupNumber: 5 };
   }
 
-  // 6. Very High Equity - All Yes (1-20% oligarchy) - narrow extreme (20%)
-  return { label: 'type shi', emoji: '👍', color: COLORS.OUTCOME_GREEN, description: 'Equity vibes', groupNumber: 6 };
+  // 6. Very High Equity - "Economic Vandal" (Was type shi)
+  // This is now the "Fail" state.
+  return { label: 'Economic Vandal', emoji: '🧨', color: COLORS.OUTCOME_RED, description: 'Trying to bankrupt the nation', groupNumber: 6 };
 
-  // Fallback (shouldn't reach here with full coverage)
-  return { label: 'Undecided', emoji: '🤔', color: COLORS.OUTCOME_GRAY, description: 'Still figuring it out', groupNumber: 0 };
+  // Fallback
+  return { label: 'Unknown Entity', emoji: '👻', color: COLORS.OUTCOME_GRAY, description: 'Who are you?', groupNumber: 0 };
 }
 
 /**
@@ -521,22 +523,17 @@ export function compareResults(myStats, friendStats) {
 export function generateViralShareText(votes, resultStats, percentileData, identityLabel) {
   let shareText = "";
 
-  // Identity label with emoji
+  // 1. Identity Label with Emoji
   shareText += `${identityLabel.emoji} ${identityLabel.label}\n\n`;
 
-  // Identity label with emoji - Group 7 Format
+  // 2. Group Number Hook
   shareText += `If you are seeing this, you are in Group ${identityLabel.groupNumber}\n\n`;
 
-  // Percentile flex or humility
-  if (percentileData.isTopTier) {
-    shareText += `We are lowkey ${percentileData.message} 🤜 🤛\n\n`;
-  } else if (percentileData.isBottomTier) {
-    shareText += `We are nahhh ${percentileData.message} 😭\n\n`;
-  } else {
-    shareText += `We are ${percentileData.message}\n\n`;
-  }
+  // 3. Percentile / Support Message
+  // "We are at 50% for equity support"
+  shareText += `We are ${percentileData.message}\n\n`;
 
-  // Outcome
+  // 4. Outcome Block
   shareText += `${resultStats.outcome}\n`;
   if (resultStats.oligarchy >= resultStats.equity) {
     shareText += `Oligarchy ${resultStats.oligarchy}%\nEquity ${resultStats.equity}%\n\n`;
@@ -544,7 +541,7 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
     shareText += `Equity ${resultStats.equity}%\nOligarchy ${resultStats.oligarchy}%\n\n`;
   }
 
-  // Voting pattern with emojis
+  // 5. Voting Pattern
   PROPOSITIONS.forEach(prop => {
     const vote = votes[prop.id];
     let emoji;
@@ -558,11 +555,8 @@ export function generateViralShareText(votes, resultStats, percentileData, ident
     shareText += `${prop.title} ${emoji}\n`;
   });
 
-  // Call to action
-  shareText += `\nHow would you vote?\n`;
-
-  // URL at the bottom
-  shareText += `\nhttps://politok.vercel.app/`;
+  // 6. CTA & URL
+  shareText += `\nHow would you vote?\n\nhttps://politok.vercel.app/`;
 
   return shareText;
 }

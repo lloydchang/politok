@@ -5,13 +5,14 @@ import { POLICIES } from '@politok/shared/constants';
 import { COLORS } from '@politok/shared';
 
 function PolicyCard({ policy, data }) {
-    const statusColor = data?.status === 'green' ? 'bg-green-500' :
-        data?.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500';
+    // PARODY: Oligarch hand ratings (inverted - good for people = oligarch disapproves)
+    const statusEmoji = data?.status === 'green' ? '👎' :
+        data?.status === 'yellow' ? '🤚' : '👍';
 
     return (
         <div className="flex items-center gap-3">
             <span className="text-3xl">{policy.icon}</span>
-            <div className={`w-3 h-3 rounded-full ${statusColor} flex-shrink-0`} />
+            <div className="text-xl flex-shrink-0">{statusEmoji}</div>
             <div className="flex-1">
                 {data?.status !== 'loading' && (
                     <p className="text-s text-white leading-relaxed font-bold">{data?.text}</p>
@@ -143,7 +144,8 @@ export default function Dashboard() {
     };
 
     const handleShare = () => {
-        const statusEmoji = (status) => status === 'green' ? '🟢' : status === 'yellow' ? '🟡' : '🔴';
+        // PARODY: Oligarch hand ratings
+        const statusEmoji = (status) => status === 'green' ? '👎' : status === 'yellow' ? '🤚' : '👍';
         const shareText = `${location}:\n🏘️ ${statusEmoji(cityData.rent.status)} ${cityData.rent.text}\n🚌 ${statusEmoji(cityData.transit.status)} ${cityData.transit.text}\n🍼 ${statusEmoji(cityData.childcare.status)} ${cityData.childcare.text}\n🏥 ${statusEmoji(cityData.medicare.status)} ${cityData.medicare.text}\n\nHow would you vote?\n\nhttps://politok.vercel.app/`;
 
         if (navigator.share) {
@@ -183,6 +185,11 @@ export default function Dashboard() {
 
             <div className="flex-1 overflow-auto p-6 pb-28 relative z-10">
                 <div className="max-w-2xl mx-auto">
+                    {/* Parody Disclaimer */}
+                    <div className="mb-4 text-center">
+                        <div className="text-sm text-white/60">🎩 oligarchy parody 🎭</div>
+                    </div>
+
                     {/* Location and Travel Mode Toggle - Single Line */}
                     <div className="mb-6 flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2">

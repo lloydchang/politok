@@ -4,22 +4,22 @@ export const POLICIES = [
     {
         id: 'rent',
         icon: '🏘️',
-        title: 'FREEZE THE RENT'
+        title: 'UNLIMITED RENT HIKES'
     },
     {
         id: 'transit',
-        icon: '🚌',
-        title: 'FAST AND FREE BUSES'
+        icon: '🚁',
+        title: 'FLYING THRU TRAFFIC'
     },
     {
         id: 'childcare',
         icon: '🍼',
-        title: 'CHILDCARE FOR ALL'
+        title: 'NANNIES FOR US'
     },
     {
         id: 'medicare',
         icon: '🏥',
-        title: 'MEDICARE FOR ALL'
+        title: 'MEDICARE FOR NONE'
     }
 ];
 
@@ -39,8 +39,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[0],
         stat: {
             emoji: '🏠 💵',
-            title: 'Housing Crisis',
-            description: 'Rent prices have increased 41% in the last 5 years'
+            title: 'Landlord Profits',
+            description: 'Rent up 41% in 5 years! 🚀 Property values soaring.'
         }
     },
     {
@@ -48,8 +48,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[1],
         stat: {
             emoji: '🚗 ⏳',
-            title: 'Traffic Burden',
-            description: 'Half of parents spend 5+ hours weekly shuttling kids'
+            title: 'Car Dependency',
+            description: 'Parents spend 5+ hours weekly shuttling kids. More gas sales!'
         }
     },
     {
@@ -57,8 +57,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[2],
         stat: {
             emoji: '👶 💰',
-            title: 'Childcare Costs',
-            description: 'Average cost is $1,230/mo in the US'
+            title: 'Parental Burden',
+            description: '$1,230/mo average childcare. Get back to work!'
         }
     },
     {
@@ -66,8 +66,8 @@ export const FEED_ITEMS = [
         data: PROPOSITIONS[3],
         stat: {
             emoji: '💸 📈',
-            title: 'Premiums Shock',
-            description: 'Insurance premiums doubled in 2026'
+            title: 'Insurance Profits',
+            description: 'Premiums doubled in 2026! Bonuses secured.'
         }
     },
     { type: 'results', id: 'results_card' }, // Show results after all votes
