@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import Result from './Result';
 import Proposition from './Proposition';
 import Statistic from './Statistic';
-import { TIKTOK_ACCOUNTS } from '@politok/shared';
+import { getAllVerifiedAccounts } from '@politok/shared';
 
 export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes, globalStats }) {
     const [activeTab, setActiveTab] = useState('videos');
@@ -46,7 +46,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
     })();
 
     // Get accounts the politok app follows (all generated accounts)
-    const followedAccounts = TIKTOK_ACCOUNTS;
+    const followedAccounts = getAllVerifiedAccounts();
 
     // Stats for politok_vercel_app profile
     const stats = {
@@ -196,7 +196,10 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                 {/* Bio */}
                 <div className="text-center px-4">
                     <p className="text-sm mb-1 leading-relaxed">
-                        Vote on propositions in this simulation and see how they affect oligarchy vs equity 🗳️
+                        VOTE! CHAOS! REPEAT! 🗳️🔥🤯
+                    </p>
+                    <p className="text-sm mb-1 leading-relaxed">
+                        poliTok is a parody platform for political satire and entertainment.
                     </p>
                     <p className="text-sm font-semibold text-blue-400">
                         🔗 <a href={`https://${websiteUrl}`} className="text-blue-400 hover:underline">
@@ -341,7 +344,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                         </div>
                                     </div>
                                     <a
-                                        href={`https://www.tiktok.com/${account.username}`}
+                                        href={`https://www.tiktok.com/@${account.username}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="bg-[#fe2c55] text-white font-bold text-sm px-4 py-2 rounded hover:opacity-90 transition ml-3 flex-shrink-0"

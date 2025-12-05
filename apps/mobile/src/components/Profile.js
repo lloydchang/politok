@@ -7,7 +7,7 @@ import Result from './Result';
 import Proposition from './Proposition';
 import { Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import Statistic from './Statistic';
-import { TIKTOK_ACCOUNTS } from '@politok/shared';
+import { getAllVerifiedAccounts } from '@politok/shared';
 
 const { width, height } = Dimensions.get('window');
 
@@ -49,7 +49,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
     })();
 
     // Get accounts the politok app follows (all generated accounts)
-    const followedAccounts = TIKTOK_ACCOUNTS;
+    const followedAccounts = getAllVerifiedAccounts();
 
     // Stats for politok_vercel_app profile
     const stats = {
@@ -192,12 +192,8 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     {/* Bio */}
                     <View style={styles.bioContainer}>
                         <Text style={styles.bioText}>
-                            Vote on propositions in this simulation and see how they affect oligarchy vs equity 🗳️
-                        </Text>
-                        <Text style={styles.websiteLink}>
-                            🔗 <Text onPress={() => Linking.openURL(`https://${websiteUrl}`)}>
-                                {websiteUrl}
-                            </Text>
+                            {`VOTE! CHAOS! REPEAT! 🗳️🔥🤯
+poliTok is a parody platform for political satire and entertainment.`}
                         </Text>
                     </View>
                 </View>
@@ -329,7 +325,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                 <TouchableOpacity
                                     key={index}
                                     style={styles.followingItem}
-                                    onPress={() => Linking.openURL(`https://www.tiktok.com/${account.username}`)}
+                                    onPress={() => Linking.openURL(`https://www.tiktok.com/@${account.username}`)}
                                 >
                                     <View style={styles.followingItemContent}>
                                         <View style={styles.followingInfo}>
@@ -343,7 +339,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                         </View>
                                         <TouchableOpacity
                                             style={styles.modalFollowButton}
-                                            onPress={() => Linking.openURL(`https://www.tiktok.com/${account.username}`)}
+                                            onPress={() => Linking.openURL(`https://www.tiktok.com/@${account.username}`)}
                                         >
                                             <Text style={styles.modalFollowButtonText}>Follow</Text>
                                         </TouchableOpacity>
