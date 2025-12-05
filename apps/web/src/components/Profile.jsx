@@ -196,10 +196,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                 {/* Bio */}
                 <div className="text-center px-4">
                     <p className="text-sm mb-1 leading-relaxed">
-                        VOTE! CHAOS! REPEAT! 🗳️🔥🤯
-                    </p>
-                    <p className="text-sm mb-1 leading-relaxed">
-                        poliTok is a parody platform for political satire and entertainment.
+                        parody 😂
                     </p>
                     <p className="text-sm font-semibold text-blue-400">
                         🔗 <a href={`https://${websiteUrl}`} className="text-blue-400 hover:underline">

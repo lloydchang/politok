@@ -192,8 +192,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     {/* Bio */}
                     <View style={styles.bioContainer}>
                         <Text style={styles.bioText}>
-                            {`VOTE! CHAOS! REPEAT! 🗳️🔥🤯
-poliTok is a parody platform for political satire and entertainment.`}
+                            {`parody 😂`}
                         </Text>
                     </View>
                 </View>
