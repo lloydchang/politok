@@ -17,12 +17,6 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         ],
         website: 'https://detroitmi.gov'
     },
-    'District of Columbia': {
-        accounts: [
-            { type: 'mayor', username: 'mayorbowser', displayName: 'Mayor Muriel Bowser', verified: true, photo: 'https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/4540e573044e4bfdd78de1ffbdd78059~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=9640&refresh_token=52e32885&x-expires=1765112400&x-signature=NMfCAYDkqILZMy5W%2FJ13YCPos1Y%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8' }
-        ],
-        website: 'https://mayor.dc.gov'
-    },
     'New York City, New York': {
         accounts: [
             { type: 'mayor', username: 'zohran_k_mamdani', displayName: 'Zohran Mamdani', verified: true, photo: 'https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/5050b98bb2ff723c0b032d35a1822100~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=9640&refresh_token=d6d2a39b&x-expires=1765112400&x-signature=5rqwAzsBtPZeKPmSCts1Di6a0gg%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8' }
