@@ -162,11 +162,11 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                         onClick={() => setShowFollowingModal(true)}
                     >
                         <div className="font-bold text-lg">{stats.following}</div>
-                        <div className="text-gray-500 text-xs">Following</div>
+                        <div className="text-gray-500 text-xs">Parodying</div>
                     </button>
                     <div className="text-center">
                         <div className="font-bold text-lg">{stats.followers}</div>
-                        <div className="text-gray-500 text-xs">Followers</div>
+                        <div className="text-gray-500 text-xs">Clicktivists</div>
                     </div>
                     <div className="text-center">
                         <div className="font-bold text-lg">{stats.likes}</div>
@@ -183,7 +183,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                             : 'bg-red-500 flex-1 max-w-[100px] py-2'
                             } text-white font-bold rounded-md hover:opacity-90 transition flex items-center justify-center`}
                     >
-                        {isFollowing ? <UserCheck size={20} fill="white" className="text-white" /> : 'Follow'}
+                        {isFollowing ? <UserCheck size={20} fill="white" className="text-white" /> : 'Click'}
                     </button>
                     <button
                         onClick={handleShare}
@@ -313,7 +313,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     <div className="bg-[#1a1a1a] rounded-2xl w-[90%] max-w-md max-h-[80vh] flex flex-col" onClick={(e) => e.stopPropagation()}>
                         {/* Header */}
                         <div className="flex justify-between items-center p-4 border-b border-gray-700">
-                            <h3 className="text-white text-lg font-bold">Following</h3>
+                            <h3 className="text-white text-lg font-bold">Parodying</h3>
                             <button
                                 onClick={() => setShowFollowingModal(false)}
                                 className="text-white hover:text-gray-300 transition"
@@ -328,19 +328,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                             {followedAccounts.map((account, index) => (
                                 <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
                                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
-                                            {account.photo ? (
-                                                <img
-                                                    src={account.photo}
-                                                    alt={account.displayName}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xl">
-                                                    {account.displayName.charAt(0)}
-                                                </div>
-                                            )}
-                                        </div>
+
                                         <div className="min-w-0">
                                             <div className="flex items-center gap-1">
                                                 <div className="text-white font-bold text-base truncate">{account.displayName}</div>
@@ -360,7 +348,7 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                                         rel="noopener noreferrer"
                                         className="bg-[#fe2c55] text-white font-bold text-sm px-4 py-2 rounded hover:opacity-90 transition ml-3 flex-shrink-0"
                                     >
-                                        Follow
+                                        Visit
                                     </a>
                                 </div>
                             ))}
