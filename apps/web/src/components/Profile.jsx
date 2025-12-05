@@ -328,6 +328,19 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                             {followedAccounts.map((account, index) => (
                                 <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
                                     <div className="flex items-center gap-3 flex-1 min-w-0">
+                                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
+                                            {account.photo ? (
+                                                <img
+                                                    src={account.photo}
+                                                    alt={account.displayName}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-gray-500 font-bold text-xl">
+                                                    {account.displayName.charAt(0)}
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className="min-w-0">
                                             <div className="flex items-center gap-1">
                                                 <div className="text-white font-bold text-base truncate">{account.displayName}</div>
