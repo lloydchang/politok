@@ -7,7 +7,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
     // ========================================
     'Boston, Massachusetts': {
         accounts: [
-            { type: 'mayor', username: 'officeofmayorwu', displayName: 'Boston Mayor Michelle Wu', verified: true, photo: 'https://p16-common-sign.tiktokcdn-us.com/tos-useast5-avt-0068-tx/14a169a1b8be9329c5b7f47930d9344a~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=9640&refresh_token=392f55bb&x-expires=1765112400&x-signature=gGAhtG7DmH1Jo%2Fv4YCEUvaVG1mU%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8' }
+            { type: 'mayor', username: 'wutrain', displayName: 'Michelle Wu', verified: true, photo: 'https://p16-common-sign.tiktokcdn-us.com/tos-useast8-avt-0068-tx2/e35e15b30ce7f879a9abe6b36943d4c4~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=9640&refresh_token=07dfe135&x-expires=1765112400&x-signature=CEPeDD2DAJr34LxTUfnxLJ5z%2B%2FY%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8' }
         ],
         website: 'https://www.boston.gov'
     },
