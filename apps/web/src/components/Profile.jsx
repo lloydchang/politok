@@ -179,8 +179,8 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                     <button
                         onClick={handleFollowToggle}
                         className={`${isFollowing
-                            ? 'bg-gray-700 w-[100px] py-2'
-                            : 'bg-red-500 w-[100px] py-2'
+                            ? 'bg-gray-700 border border-gray-600 w-10 h-10'
+                            : 'bg-red-500 flex-1 max-w-[100px] py-2'
                             } text-white font-bold rounded-md hover:opacity-90 transition flex items-center justify-center`}
                     >
                         {isFollowing ? <UserCheck size={20} fill="white" className="text-white" /> : 'Click'}
