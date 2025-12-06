@@ -41,6 +41,21 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
         ],
         website: 'https://www.sanjoseca.gov'
     },
+    'Los Angeles, California': {
+        accounts: [
+            {
+                type: 'campaign',
+                username: 'karenbassla',
+                displayName: 'Karen Bass',
+                verified: false,
+                socialMedia: {
+                    twitter: 'KarenBassLA',
+                    instagram: 'karenbassla'
+                }
+            }
+        ],
+        website: 'https://www.lacity.org'
+    },
 
     // ========================================
     // No TikTok - X/Instagram only
@@ -54,7 +69,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
                 verified: false,
                 socialMedia: {
                     twitter: 'MayorMattie',
-                    instagram: 'mattieparkerfw'
+                    instagram: 'mayormattieparker'
                 }
             }
         ],
@@ -84,7 +99,7 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
                 verified: false,
                 socialMedia: {
                     twitter: 'DonnaDeegan',
-                    instagram: 'donnadeeganjax'
+                    instagram: 'dhdeegan'
                 }
             }
         ],
@@ -187,6 +202,127 @@ export const VERIFIED_TIKTOK_ACCOUNTS = {
             }
         ],
         website: 'https://www.arlingtontx.gov'
+    },
+
+    // ========================================
+    // NEW ADDITIONS
+    // ========================================
+    'Dallas, Texas': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Eric Johnson',
+                verified: false,
+                socialMedia: {
+                    twitter: 'Johnson4Dallas',
+                    instagram: 'johnsonfortexas'
+                }
+            }
+        ],
+        website: 'https://dallascityhall.com'
+    },
+    'Phoenix, Arizona': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Kate Gallego',
+                verified: false,
+                socialMedia: {
+                    twitter: 'KateWGallego',
+                    instagram: 'kategallegoaz'
+                }
+            }
+        ],
+        website: 'https://www.phoenix.gov'
+    },
+    'Mesa, Arizona': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Mark Freeman',
+                verified: false,
+                socialMedia: {
+                    twitter: 'mark4mesamayor',
+                    instagram: 'mayorofmesa'
+                }
+            }
+        ],
+        website: 'https://www.mesaaz.gov'
+    },
+    'Scottsdale, Arizona': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Lisa Borowsky',
+                verified: false,
+                socialMedia: {
+                    twitter: 'lisaborowsky',
+                    instagram: 'lisaborowskyscottsdale'
+                }
+            }
+        ],
+        website: 'https://www.scottsdaleaz.gov'
+    },
+    'Nashville, Tennessee': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Freddie O\'Connell',
+                verified: false,
+                socialMedia: {
+                    instagram: 'freddiefornashville'
+                }
+            }
+        ],
+        website: 'https://www.nashville.gov'
+    },
+    'Bethlehem, Pennsylvania': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'J. William Reynolds',
+                verified: false,
+                socialMedia: {
+                    twitter: 'jaywreynolds',
+                    instagram: 'jaywilliamreynolds'
+                }
+            }
+        ],
+        website: 'https://www.bethlehem-pa.gov'
+    },
+    'Decatur, Alabama': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Tab Bowling',
+                verified: false,
+                socialMedia: {
+                    twitter: 'tabbowling'
+                }
+            }
+        ],
+        website: 'https://www.decatur-al.gov'
+    },
+    'Oro Valley, Arizona': {
+        accounts: [
+            {
+                type: 'personal',
+                username: null,
+                displayName: 'Joe Winfield',
+                verified: false,
+                socialMedia: {
+                    instagram: 'orovalleymayorjoe'
+                }
+            }
+        ],
+        website: 'https://www.orovalleyaz.gov'
     }
 };
 
@@ -249,7 +385,7 @@ export function getSocialMediaLink(account, platform = 'tiktok') {
 
 /**
  * Get best available social media link for an account
- * Prioritizes TikTok, then Twitter, then Instagram
+ * Prioritizes TikTok, then Instagram, then Twitter
  * @param {Object} account - Account object
  * @returns {Object} { platform, url }
  */
@@ -261,17 +397,17 @@ export function getBestSocialLink(account) {
         };
     }
 
-    if (account.socialMedia?.twitter) {
-        return {
-            platform: 'X (Twitter)',
-            url: `https://twitter.com/${account.socialMedia.twitter}`
-        };
-    }
-
     if (account.socialMedia?.instagram) {
         return {
             platform: 'Instagram',
             url: `https://instagram.com/${account.socialMedia.instagram}`
+        };
+    }
+
+    if (account.socialMedia?.twitter) {
+        return {
+            platform: 'X (Twitter)',
+            url: `https://twitter.com/${account.socialMedia.twitter}`
         };
     }
 
