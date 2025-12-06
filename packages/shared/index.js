@@ -1,6 +1,6 @@
 // Shared constants, logic, and utilities for politok vote app
 export * from './policyData.js';
-export * from './tiktokAccounts.js';
+export * from './politicalAccounts.js';
 
 export { getWebFingerprint, getMobileFingerprint } from './fingerprint.js';
 

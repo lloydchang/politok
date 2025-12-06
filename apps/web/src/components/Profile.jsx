@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import Result from './Result';
 import Proposition from './Proposition';
 import Statistic from './Statistic';
-import { getAllVerifiedAccounts } from '@politok/shared';
+import { getAllVerifiedAccounts, getBestSocialLink } from '@politok/shared';
 
 export default function Profile({ onNavigate, votes, results, interactions, toggleFollow, totalLikes, globalStats }) {
     const [activeTab, setActiveTab] = useState('videos');
@@ -325,33 +325,46 @@ export default function Profile({ onNavigate, votes, results, interactions, togg
                         </div>
                         {/* Accounts List */}
                         <div className="overflow-y-auto max-h-96 p-2">
-                            {followedAccounts.map((account, index) => (
-                                <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
-                                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                            {followedAccounts.map((account, index) => {
+                                // Get the best social link for this account
+                                const socialLink = getBestSocialLink(account);
 
-                                        <div className="min-w-0">
-                                            <div className="flex items-center gap-1">
-                                                <div className="text-white font-bold text-base truncate">{account.displayName}</div>
-                                                {account.isVerified && (
-                                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
-                                                        <circle cx="12" cy="12" r="10" fill="#20D5EC" />
-                                                        <path d="M9.1 16.7L6 12.6l1.5-1.5 2.6 2.6 6.9-6.9 1.5 1.5-8.4 8.4z" fill="#FFFFFF" />
-                                                    </svg>
+                                return (
+                                    <div key={index} className="flex items-center justify-between p-4 hover:bg-gray-800 rounded-lg transition">
+                                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                                            <div className="min-w-0">
+                                                <div className="flex items-center gap-1">
+                                                    <div className="text-white font-bold text-base truncate">{account.displayName}</div>
+                                                    {account.isVerified && (
+                                                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                                                            <circle cx="12" cy="12" r="10" fill="#20D5EC" />
+                                                            <path d="M9.1 16.7L6 12.6l1.5-1.5 2.6 2.6 6.9-6.9 1.5 1.5-8.4 8.4z" fill="#FFFFFF" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="text-gray-400 text-sm truncate">
+                                                    {account.hasTikTok ? account.username : `@${account.socialMedia?.twitter || account.socialMedia?.instagram || 'N/A'}`}
+                                                </div>
+                                                {socialLink && (
+                                                    <div className="text-gray-500 text-xs mt-0.5">
+                                                        on {socialLink.platform}
+                                                    </div>
                                                 )}
                                             </div>
-                                            <div className="text-gray-400 text-sm truncate">{account.username}</div>
                                         </div>
+                                        {socialLink && (
+                                            <a
+                                                href={socialLink.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="bg-[#fe2c55] text-white font-bold text-sm px-4 py-2 rounded hover:opacity-90 transition ml-3 flex-shrink-0"
+                                            >
+                                                Visit
+                                            </a>
+                                        )}
                                     </div>
-                                    <a
-                                        href={`https://www.tiktok.com/@${account.username}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="bg-[#fe2c55] text-white font-bold text-sm px-4 py-2 rounded hover:opacity-90 transition ml-3 flex-shrink-0"
-                                    >
-                                        Visit
-                                    </a>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
